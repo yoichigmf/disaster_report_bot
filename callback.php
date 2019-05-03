@@ -34,7 +34,7 @@ foreach ($events as $event) {
    if ($event instanceof \LINE\LINEBot\Event\MessageEvent\LocationMessage) {  // Location event
    
     
-         $bot->replyText($event->getReplyToken(), "location event !");
+         $bot->replyText($event->getReplyToken(), "ロケーションイベント !");
         
         
  
@@ -47,15 +47,52 @@ foreach ($events as $event) {
             
           
      
-            $bot->replyText($event->getReplyToken(), "イメージメッセージ   line://nv/location ");
+            $bot->replyText($event->getReplyToken(), "イメージイベント   line://nv/location ");
      
      
           continue;
           
         }
         
+      
+      
+       if ($event instanceof \LINE\LINEBot\Event\MessageEvent\AudioMessage) {  //  オーディオメッセージの場合
+            
+            
+          
+     
+            $bot->replyText($event->getReplyToken(), "オーディオイベント   line://nv/location ");
+     
+     
+          continue;
+          
+        }
         
-   
+      
+       if ($event instanceof \LINE\LINEBot\Event\MessageEvent\VideoMessage) {  //  ビデオメッセージの場合
+            
+            
+          
+     
+            $bot->replyText($event->getReplyToken(), "ビデオイベント   line://nv/location ");
+     
+     
+          continue;
+          
+        }
+            
+        if ($event instanceof \LINE\LINEBot\Event\MessageEvent\FileMessage) {  //  ファイルメッセージの場合
+            
+            
+          
+     
+            $bot->replyText($event->getReplyToken(), "ファイルイベント   line://nv/location ");
+     
+     
+          continue;
+          
+        }
+         
 
    if ($event instanceof \LINE\LINEBot\Event\JoinEvent) {  // Join event add
    
