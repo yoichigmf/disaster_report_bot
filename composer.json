@@ -1,0 +1,6 @@
+{
+"require": {
+        "linecorp/line-bot-sdk": "^2.3",
+                "monolog/monolog": "^1.23"
+    }
+    }
