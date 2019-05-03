@@ -23,13 +23,14 @@ use LINE\LINEBot\Constant\MessageType;
 use LINE\LINEBot\MessageBuilder\AudioMessageBuilder;
 use LINE\LINEBot\MessageBuilder\TextMessageBuilder;
 use LINE\Tests\LINEBot\Util\DummyHttpClient;
+use PHPUnit\Framework\TestCase;
 
-class SendMultiMessageTest extends \PHPUnit_Framework_TestCase
+class SendMultiMessageTest extends TestCase
 {
     public function testReplyMultiMessage()
     {
         $mock = function ($testRunner, $httpMethod, $url, $data) {
-            /** @var \PHPUnit_Framework_TestCase $testRunner */
+            /** @var \PHPUnit\Framework\TestCase $testRunner */
             $testRunner->assertEquals('POST', $httpMethod);
             $testRunner->assertEquals('https://api.line.me/v2/bot/message/reply', $url);
 
@@ -59,7 +60,7 @@ class SendMultiMessageTest extends \PHPUnit_Framework_TestCase
     public function testPushMultiMessage()
     {
         $mock = function ($testRunner, $httpMethod, $url, $data) {
-            /** @var \PHPUnit_Framework_TestCase $testRunner */
+            /** @var \PHPUnit\Framework\TestCase $testRunner */
             $testRunner->assertEquals('POST', $httpMethod);
             $testRunner->assertEquals('https://api.line.me/v2/bot/message/push', $url);
 

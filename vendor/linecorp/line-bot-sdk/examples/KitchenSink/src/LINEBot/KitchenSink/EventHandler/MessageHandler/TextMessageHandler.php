@@ -22,13 +22,24 @@ use LINE\LINEBot;
 use LINE\LINEBot\ImagemapActionBuilder\AreaBuilder;
 use LINE\LINEBot\ImagemapActionBuilder\ImagemapMessageActionBuilder;
 use LINE\LINEBot\ImagemapActionBuilder\ImagemapUriActionBuilder;
+use LINE\LINEBot\MessageBuilder\TextMessageBuilder;
+use LINE\LINEBot\QuickReplyBuilder\ButtonBuilder\QuickReplyButtonBuilder;
+use LINE\LINEBot\QuickReplyBuilder\QuickReplyMessageBuilder;
+use LINE\LINEBot\TemplateActionBuilder\CameraRollTemplateActionBuilder;
+use LINE\LINEBot\TemplateActionBuilder\CameraTemplateActionBuilder;
+use LINE\LINEBot\TemplateActionBuilder\DatetimePickerTemplateActionBuilder;
+use LINE\LINEBot\TemplateActionBuilder\LocationTemplateActionBuilder;
 use LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder;
 use LINE\LINEBot\TemplateActionBuilder\PostbackTemplateActionBuilder;
 use LINE\LINEBot\TemplateActionBuilder\UriTemplateActionBuilder;
 use LINE\LINEBot\Event\MessageEvent\TextMessage;
 use LINE\LINEBot\KitchenSink\EventHandler;
+use LINE\LINEBot\KitchenSink\EventHandler\MessageHandler\Flex\FlexSampleRestaurant;
+use LINE\LINEBot\KitchenSink\EventHandler\MessageHandler\Flex\FlexSampleShopping;
 use LINE\LINEBot\KitchenSink\EventHandler\MessageHandler\Util\UrlBuilder;
 use LINE\LINEBot\MessageBuilder\Imagemap\BaseSizeBuilder;
+use LINE\LINEBot\MessageBuilder\Imagemap\VideoBuilder;
+use LINE\LINEBot\MessageBuilder\Imagemap\ExternalLinkBuilder;
 use LINE\LINEBot\MessageBuilder\ImagemapMessageBuilder;
 use LINE\LINEBot\MessageBuilder\TemplateMessageBuilder;
 use LINE\LINEBot\MessageBuilder\TemplateBuilder\ButtonTemplateBuilder;
@@ -36,6 +47,11 @@ use LINE\LINEBot\MessageBuilder\TemplateBuilder\CarouselColumnTemplateBuilder;
 use LINE\LINEBot\MessageBuilder\TemplateBuilder\CarouselTemplateBuilder;
 use LINE\LINEBot\MessageBuilder\TemplateBuilder\ConfirmTemplateBuilder;
 
+/**
+ * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
+ * @SuppressWarnings(PHPMD.CyclomaticComplexity)
+ * @SuppressWarnings(PHPMD.ExcessiveMethodLength)
+ */
 class TextMessageHandler implements EventHandler
 {
     /** @var LINEBot $bot */
@@ -62,6 +78,10 @@ class TextMessageHandler implements EventHandler
         $this->textMessage = $textMessage;
     }
 
+    /**
+     * @throws LINEBot\Exception\InvalidEventSourceException
+     * @throws \ReflectionException
+     */
     public function handle()
     {
         $text = $this->textMessage->getText();
@@ -156,6 +176,70 @@ class TextMessageHandler implements EventHandler
                 );
                 $this->bot->replyMessage($replyToken, $imagemapMessageBuilder);
                 break;
+            case 'imagemapVideo':
+                $richMessageUrl = UrlBuilder::buildUrl($this->req, ['static', 'rich']);
+                $imagemapMessageBuilder = new ImagemapMessageBuilder(
+                    $richMessageUrl,
+                    'This is alt text',
+                    new BaseSizeBuilder(1040, 1040),
+                    [
+                        new ImagemapUriActionBuilder(
+                            'https://store.line.me/family/manga/en',
+                            new AreaBuilder(0, 0, 520, 520)
+                        ),
+                        new ImagemapUriActionBuilder(
+                            'https://store.line.me/family/music/en',
+                            new AreaBuilder(520, 0, 520, 520)
+                        ),
+                        new ImagemapUriActionBuilder(
+                            'https://store.line.me/family/play/en',
+                            new AreaBuilder(0, 520, 520, 520)
+                        ),
+                        new ImagemapMessageActionBuilder(
+                            'URANAI!',
+                            new AreaBuilder(520, 520, 520, 520)
+                        )
+                    ],
+                    null,
+                    new VideoBuilder(
+                        UrlBuilder::buildUrl($this->req, ['static', 'video.mp4']),
+                        UrlBuilder::buildUrl($this->req, ['static', 'preview.jpg']),
+                        new AreaBuilder(260, 260, 520, 520),
+                        new ExternalLinkBuilder('https://line.me', 'LINE')
+                    )
+                );
+                $this->bot->replyMessage($replyToken, $imagemapMessageBuilder);
+                break;
+            case 'restaurant':
+                $flexMessageBuilder = FlexSampleRestaurant::get();
+                $this->bot->replyMessage($replyToken, $flexMessageBuilder);
+                break;
+            case 'shopping':
+                $flexMessageBuilder = FlexSampleShopping::get();
+                $this->bot->replyMessage($replyToken, $flexMessageBuilder);
+                break;
+            case 'quickReply':
+                $postback = new PostbackTemplateActionBuilder('Buy', 'action=quickBuy&itemid=222', 'Buy');
+                $datetimePicker = new DatetimePickerTemplateActionBuilder(
+                    'Select date',
+                    'storeId=12345',
+                    'datetime',
+                    '2017-12-25t00:00',
+                    '2018-01-24t23:59',
+                    '2017-12-25t00:00'
+                );
+
+                $quickReply = new QuickReplyMessageBuilder([
+                    new QuickReplyButtonBuilder(new LocationTemplateActionBuilder('Location')),
+                    new QuickReplyButtonBuilder(new CameraTemplateActionBuilder('Camera')),
+                    new QuickReplyButtonBuilder(new CameraRollTemplateActionBuilder('Camera roll')),
+                    new QuickReplyButtonBuilder($postback),
+                    new QuickReplyButtonBuilder($datetimePicker),
+                ]);
+
+                $messageTemplate = new TextMessageBuilder('Text with quickReply buttons', $quickReply);
+                $this->bot->replyMessage($replyToken, $messageTemplate);
+                break;
             default:
                 $this->echoBack($replyToken, $text);
                 break;
@@ -165,6 +249,7 @@ class TextMessageHandler implements EventHandler
     /**
      * @param string $replyToken
      * @param string $text
+     * @throws \ReflectionException
      */
     private function echoBack($replyToken, $text)
     {
@@ -172,6 +257,11 @@ class TextMessageHandler implements EventHandler
         $this->bot->replyText($replyToken, $text);
     }
 
+    /**
+     * @param $replyToken
+     * @param $userId
+     * @throws \ReflectionException
+     */
     private function sendProfile($replyToken, $userId)
     {
         if (!isset($userId)) {

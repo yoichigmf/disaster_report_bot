@@ -20,77 +20,122 @@ namespace LINE\Tests\LINEBot\HTTPClient;
 
 use LINE\LINEBot\Constant\Meta;
 use LINE\LINEBot\HTTPClient\CurlHTTPClient;
+use PHPUnit\Framework\TestCase;
 
-class CurlHTTPClientTest extends \PHPUnit_Framework_TestCase
+class CurlHTTPClientTest extends TestCase
 {
-    private static $reqMirrorPath;
     private static $reqMirrorPort;
     private static $reqMirrorPID;
 
     public static function setUpBeforeClass()
     {
-        CurlHTTPClientTest::$reqMirrorPath = __DIR__ . '/../../../devtool/req_mirror';
+        if (defined('PHP_WINDOWS_VERSION_MAJOR')) {
+            return;
+        }
 
-        if (file_exists(CurlHTTPClientTest::$reqMirrorPath)) {
-            if (empty(CurlHTTPClientTest::$reqMirrorPort)) {
-                $sock = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
-                socket_bind($sock, '127.0.0.1', 0);
-                socket_getsockname($sock, $address, CurlHTTPClientTest::$reqMirrorPort);
-                socket_close($sock);
-            }
+        if (empty(CurlHTTPClientTest::$reqMirrorPort)) {
+            $sock = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
+            socket_bind($sock, '127.0.0.1', 0);
+            socket_getsockname($sock, $address, CurlHTTPClientTest::$reqMirrorPort);
+            socket_close($sock);
+        }
 
-            if (empty(CurlHTTPClientTest::$reqMirrorPID)) {
-                $out = [];
-                $cmd = sprintf(
-                    'nohup %s --port %d > /dev/null & echo $!',
-                    CurlHTTPClientTest::$reqMirrorPath,
-                    CurlHTTPClientTest::$reqMirrorPort
-                );
-                exec($cmd, $out);
-                CurlHTTPClientTest::$reqMirrorPID = $out[0];
-                sleep(1); // XXX
-            }
+        if (empty(CurlHTTPClientTest::$reqMirrorPID)) {
+            $out = [];
+            $cmd = sprintf(
+                'nohup %s:%d %s > /dev/null & echo $!',
+                'php -S 127.0.0.1',
+                CurlHTTPClientTest::$reqMirrorPort,
+                __DIR__ . '/../../req_mirror.php'
+            );
+            exec($cmd, $out);
+            CurlHTTPClientTest::$reqMirrorPID = $out[0];
+            sleep(1); // Need to wait server to be ready to accept connection
         }
     }
 
     public static function tearDownAfterClass()
     {
         if (!empty(CurlHTTPClientTest::$reqMirrorPID)) {
-            posix_kill(CurlHTTPClientTest::$reqMirrorPID, SIGKILL);
+            posix_kill(CurlHTTPClientTest::$reqMirrorPID, 9);
         }
     }
 
     protected function setUp()
     {
-        if (!file_exists(CurlHTTPClientTest::$reqMirrorPath) || empty(CurlHTTPClientTest::$reqMirrorPID)) {
-            $this->fail('req_mirror server is not available. Please try to execute `make install-devtool`');
+        if (defined('PHP_WINDOWS_VERSION_MAJOR')) {
+            $this->markTestSkipped("These tests don't support Windows environment for now.");
+        }
+
+        if (empty(CurlHTTPClientTest::$reqMirrorPID)) {
+            $this->fail('Mirror server looks dead');
         }
     }
 
+    /**
+     * @throws \LINE\LINEBot\Exception\CurlExecutionException
+     */
     public function testGet()
     {
         $curl = new CurlHTTPClient("channel-token");
-        $res = $curl->get('127.0.0.1:' . CurlHTTPClientTest::$reqMirrorPort . '/foo/bar?buz=qux');
+        $res = $curl->get('127.0.0.1:' . CurlHTTPClientTest::$reqMirrorPort . '/foo/bar');
         $body = $res->getJSONDecodedBody();
-
-        $this->assertEquals('GET', $body['Method']);
-        $this->assertEquals('/foo/bar', $body['URL']['Path']);
-        $this->assertEquals('buz=qux', $body['URL']['RawQuery']);
-        $this->assertEquals('Bearer channel-token', $body['Header']['Authorization'][0]);
-        $this->assertEquals('LINE-BotSDK-PHP/' . Meta::VERSION, $body['Header']['User-Agent'][0]);
+        $this->assertNotNull($body);
+        $this->assertEquals('GET', $body['_SERVER']['REQUEST_METHOD']);
+        $this->assertEquals('/foo/bar', $body['_SERVER']['SCRIPT_NAME']);
+        $this->assertEquals('', $body['Body']);
+        $this->assertEquals('Bearer channel-token', $body['_SERVER']['HTTP_AUTHORIZATION']);
+        $this->assertEquals('LINE-BotSDK-PHP/' . Meta::VERSION, $body['_SERVER']['HTTP_USER_AGENT']);
     }
 
+    /**
+     * @throws \LINE\LINEBot\Exception\CurlExecutionException
+     */
+    public function testGetWithParams()
+    {
+        $curl = new CurlHTTPClient("channel-token");
+        $res = $curl->get('127.0.0.1:' . CurlHTTPClientTest::$reqMirrorPort . '/foo/bar', ['baz' => 'qwer']);
+        $body = $res->getJSONDecodedBody();
+        $this->assertNotNull($body);
+        $this->assertEquals('GET', $body['_SERVER']['REQUEST_METHOD']);
+        $this->assertEquals('/foo/bar', $body['_SERVER']['SCRIPT_NAME']);
+        $this->assertEquals('', $body['Body']);
+        $this->assertEquals('baz=qwer', $body['_SERVER']['QUERY_STRING']);
+        $this->assertEquals('Bearer channel-token', $body['_SERVER']['HTTP_AUTHORIZATION']);
+        $this->assertEquals('LINE-BotSDK-PHP/' . Meta::VERSION, $body['_SERVER']['HTTP_USER_AGENT']);
+    }
+
+    /**
+     * @throws \LINE\LINEBot\Exception\CurlExecutionException
+     */
     public function testPost()
     {
         $curl = new CurlHTTPClient("channel-token");
         $res = $curl->post('127.0.0.1:' . CurlHTTPClientTest::$reqMirrorPort, ['foo' => 'bar']);
         $body = $res->getJSONDecodedBody();
-        $this->assertEquals('POST', $body['Method']);
-        $this->assertEquals('/', $body['URL']['Path']);
+        $this->assertNotNull($body);
+        $this->assertEquals('POST', $body['_SERVER']['REQUEST_METHOD']);
+        $this->assertEquals('/', $body['_SERVER']['SCRIPT_NAME']);
         $this->assertEquals('{"foo":"bar"}', $body['Body']);
-        $this->assertEquals(13, $body['Header']['Content-Length'][0]);
-        $this->assertEquals('Bearer channel-token', $body['Header']['Authorization'][0]);
-        $this->assertEquals('LINE-BotSDK-PHP/' . Meta::VERSION, $body['Header']['User-Agent'][0]);
+        $this->assertEquals(13, $body['_SERVER']['HTTP_CONTENT_LENGTH']);
+        $this->assertEquals('Bearer channel-token', $body['_SERVER']['HTTP_AUTHORIZATION']);
+        $this->assertEquals('LINE-BotSDK-PHP/' . Meta::VERSION, $body['_SERVER']['HTTP_USER_AGENT']);
+    }
+
+    /**
+     * @throws \LINE\LINEBot\Exception\CurlExecutionException
+     */
+    public function testDelete()
+    {
+        $curl = new CurlHTTPClient("channel-token");
+        $res = $curl->delete('127.0.0.1:' . CurlHTTPClientTest::$reqMirrorPort);
+        $body = $res->getJSONDecodedBody();
+        $this->assertNotNull($body);
+        $this->assertEquals('DELETE', $body['_SERVER']['REQUEST_METHOD']);
+        $this->assertEquals('/', $body['_SERVER']['SCRIPT_NAME']);
+        $this->assertEquals('', $body['Body']);
+        $this->assertEquals('Bearer channel-token', $body['_SERVER']['HTTP_AUTHORIZATION']);
+        $this->assertEquals('LINE-BotSDK-PHP/' . Meta::VERSION, $body['_SERVER']['HTTP_USER_AGENT']);
     }
 
     public function testPostWithEmptyBody()
@@ -98,11 +143,42 @@ class CurlHTTPClientTest extends \PHPUnit_Framework_TestCase
         $curl = new CurlHTTPClient("channel-token");
         $res = $curl->post('127.0.0.1:' . CurlHTTPClientTest::$reqMirrorPort, []);
         $body = $res->getJSONDecodedBody();
-        $this->assertEquals('POST', $body['Method']);
-        $this->assertEquals('/', $body['URL']['Path']);
+        $this->assertNotNull($body);
+        $this->assertEquals('POST', $body['_SERVER']['REQUEST_METHOD']);
+        $this->assertEquals('/', $body['_SERVER']['SCRIPT_NAME']);
         $this->assertEquals('', $body['Body']);
-        $this->assertEquals(0, $body['Header']['Content-Length'][0]);
-        $this->assertEquals('Bearer channel-token', $body['Header']['Authorization'][0]);
-        $this->assertEquals('LINE-BotSDK-PHP/' . Meta::VERSION, $body['Header']['User-Agent'][0]);
+        $this->assertEquals(0, $body['_SERVER']['HTTP_CONTENT_LENGTH']);
+        $this->assertEquals('Bearer channel-token', $body['_SERVER']['HTTP_AUTHORIZATION']);
+        $this->assertEquals('LINE-BotSDK-PHP/' . Meta::VERSION, $body['_SERVER']['HTTP_USER_AGENT']);
+    }
+
+    /**
+     * @throws \LINE\LINEBot\Exception\CurlExecutionException
+     */
+    public function testPostImage()
+    {
+        $base64EncodedImage = 'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABAQMAAAAl21bKAAAAA1BMVEX/TQBcNTh/AAAAAXRSTlPM0';
+        $base64EncodedImage .= 'jRW/QAAAApJREFUeJxjYgAAAAYAAzY3fKgAAAAASUVORK5CYII=';
+        $tmpfile = tmpfile();
+        $metaData = stream_get_meta_data($tmpfile);
+        fwrite($tmpfile, base64_decode($base64EncodedImage));
+        $curl = new CurlHTTPClient("channel-token");
+        $res = $curl->post(
+            '127.0.0.1:' . CurlHTTPClientTest::$reqMirrorPort,
+            [
+                '__file' => $metaData['uri'],
+                '__type' => 'image/png'
+            ],
+            [ 'Content-Type: image/png' ]
+        );
+        $body = $res->getJSONDecodedBody();
+        $this->assertNotNull($body);
+        $this->assertEquals('POST', $body['_SERVER']['REQUEST_METHOD']);
+        $this->assertEquals('/', $body['_SERVER']['SCRIPT_NAME']);
+        $this->assertEquals($base64EncodedImage, $body['Body']);
+        $this->assertEquals(95, $body['_SERVER']['HTTP_CONTENT_LENGTH']);
+        $this->assertEquals('Bearer channel-token', $body['_SERVER']['HTTP_AUTHORIZATION']);
+        $this->assertEquals('LINE-BotSDK-PHP/' . Meta::VERSION, $body['_SERVER']['HTTP_USER_AGENT']);
+        fclose($tmpfile);
     }
 }

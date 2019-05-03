@@ -22,13 +22,14 @@ use LINE\LINEBot;
 use LINE\LINEBot\Constant\MessageType;
 use LINE\LINEBot\MessageBuilder\ImageMessageBuilder;
 use LINE\Tests\LINEBot\Util\DummyHttpClient;
+use PHPUnit\Framework\TestCase;
 
-class SendImageTest extends \PHPUnit_Framework_TestCase
+class SendImageTest extends TestCase
 {
     public function testReplyImage()
     {
         $mock = function ($testRunner, $httpMethod, $url, $data) {
-            /** @var \PHPUnit_Framework_TestCase $testRunner */
+            /** @var \PHPUnit\Framework\TestCase $testRunner */
             $testRunner->assertEquals('POST', $httpMethod);
             $testRunner->assertEquals('https://api.line.me/v2/bot/message/reply', $url);
 
@@ -54,7 +55,7 @@ class SendImageTest extends \PHPUnit_Framework_TestCase
     public function testPushImage()
     {
         $mock = function ($testRunner, $httpMethod, $url, $data) {
-            /** @var \PHPUnit_Framework_TestCase $testRunner */
+            /** @var \PHPUnit\Framework\TestCase $testRunner */
             $testRunner->assertEquals('POST', $httpMethod);
             $testRunner->assertEquals('https://api.line.me/v2/bot/message/push', $url);
 

@@ -22,6 +22,8 @@ use LINE\LINEBot\Constant\MessageType;
 use LINE\LINEBot\ImagemapActionBuilder;
 use LINE\LINEBot\MessageBuilder;
 use LINE\LINEBot\MessageBuilder\Imagemap\BaseSizeBuilder;
+use LINE\LINEBot\MessageBuilder\Imagemap\VideoBuilder;
+use LINE\LINEBot\QuickReplyBuilder;
 
 /**
  * A builder class for imagemap message.
@@ -32,15 +34,24 @@ class ImagemapMessageBuilder implements MessageBuilder
 {
     /** @var string */
     private $baseUrl;
+
     /** @var string */
     private $altText;
+
     /** @var BaseSizeBuilder */
     private $baseSizeBuilder;
+
+    /** @var VideoBuilder|null */
+    private $videoBuilder;
+
     /** @var ImagemapActionBuilder[] */
     private $imagemapActionBuilders;
 
     /** @var array */
     private $message = [];
+
+    /** @var QuickReplyBuilder|null */
+    private $quickReply;
 
     /**
      * ImagemapMessageBuilder constructor.
@@ -49,13 +60,23 @@ class ImagemapMessageBuilder implements MessageBuilder
      * @param string $altText
      * @param BaseSizeBuilder $baseSizeBuilder
      * @param ImagemapActionBuilder[] $imagemapActionBuilders
+     * @param QuickReplyBuilder|null $quickReply
+     * @param VideoBuilder|null $videoBuilder
      */
-    public function __construct($baseUrl, $altText, $baseSizeBuilder, array $imagemapActionBuilders)
-    {
+    public function __construct(
+        $baseUrl,
+        $altText,
+        $baseSizeBuilder,
+        array $imagemapActionBuilders,
+        QuickReplyBuilder $quickReply = null,
+        VideoBuilder $videoBuilder = null
+    ) {
         $this->baseUrl = $baseUrl;
         $this->altText = $altText;
         $this->baseSizeBuilder = $baseSizeBuilder;
         $this->imagemapActionBuilders = $imagemapActionBuilders;
+        $this->quickReply = $quickReply;
+        $this->videoBuilder = $videoBuilder;
     }
 
     /**
@@ -74,13 +95,23 @@ class ImagemapMessageBuilder implements MessageBuilder
             $actions[] = $builder->buildImagemapAction();
         }
 
-        $this->message[] = [
+        $imagemapMessage = [
             'type' => MessageType::IMAGEMAP,
             'baseUrl' => $this->baseUrl,
             'altText' => $this->altText,
             'baseSize' => $this->baseSizeBuilder->build(),
             'actions' => $actions,
         ];
+
+        if ($this->quickReply) {
+            $imagemapMessage['quickReply'] = $this->quickReply->buildQuickReply();
+        }
+
+        if ($this->videoBuilder) {
+            $imagemapMessage['video'] = $this->videoBuilder->build();
+        }
+
+        $this->message[] = $imagemapMessage;
 
         return $this->message;
     }

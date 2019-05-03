@@ -20,13 +20,14 @@ namespace LINE\Tests\LINEBot;
 
 use LINE\LINEBot;
 use LINE\Tests\LINEBot\Util\DummyHttpClient;
+use PHPUnit\Framework\TestCase;
 
-class GetProfileTest extends \PHPUnit_Framework_TestCase
+class GetProfileTest extends TestCase
 {
     public function testGetProfile()
     {
         $mock = function ($testRunner, $httpMethod, $url, $data) {
-            /** @var \PHPUnit_Framework_TestCase $testRunner */
+            /** @var \PHPUnit\Framework\TestCase $testRunner */
             $testRunner->assertEquals('GET', $httpMethod);
             $testRunner->assertEquals('https://api.line.me/v2/bot/profile/USER_ID', $url);
 

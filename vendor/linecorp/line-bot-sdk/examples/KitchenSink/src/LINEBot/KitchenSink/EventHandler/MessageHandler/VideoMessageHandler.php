@@ -53,19 +53,31 @@ class VideoMessageHandler implements EventHandler
 
     public function handle()
     {
+        $replyToken = $this->videoMessage->getReplyToken();
+
+        $contentProvider = $this->videoMessage->getContentProvider();
+        if ($contentProvider->isExternal()) {
+            $this->bot->replyMessage(
+                $replyToken,
+                new VideoMessageBuilder(
+                    $contentProvider->getOriginalContentUrl(),
+                    $contentProvider->getPreviewImageUrl()
+                )
+            );
+            return;
+        }
+
         $contentId = $this->videoMessage->getMessageId();
         $video = $this->bot->getMessageContent($contentId)->getRawBody();
 
-        $tmpfilePath = tempnam($_SERVER['DOCUMENT_ROOT'] . '/static/tmpdir', 'video-');
-        unlink($tmpfilePath);
-        $filePath = $tmpfilePath . '.mp4';
+        $tempFilePath = tempnam($_SERVER['DOCUMENT_ROOT'] . '/static/tmpdir', 'video-');
+        unlink($tempFilePath);
+        $filePath = $tempFilePath . '.mp4';
         $filename = basename($filePath);
 
         $fh = fopen($filePath, 'x');
         fwrite($fh, $video);
         fclose($fh);
-
-        $replyToken = $this->videoMessage->getReplyToken();
 
         $url = UrlBuilder::buildUrl($this->req, ['static', 'tmpdir', $filename]);
 

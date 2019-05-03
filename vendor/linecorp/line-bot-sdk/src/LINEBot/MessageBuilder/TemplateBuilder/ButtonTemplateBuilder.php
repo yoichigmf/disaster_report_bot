@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpOptionalBeforeRequiredParametersInspection */
 
 /**
  * Copyright 2016 LINE Corporation
@@ -26,15 +26,28 @@ use LINE\LINEBot\TemplateActionBuilder;
  * A builder class for button template message.
  *
  * @package LINE\LINEBot\MessageBuilder\TemplateBuilder
+ * @SuppressWarnings(PHPMD.NPathComplexity)
  */
 class ButtonTemplateBuilder implements TemplateBuilder
 {
     /** @var string */
     private $title;
+
     /** @var string */
     private $text;
+
     /** @var string */
     private $thumbnailImageUrl;
+
+    /** @var string */
+    private $imageAspectRatio;
+
+    /** @var string */
+    private $imageSize;
+
+    /** @var string */
+    private $imageBackgroundColor;
+
     /** @var TemplateActionBuilder[] */
     private $actionBuilders;
 
@@ -42,19 +55,40 @@ class ButtonTemplateBuilder implements TemplateBuilder
     private $template;
 
     /**
-     * ConfirmTemplate constructor.
-     *
-     * @param string $title
-     * @param string $text
-     * @param string $thumbnailImageUrl
-     * @param TemplateActionBuilder[] $actionBuilders
+     * @var TemplateActionBuilder
      */
-    public function __construct($title, $text, $thumbnailImageUrl, array $actionBuilders)
-    {
+    private $defaultAction;
+
+    /**
+     * ButtonTemplateBuilder constructor.
+     *
+     * @param string|null $title
+     * @param string $text
+     * @param string|null $thumbnailImageUrl
+     * @param TemplateActionBuilder[] $actionBuilders
+     * @param string|null $imageAspectRatio
+     * @param string|null $imageSize
+     * @param string|null $imageBackgroundColor
+     * @param TemplateActionBuilder|null $defaultAction
+     */
+    public function __construct(
+        $title = null,
+        $text, // phpcs:ignore
+        $thumbnailImageUrl = null,
+        array $actionBuilders,
+        $imageAspectRatio = null,
+        $imageSize = null,
+        $imageBackgroundColor = null,
+        TemplateActionBuilder $defaultAction = null
+    ) {
         $this->title = $title;
         $this->text = $text;
         $this->thumbnailImageUrl = $thumbnailImageUrl;
         $this->actionBuilders = $actionBuilders;
+        $this->imageAspectRatio = $imageAspectRatio;
+        $this->imageSize = $imageSize;
+        $this->imageBackgroundColor = $imageBackgroundColor;
+        $this->defaultAction = $defaultAction;
     }
 
     /**
@@ -75,11 +109,33 @@ class ButtonTemplateBuilder implements TemplateBuilder
 
         $this->template = [
             'type' => TemplateType::BUTTONS,
-            'thumbnailImageUrl' => $this->thumbnailImageUrl,
-            'title' => $this->title,
             'text' => $this->text,
             'actions' => $actions,
         ];
+
+        if ($this->title) {
+            $this->template['title'] = $this->title;
+        }
+
+        if ($this->thumbnailImageUrl) {
+            $this->template['thumbnailImageUrl'] = $this->thumbnailImageUrl;
+        }
+
+        if ($this->imageAspectRatio) {
+            $this->template['imageAspectRatio'] = $this->imageAspectRatio;
+        }
+
+        if ($this->imageSize) {
+            $this->template['imageSize'] = $this->imageSize;
+        }
+
+        if ($this->imageBackgroundColor) {
+            $this->template['imageBackgroundColor'] = $this->imageBackgroundColor;
+        }
+
+        if ($this->defaultAction) {
+            $this->template['defaultAction'] = $this->defaultAction->buildTemplateAction();
+        }
 
         return $this->template;
     }

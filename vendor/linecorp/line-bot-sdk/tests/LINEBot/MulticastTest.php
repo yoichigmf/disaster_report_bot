@@ -22,13 +22,14 @@ use LINE\LINEBot;
 use LINE\LINEBot\Constant\MessageType;
 use LINE\LINEBot\MessageBuilder\TextMessageBuilder;
 use LINE\Tests\LINEBot\Util\DummyHttpClient;
+use PHPUnit\Framework\TestCase;
 
-class MulticastTest extends \PHPUnit_Framework_TestCase
+class MulticastTest extends TestCase
 {
     public function testMulticast()
     {
         $mock = function ($testRunner, $httpMethod, $url, $data) {
-            /** @var \PHPUnit_Framework_TestCase $testRunner */
+            /** @var \PHPUnit\Framework\TestCase $testRunner */
             $testRunner->assertEquals('POST', $httpMethod);
             $testRunner->assertEquals('https://api.line.me/v2/bot/message/multicast', $url);
 
