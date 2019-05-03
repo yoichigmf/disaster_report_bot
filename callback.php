@@ -91,6 +91,21 @@ foreach ($events as $event) {
           continue;
           
         }
+        
+       
+      if ($event instanceof \LINE\LINEBot\Event\MessageEvent\ImageMessage) {  //  イメージメッセージの場合
+            
+            
+          
+     
+            $bot->replyText($event->getReplyToken(), "イメージメッセージ   line://nv/location ");
+     
+     
+          continue;
+          
+        }
+        
+         
      
    
         $bot->replyText($event->getReplyToken(), "その他メッセージ　  line://nv/location ");
