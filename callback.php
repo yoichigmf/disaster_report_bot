@@ -34,22 +34,27 @@ foreach ($events as $event) {
    if ($event instanceof \LINE\LINEBot\Event\MessageEvent\LocationMessage) {  // Location event
    
     
-        $log->addWarning("location event event!\n");
-
-        $address = $event->getAddress();
-        
-        $lat = $event->getLatitude();
-        $lon = $event->getLongitude();
-        
-        $query = "";
-        
-        $status = SearchToiletData( $bot, $event, $lat, $lon, $query  );
+         $bot->replyText($event->getReplyToken(), "location event !");
         
         
  
    
    }
    
+          
+      if ($event instanceof \LINE\LINEBot\Event\MessageEvent\ImageMessage) {  //  イメージメッセージの場合
+            
+            
+          
+     
+            $bot->replyText($event->getReplyToken(), "イメージメッセージ   line://nv/location ");
+     
+     
+          continue;
+          
+        }
+        
+        
    
 
    if ($event instanceof \LINE\LINEBot\Event\JoinEvent) {  // Join event add
@@ -92,19 +97,7 @@ foreach ($events as $event) {
           
         }
         
-       
-      if ($event instanceof \LINE\LINEBot\Event\MessageEvent\ImageMessage) {  //  イメージメッセージの場合
-            
-            
-          
-     
-            $bot->replyText($event->getReplyToken(), "イメージメッセージ   line://nv/location ");
-     
-     
-          continue;
-          
-        }
-        
+
          
      
    
