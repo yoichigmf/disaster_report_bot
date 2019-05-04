@@ -34,7 +34,13 @@ foreach ($events as $event) {
    if ($event instanceof \LINE\LINEBot\Event\MessageEvent\LocationMessage) {  // Location event
    
     
-         $bot->replyText($event->getReplyToken(), "ロケーションイベント !");
+        $title = $event->getTitle();
+        $address = $event->getAddress();
+        $latitude = $event->getLatitude();
+        $longitude = $event->getLongitude();
+        
+        
+         $bot->replyText($event->getReplyToken(), "ロケーションイベント ${title} ${address} ${latitude} ${longitude}");
         
         
  
