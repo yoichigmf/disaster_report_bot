@@ -44,7 +44,7 @@ foreach ($events as $event) {
           
       if ($event instanceof \LINE\LINEBot\Event\MessageEvent\ImageMessage) {  //  イメージメッセージの場合
             
-            $message_id = $event->getId();
+            $message_id = $event->getMessageId();
             
             $response = $bot->getMessageContent($message_id );
             
