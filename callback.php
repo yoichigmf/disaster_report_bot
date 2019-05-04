@@ -44,10 +44,19 @@ foreach ($events as $event) {
           
       if ($event instanceof \LINE\LINEBot\Event\MessageEvent\ImageMessage) {  //  イメージメッセージの場合
             
+            $message_id = $event->getId();
             
-          
+            $response = $bot->getMessageContent($message_id );
+            
+            if ($response->isSucceeded()) {
+  					  $tempfile = tmpfile();
+  					  fwrite($tempfile, $response->getRawBody());
+				} else {
+  					  error_log($response->getHTTPStatus() . ' ' . $response->getRawBody());
+			}
+
      
-            $bot->replyText($event->getReplyToken(), "イメージイベント   line://nv/location ");
+            $bot->replyText($event->getReplyToken(), "イメージイベント   ${message_id} ");
      
      
           continue;
