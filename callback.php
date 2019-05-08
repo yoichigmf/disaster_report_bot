@@ -6,14 +6,54 @@ require_once __DIR__ . '/vendor/autoload.php';
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 
+define('SCOPES', implode(' ', array(
+        Google_Service_Drive::DRIVE)
+));
 
 $log = new Logger('name');
 $log->pushHandler(new StreamHandler('php://stderr', Logger::WARNING));
 
 
+
+
 $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient(getenv('LineMessageAPIChannelAccessToken'));
 
 $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => getenv('LineMessageAPIChannelSecret')]);
+
+
+function getClient() {
+    $client = new Google_Client();
+    $client->setApplicationName(getenv('APPLICATION_NAME'));
+    $client->setScopes(SCOPES);
+    
+    
+   
+   $auth_str = getenv('authstr');
+   
+   $auth_config = json_decode($auth_string, true);
+   
+   $client->setAuthConfig($auth_config);
+   $client->setAccessType('offline');
+    
+
+   $token_str = getenv('tokenstr');
+  
+        $accessToken = json_decode($token_str, true);
+        $client->setAccessToken($accessToken);
+   
+ 
+
+    // Refresh the token if it's expired.
+    if ($client->isAccessTokenExpired()) {
+        $client->fetchAccessTokenWithRefreshToken( getenv('refreshtoken'));
+
+    }
+    return $client;
+}
+
+
+
+
 
 $sign = $_SERVER["HTTP_" . \LINE\LINEBot\Constant\HTTPHeader::LINE_SIGNATURE];
 
@@ -55,8 +95,34 @@ foreach ($events as $event) {
             $response = $bot->getMessageContent($message_id );
             
             if ($response->isSucceeded()) {
-  					  $tempfile = tmpfile();
-  					  fwrite($tempfile, $response->getRawBody());
+            
+            // Get the API client and construct the service object.
+             $client = getClient();
+             $service = new Google_Service_Drive($client);
+
+            
+            
+             $folder_id = getenv('FolderID');
+             
+             
+             $fileMetadata = new Google_Service_Drive_DriveFile(array(
+                 'name' => 'photo.jpg',
+                  'parents' => array(FOLDER_ID),
+              ));
+
+                $content = $response->getRawBody();
+                
+  			
+  			$file = $service->files->create($fileMetadata, array(
+                    'data' => $content,
+                   'mimeType' => 'image/jpeg',
+                  'uploadType' => 'multipart',
+                  'fields' => 'id'));
+                  
+                  $fid = $file->id;
+                  
+                     $bot->replyText($event->getReplyToken(), "イメージイベント file id  ${fid} ");
+    
 				} else {
   					  error_log($response->getHTTPStatus() . ' ' . $response->getRawBody());
 			}
