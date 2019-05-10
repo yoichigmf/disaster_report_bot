@@ -1,7 +1,7 @@
 {
 "require": {
-        "linecorp/line-bot-sdk": "^3.10",
-                "monolog/monolog": "^1.23",
-                "google/apiclient": "2.0"
+        "ext-linecorp/ext-line-bot-sdk": "^3.10",
+                "ext-monolog/monolog": "^1.23",
+                "ext-google/apiclient": "2.0"
     }
     }
