@@ -19,6 +19,9 @@ $sign = $_SERVER["HTTP_" . \LINE\LINEBot\Constant\HTTPHeader::LINE_SIGNATURE];
 
 $events = $bot->parseEventRequest(file_get_contents('php://input'), $sign);
 
+
+$dropboxToken = getenv('DROPBOXACCESSTOKEN')
+
 $page = 1;
 $action ="";
 
@@ -55,8 +58,49 @@ foreach ($events as $event) {
             $response = $bot->getMessageContent($message_id );
             
             if ($response->isSucceeded()) {
-  					  $tempfile = tmpfile();
-  					  fwrite($tempfile, $response->getRawBody());
+            
+            
+             $url = "https://content.dropboxapi.com/2/files/upload";
+                   
+            
+           $tempFilePath = tempnam('.', 'image-');
+           unlink($tempFilePath);
+           $filePath = $tempFilePath . '.jpg';
+           $filename = basename($filePath);
+        
+             $tgfilename = "/disasterinfo/${filename}";
+             
+             $filearg = "Dropbox-API-Arg: {\"pat":\"${tgfilename}\"}";
+        
+              $auth = "Authorization: Bearer ${dropboxToken}"
+                  $headers = array(
+                       $auth , //(2)
+                          $filearg,//(3)
+                           'Content-Type: application/octet-stream'
+                    );
+        
+        
+        
+
+        
+                 $options = array(
+                          CURLOPT_RETURNTRANSFER => true,
+                          CURLOPT_URL => $url,
+                           CURLOPT_HTTPHEADER => $headers,
+                           CURLOPT_POST => true,
+                            CURLOPT_POSTFIELDS => $response->getRawBody()     
+                       );
+
+                   $ch = curl_init();
+
+                  curl_setopt_array($ch, $options);
+
+                 $result = curl_exec($ch);
+        
+        
+        
+  			//		  $tempfile = tmpfile();
+  			//		  fwrite($tempfile, $response->getRawBody());
 				} else {
   					  error_log($response->getHTTPStatus() . ' ' . $response->getRawBody());
 			}
