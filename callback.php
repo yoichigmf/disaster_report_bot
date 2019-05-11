@@ -20,7 +20,7 @@ $sign = $_SERVER["HTTP_" . \LINE\LINEBot\Constant\HTTPHeader::LINE_SIGNATURE];
 $events = $bot->parseEventRequest(file_get_contents('php://input'), $sign);
 
 
-$dropboxToken = getenv('DROPBOXACCESSTOKEN')
+$dropboxToken = getenv('DROPBOXACCESSTOKEN');
 
 $page = 1;
 $action ="";
