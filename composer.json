@@ -1,7 +1,6 @@
 {
 "require": {
         "linecorp/line-bot-sdk": "^3.10",
-                "monolog/monolog": "^1.23",
-                  "dropbox/dropbox-sdk": "*"
+                "monolog/monolog": "^1.23"
     }
     }

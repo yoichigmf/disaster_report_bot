@@ -36,22 +36,11 @@ class ComposerStaticInit3bb4ef7563999c59c428917a7bbeb840
         ),
     );
 
-    public static $prefixesPsr0 = array (
-        'D' => 
-        array (
-            'Dropbox' => 
-            array (
-                0 => __DIR__ . '/..' . '/dropbox/dropbox-sdk/lib',
-            ),
-        ),
-    );
-
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInit3bb4ef7563999c59c428917a7bbeb840::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit3bb4ef7563999c59c428917a7bbeb840::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit3bb4ef7563999c59c428917a7bbeb840::$prefixesPsr0;
 
         }, null, ClassLoader::class);
     }
