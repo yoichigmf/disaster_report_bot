@@ -70,7 +70,7 @@ foreach ($events as $event) {
         
              $tgfilename = "/disasterinfo/${filename}";
              
-             $filearg = "Dropbox-API-Arg: {\"pat":\"${tgfilename}\"}";
+             $filearg = "Dropbox-API-Arg: {\"path\":\"${tgfilename}\"}";
         
               $auth = "Authorization: Bearer ${dropboxToken}"
                   $headers = array(
