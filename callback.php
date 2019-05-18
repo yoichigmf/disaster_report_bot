@@ -63,10 +63,13 @@ foreach ($events as $event) {
             
             
 
-                 upload_contents( 'image' , 'jpg', 'application/octet-stream', $response );
+                 $filepath =  upload_contents( 'image' , 'jpg', 'application/octet-stream', $response );
                  
           
-       
+                $bot->replyText($event->getReplyToken(), "イメージイベント   ${filepath} ");
+                
+                continue;
+
         
 				} else {
   					  error_log($response->getHTTPStatus() . ' ' . $response->getRawBody());
@@ -172,7 +175,7 @@ foreach ($events as $event) {
 
 //  $kind   'image'  'video'  'voice'
 //  $ext    'jpg'    'mp4'    'mp4'
-//  $content_type  image/jpeg   video/mp4   audio/mp4
+//  $content_type  application/octet-stream
 
 
 function upload_contents( $kind , $ext, $content_type, $response ) {  // ファイルのDropBoxアップロード
@@ -180,7 +183,8 @@ function upload_contents( $kind , $ext, $content_type, $response ) {  // ファ�
           
           
           $log->addWarning("upload contents in\n");
-            
+          
+ //          file upload           
            $tempFilePath = tempnam('.', "${kind}-");
            unlink($tempFilePath);
            $filePath = $tempFilePath . ".${ext}";
@@ -203,7 +207,8 @@ function upload_contents( $kind , $ext, $content_type, $response ) {  // ファ�
         
         
         
-$log->addWarning("file name ${tgfilename}\n");
+            $log->addWarning("file name ${tgfilename}\n");
+            
         
                  $options = array(
                           CURLOPT_RETURNTRANSFER => true,
@@ -220,6 +225,71 @@ $log->addWarning("file name ${tgfilename}\n");
                  $result = curl_exec($ch);
                  
                  $log->addWarning("result ${result}\n");
-                 return $result;
+                 
+                 
+                  curl_close($ch);
+                 
+                  $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+                 
+                 
+                 
+                 $path = createSharedLink( $tgfilename );
+                 return $path;
 
 }
+
+ function createSharedLink($path)
+    {
+        $url = "https://api.dropboxapi.com/2/sharing/create_shared_link_with_settings";
+
+        $ch = curl_init();
+
+         $dropboxToken = getenv('DROPBOXACCESSTOKEN');
+           
+           
+        $headers = array(
+            'Authorization: Bearer ' . $dropboxToken,
+            'Content-Type: application/json',
+        );
+
+        $post = array(
+            "path" => "{$path}", //ファイルパス
+            "settings" => array(
+                "requested_visibility" => array(
+                    ".tag" => "public" //公開
+                ),
+            ),
+        );
+
+        $options = array(
+            CURLOPT_URL => $url,
+            CURLOPT_HTTPHEADER => $headers,
+            CURLOPT_POST => true,
+            CURLOPT_POSTFIELDS => json_encode($post),
+            CURLOPT_RETURNTRANSFER => true,
+        );
+
+        curl_setopt_array($ch, $options);
+
+        $res = curl_exec($ch);
+        $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
+        $link = "";
+        if (!curl_errno($ch) && $http_code == "200") {
+            $res = (array)json_decode($res);
+            if ($res["url"]) {
+                $link = $res["url"];
+            } elseif ($res["error"]) {
+                //既に設定済みなど
+                $error = (array)$res["error"];
+                print_r("WARNING: Failed to create shared link [{$path}] - {$error['.tag']}" . PHP_EOL);
+            }
+        } else {
+            print_r("ERROR: Failed to access DropBox via API" . PHP_EOL);
+            print_r(curl_error($ch) . PHP_EOL);
+        }
+
+        curl_close($ch);
+
+        return $link;
+    }
