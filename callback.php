@@ -63,7 +63,7 @@ foreach ($events as $event) {
             
             
 
-                 upload_contents( 'image' , 'jpg', 'image/jpeg', $response );
+                 upload_contents( 'image' , 'jpg', 'application/octet-stream', $response );
                  
           
        
