@@ -66,7 +66,7 @@ foreach ($events as $event) {
                  $filepath =  upload_contents( 'image' , 'jpg', 'application/octet-stream', $response );
                  
           
-                $bot->replyText($event->getReplyToken(), "イメージイベント   ${filepath} ");
+                $bot->replyText($event->getReplyToken(), "画像共有リンク   ${filepath} ");
                 
                 continue;
 
@@ -76,7 +76,7 @@ foreach ($events as $event) {
 			}
 
      
-            $bot->replyText($event->getReplyToken(), "イメージイベント   ${message_id} ");
+            $bot->replyText($event->getReplyToken(), "イメージイベント   ${message_id} 共有失敗");
      
      
           continue;
@@ -87,10 +87,29 @@ foreach ($events as $event) {
       
        if ($event instanceof \LINE\LINEBot\Event\MessageEvent\AudioMessage) {  //  オーディオメッセージの場合  debug
             
+             $message_id = $event->getMessageId();
             
+            $response = $bot->getMessageContent($message_id );
+            
+            if ($response->isSucceeded()) {
           
+                 $filepath =  upload_contents( 'voice' , 'mp4', 'application/octet-stream', $response );
+                 
+          
+                $bot->replyText($event->getReplyToken(), "音声共有リンク   ${filepath} ");
+                
+                continue;
+
+        
+				} else {
+  					  error_log($response->getHTTPStatus() . ' ' . $response->getRawBody());
+			}
+
      
-            $bot->replyText($event->getReplyToken(), "オーディオイベント   line://nv/location ");
+     
+     
+     
+            $bot->replyText($event->getReplyToken(), "音声イベント   共有エラー");
      
      
           continue;
@@ -100,13 +119,36 @@ foreach ($events as $event) {
       
        if ($event instanceof \LINE\LINEBot\Event\MessageEvent\VideoMessage) {  //  ビデオメッセージの場合
             
+              
+             $message_id = $event->getMessageId();
             
+            $response = $bot->getMessageContent($message_id );
+            
+            if ($response->isSucceeded()) {
           
+                 $filepath =  upload_contents( 'video' , 'mp4', 'application/octet-stream', $response );
+                 
+          
+                $bot->replyText($event->getReplyToken(), "ビデオ共有リンク   ${filepath} ");
+                
+                continue;
+
+        
+				} else {
+  					  error_log($response->getHTTPStatus() . ' ' . $response->getRawBody());
+			}
+
      
-            $bot->replyText($event->getReplyToken(), "ビデオイベント   line://nv/location ");
+     
+     
+     
+            $bot->replyText($event->getReplyToken(), "ビデオイベント   共有エラー");
      
      
           continue;
+          
+              
+     
           
         }
             
