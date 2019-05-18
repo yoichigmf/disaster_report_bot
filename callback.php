@@ -216,6 +216,6 @@ $log->addWarning("file name ${tgfilename}\n");
 
                  $result = curl_exec($ch);
                  
-                 return $result
+                 return $result;
 
 }
