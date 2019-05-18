@@ -176,7 +176,7 @@ foreach ($events as $event) {
 
 
 function upload_contents( $kind , $ext, $content_type, $response ) {  // ファイルのDropBoxアップロード
-
+global $log;
             
            $tempFilePath = tempnam('.', "${kind}-");
            unlink($tempFilePath);
@@ -200,7 +200,7 @@ function upload_contents( $kind , $ext, $content_type, $response ) {  // ファ�
         
         
         
-
+$log->addWarning("file name ${tgfilename}\n");
         
                  $options = array(
                           CURLOPT_RETURNTRANSFER => true,
@@ -215,5 +215,7 @@ function upload_contents( $kind , $ext, $content_type, $response ) {  // ファ�
                   curl_setopt_array($ch, $options);
 
                  $result = curl_exec($ch);
+                 
+                 return $result
 
 }
