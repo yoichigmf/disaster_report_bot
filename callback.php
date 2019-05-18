@@ -176,7 +176,10 @@ foreach ($events as $event) {
 
 
 function upload_contents( $kind , $ext, $content_type, $response ) {  // ファイルのDropBoxアップロード
-global $log;
+          global $log;
+          
+          
+          $log->addWarning("upload contents in\n");
             
            $tempFilePath = tempnam('.', "${kind}-");
            unlink($tempFilePath);
