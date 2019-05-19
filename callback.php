@@ -43,7 +43,7 @@ function  AddImageLink( $response, $event, $filepath ){
     $kind = "image";
     
     $url = $filepathe;
-    $comment = $event->getTitle();
+    $comment = "画像共有サンプル";
     
      $value = new Google_Service_Sheets_ValueRange();
      $value->setValues([ 'values' => [ $date, $user, $kind, $url, $comment ] ]);
