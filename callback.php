@@ -22,7 +22,7 @@ $events = $bot->parseEventRequest(file_get_contents('php://input'), $sign);
 
 
 
-function  AddImageLink( $response, $event, $filepath ){
+function  AddImageLink( $response, $event, string $filepath ){
 
     $spreadsheetId = getenv('SPREADSHEET_ID');
 
@@ -46,7 +46,7 @@ function  AddImageLink( $response, $event, $filepath ){
     $comment = "画像共有サンプル";
     
      $value = new Google_Service_Sheets_ValueRange();
-     $value->setValues([ 'values' => [ $date, $user, $kind, $url, $comment ] ]);
+     $value->setValues([ 'values' => [ $date, $user, $url ] ]);
      $resp = $service->spreadsheets_values->append($spreadsheetId , 'シート1!A1', $value, [ 'valueInputOption' => 'USER_ENTERED' ] );
 
     var_dump($resp);
