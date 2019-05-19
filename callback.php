@@ -46,10 +46,10 @@ foreach ($events as $event) {
         
          $bot->replyText($event->getReplyToken(), "ロケーションイベント ${title} ${address} ${latitude} ${longitude}");
         
-        
+         continue;
  
    
-   }
+      }
    
           
           
@@ -79,6 +79,7 @@ foreach ($events as $event) {
   					  error_log($response->getHTTPStatus() . ' ' . $response->getRawBody());
 			}
 
+     
      
             $bot->replyText($event->getReplyToken(), "イメージイベント   ${message_id} 共有失敗");
      
@@ -152,11 +153,10 @@ foreach ($events as $event) {
           continue;
           
               
-     
           
         }
             
-        if ($event instanceof \LINE\LINEBot\Event\MessageEvent\FileMessage) {  //  ファイルメッセージの場合
+    if ($event instanceof \LINE\LINEBot\Event\MessageEvent\FileMessage) {  //  ファイルメッセージの場合
             
             
           
@@ -191,6 +191,7 @@ foreach ($events as $event) {
      else  {
      
        $bot->replyText($event->getReplyToken(), "post back event");
+         continue;
         }
      
       }
