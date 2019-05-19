@@ -187,24 +187,21 @@ function getClient() {
    
    $auth_str = getenv('authstr');
    
-   $json = json_decode($auth_string, true);
+   $json = json_decode($auth_str, true);
    
    
-    $private_key = $json['private_key'];
-    $client_email = $json['client_email'];
-    $scopes = array(Google_Service_Sheets::SPREADSHEETS);
+  
     
     
-    $credentials = new Google_Auth_AssertionCredentials(
-        $client_email,
-        $scopes,
-        $private_key
-    );
+   
     
      $client = new Google_Client();
+     
+    $client->setAuthConfig( $json );
     
-    $client->setAssertionCredentials($credentials);
+   // $client->setAssertionCredentials($credentials);
     
+    $client->setScopes(Google_Service_Sheets::SPREADSHEETS);
 
 
 
