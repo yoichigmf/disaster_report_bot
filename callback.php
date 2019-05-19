@@ -193,7 +193,7 @@ function getClient() {
    $auth_config = json_decode($auth_string, true);
    
    $client->setAuthConfig($auth_config);
-   $client->setAccessType('offline');
+ //  $client->setAccessType('offline');
     
 
   // $token_str = getenv('tokenstr');
