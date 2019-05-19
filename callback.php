@@ -44,8 +44,8 @@ function AddLocationLink( $response, $event ){
     $user = "kayama";
     $kind = "location";
     
-    $url = $title;
-    $comment = $address;
+    $url = "";
+    $comment = "";
     
      $value = new Google_Service_Sheets_ValueRange();
      $value->setValues([ 'values' => [ $date, $user, $kind, $url ,$comment, $latitude, $longitude ] ]);
