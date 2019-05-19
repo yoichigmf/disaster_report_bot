@@ -47,7 +47,7 @@ function  AddImageLink( $response, $event, $filepath ){
     
      $value = new Google_Service_Sheets_ValueRange();
      $value->setValues([ 'values' => [ $date, $user, $kind, $url, $comment ] ]);
-     $resp = service->spreadsheets_values->append($this->spreadsheetId, 'シート1!A1', $value, [ 'valueInputOption' => 'USER_ENTERED' ] );
+     $resp = service.spreadsheets_values.append($this->spreadsheetId, 'シート1!A1', $value, [ 'valueInputOption' => 'USER_ENTERED' ] );
 
     var_dump($resp);
     
