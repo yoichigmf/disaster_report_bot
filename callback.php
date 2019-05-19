@@ -19,7 +19,42 @@ $sign = $_SERVER["HTTP_" . \LINE\LINEBot\Constant\HTTPHeader::LINE_SIGNATURE];
 
 $events = $bot->parseEventRequest(file_get_contents('php://input'), $sign);
 
+date_default_timezone_set('Asia/Tokyo');
 
+
+function AddLocationLink( $response, $event ){
+   $spreadsheetId = getenv('SPREADSHEET_ID');
+
+    $client = getClient();
+
+
+    $client->addScope(Google_Service_Sheets::SPREADSHEETS);
+    $client->setApplicationName('AddSheet');
+
+   $title = $event->getTitle();
+   $address = $event->getAddress();
+   $latitude = $event->getLatitude();
+   $longitude = $event->getLongitude();
+        
+    $service = new Google_Service_Sheets($client);
+
+    
+    $date    = date('Y/m/d h:i:s');
+    
+    $user = "kayama";
+    $kind = "location";
+    
+    $url = $title;
+    $comment = $address;
+    
+     $value = new Google_Service_Sheets_ValueRange();
+     $value->setValues([ 'values' => [ $date, $user, $kind, $url ,$comment, $latitude, $longitude ] ]);
+     $resp = $service->spreadsheets_values->append($spreadsheetId , 'シート1!A1', $value, [ 'valueInputOption' => 'USER_ENTERED' ] );
+
+    var_dump($resp);
+    
+
+}
 
 
 function  AddImageLink( $response, $event, string $filepath ){
@@ -240,6 +275,7 @@ foreach ($events as $event) {
         
          $bot->replyText($event->getReplyToken(), "ロケーションイベント ${title} ${address} ${latitude} ${longitude}");
         
+        AddLocationLink( $response, $event );
          continue;
  
    
@@ -258,7 +294,7 @@ foreach ($events as $event) {
             
             
 
-                 $filepath =  upload_contents( 'image' , 'jpg', 'application/octet-stream', $response );
+                $filepath =  upload_contents( 'image' , 'jpg', 'application/octet-stream', $response );
                  
           
                 $bot->replyText($event->getReplyToken(), "画像共有リンク   ${filepath} ");
