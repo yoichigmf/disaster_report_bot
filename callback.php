@@ -43,10 +43,10 @@ function  AddImageLink( $response, $event, string $filepath ){
     $kind = "image";
     
     $url = $filepath;
-    $comment = "画像共有サンプル";
+    $comment = $event->originalContentUrl;
     
      $value = new Google_Service_Sheets_ValueRange();
-     $value->setValues([ 'values' => [ $date, $user, $kind, $url ] ]);
+     $value->setValues([ 'values' => [ $date, $user, $kind, $url ,$comment ] ]);
      $resp = $service->spreadsheets_values->append($spreadsheetId , 'シート1!A1', $value, [ 'valueInputOption' => 'USER_ENTERED' ] );
 
     var_dump($resp);
