@@ -404,7 +404,7 @@ foreach ($events as $event) {
          
      
    
-        $bot->replyText($event->getReplyToken(), "その他メッセージ　  line://nv/location ");s
+        $bot->replyText($event->getReplyToken(), "その他メッセージ　  line://nv/location ");
         
    }
 
