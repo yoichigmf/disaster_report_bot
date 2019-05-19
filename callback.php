@@ -33,8 +33,8 @@ function AddLocationLink( $response, $event ){
 
    $title = $event->getTitle();
    $address = $event->getAddress();
-   $latitude = $event->getLatitude();
-   $longitude = $event->getLongitude();
+   $latitude = strval (  $event->getLatitude());
+   $longitude = strval ( $event->getLongitude());
         
     $service = new Google_Service_Sheets($client);
 
