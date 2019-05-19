@@ -42,11 +42,11 @@ function  AddImageLink( $response, $event, string $filepath ){
     $user = "kayama";
     $kind = "image";
     
-    $url = $filepathe;
+    $url = $filepath;
     $comment = "画像共有サンプル";
     
      $value = new Google_Service_Sheets_ValueRange();
-     $value->setValues([ 'values' => [ $date, $user, $url ] ]);
+     $value->setValues([ 'values' => [ $date, $user, $kind, $url ] ]);
      $resp = $service->spreadsheets_values->append($spreadsheetId , 'シート1!A1', $value, [ 'valueInputOption' => 'USER_ENTERED' ] );
 
     var_dump($resp);
