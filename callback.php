@@ -178,10 +178,7 @@ function upload_contents( $kind , $ext, $content_type, $response ) {  // ファ�
     
 
 function getClient() {
-    $client = new Google_Client();
-    
-    $client->addScope(Google_Service_Sheets::SPREADSHEETS);
-    $client->setApplicationName('AddSheet');
+
 
  //   $client->setApplicationName(getenv('APPLICATION_NAME'));
  //   $client->setScopes(SCOPES);
@@ -190,25 +187,35 @@ function getClient() {
    
    $auth_str = getenv('authstr');
    
-   $auth_config = json_decode($auth_string, true);
+   $json = json_decode($auth_string, true);
    
-   $client->setAuthConfig($auth_config);
- //  $client->setAccessType('offline');
+   
+    $private_key = $json['private_key'];
+    $client_email = $json['client_email'];
+    $scopes = array(Google_Service_Sheets::SPREADSHEETS);
+    
+    
+    $credentials = new Google_Auth_AssertionCredentials(
+        $client_email,
+        $scopes,
+        $private_key
+    );
+    
+     $client = new Google_Client();
+    
+    $client->setAssertionCredentials($credentials);
     
 
-  // $token_str = getenv('tokenstr');
-  
-  //      $accessToken = json_decode($token_str, true);
-   //     $client->setAccessToken($accessToken);
-   
- 
 
-    // Refresh the token if it's expired.
- //   if ($client->isAccessTokenExpired()) {
- //       $client->fetchAccessTokenWithRefreshToken( getenv('refreshtoken'));
 
-  //  }
+    $client->setApplicationName('AddSheet');
+    
+    if ($client->getAuth()->isAccessTokenExpired()) {
+        $client->getAuth()->refreshTokenWithAssertion();
+    }
     return $client;
+    
+ 
 }
 
 
