@@ -20,11 +20,7 @@ $sign = $_SERVER["HTTP_" . \LINE\LINEBot\Constant\HTTPHeader::LINE_SIGNATURE];
 $events = $bot->parseEventRequest(file_get_contents('php://input'), $sign);
 
 
-$client = getClient();
 
-
-
-$service = new Google_Service_Sheets($client);
 
 
 $page = 1;
@@ -72,6 +68,9 @@ foreach ($events as $event) {
                  
           
                 $bot->replyText($event->getReplyToken(), "画像共有リンク   ${filepath} ");
+                
+                AddImageLink( $response, $event, $filepath );
+                
                 
                 continue;
 
@@ -214,10 +213,42 @@ foreach ($events as $event) {
          
      
    
-        $bot->replyText($event->getReplyToken(), "その他メッセージ　  line://nv/location ");
+        $bot->replyText($event->getReplyToken(), "その他メッセージ　  line://nv/location ");s
         
    }
 
+
+
+function  AddImageLink( $response, $event, $filepath ){
+
+    $spreadsheetId = getenv('SPREADSHEET_ID');
+
+    $client = getClient();
+
+
+    $client->addScope(Google_Service_Sheets::SPREADSHEETS);
+    $client->setApplicationName('AddSheet');
+
+
+        
+    $service = new Google_Service_Sheets($client);
+
+    
+    $date    = date('Y/m/d h:i:s');
+    
+    $user = "kayama";
+    $kind = "image";
+    
+    $url = $filepathe;
+    $comment = $event->getTitle();
+    
+     $value = new Google_Service_Sheets_ValueRange();
+     $value->setValues([ 'values' => [ $date, $user, $kind, $url, $comment ] ]);
+     $resp = service->spreadsheets_values->append($this->spreadsheetId, 'シート1!A1', $value, [ 'valueInputOption' => 'USER_ENTERED' ] );
+
+    var_dump($resp);
+    
+}
 
 
 //  $kind   'image'  'video'  'voice'
@@ -362,17 +393,17 @@ function getClient() {
    $client->setAccessType('offline');
     
 
-   $token_str = getenv('tokenstr');
+  // $token_str = getenv('tokenstr');
   
-        $accessToken = json_decode($token_str, true);
-        $client->setAccessToken($accessToken);
+  //      $accessToken = json_decode($token_str, true);
+   //     $client->setAccessToken($accessToken);
    
  
 
     // Refresh the token if it's expired.
-    if ($client->isAccessTokenExpired()) {
-        $client->fetchAccessTokenWithRefreshToken( getenv('refreshtoken'));
+ //   if ($client->isAccessTokenExpired()) {
+ //       $client->fetchAccessTokenWithRefreshToken( getenv('refreshtoken'));
 
-    }
+  //  }
     return $client;
 }
