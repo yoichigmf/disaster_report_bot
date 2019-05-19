@@ -20,6 +20,11 @@ $sign = $_SERVER["HTTP_" . \LINE\LINEBot\Constant\HTTPHeader::LINE_SIGNATURE];
 $events = $bot->parseEventRequest(file_get_contents('php://input'), $sign);
 
 
+$client = getClient();
+
+
+
+$service = new Google_Service_Sheets($client);
 
 
 $page = 1;
@@ -335,3 +340,39 @@ function upload_contents( $kind , $ext, $content_type, $response ) {  // ファ�
 
         return $link;
     }
+    
+    
+
+function getClient() {
+    $client = new Google_Client();
+    
+    $client->addScope(Google_Service_Sheets::SPREADSHEETS);
+    $client->setApplicationName('AddSheet');
+
+ //   $client->setApplicationName(getenv('APPLICATION_NAME'));
+ //   $client->setScopes(SCOPES);
+    
+    
+   
+   $auth_str = getenv('authstr');
+   
+   $auth_config = json_decode($auth_string, true);
+   
+   $client->setAuthConfig($auth_config);
+   $client->setAccessType('offline');
+    
+
+   $token_str = getenv('tokenstr');
+  
+        $accessToken = json_decode($token_str, true);
+        $client->setAccessToken($accessToken);
+   
+ 
+
+    // Refresh the token if it's expired.
+    if ($client->isAccessTokenExpired()) {
+        $client->fetchAccessTokenWithRefreshToken( getenv('refreshtoken'));
+
+    }
+    return $client;
+}
