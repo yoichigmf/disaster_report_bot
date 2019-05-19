@@ -207,9 +207,9 @@ function getClient() {
 
     $client->setApplicationName('AddSheet');
     
-    if ($client->getAuth()->isAccessTokenExpired()) {
-        $client->getAuth()->refreshTokenWithAssertion();
-    }
+  //  if ($client->getAuth()->isAccessTokenExpired()) {
+   //     $client->getAuth()->refreshTokenWithAssertion();
+  //  }
     return $client;
     
  
