@@ -22,6 +22,44 @@ $events = $bot->parseEventRequest(file_get_contents('php://input'), $sign);
 date_default_timezone_set('Asia/Tokyo');
 
 
+
+
+function  AddFileLink( $response, $event, string $filepath, string $kind ){
+
+    $spreadsheetId = getenv('SPREADSHEET_ID');
+
+    $client = getClient();
+
+
+    $client->addScope(Google_Service_Sheets::SPREADSHEETS);
+    $client->setApplicationName('AddSheet');
+
+
+        
+    $service = new Google_Service_Sheets($client);
+
+    
+    $date    = date('Y/m/d h:i:s');
+    
+    $user = "kayama";
+   
+    
+    $url = $filepath;
+    $comment = $event->originalContentUrl;
+    
+     $value = new Google_Service_Sheets_ValueRange();
+     $value->setValues([ 'values' => [ $date, $user, $kind, $url ,$comment ] ]);
+     $resp = $service->spreadsheets_values->append($spreadsheetId , 'シート1!A1', $value, [ 'valueInputOption' => 'USER_ENTERED' ] );
+
+    var_dump($resp);
+    
+}
+
+
+
+
+
+
 function AddLocationLink( $response, $event ){
    $spreadsheetId = getenv('SPREADSHEET_ID');
 
@@ -299,9 +337,9 @@ foreach ($events as $event) {
           
                 $bot->replyText($event->getReplyToken(), "画像共有リンク   ${filepath} ");
                 
-                AddImageLink( $response, $event, $filepath );
+               //AddImageLink( $response, $event, $filepath );
                 
-                
+                AddFileLink( $response, $event, $filepath, "image"  );
                 continue;
 
         
@@ -332,6 +370,8 @@ foreach ($events as $event) {
                  
           
                 $bot->replyText($event->getReplyToken(), "音声共有リンク   ${filepath} ");
+                
+                AddFileLink( $response, $event, $filepath, "voice"  );
                 
                 continue;
 
@@ -366,6 +406,7 @@ foreach ($events as $event) {
           
                 $bot->replyText($event->getReplyToken(), "ビデオ共有リンク   ${filepath} ");
                 
+                   AddFileLink( $response, $event, $filepath, "video"  );
                 continue;
 
         
@@ -393,7 +434,8 @@ foreach ($events as $event) {
      
             $bot->replyText($event->getReplyToken(), "ファイルイベント   line://nv/location ");
      
-     
+                   
+           AddFileLink( $response, $event, $filepath, "file"  );
           continue;
           
         }
