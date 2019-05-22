@@ -67,10 +67,10 @@ function AddText( $response, $event ){
     $client->addScope(Google_Service_Sheets::SPREADSHEETS);
     $client->setApplicationName('AddSheet');
 
-   $title = $event->getTitle();
-   $address = $event->getAddress();
-   $latitude = strval (  $event->getLatitude());
-   $longitude = strval ( $event->getLongitude());
+   //$title = $event->getTitle();
+   //$address = $event->getAddress();
+  // $latitude = strval (  $event->getLatitude());
+  // $longitude = strval ( $event->getLongitude());
         
     $service = new Google_Service_Sheets($client);
 
