@@ -164,6 +164,47 @@ function  AddImageLink( $response, $event, string $filepath ){
 }
 
 
+
+
+function upload_contents_gdr( $kind , $ext, $mime_type, $folder_id, $response ) {  // ファイルのGoogle Driveアップロード
+
+          $filename = make_filename( $kind, $ext );
+
+// Get the API client and construct the service object.
+         $client = getClient();
+         $service = new Google_Service_Drive($client);
+
+$fileMetadata = new Google_Service_Drive_DriveFile(array(
+    'name' => $filename,
+    'parents' => array($folder_id),
+));
+
+ //   'mimeType' => 'image/jpeg',
+
+$content = $response->getRawBody();
+
+$file = $service->files->create($fileMetadata, array(
+    'data' => $content,
+    'mimeType' => $mime_type,
+    'uploadType' => 'multipart',
+    'fields' => 'id'));
+    
+    return $file->alternateLink;
+
+}
+
+function make_filename( $kind, $ext ){  //  make unique file name
+
+
+           $tempFilePath = tempnam('.', "${kind}-");
+           unlink($tempFilePath);
+           $filePath = $tempFilePath . ".${ext}";
+           $filename = basename($filePath);
+           
+           return $filename;
+}
+
+
 //  $kind   'image'  'video'  'voice'
 //  $ext    'jpg'    'mp4'    'mp4'
 //  $content_type  application/octet-stream
@@ -176,10 +217,9 @@ function upload_contents( $kind , $ext, $content_type, $response ) {  // ファ�
           $log->addWarning("upload contents in\n");
           
  //          file upload           
-           $tempFilePath = tempnam('.', "${kind}-");
-           unlink($tempFilePath);
-           $filePath = $tempFilePath . ".${ext}";
-           $filename = basename($filePath);
+ 
+           
+           $filename = make_filename( $kind, $ext );
   
             $dropboxToken = getenv('DROPBOXACCESSTOKEN');
             
@@ -358,7 +398,7 @@ foreach ($events as $event) {
    
           
           
-    
+      
       if ($event instanceof \LINE\LINEBot\Event\MessageEvent\ImageMessage) {  //  イメージメッセージの場合
             
             $message_id = $event->getMessageId();
@@ -368,9 +408,10 @@ foreach ($events as $event) {
             if ($response->isSucceeded()) {
             
             
-
-                $filepath =  upload_contents( 'image' , 'jpg', 'application/octet-stream', $response );
-                 
+            
+          	   $image_folder_id = getenv('IMAGE_FOLDER_ID');
+               // $filepath =  upload_contents( 'image' , 'jpg', 'application/octet-stream', $response );
+                $filepath =  upload_contents_gdr( 'image' , 'jpg', 'image/jpeg', $image_folder_id , $response ) 
           
                 $bot->replyText($event->getReplyToken(), "画像共有リンク   ${filepath} ");
                 
