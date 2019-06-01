@@ -164,6 +164,9 @@ function  AddImageLink( $response, $event, string $filepath ){
 }
 
 
+define('GSCOPES', implode(' ', array(
+        Google_Service_Drive::DRIVE)
+));
 
 
 function upload_contents_gdr( $kind , $ext, $mime_type, $folder_id, $response ) {  // ファイルのGoogle Driveアップロード
@@ -173,8 +176,10 @@ function upload_contents_gdr( $kind , $ext, $mime_type, $folder_id, $response ) 
 // Get the API client and construct the service object.
          $client = getClient();
          
-         $client->setScopes(Google_Service_Drive::DRIVE);
+         $client->setScopes(GSCOPES);
          $service = new Google_Service_Drive($client);
+
+
 
 $fileMetadata = new Google_Service_Drive_DriveFile(array(
     'name' => $filename,
