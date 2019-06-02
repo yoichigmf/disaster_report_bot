@@ -187,7 +187,7 @@ function upload_contents_gdr( $kind , $ext, $mime_type, $folder_id, $response ) 
    
 $fileMetadata = new Google_Service_Drive_DriveFile(array(
     'name' => $filename,
-    'parents' => array($folder_id),
+    'parents' => array($folder_id)
 ));
 
  //   'mimeType' => 'image/jpeg',
