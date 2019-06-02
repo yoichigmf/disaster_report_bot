@@ -189,8 +189,9 @@ $fileMetadata = new Google_Service_Drive_DriveFile(array(
 
 $content = $response->getRawBody();
 
-var_dump($fileMetadata);
+//var_dump($fileMetadata);
 
+$service = new Google_Service_Drive($client);
 
 $file = $service->files->create($fileMetadata, array(
     'data' => $content,
