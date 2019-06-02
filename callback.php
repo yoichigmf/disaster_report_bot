@@ -163,10 +163,7 @@ function  AddImageLink( $response, $event, string $filepath ){
     
 }
 
-define('APPLICATION_NAME', 'Disaster report');
-define('GSCOPES', implode(' ', array(
-        Google_Service_Drive::DRIVE)
-));
+
 
 
 function upload_contents_gdr( $kind , $ext, $mime_type, $folder_id, $response ) {  // ファイルのGoogle Driveアップロード
@@ -174,12 +171,10 @@ function upload_contents_gdr( $kind , $ext, $mime_type, $folder_id, $response ) 
           $filename = make_filename( $kind, $ext );
 
 // Get the API client and construct the service object.
-         $client = getClient();
-         $client->setApplicationName(APPLICATION_NAME);        
+         $client = getClient_drive();
+         //$client->setApplicationName(APPLICATION_NAME);        
          
-         $client->setScopes(GSCOPES);
 
-         $service = new Google_Service_Drive($client);
 
 
    global $log;
@@ -187,7 +182,7 @@ function upload_contents_gdr( $kind , $ext, $mime_type, $folder_id, $response ) 
    
 $fileMetadata = new Google_Service_Drive_DriveFile(array(
     'name' => $filename,
-    'parents' => array($folder_id)
+    'parents' => array($folder_id),
 ));
 
  //   'mimeType' => 'image/jpeg',
@@ -343,27 +338,16 @@ function upload_contents( $kind , $ext, $content_type, $response ) {  // ファ�
 
 function getClient() {
 
-
- //   $client->setApplicationName(getenv('APPLICATION_NAME'));
- //   $client->setScopes(SCOPES);
-    
-    
    
    $auth_str = getenv('authstr');
    
    $json = json_decode($auth_str, true);
    
    
-  
-    
-    
-   
-    
      $client = new Google_Client();
      
     $client->setAuthConfig( $json );
     
-   // $client->setAssertionCredentials($credentials);
     
     $client->setScopes(Google_Service_Sheets::SPREADSHEETS);
 
@@ -371,9 +355,39 @@ function getClient() {
 
     $client->setApplicationName('AddSheet');
     
-  //  if ($client->getAuth()->isAccessTokenExpired()) {
-   //     $client->getAuth()->refreshTokenWithAssertion();
-  //  }
+    return $client;
+    
+ 
+}
+
+
+define('GSCOPES', implode(' ', array(
+        Google_Service_Drive::DRIVE)
+));
+
+
+function getClient_drive() {
+
+   
+   $auth_str = getenv('authstr');
+   
+   $json = json_decode($auth_str, true);
+   
+   
+     $client = new Google_Client();
+     
+    $client->setAuthConfig( $json );
+    
+    
+   $client->setScopes(GSCOPES);
+
+
+
+
+
+
+    $client->setApplicationName('upload contents');
+    
     return $client;
     
  
