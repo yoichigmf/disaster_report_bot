@@ -196,7 +196,7 @@ $content = $response->getRawBody();
 
 $file = $service->files->create($fileMetadata, array(
     'data' => $content,
-    'mimeType' => $mime_type,
+    'mimeType' => 'image/jpeg',
     'uploadType' => 'multipart',
     'fields' => 'id'));
     
