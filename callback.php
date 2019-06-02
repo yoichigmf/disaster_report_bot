@@ -182,7 +182,9 @@ function upload_contents_gdr( $kind , $ext, $mime_type, $folder_id, $response ) 
          $service = new Google_Service_Drive($client);
 
 
-
+   global $log;
+   $log->addWarning("file name ${filename}\n");
+   
 $fileMetadata = new Google_Service_Drive_DriveFile(array(
     'name' => $filename,
     'parents' => array($folder_id),
