@@ -194,6 +194,9 @@ $fileMetadata = new Google_Service_Drive_DriveFile(array(
 
 $content = $response->getRawBody();
 
+var_dump($fileMetadata);
+
+
 $file = $service->files->create($fileMetadata, array(
     'data' => $content,
     'mimeType' => 'image/jpeg',
