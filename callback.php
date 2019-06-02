@@ -189,16 +189,19 @@ $fileMetadata = new Google_Service_Drive_DriveFile(array(
 
 $content = $response->getRawBody();
 
-//var_dump($fileMetadata);
+   $log->addWarning("get Raw\n");
+var_dump($fileMetadata);
 
 $service = new Google_Service_Drive($client);
 
+   $log->addWarning("make service \n");
 $file = $service->files->create($fileMetadata, array(
     'data' => $content,
     'mimeType' => 'image/jpeg',
     'uploadType' => 'multipart',
     'fields' => 'id'));
     
+       $log->addWarning("make file \n");
     return $file->alternateLink;
 
 }
