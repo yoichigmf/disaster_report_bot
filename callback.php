@@ -442,8 +442,8 @@ foreach ($events as $event) {
             
             
           	   $image_folder_id = getenv('IMAGE_FOLDER_ID');
-               // $filepath =  upload_contents( 'image' , 'jpg', 'application/octet-stream', $response );
-                $filepath =  upload_contents_gdr( 'image' , 'jpg', 'image/jpeg', $image_folder_id , $response );
+                $filepath =  upload_contents( 'image' , 'jpg', 'application/octet-stream', $response );
+               // $filepath =  upload_contents_gdr( 'image' , 'jpg', 'image/jpeg', $image_folder_id , $response );
           
                 $bot->replyText($event->getReplyToken(), "画像共有リンク   ${filepath} ");
                 
