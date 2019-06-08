@@ -388,9 +388,15 @@ function getClient_drive() {
 
     $accessToken = json_decode($token_str, true);
     
-     $client->setAccessToken($accessToken);
+    $client->setAccessToken($accessToken);
 
-
+ // Refresh the token if it's expired.
+    if ($client->isAccessTokenExpired()) {
+    
+        $refresh_token= getenv('token_refresh');
+        $client->fetchAccessTokenWithRefreshToken( $refresh_token );
+   
+    }
 
 
     
