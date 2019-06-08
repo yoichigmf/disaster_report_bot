@@ -195,14 +195,21 @@ var_dump($fileMetadata);
 $service = new Google_Service_Drive($client);
 
    $log->addWarning("make service \n");
-$file = $service->files->create($fileMetadata, array(
+   $file = $service->files->create($fileMetadata, array(
     'data' => $content,
     'mimeType' => 'image/jpeg',
     'uploadType' => 'multipart',
     'fields' => 'id'));
     
-       $log->addWarning("make file \n");
-    return $file->alternateLink;
+    $file_id = $file->getId();
+    
+    $tfileurl = "https://drive.google.com/uc?id=${file_id}";
+    //$tfilename = $file->alternateLink;
+    $log->addWarning("make file ${tfileurl}\n");
+    
+    
+
+    return $tfileurl;
 
 }
 
