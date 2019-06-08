@@ -372,25 +372,27 @@ define('GSCOPES', implode(' ', array(
 
 function getClient_drive() {
 
-   
-   $auth_str = getenv('authstr');
+    $client = new Google_Client();
+ 
+    $client->setApplicationName('upload contents');
+    $client->setScopes(GSCOPES);
+   $auth_str = getenv('authstr_drv');
    
    $json = json_decode($auth_str, true);
    
-   
-     $client = new Google_Client();
+  
      
     $client->setAuthConfig( $json );
     
+    $token_str = getenv('token_drv');
+
+    $accessToken = json_decode($token_str, true);
     
-   $client->setScopes(GSCOPES);
+     $client->setAccessToken($accessToken);
 
 
 
 
-
-
-    $client->setApplicationName('upload contents');
     
     return $client;
     
@@ -442,8 +444,8 @@ foreach ($events as $event) {
             
             
           	   $image_folder_id = getenv('IMAGE_FOLDER_ID');
-                $filepath =  upload_contents( 'image' , 'jpg', 'application/octet-stream', $response );
-               // $filepath =  upload_contents_gdr( 'image' , 'jpg', 'image/jpeg', $image_folder_id , $response );
+               // $filepath =  upload_contents( 'image' , 'jpg', 'application/octet-stream', $response );
+                $filepath =  upload_contents_gdr( 'image' , 'jpg', 'image/jpeg', $image_folder_id , $response );
           
                 $bot->replyText($event->getReplyToken(), "画像共有リンク   ${filepath} ");
                 
