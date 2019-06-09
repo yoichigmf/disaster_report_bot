@@ -427,6 +427,11 @@ foreach ($events as $event) {
 
             $message_id = $event->getMessageId();
 
+            $uid = $event->{"source"}->{"userId"};
+
+
+            $log->addWarning("user id 1  ${uid}\n");
+
             $response = $bot->getMessageContent($message_id );
 
             if ($response->isSucceeded()) {
