@@ -41,11 +41,17 @@ function  AddFileLink( $response, $event, string $filepath, string $kind ){
 
     $date    = date('Y/m/d h:i:s');
 
+    $uid = $event['source']['userId'];
+
+    global $log;
+    $log->addWarning("user id ${uid}\n");
+
+
     $user = "kayama";
 
-
+    $comment = "";
     $url = $filepath;
-    $comment = $event->originalContentUrl;
+    //$comment = $event->originalContentUrl;
 
      $value = new Google_Service_Sheets_ValueRange();
      $value->setValues([ 'values' => [ $date, $user, $kind, $url ,$comment ] ]);
@@ -132,41 +138,6 @@ function AddLocationLink( $response, $event ){
 }
 
 
-function  AddImageLink( $response, $event, string $filepath ){
-
-    $spreadsheetId = getenv('SPREADSHEET_ID');
-
-    $client = getClient();
-
-
-    $client->addScope(Google_Service_Sheets::SPREADSHEETS);
-    $client->setApplicationName('AddSheet');
-
-
-
-    $service = new Google_Service_Sheets($client);
-
-
-    $date    = date('Y/m/d h:i:s');
-
-    $uid = $event['source']['userId'];
-
-    global $log;
-    $log->addWarning("user id ${uid}\n");
-
-    $user = "kayama";
-    $kind = "image";
-
-    $url = $filepath;
-    $comment = $event->originalContentUrl;
-
-     $value = new Google_Service_Sheets_ValueRange();
-     $value->setValues([ 'values' => [ $date, $user, $kind, $url ,$comment ] ]);
-     $resp = $service->spreadsheets_values->append($spreadsheetId , 'シート1!A1', $value, [ 'valueInputOption' => 'USER_ENTERED' ] );
-
-    var_dump($resp);
-
-}
 
 
 
