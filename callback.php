@@ -427,7 +427,7 @@ foreach ($events as $event) {
 
             $message_id = $event->getMessageId();
 
-            $uid = $event->{"source"}->{"userId"};
+            $uid = $event->{"source"};
 
 
             $log->addWarning("user id 1  ${uid}\n");
