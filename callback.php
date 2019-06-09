@@ -35,24 +35,24 @@ function  AddFileLink( $response, $event, string $filepath, string $kind ){
     $client->setApplicationName('AddSheet');
 
 
-        
+
     $service = new Google_Service_Sheets($client);
 
-    
+
     $date    = date('Y/m/d h:i:s');
-    
+
     $user = "kayama";
-   
-    
+
+
     $url = $filepath;
     $comment = $event->originalContentUrl;
-    
+
      $value = new Google_Service_Sheets_ValueRange();
      $value->setValues([ 'values' => [ $date, $user, $kind, $url ,$comment ] ]);
      $resp = $service->spreadsheets_values->append($spreadsheetId , 'シート1!A1', $value, [ 'valueInputOption' => 'USER_ENTERED' ] );
 
     var_dump($resp);
-    
+
 }
 
 
@@ -71,26 +71,26 @@ function AddText( $response, $event ){
    //$address = $event->getAddress();
   // $latitude = strval (  $event->getLatitude());
   // $longitude = strval ( $event->getLongitude());
-        
+
     $service = new Google_Service_Sheets($client);
 
-    
+
     $date    = date('Y/m/d h:i:s');
-    
+
     $user = "kayama";
     $kind = "text";
-    
-  
-    
+
+
+
     $url = "";
     $comment = $event->getText();
-    
+
      $value = new Google_Service_Sheets_ValueRange();
      $value->setValues([ 'values' => [ $date, $user, $kind, $url ,$comment ] ]);
      $resp = $service->spreadsheets_values->append($spreadsheetId , 'シート1!A1', $value, [ 'valueInputOption' => 'USER_ENTERED' ] );
 
     var_dump($resp);
-    
+
 
 }
 
@@ -110,24 +110,24 @@ function AddLocationLink( $response, $event ){
    $address = $event->getAddress();
    $latitude = strval (  $event->getLatitude());
    $longitude = strval ( $event->getLongitude());
-        
+
     $service = new Google_Service_Sheets($client);
 
-    
+
     $date    = date('Y/m/d h:i:s');
-    
+
     $user = "kayama";
     $kind = "location";
-    
+
     $url = "";
     $comment = "";
-    
+
      $value = new Google_Service_Sheets_ValueRange();
      $value->setValues([ 'values' => [ $date, $user, $kind, $url ,$comment, $latitude, $longitude ] ]);
      $resp = $service->spreadsheets_values->append($spreadsheetId , 'シート1!A1', $value, [ 'valueInputOption' => 'USER_ENTERED' ] );
 
     var_dump($resp);
-    
+
 
 }
 
@@ -143,24 +143,29 @@ function  AddImageLink( $response, $event, string $filepath ){
     $client->setApplicationName('AddSheet');
 
 
-        
+
     $service = new Google_Service_Sheets($client);
 
-    
+
     $date    = date('Y/m/d h:i:s');
-    
+
+    $uid = $event['source']['userId'];
+
+    global $log;
+    $log->addWarning("user id ${uid}\n");
+
     $user = "kayama";
     $kind = "image";
-    
+
     $url = $filepath;
     $comment = $event->originalContentUrl;
-    
+
      $value = new Google_Service_Sheets_ValueRange();
      $value->setValues([ 'values' => [ $date, $user, $kind, $url ,$comment ] ]);
      $resp = $service->spreadsheets_values->append($spreadsheetId , 'シート1!A1', $value, [ 'valueInputOption' => 'USER_ENTERED' ] );
 
     var_dump($resp);
-    
+
 }
 
 
@@ -172,14 +177,14 @@ function upload_contents_gdr( $kind , $ext, $mime_type, $folder_id, $response ) 
 
 // Get the API client and construct the service object.
          $client = getClient_drive();
-         //$client->setApplicationName(APPLICATION_NAME);        
-         
+         //$client->setApplicationName(APPLICATION_NAME);
+
 
 
 
    global $log;
    $log->addWarning("file name ${filename}\n");
-   
+
 $fileMetadata = new Google_Service_Drive_DriveFile(array(
     'name' => $filename,
     'parents' => array($folder_id),
@@ -200,14 +205,14 @@ $service = new Google_Service_Drive($client);
     'mimeType' => 'image/jpeg',
     'uploadType' => 'multipart',
     'fields' => 'id'));
-    
+
     $file_id = $file->getId();
-    
+
     $tfileurl = "https://drive.google.com/uc?id=${file_id}";
     //$tfilename = $file->alternateLink;
     $log->addWarning("make file ${tfileurl}\n");
-    
-    
+
+
 
     return $tfileurl;
 
@@ -220,7 +225,7 @@ function make_filename( $kind, $ext ){  //  make unique file name
            unlink($tempFilePath);
            $filePath = $tempFilePath . ".${ext}";
            $filename = basename($filePath);
-           
+
            return $filename;
 }
 
@@ -232,41 +237,41 @@ function make_filename( $kind, $ext ){  //  make unique file name
 
 function upload_contents( $kind , $ext, $content_type, $response ) {  // ファイルのDropBoxアップロード
           global $log;
-          
-          
+
+
           $log->addWarning("upload contents in\n");
-          
- //          file upload           
- 
-           
+
+ //          file upload
+
+
            $filename = make_filename( $kind, $ext );
-  
+
             $dropboxToken = getenv('DROPBOXACCESSTOKEN');
-            
-  
-             $url = "https://content.dropboxapi.com/2/files/upload";      
+
+
+             $url = "https://content.dropboxapi.com/2/files/upload";
              $tgfilename = "/disasterinfo/${kind}/${filename}";
-             
+
              $filearg = "Dropbox-API-Arg: {\"path\":\"${tgfilename}\"}";
-        
+
               $auth = "Authorization: Bearer ${dropboxToken}";
                   $headers = array(
                        $auth , //(2)
                           $filearg,//(3)
                            "Content-Type: ${content_type}"
                     );
-        
-        
-        
+
+
+
             $log->addWarning("file name ${tgfilename}\n");
-            
-        
+
+
                  $options = array(
                           CURLOPT_RETURNTRANSFER => true,
                           CURLOPT_URL => $url,
                            CURLOPT_HTTPHEADER => $headers,
                            CURLOPT_POST => true,
-                            CURLOPT_POSTFIELDS => $response->getRawBody()     
+                            CURLOPT_POSTFIELDS => $response->getRawBody()
                        );
 
                    $ch = curl_init();
@@ -274,16 +279,16 @@ function upload_contents( $kind , $ext, $content_type, $response ) {  // ファ�
                   curl_setopt_array($ch, $options);
 
                  $result = curl_exec($ch);
-                 
+
                  $log->addWarning("result ${result}\n");
-                 
-                 
+
+
                   curl_close($ch);
-                 
+
                   $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-                 
-                 
-                 
+
+
+
                  $path = createSharedLink( $tgfilename );
                  return $path;
 
@@ -296,8 +301,8 @@ function upload_contents( $kind , $ext, $content_type, $response ) {  // ファ�
         $ch = curl_init();
 
          $dropboxToken = getenv('DROPBOXACCESSTOKEN');
-           
-           
+
+
         $headers = array(
             'Authorization: Bearer ' . $dropboxToken,
             'Content-Type: application/json',
@@ -344,31 +349,31 @@ function upload_contents( $kind , $ext, $content_type, $response ) {  // ファ�
 
         return $link;
     }
-    
-    
 
+
+//  Google Spread Sheet 用クライアント作成
 function getClient() {
 
-   
+
    $auth_str = getenv('authstr');
-   
+
    $json = json_decode($auth_str, true);
-   
-   
+
+
      $client = new Google_Client();
-     
+
     $client->setAuthConfig( $json );
-    
-    
+
+
     $client->setScopes(Google_Service_Sheets::SPREADSHEETS);
 
 
 
     $client->setApplicationName('AddSheet');
-    
+
     return $client;
-    
- 
+
+
 }
 
 
@@ -376,40 +381,40 @@ define('GSCOPES', implode(' ', array(
         Google_Service_Drive::DRIVE)
 ));
 
-
+//   Google Drive 用クライアントの作成
 function getClient_drive() {
 
     $client = new Google_Client();
- 
+
     $client->setApplicationName('upload contents');
     $client->setScopes(GSCOPES);
    $auth_str = getenv('authstr_drv');
-   
+
    $json = json_decode($auth_str, true);
-   
-  
-     
+
+
+
     $client->setAuthConfig( $json );
-    
+
     $token_str = getenv('token_drv');
 
     $accessToken = json_decode($token_str, true);
-    
+
     $client->setAccessToken($accessToken);
 
  // Refresh the token if it's expired.
     if ($client->isAccessTokenExpired()) {
-    
+
         $refresh_token= getenv('token_refresh');
         $client->fetchAccessTokenWithRefreshToken( $refresh_token );
-   
+
     }
 
 
-    
+
     return $client;
-    
- 
+
+
 }
 
 
@@ -418,7 +423,6 @@ $page = 1;
 $action ="";
 
 $score = -1;
-//require "menus.php"; //menus.phpのプログラムを使うよ
 
 
 
@@ -427,194 +431,197 @@ foreach ($events as $event) {
 
 
    if ($event instanceof \LINE\LINEBot\Event\MessageEvent\LocationMessage) {  // Location event
-   
-    
+
+
         $title = $event->getTitle();
         $address = $event->getAddress();
         $latitude = $event->getLatitude();
         $longitude = $event->getLongitude();
-        
-        
+
+
          $bot->replyText($event->getReplyToken(), "ロケーションイベント ${title} ${address} ${latitude} ${longitude}");
-        
+
         AddLocationLink( $response, $event );
          continue;
- 
-   
+
+
       }
-   
-          
-          
-      
+
+
+
+
       if ($event instanceof \LINE\LINEBot\Event\MessageEvent\ImageMessage) {  //  イメージメッセージの場合
-            
+
             $message_id = $event->getMessageId();
-            
+
             $response = $bot->getMessageContent($message_id );
-            
+
             if ($response->isSucceeded()) {
-            
-            
-            
+
+
+
           	   $image_folder_id = getenv('IMAGE_FOLDER_ID');
+
+               //   Dropboxにデータを格納する場合
                // $filepath =  upload_contents( 'image' , 'jpg', 'application/octet-stream', $response );
+
+               //   Google Drive にデータを格納する場合
                 $filepath =  upload_contents_gdr( 'image' , 'jpg', 'image/jpeg', $image_folder_id , $response );
-          
+
                 $bot->replyText($event->getReplyToken(), "画像共有リンク   ${filepath} ");
-                
+
                //AddImageLink( $response, $event, $filepath );
-                
+
                 AddFileLink( $response, $event, $filepath, "image"  );
                 continue;
 
-        
+
 				} else {
   					  error_log($response->getHTTPStatus() . ' ' . $response->getRawBody());
 			}
 
-     
-     
+
+
             $bot->replyText($event->getReplyToken(), "イメージイベント   ${message_id} 共有失敗");
-     
-     
+
+
           continue;
-          
+
         }
-        
-      
-      
+
+
+
        if ($event instanceof \LINE\LINEBot\Event\MessageEvent\AudioMessage) {  //  オーディオメッセージの場合  debug
-            
+
              $message_id = $event->getMessageId();
-            
+
             $response = $bot->getMessageContent($message_id );
-            
+
             if ($response->isSucceeded()) {
-          
+
                  $filepath =  upload_contents( 'voice' , 'mp4', 'application/octet-stream', $response );
-                 
-          
+
+
                 $bot->replyText($event->getReplyToken(), "音声共有リンク   ${filepath} ");
-                
+
                 AddFileLink( $response, $event, $filepath, "voice"  );
-                
+
                 continue;
 
-        
+
 				} else {
   					  error_log($response->getHTTPStatus() . ' ' . $response->getRawBody());
 			}
 
-     
-     
-     
-     
+
+
+
+
             $bot->replyText($event->getReplyToken(), "音声イベント   共有エラー");
-     
-     
+
+
           continue;
-          
+
         }
-        
-      
+
+
        if ($event instanceof \LINE\LINEBot\Event\MessageEvent\VideoMessage) {  //  ビデオメッセージの場合
-            
-              
+
+
              $message_id = $event->getMessageId();
-            
+
             $response = $bot->getMessageContent($message_id );
-            
+
             if ($response->isSucceeded()) {
-          
+
                  $filepath =  upload_contents( 'video' , 'mp4', 'application/octet-stream', $response );
-                 
-          
+
+
                 $bot->replyText($event->getReplyToken(), "ビデオ共有リンク   ${filepath} ");
-                
+
                    AddFileLink( $response, $event, $filepath, "video"  );
                 continue;
 
-        
+
 				} else {
   					  error_log($response->getHTTPStatus() . ' ' . $response->getRawBody());
 			}
 
-     
-     
-     
-     
+
+
+
+
             $bot->replyText($event->getReplyToken(), "ビデオイベント   共有エラー");
-     
-     
+
+
           continue;
-          
-              
-          
+
+
+
         }
-            
+
     if ($event instanceof \LINE\LINEBot\Event\MessageEvent\FileMessage) {  //  ファイルメッセージの場合
-            
-            
-          
-     
+
+
+
+
             $bot->replyText($event->getReplyToken(), "ファイルイベント   line://nv/location ");
-     
-                   
+
+
            AddFileLink( $response, $event, $filepath, "file"  );
           continue;
-          
+
         }
-         
+
 
    if ($event instanceof \LINE\LINEBot\Event\JoinEvent) {  // Join event add
-   
-    
+
+
     $log->addWarning("join event!\n");
     $bot->replyText($event->getReplyToken(), "ありがとう");
      //  firstmessage( $bot, $event,0);
        continue;
-   
+
    }
-   
-   
+
+
   if (!($event instanceof \LINE\LINEBot\Event\MessageEvent) ||
       !($event instanceof \LINE\LINEBot\Event\MessageEvent\TextMessage)) {
-      
+
       if (!($event instanceof \LINE\LINEBot\Event\PostbackEvent) ) {
          $bot->replyText($event->getReplyToken(), " event");
-         
+
              continue;
       }
      else  {
-     
+
        $bot->replyText($event->getReplyToken(), "post back event");
          continue;
         }
-     
+
       }
-    
- 
- 
+
+
+
      if ($event instanceof \LINE\LINEBot\Event\MessageEvent\TextMessage) {  //  テキストメッセージの場合
             $tgText=$event->getText();
-            
-          
+
+
            AddText( $response, $event  );
-           
-                
-     
+
+
+
             $bot->replyText($event->getReplyToken(), "テキストメッセージ   line://nv/location  ${tgText}");
-     
-     
+
+
           continue;
-          
+
         }
-        
 
-         
-     
-   
+
+
+
+
         $bot->replyText($event->getReplyToken(), "その他メッセージ　  line://nv/location ");
-        
-   }
 
+   }
