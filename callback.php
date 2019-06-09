@@ -41,6 +41,7 @@ function  AddFileLink( $response, $event, string $filepath, string $kind ){
 
     $date    = date('Y/m/d h:i:s');
 
+   var_dump($event);
    $uid = $event->{"source"}->{"userId"};
 
 
