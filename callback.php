@@ -224,8 +224,8 @@ function make_filename( $kind, $ext ){  //  make unique file name
 //  $ext    'jpg'    'mp4'    'mp4'
 //  $content_type  application/octet-stream
 
-
-function upload_contents( $kind , $ext, $content_type, $response ) {  // ファイルのDropBoxアップロード
+//  content upload to dropbox
+function upload_contents( $kind , $ext, $content_type, $response ) {
           global $log;
 
 
@@ -284,6 +284,7 @@ function upload_contents( $kind , $ext, $content_type, $response ) {  // ファ�
 
 }
 
+// create shared link of dropbox content
  function createSharedLink($path)
     {
         $url = "https://api.dropboxapi.com/2/sharing/create_shared_link_with_settings";
@@ -452,12 +453,14 @@ foreach ($events as $event) {
 
 
 
-          	   $image_folder_id = getenv('IMAGE_FOLDER_ID');
+
 
                //   Dropboxにデータを格納する場合
                // $filepath =  upload_contents( 'image' , 'jpg', 'application/octet-stream', $response );
 
                //   Google Drive にデータを格納する場合
+
+              　$image_folder_id = getenv('IMAGE_FOLDER_ID');
                 $filepath =  upload_contents_gdr( 'image' , 'jpg', 'image/jpeg', $image_folder_id , $response );
 
                 $bot->replyText($event->getReplyToken(), "画像共有リンク   ${filepath} ");
@@ -491,8 +494,9 @@ foreach ($events as $event) {
 
             if ($response->isSucceeded()) {
 
-                 $filepath =  upload_contents( 'voice' , 'mp4', 'application/octet-stream', $response );
-
+                // $filepath =  upload_contents( 'voice' , 'mp4', 'application/octet-stream', $response );
+                 $audio_folder_id = getenv('AUDIO_FOLDER_ID');
+                 $filepath =  upload_contents_gdr( 'voice' , 'mp4', 'audio/mp4', $audio_folder_id , $response );
 
                 $bot->replyText($event->getReplyToken(), "音声共有リンク   ${filepath} ");
 
@@ -526,8 +530,9 @@ foreach ($events as $event) {
 
             if ($response->isSucceeded()) {
 
-                 $filepath =  upload_contents( 'video' , 'mp4', 'application/octet-stream', $response );
-
+                // $filepath =  upload_contents( 'video' , 'mp4', 'application/octet-stream', $response );
+                 $video_folder_id = getenv('VIDEO_FOLDER_ID');
+                 $filepath =  upload_contents_gdr( 'video' , 'mp4', 'video/mp4', $audio_folder_id , $response );
 
                 $bot->replyText($event->getReplyToken(), "ビデオ共有リンク   ${filepath} ");
 
@@ -570,7 +575,7 @@ foreach ($events as $event) {
 
 
     $log->addWarning("join event!\n");
-    $bot->replyText($event->getReplyToken(), "ありがとう");
+    $bot->replyText($event->getReplyToken(), "ありがとうございます");
      //  firstmessage( $bot, $event,0);
        continue;
 
