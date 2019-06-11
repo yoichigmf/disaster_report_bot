@@ -41,8 +41,9 @@ function  AddFileLink( $response, $event, string $filepath, string $kind ){
 
     $date    = date('Y/m/d h:i:s');
 
-   var_dump($event);
-   $uid = $event->{"source"}->{"userId"};
+   //var_dump($event);
+   $uid = $event->getUserId();
+
 
 
     global $log;
@@ -427,7 +428,7 @@ foreach ($events as $event) {
 
             $message_id = $event->getMessageId();
 
-            $uid = $event->{"source"};
+            $uid = $event->getUserId();
 
 
             $log->addWarning("user id 1  ${uid}\n");
