@@ -486,9 +486,9 @@ foreach ($events as $event) {
 
             if ($response->isSucceeded()) {
 
-                // $filepath =  upload_contents( 'voice' , 'mp4', 'application/octet-stream', $response );
-                 $audio_folder_id = getenv('AUDIO_FOLDER_ID');
-                 $filepath =  upload_contents_gdr( 'voice' , 'mp4', 'audio/mp4', $audio_folder_id , $response );
+                 $filepath =  upload_contents( 'voice' , 'mp4', 'application/octet-stream', $response );
+                // $audio_folder_id = getenv('AUDIO_FOLDER_ID');
+                // $filepath =  upload_contents_gdr( 'voice' , 'mp4', 'audio/mp4', $audio_folder_id , $response );
 
                 $bot->replyText($event->getReplyToken(), "音声共有リンク   ${filepath} ");
 
@@ -522,9 +522,9 @@ foreach ($events as $event) {
 
             if ($response->isSucceeded()) {
 
-                // $filepath =  upload_contents( 'video' , 'mp4', 'application/octet-stream', $response );
-                 $video_folder_id = getenv('VIDEO_FOLDER_ID');
-                 $filepath =  upload_contents_gdr( 'video' , 'mp4', 'video/mp4', $audio_folder_id , $response );
+                 $filepath =  upload_contents( 'video' , 'mp4', 'application/octet-stream', $response );
+                // $video_folder_id = getenv('VIDEO_FOLDER_ID');
+                // $filepath =  upload_contents_gdr( 'video' , 'mp4', 'video/mp4', $audio_folder_id , $response );
 
                 $bot->replyText($event->getReplyToken(), "ビデオ共有リンク   ${filepath} ");
 
@@ -553,6 +553,7 @@ foreach ($events as $event) {
 
 
 
+           $filepath =  upload_contents( 'file' , 'bin', 'application/octet-stream', $response );
 
             $bot->replyText($event->getReplyToken(), "ファイルイベント   line://nv/location ");
 
