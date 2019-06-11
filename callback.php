@@ -22,6 +22,25 @@ $events = $bot->parseEventRequest(file_get_contents('php://input'), $sign);
 date_default_timezone_set('Asia/Tokyo');
 
 
+function GetUserName( $event ) {
+  $uid = $event->getUserId();
+
+   global $log;
+   global $httpClient;
+
+   $bot2 = new \LINE\LINEBot($httpClient, ['channelSecret' => getenv('LineMessageAPIChannelSecret')]);
+
+   $response = $bot2->getProfile($uid);
+
+   $profile = $response->getJSONDecodedBody();
+
+   $username = $profile['displayName'];
+
+   $log->addWarning("user name ${username}\n");
+
+   return $username;
+
+}
 
 
 function  AddFileLink( $response, $event, string $filepath, string $kind ){
@@ -42,15 +61,10 @@ function  AddFileLink( $response, $event, string $filepath, string $kind ){
     $date    = date('Y/m/d h:i:s');
 
    //var_dump($event);
-   $uid = $event->getUserId();
 
 
-
-    global $log;
-    $log->addWarning("user id ${uid}\n");
-
-
-    $user = "kayama";
+     //  ユーザ名の取得
+    $user = GetUserName($event);
 
     $comment = "";
     $url = $filepath;
@@ -86,7 +100,8 @@ function AddText( $response, $event ){
 
     $date    = date('Y/m/d h:i:s');
 
-    $user = "kayama";
+    //  ユーザ名の取得
+   $user = GetUserName($event);
     $kind = "text";
 
 
@@ -125,7 +140,8 @@ function AddLocationLink( $response, $event ){
 
     $date    = date('Y/m/d h:i:s');
 
-    $user = "kayama";
+    //  ユーザ名の取得
+   $user = GetUserName($event);
     $kind = "location";
 
     $url = "";
@@ -428,10 +444,7 @@ foreach ($events as $event) {
 
             $message_id = $event->getMessageId();
 
-            $uid = $event->getUserId();
 
-
-            $log->addWarning("user id 1  ${uid}\n");
 
             $response = $bot->getMessageContent($message_id );
 
