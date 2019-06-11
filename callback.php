@@ -452,20 +452,12 @@ foreach ($events as $event) {
             if ($response->isSucceeded()) {
 
 
-
-
-
-               //   Dropboxにデータを格納する場合
-               // $filepath =  upload_contents( 'image' , 'jpg', 'application/octet-stream', $response );
-
-
-              　$image_folder_id = getenv('IMAGE_FOLDER_ID');
+              $image_folder_id = getenv('IMAGE_FOLDER_ID');
 
                 $filepath =  upload_contents_gdr( 'image' , 'jpg', 'image/jpeg', $image_folder_id , $response );
 
                 $bot->replyText($event->getReplyToken(), "画像共有リンク   ${filepath} ");
 
-               //AddImageLink( $response, $event, $filepath );
 
                 AddFileLink( $response, $event, $filepath, "image"  );
                 continue;
