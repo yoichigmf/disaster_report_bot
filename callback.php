@@ -81,7 +81,7 @@ function  AddFileLink( $response, $event, string $filepath, string $kind ){
 
 
 
-function AddText( $response, $event ){
+function AddText( $event ){
    $spreadsheetId = getenv('SPREADSHEET_ID');
 
     $client = getClient();
@@ -145,7 +145,7 @@ function AddLocationLink( $response, $event ){
     $kind = "location";
 
     $url = "";
-    $comment = "";
+    $comment = "${title} ${address}";
 
      $value = new Google_Service_Sheets_ValueRange();
      $value->setValues([ 'values' => [ $date, $user, $kind, $url ,$comment, $latitude, $longitude ] ]);
@@ -600,11 +600,11 @@ foreach ($events as $event) {
             $tgText=$event->getText();
 
 
-           AddText( $response, $event  );
+           AddText(  $event  );
 
 
 
-            $bot->replyText($event->getReplyToken(), "テキストメッセージ   line://nv/location  ${tgText}");
+            $bot->replyText($event->getReplyToken(), "テキストメッセージ    ${tgText}");
 
 
           continue;
@@ -615,6 +615,6 @@ foreach ($events as $event) {
 
 
 
-        $bot->replyText($event->getReplyToken(), "その他メッセージ　  line://nv/location ");
+        $bot->replyText($event->getReplyToken(), "その他メッセージ　   ");
 
    }
