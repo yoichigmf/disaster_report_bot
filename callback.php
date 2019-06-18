@@ -467,7 +467,7 @@ $jsonArray["config"]["sampleRateHertz"] = 16000;
 $jsonArray["config"]["languageCode"] = "ja-JP";
 $jsonArray["config"]["enableWordTimeOffsets"] = false;
 
-$apikey = ggetenv("SPEECHAPIKEY");
+$apikey = getenv("SPEECHAPIKEY");
 
 
 $curl = curl_init();
@@ -485,8 +485,9 @@ curl_setopt($curl, CURLOPT_HEADER, true);
     
    $result = json_decode($body, true); 
 
-   // $transtext = $result["results"][0]["alternatives"][0]["transcript"];
-    rerurn "sample";
+   $transtext = $result["results"][0]["alternatives"][0]["transcript"];
+
+   return $transtext;
 }
 
 
