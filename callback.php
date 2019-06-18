@@ -600,14 +600,14 @@ foreach ($events as $event) {
                 
                 //  flac ファイルのテキスト変換
                 
-                $returntext = getTextFromAudio( $tflc );
+                $voicetext = getTextFromAudio( $tflc );
 
 
                 unlink( $tflc );
                 
-                $bot->replyText($event->getReplyToken(), "音声共有リンク   ${filepath} ${returntext}");
+                $bot->replyText($event->getReplyToken(), "音声共有リンク   ${filepath} ${voicetext}");
 
-                AddAudioFileLink( $response, $event, $filepath, "voice" ,${returntext} );
+                AddAudioFileLink( $response, $event, $filepath, "voice" ,${voicetext} );
 
                 continue;
 
