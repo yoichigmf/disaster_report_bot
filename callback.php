@@ -460,7 +460,10 @@ function getClient_drive() {
 //  flac オーディオファイルからテキストを取得する
 function getTextFromAudio( $tflc ){
 
+       global $log;
 
+
+  
 $jsonArray = array();
 $jsonArray["config"]["encoding"] = "FLAC";
 $jsonArray["config"]["sampleRateHertz"] = 16000;
@@ -482,6 +485,8 @@ curl_setopt($curl, CURLOPT_HEADER, true);
     $headerSize = curl_getinfo($curl, CURLINFO_HEADER_SIZE); 
     $header = substr($response, 0, $headerSize);
     $body = substr($response, $headerSize);
+    
+    $log->addWarning("body --> ${body}\n");
     
    $result = json_decode($body, true); 
 
