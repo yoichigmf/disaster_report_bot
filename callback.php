@@ -578,8 +578,9 @@ foreach ($events as $event) {
                 //  mp4 ファイルの保存
                 $tmp4 = make_filename_path( "voice", "mp4" );
 
+                $fcontents = $response->getRawBody();
                 
-                file_put_contents ( $tmp4, $response->getRawBody() ) ；
+                file_put_contents( $tmp4, $fcontents );
                 
                 
                 $tflc = make_filename_path( "voice", "flac" );
