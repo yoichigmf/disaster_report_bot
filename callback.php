@@ -43,6 +43,43 @@ function GetUserName( $event ) {
 }
 
 
+
+function  AddAudioFileLink( $response, $event, string $filepath, string $kind, string $trtext ){
+
+    $spreadsheetId = getenv('SPREADSHEET_ID');
+
+    $client = getClient();
+
+
+    $client->addScope(Google_Service_Sheets::SPREADSHEETS);
+    $client->setApplicationName('AddSheet');
+
+
+
+    $service = new Google_Service_Sheets($client);
+
+
+    $date    = date('Y/m/d h:i:s');
+
+   //var_dump($event);
+
+
+     //  ユーザ名の取得
+    $user = GetUserName($event);
+
+    $comment = $trtext;
+    $url = $filepath;
+    //$comment = $event->originalContentUrl;
+
+     $value = new Google_Service_Sheets_ValueRange();
+     $value->setValues([ 'values' => [ $date, $user, $kind, $url ,$comment ] ]);
+     $resp = $service->spreadsheets_values->append($spreadsheetId , 'シート1!A1', $value, [ 'valueInputOption' => 'USER_ENTERED' ] );
+
+    var_dump($resp);
+
+}
+
+
 function  AddFileLink( $response, $event, string $filepath, string $kind ){
 
     $spreadsheetId = getenv('SPREADSHEET_ID');
@@ -217,6 +254,18 @@ function make_filename( $kind, $ext ){  //  make unique file name
            $filename = basename($filePath);
 
            return $filename;
+}
+
+
+function make_filename_path( $kind, $ext ){  //  make unique file name full path
+
+
+           $tempFilePath = tempnam('.', "${kind}-");
+           unlink($tempFilePath);
+           $filePath = $tempFilePath . ".${ext}";
+          // $filename = basename($filePath);
+
+           return $filePath;
 }
 
 
@@ -408,6 +457,37 @@ function getClient_drive() {
 
 }
 
+//  flac オーディオファイルからテキストを取得する
+function getTextFromAudio( $tflc ){
+
+
+$jsonArray = array();
+$jsonArray["config"]["encoding"] = "FLAC";
+$jsonArray["config"]["sampleRateHertz"] = 16000;
+$jsonArray["config"]["languageCode"] = "ja-JP";
+$jsonArray["config"]["enableWordTimeOffsets"] = false;
+
+$apikey = ggetenv("SPEECHAPIKEY");
+
+
+$curl = curl_init();
+curl_setopt($curl, CURLOPT_URL, "https://speech.googleapis.com/v1/speech:recognize?key=${apikey}");
+curl_setopt($curl, CURLOPT_HTTPHEADER, array("Content-Type: application/json"));
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($curl, CURLOPT_HEADER, true);
+
+    $jsonArray["audio"]["content"] = base64_encode(file_get_contents($tflc));
+    curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($jsonArray));
+    $response = curl_exec($curl);
+    $headerSize = curl_getinfo($curl, CURLINFO_HEADER_SIZE); 
+    $header = substr($response, 0, $headerSize);
+    $body = substr($response, $headerSize);
+    
+   $result = json_decode($body, true); 
+   
+    rerurn $result["results"][0]["alternatives"][0]["transcript"];
+}
+
 
 
 $page = 1;
@@ -492,10 +572,34 @@ foreach ($events as $event) {
                  $filepath =  upload_contents( 'voice' , 'mp4', 'application/octet-stream', $response );
                 // $audio_folder_id = getenv('AUDIO_FOLDER_ID');
                 // $filepath =  upload_contents_gdr( 'voice' , 'mp4', 'audio/mp4', $audio_folder_id , $response );
+                
+                //  mp4 ファイルの保存
+                $tmp4 = make_filename_path( "voice", "mp4" );
 
-                $bot->replyText($event->getReplyToken(), "音声共有リンク   ${filepath} ");
+                
+                file_put_contents ( $tmp4, $response->getRawBody() ) ；
+                
+                
+                $tflc = make_filename_path( "voice", "flac" );
+                
+                
+                //  mp4  -> flac への変換
+                shell_exec("ffmpeg -i ${tmp4} -vn -ar 16000 -ac 1 -acodec flac -f flac ${tflc}");
+                
+                //  mp4 ファイルの削除
+                
+                unlink( $tmp4 );
+                
+                //  flac ファイルのテキスト変換
+                
+                $returnText = getTextFromAudio( $tflc );
 
-                AddFileLink( $response, $event, $filepath, "voice"  );
+
+                unlink( $tflc );
+                
+                $bot->replyText($event->getReplyToken(), "音声共有リンク   ${filepath} ${returntext}");
+
+                AddAudioFileLink( $response, $event, $filepath, "voice" ,${returntext} );
 
                 continue;
 
