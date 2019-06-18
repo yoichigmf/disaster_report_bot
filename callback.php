@@ -485,7 +485,8 @@ curl_setopt($curl, CURLOPT_HEADER, true);
     
    $result = json_decode($body, true); 
    
-    rerurn $result["results"][0]["alternatives"][0]["transcript"];
+   $transtext = $result["results"][0]["alternatives"][0]["transcript"];
+    rerurn $transtext;
 }
 
 
