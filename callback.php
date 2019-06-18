@@ -600,7 +600,7 @@ foreach ($events as $event) {
                 
                 //  flac ファイルのテキスト変換
                 
-                $rreturntext = getTextFromAudio( $tflc );
+                $returntext = getTextFromAudio( $tflc );
 
 
                 unlink( $tflc );
