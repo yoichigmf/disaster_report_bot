@@ -59,7 +59,7 @@ function  AddAudioFileLink( $response, $event, string $filepath, string $kind, s
     $service = new Google_Service_Sheets($client);
 
 
-    $date    = date('Y/m/d h:i:s');
+    $date    = date('Y/m/d H:i:s');
 
    //var_dump($event);
 
@@ -95,7 +95,7 @@ function  AddFileLink( $response, $event, string $filepath, string $kind ){
     $service = new Google_Service_Sheets($client);
 
 
-    $date    = date('Y/m/d h:i:s');
+    $date    = date('Y/m/d H:i:s');
 
    //var_dump($event);
 
@@ -135,7 +135,7 @@ function AddText( $event ){
     $service = new Google_Service_Sheets($client);
 
 
-    $date    = date('Y/m/d h:i:s');
+    $date    = date('Y/m/d H:i:s');
 
     //  ユーザ名の取得
    $user = GetUserName($event);
@@ -175,7 +175,7 @@ function AddLocationLink( $response, $event ){
     $service = new Google_Service_Sheets($client);
 
 
-    $date    = date('Y/m/d h:i:s');
+    $date    = date('Y/m/d H:i:s');
 
     //  ユーザ名の取得
    $user = GetUserName($event);
@@ -324,7 +324,7 @@ function upload_contents( $kind , $ext, $content_type, $response ) {
 
                   curl_close($ch);
 
-                  $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+//                  $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
 
 
