@@ -324,11 +324,9 @@ function upload_contents( $kind , $ext, $content_type, $response ) {
 
                   curl_close($ch);
 
-//                  $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
 
-
-                 $path = createSharedLink( $tgfilename );
+                 $path = createSharedLink( $tgfilename );  //
                  return $path;
 
 }
@@ -517,7 +515,7 @@ foreach ($events as $event) {
         $longitude = $event->getLongitude();
 
 
-         $bot->replyText($event->getReplyToken(), "ロケーションイベント ${title} ${address} ${latitude} ${longitude}");
+         $bot->replyText($event->getReplyToken(), "入力位置情報 ${title} ${address} ${latitude} ${longitude}");
 
         AddLocationLink( $response, $event );
          continue;
@@ -546,7 +544,7 @@ foreach ($events as $event) {
 
                 $filepath =  upload_contents( 'image' , 'jpg', 'application/octet-stream', $response );
 
-                $bot->replyText($event->getReplyToken(), "画像共有リンク   ${filepath} ");
+                $bot->replyText($event->getReplyToken(), "画像共有   ${filepath} ");
 
 
                 AddFileLink( $response, $event, $filepath, "image"  );
@@ -605,7 +603,7 @@ foreach ($events as $event) {
 
                 unlink( $tflc );
                 
-                $bot->replyText($event->getReplyToken(), "音声共有リンク   ${filepath} ${voicetext}");
+                $bot->replyText($event->getReplyToken(), "音声共有   ${filepath} ${voicetext}");
 
                 AddAudioFileLink( $response, $event, $filepath, "voice" ,${voicetext} );
 
@@ -641,7 +639,7 @@ foreach ($events as $event) {
                 // $video_folder_id = getenv('VIDEO_FOLDER_ID');
                 // $filepath =  upload_contents_gdr( 'video' , 'mp4', 'video/mp4', $audio_folder_id , $response );
 
-                $bot->replyText($event->getReplyToken(), "ビデオ共有リンク   ${filepath} ");
+                $bot->replyText($event->getReplyToken(), "ビデオ共有   ${filepath} ");
 
                    AddFileLink( $response, $event, $filepath, "video"  );
                 continue;
@@ -683,7 +681,7 @@ foreach ($events as $event) {
 
 
     $log->addWarning("join event!\n");
-    $bot->replyText($event->getReplyToken(), "ありがとうございます");
+    $bot->replyText($event->getReplyToken(), "友達追加ありがとうございます");
      //  firstmessage( $bot, $event,0);
        continue;
 
@@ -694,7 +692,7 @@ foreach ($events as $event) {
       !($event instanceof \LINE\LINEBot\Event\MessageEvent\TextMessage)) {
 
       if (!($event instanceof \LINE\LINEBot\Event\PostbackEvent) ) {
-         $bot->replyText($event->getReplyToken(), " event");
+         $bot->replyText($event->getReplyToken(), " なんかのイベント発生");
 
              continue;
       }
@@ -712,6 +710,15 @@ foreach ($events as $event) {
             $tgText=$event->getText();
 
 
+           //  テキスト１文字目が # の場合はコメントとみなしてスキップする  20190621
+           
+           $chktext  = substr( $tgText, 0, 1 );
+           
+           
+           if ( strcmp($chktext, "#" ) == 0 ) {
+                   continue;
+                   }
+                    
            AddText(  $event  );
 
 
