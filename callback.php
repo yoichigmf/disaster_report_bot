@@ -79,6 +79,34 @@ function  AddAudioFileLink( $response, $event, string $filepath, string $kind, s
 
 }
 
+function  GetTopSheetName( $spreadsheetID, $client ) {
+
+
+  $sheets = Getsheets($spreadsheetID, $client);
+  
+  
+  $top_sheet = $sheets[0];
+  
+  
+}
+
+
+function Getsheets($spreadsheetID, $client) {
+    $sheets = array();    
+    // Load Google API library and set up client
+    // You need to know $spreadsheetID (can be seen in the URL)
+    
+
+    $sheetService = new Google_Service_Sheets($client);   
+    $spreadSheet = $sheetService->spreadsheets->get($spreadsheetID);
+    $sheets = $spreadSheet->getSheets();
+    foreach($sheets as $sheet) {
+        $sheets[] = $sheet->properties->sheetId;
+    }   
+    return $sheets;
+}
+
+
 
 function  AddFileLink( $response, $event, string $filepath, string $kind ){
 
@@ -716,6 +744,11 @@ foreach ($events as $event) {
            
            
            if ( strcmp($chktext, "#" ) == 0 ) {
+           
+                    if ( strcmp($tgText, "#map" ) == 0 ) {   //  display map URL
+                    
+                       $bot->replyText($event->getReplyToken(), "地図表示     https://reportmap.herokuapp.com/");   //map urL
+                       }
                    continue;
                    }
                     
