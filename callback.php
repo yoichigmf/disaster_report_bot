@@ -83,26 +83,26 @@ function  GetTopSheetName( $spreadsheetID, $client ) {
 
 
   $sheets = Getsheets($spreadsheetID, $client);
-  
-  
+
+
   $top_sheet = $sheets[0];
-  
-  
+
+
 }
 
 
 function Getsheets($spreadsheetID, $client) {
-    $sheets = array();    
+    $sheets = array();
     // Load Google API library and set up client
     // You need to know $spreadsheetID (can be seen in the URL)
-    
 
-    $sheetService = new Google_Service_Sheets($client);   
+
+    $sheetService = new Google_Service_Sheets($client);
     $spreadSheet = $sheetService->spreadsheets->get($spreadsheetID);
     $sheets = $spreadSheet->getSheets();
     foreach($sheets as $sheet) {
         $sheets[] = $sheet->properties->sheetId;
-    }   
+    }
     return $sheets;
 }
 
@@ -489,7 +489,7 @@ function getTextFromAudio( $tflc ){
        global $log;
 
 
-  
+
 $jsonArray = array();
 $jsonArray["config"]["encoding"] = "FLAC";
 $jsonArray["config"]["sampleRateHertz"] = 16000;
@@ -508,13 +508,13 @@ curl_setopt($curl, CURLOPT_HEADER, true);
     $jsonArray["audio"]["content"] = base64_encode(file_get_contents($tflc));
     curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($jsonArray));
     $response = curl_exec($curl);
-    $headerSize = curl_getinfo($curl, CURLINFO_HEADER_SIZE); 
+    $headerSize = curl_getinfo($curl, CURLINFO_HEADER_SIZE);
     $header = substr($response, 0, $headerSize);
     $body = substr($response, $headerSize);
-    
+
     $log->addWarning("body --> ${body}\n");
-    
-   $result = json_decode($body, true); 
+
+   $result = json_decode($body, true);
 
    $transtext = $result["results"][0]["alternatives"][0]["transcript"];
 
@@ -565,9 +565,7 @@ foreach ($events as $event) {
             if ($response->isSucceeded()) {
 
 
-              $image_folder_id = getenv('IMAGE_FOLDER_ID');
 
-            //    $filepath =  upload_contents_gdr( 'image' , 'jpg', 'image/jpeg', $image_folder_id , $response );
 
 
                 $filepath =  upload_contents( 'image' , 'jpg', 'application/octet-stream', $response );
@@ -603,34 +601,33 @@ foreach ($events as $event) {
             if ($response->isSucceeded()) {
 
                  $filepath =  upload_contents( 'voice' , 'mp4', 'application/octet-stream', $response );
-                // $audio_folder_id = getenv('AUDIO_FOLDER_ID');
-                // $filepath =  upload_contents_gdr( 'voice' , 'mp4', 'audio/mp4', $audio_folder_id , $response );
-                
+
+
                 //  mp4 ファイルの保存
                 $tmp4 = make_filename_path( "voice", "mp4" );
 
                 $fcontents = $response->getRawBody();
-                
+
                 file_put_contents( $tmp4, $fcontents );
-                
-                
+
+
                 $tflc = make_filename_path( "voice", "flac" );
-                
-                
+
+
                 //  mp4  -> flac への変換
                 shell_exec("ffmpeg -i ${tmp4} -vn -ar 16000 -ac 1 -acodec flac -f flac ${tflc}");
-                
+
                 //  mp4 ファイルの削除
-                
+
                 unlink( $tmp4 );
-                
+
                 //  flac ファイルのテキスト変換
-                
+
                 $voicetext = getTextFromAudio( $tflc );
 
 
                 unlink( $tflc );
-                
+
                 $bot->replyText($event->getReplyToken(), "音声共有   ${filepath} ${voicetext}");
 
                 AddAudioFileLink( $response, $event, $filepath, "voice" ,${voicetext} );
@@ -664,8 +661,7 @@ foreach ($events as $event) {
             if ($response->isSucceeded()) {
 
                  $filepath =  upload_contents( 'video' , 'mp4', 'application/octet-stream', $response );
-                // $video_folder_id = getenv('VIDEO_FOLDER_ID');
-                // $filepath =  upload_contents_gdr( 'video' , 'mp4', 'video/mp4', $audio_folder_id , $response );
+
 
                 $bot->replyText($event->getReplyToken(), "ビデオ共有   ${filepath} ");
 
@@ -739,19 +735,24 @@ foreach ($events as $event) {
 
 
            //  テキスト１文字目が # の場合はコメントとみなしてスキップする  20190621
-           
+
            $chktext  = substr( $tgText, 0, 1 );
-           
-           
+
+
            if ( strcmp($chktext, "#" ) == 0 ) {
-           
+
                     if ( strcmp($tgText, "#map" ) == 0 ) {   //  display map URL
-                    
+
                        $bot->replyText($event->getReplyToken(), "地図表示     https://reportmap.herokuapp.com/");   //map urL
+                       }
+
+                   if ( strcmp($tgText, "#sheet" ) == 0 ) {   //  display sheet URL
+
+                       $bot->replyText($event->getReplyToken(), "集計シート (閲覧)     https://docs.google.com/spreadsheets/d/1kC-cC8LTj_og4xafYQTfCekKYrlveJMkjpduKCmb4aU/edit?usp=sharing");   //map urL
                        }
                    continue;
                    }
-                    
+
            AddText(  $event  );
 
 
