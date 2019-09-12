@@ -740,15 +740,18 @@ foreach ($events as $event) {
 
 
            if ( strcmp($chktext, "#" ) == 0 ) {
+           
+           
+                   $spreadsheetId = getenv('SPREADSHEET_ID');
 
                     if ( strcmp($tgText, "#map" ) == 0 ) {   //  display map URL
 
-                       $bot->replyText($event->getReplyToken(), "地図表示     https://reportmap.herokuapp.com/");   //map urL
+                       $bot->replyText($event->getReplyToken(), "地図表示     https://reportmap.herokuapp.com/?sheetid=${spreadsheetId}");   //map urL
                        }
 
                    if ( strcmp($tgText, "#sheet" ) == 0 ) {   //  display sheet URL
 
-                       $bot->replyText($event->getReplyToken(), "集計シート (閲覧)     https://docs.google.com/spreadsheets/d/1kC-cC8LTj_og4xafYQTfCekKYrlveJMkjpduKCmb4aU/edit?usp=sharing");   //map urL
+                       $bot->replyText($event->getReplyToken(), "集計シート (閲覧)     https://docs.google.com/spreadsheets/d/${spreadsheetId}/edit?usp=sharing");   //map urL
                        }
                    continue;
                    }
