@@ -523,6 +523,18 @@ curl_setopt($curl, CURLOPT_HEADER, true);
 
 
 
+function displayHelp( $bote, $evente ) {
+
+      $bote->replyText($evente->getReplyToken(), "利用方法");   
+      $bote->replyText($evente->getReplyToken(), "位置情報を投稿してからテキスト、写真、動画、音声を投稿してください");  
+      $bote->replyText($evente->getReplyToken(), "位置情報投稿 line://nv/location ");  
+      
+      $bote->replyText($evente->getReplyToken(), "同じ場所で連続して投稿する場合は最初に1回だけ位置情報を投稿してください。場所を変えて投稿する場合は最初に1回位置情報を投稿してください。");        
+      $bote->replyText($evente->getReplyToken(), "位置情報の投稿がないと投稿を地図に表示することができません");      
+}
+
+
+
 $page = 1;
 $action ="";
 
@@ -705,7 +717,9 @@ foreach ($events as $event) {
 
 
     $log->addWarning("join event!\n");
-    $bot->replyText($event->getReplyToken(), "友達追加ありがとうございます");
+   $bot->replyText($event->getReplyToken(), "友達追加ありがとうございます");  
+    displayHelp( $bot, $event ); 
+
      //  firstmessage( $bot, $event,0);
        continue;
 
@@ -716,7 +730,9 @@ foreach ($events as $event) {
       !($event instanceof \LINE\LINEBot\Event\MessageEvent\TextMessage)) {
 
       if (!($event instanceof \LINE\LINEBot\Event\PostbackEvent) ) {
-         $bot->replyText($event->getReplyToken(), " なんかのイベント発生");
+      
+          displayHelp( $bot, $event ); 
+        // $bot->replyText($event->getReplyToken(), " なんかのイベント発生");
 
              continue;
       }
@@ -751,8 +767,21 @@ foreach ($events as $event) {
 
                    if ( strcmp($tgText, "#sheet" ) == 0 ) {   //  display sheet URL
 
-                       $bot->replyText($event->getReplyToken(), "集計シート (閲覧)     https://docs.google.com/spreadsheets/d/${spreadsheetId}/edit?usp=sharing");   //map urL
+                       $bot->replyText($event->getReplyToken(), "集計シート (閲覧)     https://docs.google.com/spreadsheets/d/${spreadsheetId}/edit?usp=sharing");   //sheet urL
                        }
+                  if ( strcmp($tgText, "#list" ) == 0 ) {   //  display sheet URL
+
+                       $bot->replyText($event->getReplyToken(), "集計シート (閲覧)     https://docs.google.com/spreadsheets/d/${spreadsheetId}/edit?usp=sharing");   //sheet urL
+                       }
+  
+  
+  
+                    if ( strcmp($tgText, "#help" ) == 0 ) {   //  display help
+                         displayHelp( $bot, $event ); 
+               //        $bot->replyText($event->getReplyToken(), "集計シート (閲覧)     https://docs.google.com/spreadsheets/d/${spreadsheetId}/edit?usp=sharing");   //help urL
+                       }
+                                                                          
+                       
                    continue;
                    }
 
