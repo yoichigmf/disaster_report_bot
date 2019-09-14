@@ -525,14 +525,14 @@ curl_setopt($curl, CURLOPT_HEADER, true);
 
 function displayHelp( $bote, $evente ) {
 
-    $helpstr = "<H1>利用方法</H1>";
-    $helpstr .= "位置情報を投稿してからテキスト、写真、動画、音声を投稿してください";
+    $helpstr = "利用方法\n";
+    $helpstr .= "位置情報を投稿してからテキスト、写真、動画、音声を投稿してください\n";
 
 
  
-     $helpstr .="位置情報投稿 line://nv/location "; 
+     $helpstr .="位置情報投稿 line://nv/location \n"; 
       
-    $helpstr .="同じ場所で連続して投稿する場合は最初に1回だけ位置情報を投稿してください。場所を変えて投稿する場合は最初に1回位置情報を投稿してください。";        
+    $helpstr .="同じ場所で連続して投稿する場合は最初に1回だけ位置情報を投稿してください。場所を変えて投稿する場合は最初に1回位置情報を投稿してください。\n";        
       $bote->replyText($evente->getReplyToken(), $helpstr);      
 }
 
