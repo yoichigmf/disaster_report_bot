@@ -525,14 +525,23 @@ curl_setopt($curl, CURLOPT_HEADER, true);
 
 function displayHelp( $bote, $evente ) {
 
-    $helpstr = "利用方法\n";
+    $helpstr = "利用方法\n\n";
+    $helpstr = "位置情報の投稿\n";
     $helpstr .= "位置情報を投稿してからテキスト、写真、動画、音声を投稿してください\n";
 
 
  
-     $helpstr .="位置情報投稿 line://nv/location \n"; 
+ //    $helpstr .="位置情報投稿 line://nv/location \n"; 
       
-    $helpstr .="同じ場所で連続して投稿する場合は最初に1回だけ位置情報を投稿してください。場所を変えて投稿する場合は最初に1回位置情報を投稿してください。\n";        
+     $helpstr .="同じ場所で連続して投稿する場合は最初に1回だけ位置情報を投稿してください。場所を変えて投稿する場合は最初に1回位置情報を投稿してください。位置情報を投稿しないと地図に表示されないか地図上のあやまった位置に表示されます。\n";        
+ 
+     $helpstr .= "\n\n特殊コマンド\n";
+     
+          $helpstr .= "#map 地図表示URL表示\n";
+          
+                    $helpstr .= "#list 一覧表表示URL表示\n";
+                    
+                              $helpstr .= "#help HELPメッセージ表示\n";
       $bote->replyText($evente->getReplyToken(), $helpstr);      
 }
 
