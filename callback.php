@@ -41,6 +41,12 @@ function GetUserName( $event ) {
    $emp =  empty( $username );
    
    $log->addWarning("empty  ${emp}\n");
+   
+   if ( $emp == 1 ) {
+        $username = "不明";
+   
+   }
+   
    return $username;
 
 }
