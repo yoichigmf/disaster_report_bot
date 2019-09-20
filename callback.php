@@ -38,6 +38,9 @@ function GetUserName( $event ) {
 
    $log->addWarning("user name ${username}\n");
 
+   $emp =  empty( $username );
+   
+   $log->addWarning("empty  ${emp}\n");
    return $username;
 
 }
@@ -536,7 +539,7 @@ function displayHelp( $bote, $evente ) {
     $helpstr .= "LINEの上で同じ情報を投稿する皆様とグループを作成して、そのグループにこのシステムを追加していただけると、他の人の投稿を見ながら投稿情報をクラウド上のシートに集めることができます\n\n";
     $helpstr .= "位置情報の投稿\n";
     $helpstr .= "位置情報を投稿してからテキスト、写真、動画、音声を投稿してください\n";
-
+    $helpstr .= "音声は1分間までの投稿が可能です。音声投稿は音声をテキスト化したテキストと音声データが保存されます\n";
 
  
  //    $helpstr .="位置情報投稿 line://nv/location \n"; 
