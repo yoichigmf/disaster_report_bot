@@ -189,6 +189,13 @@ function AddText( $event ){
 
     var_dump($resp);
 
+   if ( $user === "不明" ){
+        return FALSE;
+        }
+    else {
+        return TRUE;
+        }
+    
 
 }
 
@@ -832,11 +839,18 @@ foreach ($events as $event) {
                    continue;
                    }
 
-           AddText(  $event  );
+            $tst = AddText(  $event  );
+            
+            if ( $tst ) {
 
 
 
-            $bot->replyText($event->getReplyToken(), "テキストメッセージ    ${tgText}");
+                $bot->replyText($event->getReplyToken(), "テキストメッセージ    ${tgText}");
+                }
+             else {
+             
+                             $bot->replyText($event->getReplyToken(), "【警告】LINE Botと友達になっていないのでユーザ名が取得できません。\n位置情報が正しく記録できないのでLINE Botと友達になって下さい。\nテキストメッセージ    ${tgText}");
+             }
 
 
           continue;
