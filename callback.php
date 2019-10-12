@@ -85,6 +85,15 @@ function  AddAudioFileLink( $response, $event, string $filepath, string $kind, s
      $resp = $service->spreadsheets_values->append($spreadsheetId , 'シート1!A1', $value, [ 'valueInputOption' => 'USER_ENTERED' ] );
 
     var_dump($resp);
+    
+     if ( $user === "不明" ){
+        return FALSE;
+        }
+    else {
+        return TRUE;
+        }
+    
+    
 
 }
 
@@ -149,6 +158,15 @@ function  AddFileLink( $response, $event, string $filepath, string $kind ){
      $resp = $service->spreadsheets_values->append($spreadsheetId , 'シート1!A1', $value, [ 'valueInputOption' => 'USER_ENTERED' ] );
 
     var_dump($resp);
+    
+   if ( $user === "不明" ){
+        return FALSE;
+        }
+    else {
+        return TRUE;
+        }
+    
+    
 
 }
 
@@ -233,6 +251,14 @@ function AddLocationLink( $response, $event ){
      $resp = $service->spreadsheets_values->append($spreadsheetId , 'シート1!A1', $value, [ 'valueInputOption' => 'USER_ENTERED' ] );
 
     var_dump($resp);
+    
+   if ( $user === "不明" ){
+        return FALSE;
+        }
+    else {
+        return TRUE;
+        }
+    
 
 
 }
@@ -609,9 +635,20 @@ foreach ($events as $event) {
         $longitude = $event->getLongitude();
 
 
-         $bot->replyText($event->getReplyToken(), "入力位置情報 ${title} ${address} ${latitude} ${longitude}");
+  
 
-        AddLocationLink( $response, $event );
+       $tst =  AddLocationLink( $response, $event );
+        
+        if ( $tst ) {
+          $bot->replyText($event->getReplyToken(), "入力位置情報 ${title} ${address} ${latitude} ${longitude}");
+          }
+        else
+           {
+                    $bot->replyText($event->getReplyToken(), "【警告】LINE Botと友達になっていないのでユーザ名が取得できません。\n位置情報が正しく記録できないのでLINE Botと友達になって下さい。\n入力位置情報 ${title} ${address} ${latitude} ${longitude}");
+                         
+             
+             
+             }  
          continue;
 
 
