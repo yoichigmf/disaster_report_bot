@@ -542,7 +542,10 @@ function displayHelp( $bote, $evente ) {
     $helpstr .= "グループでの利用\n";
     
     
-    $helpstr .= "LINEの上で同じ情報を投稿する皆様とグループを作成して、そのグループにこのシステムを追加していただけると、他の人の投稿を見ながら投稿情報をクラウド上のシートに集めることができます\n\n";
+    $helpstr .= "LINEの上で同じ情報を投稿する皆様とグループを作成して、そのグループにこのシステムを追加していただけると、他の人の投稿を見ながら投稿情報をクラウド上のシートに集めることができます\n";
+    $helpstr .= "ただしグループに参加した方で災害情報収集用のチャットボットと友達になっていない方は必ずチャットボットと友達になっておいて下さい。\n";
+    $helpstr .= "チャットボットと友達になっていないと投稿情報に投稿者のユーザ名が残らないので地図表示を行う場合うまく表示されなくなります。\n\n";    
+    
     $helpstr .= "位置情報の投稿\n";
     $helpstr .= "位置情報を投稿してからテキスト、写真、動画、音声を投稿してください\n";
     $helpstr .= "音声は1分間までの投稿が可能です。音声投稿は音声をテキスト化したテキストと音声データが保存されます\n";
@@ -558,9 +561,9 @@ function displayHelp( $bote, $evente ) {
       
      $helpstr .= "\n\n特殊コマンド\n";
      
-          $helpstr .= "#map 地図表示URL表示\n";
+     $helpstr .= "#map 地図表示URL表示\n";
           
-                    $helpstr .= "#list 一覧表表示URL表示\n";
+     $helpstr .= "#list 一覧表表示URL表示\n";
                     
                               $helpstr .= "#help HELPメッセージ表示\n";
       $bote->replyText($evente->getReplyToken(), $helpstr);      
@@ -833,6 +836,6 @@ foreach ($events as $event) {
 
 
 
-        $bot->replyText($event->getReplyToken(), "その他メッセージ　   ");
+        $bot->replyText($event->getReplyToken(), "その他メッセージ   ");
 
    }
