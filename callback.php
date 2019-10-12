@@ -672,11 +672,24 @@ foreach ($events as $event) {
 
 
                 $filepath =  upload_contents( 'image' , 'jpg', 'application/octet-stream', $response );
+                
+                
+                $tst = AddFileLink( $response, $event, $filepath, "image"  );
+                
+                if ( $tst ) {
+                                $bot->replyText($event->getReplyToken(), "画像共有   ${filepath} ");
+                
+                }
+                else {
+                
+                                       $bot->replyText($event->getReplyToken(), "【警告】LINE Botと友達になっていないのでユーザ名が取得できません。\n位置情報が正しく記録できないのでLINE Botと友達になって下さい。\n画像共有   ${filepath} ");
+                }
 
-                $bot->replyText($event->getReplyToken(), "画像共有   ${filepath} ");
 
 
-                AddFileLink( $response, $event, $filepath, "image"  );
+
+
+      
                 continue;
 
 
@@ -730,10 +743,19 @@ foreach ($events as $event) {
 
 
                 unlink( $tflc );
+                
+                $tst =  AddAudioFileLink( $response, $event, $filepath, "voice" ,${voicetext} );
+                              
 
+                if ( $tst ) {
                 $bot->replyText($event->getReplyToken(), "音声共有   ${filepath} ${voicetext}");
+                  }
+                else  {
+                    $bot->replyText($event->getReplyToken(), "【警告】LINE Botと友達になっていないのでユーザ名が取得できません。\n位置情報が正しく記録できないのでLINE Botと友達になって下さい。\n音声共有   ${filepath} ${voicetext}");   
+                
+                }
 
-                AddAudioFileLink( $response, $event, $filepath, "voice" ,${voicetext} );
+  
 
                 continue;
 
@@ -766,9 +788,16 @@ foreach ($events as $event) {
                  $filepath =  upload_contents( 'video' , 'mp4', 'application/octet-stream', $response );
 
 
-                $bot->replyText($event->getReplyToken(), "ビデオ共有   ${filepath} ");
+                 $tst =  AddFileLink( $response, $event, $filepath, "video"  );
+                 
+                 if ( $tst ) {
+                     $bot->replyText($event->getReplyToken(), "ビデオ共有   ${filepath} ");
+                     }
+                  else {
+                     $bot->replyText($event->getReplyToken(), "【警告】LINE Botと友達になっていないのでユーザ名が取得できません。\n位置情報が正しく記録できないのでLINE Botと友達になって下さい。\nビデオ共有   ${filepath} ");
+                  
+                  }
 
-                   AddFileLink( $response, $event, $filepath, "video"  );
                 continue;
 
 
@@ -794,11 +823,20 @@ foreach ($events as $event) {
 
 
            $filepath =  upload_contents( 'file' , 'bin', 'application/octet-stream', $response );
+           
+           
+           
+            $tst = AddFileLink( $response, $event, $filepath, "file"  );
+           
 
+            if ( $tst ) {
             $bot->replyText($event->getReplyToken(), "ファイルイベント   line://nv/location ");
+              }
+            else  {
+            
+                $bot->replyText($event->getReplyToken(), "【警告】LINE Botと友達になっていないのでユーザ名が取得できません。\n位置情報が正しく記録できないのでLINE Botと友達になって下さい。\nファイルイベント   line://nv/location ");  
+            }
 
-
-           AddFileLink( $response, $event, $filepath, "file"  );
           continue;
 
         }
