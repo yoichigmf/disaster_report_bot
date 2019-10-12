@@ -531,6 +531,17 @@ curl_setopt($curl, CURLOPT_HEADER, true);
 }
 
 
+function displayShortHelp( $bote, $evente ) {
+
+     $helpstr = "参加ありがとうございます\n以下のコマンドをメッセージに打ち込むことができます\n\n";
+     $helpstr .= "#help 利用方法表示\n";
+     $helpstr .= "#map 地図表示URL表示\n";         
+     $helpstr .= "#list 一覧表表示URL表示\n";
+                    
+    
+      $bote->replyText($evente->getReplyToken(), $helpstr);   
+}
+
 
 function displayHelp( $bote, $evente ) {
 
@@ -565,7 +576,7 @@ function displayHelp( $bote, $evente ) {
           
      $helpstr .= "#list 一覧表表示URL表示\n";
                     
-                              $helpstr .= "#help HELPメッセージ表示\n";
+      $helpstr .= "#help HELPメッセージ表示\n";
       $bote->replyText($evente->getReplyToken(), $helpstr);      
 }
 
@@ -753,8 +764,8 @@ foreach ($events as $event) {
 
 
     $log->addWarning("join event!\n");
-   $bot->replyText($event->getReplyToken(), "友達追加ありがとうございます");  
-    displayHelp( $bot, $event ); 
+   //$bot->replyText($event->getReplyToken(), "友達追加ありがとうございます");  
+   displayShortHelp( $bot, $event ); 
 
      //  firstmessage( $bot, $event,0);
        continue;
@@ -814,7 +825,7 @@ foreach ($events as $event) {
   
                     if ( strcmp($tgText, "#help" ) == 0 ) {   //  display help
                          displayHelp( $bot, $event ); 
-               //        $bot->replyText($event->getReplyToken(), "集計シート (閲覧)     https://docs.google.com/spreadsheets/d/${spreadsheetId}/edit?usp=sharing");   //help urL
+              
                        }
                                                                           
                        
