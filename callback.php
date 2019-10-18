@@ -73,7 +73,7 @@ function  AddAudioFileLink( $response, $event, string $filepath, string $kind, s
    //var_dump($event);
 
 
-     //  ユーザ名の取得
+     //  ユーザ名の取得  debug
     $user = GetUserName($event);
 
     $comment = $trtext;
