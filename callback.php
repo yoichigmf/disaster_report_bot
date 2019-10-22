@@ -25,7 +25,7 @@ date_default_timezone_set('Asia/Tokyo');
 
 $slack_hook_url = getenv('SlackHookURL');
 
-
+$slack_dist_channel  = getenv('SlackdistChannel');
 
 
 function GetUserName( $event ) {
@@ -575,7 +575,7 @@ function getClient_drive() {
 
 }
 
-//  flac オーディオファイルからテキストを取得する
+//  flac オーディオファイルからテキストを取得する   debug
 function getTextFromAudio( $tflc ){
 
        global $log;
