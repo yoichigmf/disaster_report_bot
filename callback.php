@@ -80,7 +80,12 @@ $options = array(
     'content' => json_encode($message),
   )
 );
+
+$log->addWarning("url ${webhook_url}\n");
+
 $response = file_get_contents($webhook_url, false, stream_context_create($options));
+
+$log->addWarning("response ${response}\n");
 return $response === 'ok';
 }
 
