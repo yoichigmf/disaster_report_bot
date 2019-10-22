@@ -62,6 +62,7 @@ function GetUserName( $event ) {
 function  PostSlack($date, $user, $kind, $url ,$comment, $lat, $lon ) {
 
 global $slack_hook_url;
+global  $log;
 
 
 if (! is_null($slack_hook_url)){
