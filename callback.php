@@ -65,7 +65,7 @@ global $slack_hook_url;
 
 
 $message = array (
-'username' = 'line_bot',
+'username' => 'line_bot',
 
 );
 
