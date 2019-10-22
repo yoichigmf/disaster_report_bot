@@ -68,9 +68,9 @@ function  PostSlack($date, $user, $kind, $url ,$comment, $lat, $lon ) {
 
     $message = $user;
 
-    $botonfo = new SlackBotInfo($slack_hook_url, $message)
+    $botonfo = new SlackBotInfo($slack_hook_url, $message);
 
-    
+
     $bot->post_message($botinfo);
 }
 
