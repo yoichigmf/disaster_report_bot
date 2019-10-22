@@ -1,8 +1,8 @@
 <?php
 header('Content-Type: text/html; charset=UTF-8');
 require_once __DIR__ . '/vendor/autoload.php';
-include_once __DIR__.'/php/SlackBot.php';
-include_once __DIR__.'/php/SlackBotInfo.php';
+//include_once __DIR__.'/php/SlackBot.php';
+//include_once __DIR__.'/php/SlackBotInfo.php';
 
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
@@ -61,17 +61,27 @@ function GetUserName( $event ) {
 //    Slack へのPost
 function  PostSlack($date, $user, $kind, $url ,$comment, $lat, $lon ) {
 
+global $slack_hook_url;
 
 
+$message = array (
+'username' = 'line_bot',
 
-    $bot = new SlackBot();
+);
 
-    $message = $user;
-
-    $botonfo = new SlackBotInfo($slack_hook_url, $message);
+$message['text'] = $comment;
 
 
-    $bot->post_message($botinfo);
+$webhook_url = $slack_hook_url;
+$options = array(
+  'http' => array(
+    'method' => 'POST',
+    'header' => 'Content-Type: application/json',
+    'content' => json_encode($message),
+  )
+);
+$response = file_get_contents($webhook_url, false, stream_context_create($options));
+return $response === 'ok';
 }
 
 
