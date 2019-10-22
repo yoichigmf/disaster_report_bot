@@ -64,29 +64,36 @@ function  PostSlack($date, $user, $kind, $url ,$comment, $lat, $lon ) {
 global $slack_hook_url;
 
 
-$message = array (
-'username' => 'line_bot',
+if (! is_null($slack_hook_url)){
+  $message = array (
+    'username' => 'line_bot',
 
-);
+  );
 
-$message['text'] = $comment;
+  $message['text'] = "$date $user $kind $url $comment $lat $lon";
 
 
-$webhook_url = $slack_hook_url;
-$options = array(
-  'http' => array(
+  $webhook_url = $slack_hook_url;
+  $options = array(
+    'http' => array(
     'method' => 'POST',
     'header' => 'Content-Type: application/json',
     'content' => json_encode($message),
-  )
-);
+    )
+  );
 
-$log->addWarning("url ${webhook_url}\n");
+  $log->addWarning("url ${webhook_url}\n");
 
-$response = file_get_contents($webhook_url, false, stream_context_create($options));
+  $response = file_get_contents($webhook_url, false, stream_context_create($options));
 
-$log->addWarning("response ${response}\n");
-return $response === 'ok';
+  $log->addWarning("response ${response}\n");
+  return $response === 'ok';
+
+}
+
+else {
+    return TRUE;
+   }
 }
 
 
@@ -120,7 +127,7 @@ function  AddAudioFileLink( $response, $event, string $filepath, string $kind, s
      $value = new Google_Service_Sheets_ValueRange();
      $value->setValues([ 'values' => [ $date, $user, $kind, $url ,$comment ] ]);
      $resp = $service->spreadsheets_values->append($spreadsheetId , 'シート1!A1', $value, [ 'valueInputOption' => 'USER_ENTERED' ] );
-
+     PostSlack($date, $user, $kind, $url ,$comment, "","");
     var_dump($resp);
 
      if ( $user === "不明" ){
@@ -193,7 +200,7 @@ function  AddFileLink( $response, $event, string $filepath, string $kind ){
      $value = new Google_Service_Sheets_ValueRange();
      $value->setValues([ 'values' => [ $date, $user, $kind, $url ,$comment ] ]);
      $resp = $service->spreadsheets_values->append($spreadsheetId , 'シート1!A1', $value, [ 'valueInputOption' => 'USER_ENTERED' ] );
-
+     PostSlack($date, $user, $kind, $url ,$comment, "","");
     var_dump($resp);
 
    if ( $user === "不明" ){
@@ -243,7 +250,7 @@ function AddText( $event ){
      $resp = $service->spreadsheets_values->append($spreadsheetId , 'シート1!A1', $value, [ 'valueInputOption' => 'USER_ENTERED' ] );
 
    // Slack へのPost
-    PostSlack($date, $user, $kind, $url ,$comment, null, null );
+    PostSlack($date, $user, $kind, $url ,$comment, "", "" );
 
 
     var_dump($resp);
@@ -291,6 +298,7 @@ function AddLocationLink( $response, $event ){
      $value->setValues([ 'values' => [ $date, $user, $kind, $url ,$comment, $latitude, $longitude ] ]);
      $resp = $service->spreadsheets_values->append($spreadsheetId , 'シート1!A1', $value, [ 'valueInputOption' => 'USER_ENTERED' ] );
 
+    PostSlack($date, $user, $kind, $url ,$comment, $latitude,$longitude);
     var_dump($resp);
 
    if ( $user === "不明" ){
