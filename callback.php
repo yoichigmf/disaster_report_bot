@@ -1,7 +1,8 @@
 <?php
 header('Content-Type: text/html; charset=UTF-8');
 require_once __DIR__ . '/vendor/autoload.php';
-
+include_once __DIR__.'/php/SlackBot.php';
+include_once __DIR__.'/php/SlackBotInfo.php';
 
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
@@ -22,6 +23,11 @@ $events = $bot->parseEventRequest(file_get_contents('php://input'), $sign);
 date_default_timezone_set('Asia/Tokyo');
 
 
+$slack_hook_url = getenv('SlackHookURL');
+
+
+
+
 function GetUserName( $event ) {
   $uid = $event->getUserId();
 
@@ -39,18 +45,34 @@ function GetUserName( $event ) {
    $log->addWarning("user name ${username}\n");
 
    $emp =  empty( $username );
-   
+
    $log->addWarning("empty  ${emp}\n");
-   
+
    if ( $emp == 1 ) {
         $username = "不明";
-   
+
    }
-   
+
    return $username;
 
 }
 
+
+//    Slack へのPost
+function  PostSlack($date, $user, $kind, $url ,$comment, $lat, $lon ) {
+
+
+
+
+    $bot = new SlackBot();
+
+    $message = $user;
+
+    $botonfo = new SlackBotInfo($slack_hook_url, $message)
+
+    
+    $bot->post_message($botinfo);
+}
 
 
 function  AddAudioFileLink( $response, $event, string $filepath, string $kind, string $trtext ){
@@ -85,15 +107,15 @@ function  AddAudioFileLink( $response, $event, string $filepath, string $kind, s
      $resp = $service->spreadsheets_values->append($spreadsheetId , 'シート1!A1', $value, [ 'valueInputOption' => 'USER_ENTERED' ] );
 
     var_dump($resp);
-    
+
      if ( $user === "不明" ){
         return FALSE;
         }
     else {
         return TRUE;
         }
-    
-    
+
+
 
 }
 
@@ -158,15 +180,15 @@ function  AddFileLink( $response, $event, string $filepath, string $kind ){
      $resp = $service->spreadsheets_values->append($spreadsheetId , 'シート1!A1', $value, [ 'valueInputOption' => 'USER_ENTERED' ] );
 
     var_dump($resp);
-    
+
    if ( $user === "不明" ){
         return FALSE;
         }
     else {
         return TRUE;
         }
-    
-    
+
+
 
 }
 
@@ -205,6 +227,10 @@ function AddText( $event ){
      $value->setValues([ 'values' => [ $date, $user, $kind, $url ,$comment ] ]);
      $resp = $service->spreadsheets_values->append($spreadsheetId , 'シート1!A1', $value, [ 'valueInputOption' => 'USER_ENTERED' ] );
 
+   // Slack へのPost
+    PostSlack($date, $user, $kind, $url ,$comment, null, null );
+
+
     var_dump($resp);
 
    if ( $user === "不明" ){
@@ -213,7 +239,7 @@ function AddText( $event ){
     else {
         return TRUE;
         }
-    
+
 
 }
 
@@ -251,14 +277,14 @@ function AddLocationLink( $response, $event ){
      $resp = $service->spreadsheets_values->append($spreadsheetId , 'シート1!A1', $value, [ 'valueInputOption' => 'USER_ENTERED' ] );
 
     var_dump($resp);
-    
+
    if ( $user === "不明" ){
         return FALSE;
         }
     else {
         return TRUE;
         }
-    
+
 
 
 }
@@ -568,11 +594,11 @@ function displayShortHelp( $bote, $evente ) {
 
      $helpstr = "参加ありがとうございます\n以下のコマンドをメッセージに打ち込むことができます\n\n";
      $helpstr .= "#help 利用方法表示\n";
-     $helpstr .= "#map 地図表示URL表示\n";         
+     $helpstr .= "#map 地図表示URL表示\n";
      $helpstr .= "#list 一覧表表示URL表示\n";
-                    
-    
-      $bote->replyText($evente->getReplyToken(), $helpstr);   
+
+
+      $bote->replyText($evente->getReplyToken(), $helpstr);
 }
 
 
@@ -580,37 +606,37 @@ function displayHelp( $bote, $evente ) {
 
     $helpstr = "利用方法\n\n";
     $helpstr .= "システムの目的\n";
-    
+
     $helpstr .= "LINEで皆様が投稿した位置情報,テキスト,写真,動画,音声をクラウド上のシートに保存して利用するためのシステムです。位置情報がはいっていると投稿した情報を地図で確認できます\n\n";
-    
+
     $helpstr .= "グループでの利用\n";
-    
-    
+
+
     $helpstr .= "LINEの上で同じ情報を投稿する皆様とグループを作成して、そのグループにこのシステムを追加していただけると、他の人の投稿を見ながら投稿情報をクラウド上のシートに集めることができます\n";
     $helpstr .= "ただしグループに参加した方で災害情報収集用のチャットボットと友達になっていない方は必ずチャットボットと友達になっておいて下さい。\n";
-    $helpstr .= "チャットボットと友達になっていないと投稿情報に投稿者のユーザ名が残らないので地図表示を行う場合うまく表示されなくなります。\n\n";    
-    
+    $helpstr .= "チャットボットと友達になっていないと投稿情報に投稿者のユーザ名が残らないので地図表示を行う場合うまく表示されなくなります。\n\n";
+
     $helpstr .= "位置情報の投稿\n";
     $helpstr .= "位置情報を投稿してからテキスト、写真、動画、音声を投稿してください\n";
     $helpstr .= "音声は1分間までの投稿が可能です。音声投稿は音声をテキスト化したテキストと音声データが保存されます\n";
 
- 
- //    $helpstr .="位置情報投稿 line://nv/location \n"; 
-      
-     $helpstr .="同じ場所で連続して投稿する場合は最初に1回だけ位置情報を投稿してください。場所を変えて投稿する場合は最初に1回位置情報を投稿してください。位置情報を投稿しないと地図に表示されないか地図上のあやまった位置に表示されます。\n\n";        
- 
- 
-     $helpstr .="LINEのグループで本システムを利用する場合テキスト投稿の先頭1文字を # (半角のシャープ) で開始した投稿はスプレッドシートに保存されません。グループ内での情報共有を投稿する場合ご利用下さい\n\n";    
-     
-      
+
+ //    $helpstr .="位置情報投稿 line://nv/location \n";
+
+     $helpstr .="同じ場所で連続して投稿する場合は最初に1回だけ位置情報を投稿してください。場所を変えて投稿する場合は最初に1回位置情報を投稿してください。位置情報を投稿しないと地図に表示されないか地図上のあやまった位置に表示されます。\n\n";
+
+
+     $helpstr .="LINEのグループで本システムを利用する場合テキスト投稿の先頭1文字を # (半角のシャープ) で開始した投稿はスプレッドシートに保存されません。グループ内での情報共有を投稿する場合ご利用下さい\n\n";
+
+
      $helpstr .= "\n\n特殊コマンド\n";
-     
+
      $helpstr .= "#map 地図表示URL表示\n";
-          
+
      $helpstr .= "#list 一覧表表示URL表示\n";
-                    
+
       $helpstr .= "#help HELPメッセージ表示\n";
-      $bote->replyText($evente->getReplyToken(), $helpstr);      
+      $bote->replyText($evente->getReplyToken(), $helpstr);
 }
 
 
@@ -635,20 +661,20 @@ foreach ($events as $event) {
         $longitude = $event->getLongitude();
 
 
-  
+
 
        $tst =  AddLocationLink( $response, $event );
-        
+
         if ( $tst ) {
           $bot->replyText($event->getReplyToken(), "入力位置情報 ${title} ${address} ${latitude} ${longitude}");
           }
         else
            {
                     $bot->replyText($event->getReplyToken(), "【警告】LINE Botと友達になっていないのでユーザ名が取得できません。\n位置情報が正しく記録できないのでLINE Botと友達になって下さい。\n入力位置情報 ${title} ${address} ${latitude} ${longitude}");
-                         
-             
-             
-             }  
+
+
+
+             }
          continue;
 
 
@@ -672,16 +698,16 @@ foreach ($events as $event) {
 
 
                 $filepath =  upload_contents( 'image' , 'jpg', 'application/octet-stream', $response );
-                
-                
+
+
                 $tst = AddFileLink( $response, $event, $filepath, "image"  );
-                
+
                 if ( $tst ) {
                                 $bot->replyText($event->getReplyToken(), "画像共有   ${filepath} ");
-                
+
                 }
                 else {
-                
+
                                        $bot->replyText($event->getReplyToken(), "【警告】LINE Botと友達になっていないのでユーザ名が取得できません。\n位置情報が正しく記録できないのでLINE Botと友達になって下さい。\n画像共有   ${filepath} ");
                 }
 
@@ -689,7 +715,7 @@ foreach ($events as $event) {
 
 
 
-      
+
                 continue;
 
 
@@ -743,19 +769,19 @@ foreach ($events as $event) {
 
 
                 unlink( $tflc );
-                
+
                 $tst =  AddAudioFileLink( $response, $event, $filepath, "voice" ,${voicetext} );
-                              
+
 
                 if ( $tst ) {
                 $bot->replyText($event->getReplyToken(), "音声共有   ${filepath} ${voicetext}");
                   }
                 else  {
-                    $bot->replyText($event->getReplyToken(), "【警告】LINE Botと友達になっていないのでユーザ名が取得できません。\n位置情報が正しく記録できないのでLINE Botと友達になって下さい。\n音声共有   ${filepath} ${voicetext}");   
-                
+                    $bot->replyText($event->getReplyToken(), "【警告】LINE Botと友達になっていないのでユーザ名が取得できません。\n位置情報が正しく記録できないのでLINE Botと友達になって下さい。\n音声共有   ${filepath} ${voicetext}");
+
                 }
 
-  
+
 
                 continue;
 
@@ -789,13 +815,13 @@ foreach ($events as $event) {
 
 
                  $tst =  AddFileLink( $response, $event, $filepath, "video"  );
-                 
+
                  if ( $tst ) {
                      $bot->replyText($event->getReplyToken(), "ビデオ共有   ${filepath} ");
                      }
                   else {
                      $bot->replyText($event->getReplyToken(), "【警告】LINE Botと友達になっていないのでユーザ名が取得できません。\n位置情報が正しく記録できないのでLINE Botと友達になって下さい。\nビデオ共有   ${filepath} ");
-                  
+
                   }
 
                 continue;
@@ -823,18 +849,18 @@ foreach ($events as $event) {
 
 
            $filepath =  upload_contents( 'file' , 'bin', 'application/octet-stream', $response );
-           
-           
-           
+
+
+
             $tst = AddFileLink( $response, $event, $filepath, "file"  );
-           
+
 
             if ( $tst ) {
             $bot->replyText($event->getReplyToken(), "ファイルイベント   line://nv/location ");
               }
             else  {
-            
-                $bot->replyText($event->getReplyToken(), "【警告】LINE Botと友達になっていないのでユーザ名が取得できません。\n位置情報が正しく記録できないのでLINE Botと友達になって下さい。\nファイルイベント   line://nv/location ");  
+
+                $bot->replyText($event->getReplyToken(), "【警告】LINE Botと友達になっていないのでユーザ名が取得できません。\n位置情報が正しく記録できないのでLINE Botと友達になって下さい。\nファイルイベント   line://nv/location ");
             }
 
           continue;
@@ -846,8 +872,8 @@ foreach ($events as $event) {
 
 
     $log->addWarning("join event!\n");
-   //$bot->replyText($event->getReplyToken(), "友達追加ありがとうございます");  
-   displayShortHelp( $bot, $event ); 
+   //$bot->replyText($event->getReplyToken(), "友達追加ありがとうございます");
+   displayShortHelp( $bot, $event );
 
      //  firstmessage( $bot, $event,0);
        continue;
@@ -859,8 +885,8 @@ foreach ($events as $event) {
       !($event instanceof \LINE\LINEBot\Event\MessageEvent\TextMessage)) {
 
       if (!($event instanceof \LINE\LINEBot\Event\PostbackEvent) ) {
-      
-          displayHelp( $bot, $event ); 
+
+          displayShortHelp( $bot, $event );
         // $bot->replyText($event->getReplyToken(), " なんかのイベント発生");
 
              continue;
@@ -885,8 +911,8 @@ foreach ($events as $event) {
 
 
            if ( strcmp($chktext, "#" ) == 0 ) {
-           
-           
+
+
                    $spreadsheetId = getenv('SPREADSHEET_ID');
 
                     if ( strcmp($tgText, "#map" ) == 0 ) {   //  display map URL
@@ -902,20 +928,20 @@ foreach ($events as $event) {
 
                        $bot->replyText($event->getReplyToken(), "集計シート (閲覧)     https://docs.google.com/spreadsheets/d/${spreadsheetId}/edit?usp=sharing");   //sheet urL
                        }
-  
-  
-  
+
+
+
                     if ( strcmp($tgText, "#help" ) == 0 ) {   //  display help
-                         displayHelp( $bot, $event ); 
-              
+                         displayHelp( $bot, $event );
+
                        }
-                                                                          
-                       
+
+
                    continue;
                    }
 
             $tst = AddText(  $event  );
-            
+
             if ( $tst ) {
 
 
@@ -923,7 +949,7 @@ foreach ($events as $event) {
                 $bot->replyText($event->getReplyToken(), "テキストメッセージ    ${tgText}");
                 }
              else {
-             
+
                              $bot->replyText($event->getReplyToken(), "【警告】LINE Botと友達になっていないのでユーザ名が取得できません。\n位置情報が正しく記録できないのでLINE Botと友達になって下さい。\nテキストメッセージ    ${tgText}");
              }
 
