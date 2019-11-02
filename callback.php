@@ -874,8 +874,19 @@ foreach ($events as $event) {
 
             $response = $bot->getMessageContent($message_id );
             
+            $fname = $response->file_name;
+            
+            $fpath = pathinfo($fname);
+            
+            $ext = $fpath['extension'];
+            
+                  
 
-           $filepath =  upload_contents( 'file' , 'bin', 'application/octet-stream', $response );
+
+          $log->addWarning("file name   ${fname}\n");
+          $log->addWarning("extention  ${ext}\n");        
+
+           $filepath =  upload_contents( 'file' , $ext, 'application/octet-stream', $response );
 
 
 
