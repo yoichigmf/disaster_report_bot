@@ -870,7 +870,10 @@ foreach ($events as $event) {
 
     if ($event instanceof \LINE\LINEBot\Event\MessageEvent\FileMessage) {  //  ファイルメッセージの場合
 
+             $message_id = $event->getMessageId();
 
+            $response = $bot->getMessageContent($message_id );
+            
 
            $filepath =  upload_contents( 'file' , 'bin', 'application/octet-stream', $response );
 
