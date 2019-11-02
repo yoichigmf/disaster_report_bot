@@ -874,7 +874,7 @@ foreach ($events as $event) {
 
             $response = $bot->getMessageContent($message_id );
             
-            $fname = $response->file_name;
+            $fname = $event->getFileName();
             
             $fpath = pathinfo($fname);
             
