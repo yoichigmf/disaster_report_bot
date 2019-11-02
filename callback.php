@@ -868,7 +868,7 @@ foreach ($events as $event) {
 
         }
 
-    if ($event instanceof \LINE\LINEBot\Event\MessageEvent\FileMessage) {  //  ファイルメッセージの場合
+    if ($event instanceof \LINE\LINEBot\Event\MessageEvent\FileMessage) {  //  ファイルメッセージの場合 debug  2019.11.2
 
              $message_id = $event->getMessageId();
 
