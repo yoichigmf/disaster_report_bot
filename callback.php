@@ -190,13 +190,15 @@ function  AddFileLink( $response, $event, string $filepath, string $kind ){
 
    //var_dump($event);
 
+    $orgfilename = $event->getFileName();   //  元ファイル名
+    
 
      //  ユーザ名の取得
     $user = GetUserName($event);
 
     $comment = "";
     $url = $filepath;
-    //$comment = $event->originalContentUrl;
+    $comment = $orgfilename;
 
      $value = new Google_Service_Sheets_ValueRange();
      $value->setValues([ 'values' => [ $date, $user, $kind, $url ,$comment ] ]);
@@ -894,11 +896,11 @@ foreach ($events as $event) {
 
 
             if ( $tst ) {
-            $bot->replyText($event->getReplyToken(), "ファイルイベント   line://nv/location ");
+            $bot->replyText($event->getReplyToken(), "ファイルアップロード  ${fname}   ${filepath} ");
               }
             else  {
 
-                $bot->replyText($event->getReplyToken(), "【警告】LINE Botと友達になっていないのでユーザ名が取得できません。\n位置情報が正しく記録できないのでLINE Botと友達になって下さい。\nファイルイベント   line://nv/location ");
+                $bot->replyText($event->getReplyToken(), "【警告】LINE Botと友達になっていないのでユーザ名が取得できません。\n位置情報が正しく記録できないのでLINE Botと友達になって下さい。\nファイルアップロード  ${fname}   ${filepath}");
             }
 
           continue;
