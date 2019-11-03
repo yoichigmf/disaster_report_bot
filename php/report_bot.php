@@ -171,7 +171,11 @@ function  AddFileLink( $response, $event, string $filepath, string $kind ){
 
    //var_dump($event);
 
+    $orgfilename = "";
+
+    if ( $kind != "image") {
     $orgfilename = $event->getFileName();   //  元ファイル名
+    }
     
 
      //  ユーザ名の取得
