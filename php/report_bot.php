@@ -73,9 +73,9 @@ if (! is_null($slack_hook_url)){
   
   if ( $kind == "image" ) {    //  画像の場合画像本体のURLもポストする
   
-    $nurl = preg_replace( "www.dropbox.com", "dl.dropboxusercontent.com", $url );
+    $nurl = str_replace( "www.dropbox.com", "dl.dropboxusercontent.com", $url );
     
-    $nnurl = preg_replace( "\?dl=0", "", $nurl );
+    $nnurl = str_replace( "?dl=0", "", $nurl );
     
       $log->addWarning("new url ${nurl} nn ${nnurl}\n");
   }
