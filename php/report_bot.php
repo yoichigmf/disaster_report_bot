@@ -75,9 +75,9 @@ if (! is_null($slack_hook_url)){
   
     $nurl = preg_replace( "www.dropbox.com", "dl.dropboxusercontent.com", $url );
     
-    $nnurl = preg_replace( "?dl=0", "", $nurl );
+    $nnurl = preg_replace( "\?dl=0", "", $nurl );
     
-      $log->addWarning("new url ${nnurl}\n");
+      $log->addWarning("new url ${nurl} nn ${nnurl}\n");
   }
   
   
