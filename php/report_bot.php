@@ -47,22 +47,11 @@ global  $log;
 
 
 if (! is_null($slack_hook_url)){
- // $message = array (
-  //  'username' => 'line_bot',
 
-//  );
-
- // $message['text'] = "$date $user $kind $url $comment $lat $lon";
 
   $sttext = "$date $user $kind $url $comment $lat $lon";
   $webhook_url = $slack_hook_url;
-  $options = array(
-    'http' => array(
-    'method' => 'POST',
-    'header' => 'Content-Type: application/json',
-    'content' => json_encode($message),
-    )
-  );
+
 
   $slack = new Slack($slack_hook_url);
   
@@ -70,14 +59,12 @@ if (! is_null($slack_hook_url)){
   
   $message->setText($sttext);
   
-  $message->send();
+ 
   
   
   $log->addWarning("url ${webhook_url}\n");
 
-  //$response = file_get_contents($webhook_url, false, stream_context_create($options));
-
-  $log->addWarning("response ${response}\n");
+  
   
   
   if ( $kind == "image" ) {    //  画像の場合画像本体のURLもポストする
@@ -86,11 +73,17 @@ if (! is_null($slack_hook_url)){
     
     $nnurl = str_replace( "?dl=0", "", $nurl );
     
-      $log->addWarning("new url ${nurl} nn ${nnurl}\n");
+    $log->addWarning("new url ${nurl} nn ${nnurl}\n");
+    
+    $attachment = new SlackAttachment("画像");
+    $attachment->setImage($nnurl);
+    $message->addAttachment($attachment);
   }
   
-  
-  return $response === 'ok';
+   $message->send();
+   
+   
+  return TRUE;
 
 }
 
