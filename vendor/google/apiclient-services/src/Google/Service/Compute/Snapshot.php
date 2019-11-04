@@ -18,6 +18,7 @@
 class Google_Service_Compute_Snapshot extends Google_Collection
 {
   protected $collection_key = 'storageLocations';
+  public $autoCreated;
   public $creationTimestamp;
   public $description;
   public $diskSizeGb;
@@ -40,6 +41,14 @@ class Google_Service_Compute_Snapshot extends Google_Collection
   public $storageBytesStatus;
   public $storageLocations;
 
+  public function setAutoCreated($autoCreated)
+  {
+    $this->autoCreated = $autoCreated;
+  }
+  public function getAutoCreated()
+  {
+    return $this->autoCreated;
+  }
   public function setCreationTimestamp($creationTimestamp)
   {
     $this->creationTimestamp = $creationTimestamp;

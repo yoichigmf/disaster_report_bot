@@ -20,6 +20,7 @@ class Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1ReplicaConfig ext
   protected $acceleratorConfigType = 'Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1AcceleratorConfig';
   protected $acceleratorConfigDataType = '';
   public $imageUri;
+  public $tpuTfVersion;
 
   /**
    * @param Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1AcceleratorConfig
@@ -42,5 +43,13 @@ class Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1ReplicaConfig ext
   public function getImageUri()
   {
     return $this->imageUri;
+  }
+  public function setTpuTfVersion($tpuTfVersion)
+  {
+    $this->tpuTfVersion = $tpuTfVersion;
+  }
+  public function getTpuTfVersion()
+  {
+    return $this->tpuTfVersion;
   }
 }

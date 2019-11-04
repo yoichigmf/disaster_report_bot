@@ -22,6 +22,8 @@ class Google_Service_Bigquery_BinaryClassificationMetrics extends Google_Collect
   protected $aggregateClassificationMetricsDataType = '';
   protected $binaryConfusionMatrixListType = 'Google_Service_Bigquery_BinaryConfusionMatrix';
   protected $binaryConfusionMatrixListDataType = 'array';
+  public $negativeLabel;
+  public $positiveLabel;
 
   /**
    * @param Google_Service_Bigquery_AggregateClassificationMetrics
@@ -50,5 +52,21 @@ class Google_Service_Bigquery_BinaryClassificationMetrics extends Google_Collect
   public function getBinaryConfusionMatrixList()
   {
     return $this->binaryConfusionMatrixList;
+  }
+  public function setNegativeLabel($negativeLabel)
+  {
+    $this->negativeLabel = $negativeLabel;
+  }
+  public function getNegativeLabel()
+  {
+    return $this->negativeLabel;
+  }
+  public function setPositiveLabel($positiveLabel)
+  {
+    $this->positiveLabel = $positiveLabel;
+  }
+  public function getPositiveLabel()
+  {
+    return $this->positiveLabel;
   }
 }

@@ -122,7 +122,7 @@ class Google_Service_AccessContextManager_Resource_AccessPoliciesAccessLevels ex
    * @param Google_Service_AccessContextManager_AccessLevel $postBody
    * @param array $optParams Optional parameters.
    *
-   * @opt_param string updateMask Required.  Mask to control which fields get
+   * @opt_param string updateMask Required. Mask to control which fields get
    * updated. Must be non-empty.
    * @return Google_Service_AccessContextManager_Operation
    */

@@ -17,12 +17,30 @@
 
 class Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildexecutionAdminV1alphaWorkerConfig extends Google_Model
 {
+  protected $acceleratorType = 'Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildexecutionAdminV1alphaAcceleratorConfig';
+  protected $acceleratorDataType = '';
   public $diskSizeGb;
   public $diskType;
+  public $labels;
   public $machineType;
   public $minCpuPlatform;
+  public $networkAccess;
   public $reserved;
 
+  /**
+   * @param Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildexecutionAdminV1alphaAcceleratorConfig
+   */
+  public function setAccelerator(Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildexecutionAdminV1alphaAcceleratorConfig $accelerator)
+  {
+    $this->accelerator = $accelerator;
+  }
+  /**
+   * @return Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildexecutionAdminV1alphaAcceleratorConfig
+   */
+  public function getAccelerator()
+  {
+    return $this->accelerator;
+  }
   public function setDiskSizeGb($diskSizeGb)
   {
     $this->diskSizeGb = $diskSizeGb;
@@ -39,6 +57,14 @@ class Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildexecutionAdmi
   {
     return $this->diskType;
   }
+  public function setLabels($labels)
+  {
+    $this->labels = $labels;
+  }
+  public function getLabels()
+  {
+    return $this->labels;
+  }
   public function setMachineType($machineType)
   {
     $this->machineType = $machineType;
@@ -54,6 +80,14 @@ class Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildexecutionAdmi
   public function getMinCpuPlatform()
   {
     return $this->minCpuPlatform;
+  }
+  public function setNetworkAccess($networkAccess)
+  {
+    $this->networkAccess = $networkAccess;
+  }
+  public function getNetworkAccess()
+  {
+    return $this->networkAccess;
   }
   public function setReserved($reserved)
   {

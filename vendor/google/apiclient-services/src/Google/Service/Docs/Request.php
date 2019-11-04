@@ -17,6 +17,10 @@
 
 class Google_Service_Docs_Request extends Google_Model
 {
+  protected $createFooterType = 'Google_Service_Docs_CreateFooterRequest';
+  protected $createFooterDataType = '';
+  protected $createHeaderType = 'Google_Service_Docs_CreateHeaderRequest';
+  protected $createHeaderDataType = '';
   protected $createNamedRangeType = 'Google_Service_Docs_CreateNamedRangeRequest';
   protected $createNamedRangeDataType = '';
   protected $createParagraphBulletsType = 'Google_Service_Docs_CreateParagraphBulletsRequest';
@@ -45,10 +49,22 @@ class Google_Service_Docs_Request extends Google_Model
   protected $insertTableRowDataType = '';
   protected $insertTextType = 'Google_Service_Docs_InsertTextRequest';
   protected $insertTextDataType = '';
+  protected $mergeTableCellsType = 'Google_Service_Docs_MergeTableCellsRequest';
+  protected $mergeTableCellsDataType = '';
   protected $replaceAllTextType = 'Google_Service_Docs_ReplaceAllTextRequest';
   protected $replaceAllTextDataType = '';
+  protected $replaceImageType = 'Google_Service_Docs_ReplaceImageRequest';
+  protected $replaceImageDataType = '';
+  protected $replaceNamedRangeContentType = 'Google_Service_Docs_ReplaceNamedRangeContentRequest';
+  protected $replaceNamedRangeContentDataType = '';
+  protected $unmergeTableCellsType = 'Google_Service_Docs_UnmergeTableCellsRequest';
+  protected $unmergeTableCellsDataType = '';
+  protected $updateDocumentStyleType = 'Google_Service_Docs_UpdateDocumentStyleRequest';
+  protected $updateDocumentStyleDataType = '';
   protected $updateParagraphStyleType = 'Google_Service_Docs_UpdateParagraphStyleRequest';
   protected $updateParagraphStyleDataType = '';
+  protected $updateTableCellStyleType = 'Google_Service_Docs_UpdateTableCellStyleRequest';
+  protected $updateTableCellStyleDataType = '';
   protected $updateTableColumnPropertiesType = 'Google_Service_Docs_UpdateTableColumnPropertiesRequest';
   protected $updateTableColumnPropertiesDataType = '';
   protected $updateTableRowStyleType = 'Google_Service_Docs_UpdateTableRowStyleRequest';
@@ -56,6 +72,34 @@ class Google_Service_Docs_Request extends Google_Model
   protected $updateTextStyleType = 'Google_Service_Docs_UpdateTextStyleRequest';
   protected $updateTextStyleDataType = '';
 
+  /**
+   * @param Google_Service_Docs_CreateFooterRequest
+   */
+  public function setCreateFooter(Google_Service_Docs_CreateFooterRequest $createFooter)
+  {
+    $this->createFooter = $createFooter;
+  }
+  /**
+   * @return Google_Service_Docs_CreateFooterRequest
+   */
+  public function getCreateFooter()
+  {
+    return $this->createFooter;
+  }
+  /**
+   * @param Google_Service_Docs_CreateHeaderRequest
+   */
+  public function setCreateHeader(Google_Service_Docs_CreateHeaderRequest $createHeader)
+  {
+    $this->createHeader = $createHeader;
+  }
+  /**
+   * @return Google_Service_Docs_CreateHeaderRequest
+   */
+  public function getCreateHeader()
+  {
+    return $this->createHeader;
+  }
   /**
    * @param Google_Service_Docs_CreateNamedRangeRequest
    */
@@ -253,6 +297,20 @@ class Google_Service_Docs_Request extends Google_Model
     return $this->insertText;
   }
   /**
+   * @param Google_Service_Docs_MergeTableCellsRequest
+   */
+  public function setMergeTableCells(Google_Service_Docs_MergeTableCellsRequest $mergeTableCells)
+  {
+    $this->mergeTableCells = $mergeTableCells;
+  }
+  /**
+   * @return Google_Service_Docs_MergeTableCellsRequest
+   */
+  public function getMergeTableCells()
+  {
+    return $this->mergeTableCells;
+  }
+  /**
    * @param Google_Service_Docs_ReplaceAllTextRequest
    */
   public function setReplaceAllText(Google_Service_Docs_ReplaceAllTextRequest $replaceAllText)
@@ -267,6 +325,62 @@ class Google_Service_Docs_Request extends Google_Model
     return $this->replaceAllText;
   }
   /**
+   * @param Google_Service_Docs_ReplaceImageRequest
+   */
+  public function setReplaceImage(Google_Service_Docs_ReplaceImageRequest $replaceImage)
+  {
+    $this->replaceImage = $replaceImage;
+  }
+  /**
+   * @return Google_Service_Docs_ReplaceImageRequest
+   */
+  public function getReplaceImage()
+  {
+    return $this->replaceImage;
+  }
+  /**
+   * @param Google_Service_Docs_ReplaceNamedRangeContentRequest
+   */
+  public function setReplaceNamedRangeContent(Google_Service_Docs_ReplaceNamedRangeContentRequest $replaceNamedRangeContent)
+  {
+    $this->replaceNamedRangeContent = $replaceNamedRangeContent;
+  }
+  /**
+   * @return Google_Service_Docs_ReplaceNamedRangeContentRequest
+   */
+  public function getReplaceNamedRangeContent()
+  {
+    return $this->replaceNamedRangeContent;
+  }
+  /**
+   * @param Google_Service_Docs_UnmergeTableCellsRequest
+   */
+  public function setUnmergeTableCells(Google_Service_Docs_UnmergeTableCellsRequest $unmergeTableCells)
+  {
+    $this->unmergeTableCells = $unmergeTableCells;
+  }
+  /**
+   * @return Google_Service_Docs_UnmergeTableCellsRequest
+   */
+  public function getUnmergeTableCells()
+  {
+    return $this->unmergeTableCells;
+  }
+  /**
+   * @param Google_Service_Docs_UpdateDocumentStyleRequest
+   */
+  public function setUpdateDocumentStyle(Google_Service_Docs_UpdateDocumentStyleRequest $updateDocumentStyle)
+  {
+    $this->updateDocumentStyle = $updateDocumentStyle;
+  }
+  /**
+   * @return Google_Service_Docs_UpdateDocumentStyleRequest
+   */
+  public function getUpdateDocumentStyle()
+  {
+    return $this->updateDocumentStyle;
+  }
+  /**
    * @param Google_Service_Docs_UpdateParagraphStyleRequest
    */
   public function setUpdateParagraphStyle(Google_Service_Docs_UpdateParagraphStyleRequest $updateParagraphStyle)
@@ -279,6 +393,20 @@ class Google_Service_Docs_Request extends Google_Model
   public function getUpdateParagraphStyle()
   {
     return $this->updateParagraphStyle;
+  }
+  /**
+   * @param Google_Service_Docs_UpdateTableCellStyleRequest
+   */
+  public function setUpdateTableCellStyle(Google_Service_Docs_UpdateTableCellStyleRequest $updateTableCellStyle)
+  {
+    $this->updateTableCellStyle = $updateTableCellStyle;
+  }
+  /**
+   * @return Google_Service_Docs_UpdateTableCellStyleRequest
+   */
+  public function getUpdateTableCellStyle()
+  {
+    return $this->updateTableCellStyle;
   }
   /**
    * @param Google_Service_Docs_UpdateTableColumnPropertiesRequest

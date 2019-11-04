@@ -152,6 +152,8 @@ class Google_Service_BigtableAdmin_Resource_ProjectsInstancesTables extends Goog
    * be listed. Values are of the form `projects//instances/`.
    * @param array $optParams Optional parameters.
    *
+   * @opt_param string view The view to be applied to the returned tables' fields.
+   * Defaults to `NAME_ONLY` if unspecified; no others are currently supported.
    * @opt_param string pageToken The value of `next_page_token` returned by a
    * previous call.
    * @opt_param int pageSize Maximum number of results per page.
@@ -163,8 +165,6 @@ class Google_Service_BigtableAdmin_Resource_ProjectsInstancesTables extends Goog
    * Following the first request, subsequent paginated calls are not required to
    * pass a page_size. If a page_size is set in subsequent calls, it must match
    * the page_size given in the first request.
-   * @opt_param string view The view to be applied to the returned tables' fields.
-   * Defaults to `NAME_ONLY` if unspecified; no others are currently supported.
    * @return Google_Service_BigtableAdmin_ListTablesResponse
    */
   public function listProjectsInstancesTables($parent, $optParams = array())

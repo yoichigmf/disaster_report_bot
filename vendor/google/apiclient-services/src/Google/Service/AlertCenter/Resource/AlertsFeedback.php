@@ -27,7 +27,9 @@ class Google_Service_AlertCenter_Resource_AlertsFeedback extends Google_Service_
 {
   /**
    * Creates new feedback for an alert. Attempting to create a feedback for a non-
-   * existent alert returns `NOT_FOUND` error. (feedback.create)
+   * existent alert returns `NOT_FOUND` error. Attempting to create a feedback for
+   * an alert that is marked for deletion returns `FAILED_PRECONDITION' error.
+   * (feedback.create)
    *
    * @param string $alertId Required. The identifier of the alert this feedback
    * belongs to.
@@ -53,13 +55,13 @@ class Google_Service_AlertCenter_Resource_AlertsFeedback extends Google_Service_
    * be used to represent all alerts.
    * @param array $optParams Optional parameters.
    *
+   * @opt_param string customerId Optional. The unique identifier of the G Suite
+   * organization account of the customer the alert feedback are associated with.
+   * Inferred from the caller identity if not provided.
    * @opt_param string filter Optional. A query string for filtering alert
    * feedback results. For more details, see [Query filters](/admin-
    * sdk/alertcenter/guides/query-filters) and [Supported query filter fields
    * ](/admin-sdk/alertcenter/reference/filter-fields#alerts.feedback.list).
-   * @opt_param string customerId Optional. The unique identifier of the G Suite
-   * organization account of the customer the alert feedback are associated with.
-   * Inferred from the caller identity if not provided.
    * @return Google_Service_AlertCenter_ListAlertFeedbackResponse
    */
   public function listAlertsFeedback($alertId, $optParams = array())

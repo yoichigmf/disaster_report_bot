@@ -20,6 +20,8 @@ class Google_Service_AdExchangeBuyerII_Creative extends Google_Collection
   protected $collection_key = 'vendorIds';
   public $accountId;
   public $adChoicesDestinationUrl;
+  protected $adTechnologyProvidersType = 'Google_Service_AdExchangeBuyerII_AdTechnologyProviders';
+  protected $adTechnologyProvidersDataType = '';
   public $advertiserName;
   public $agencyId;
   public $apiUpdateTime;
@@ -64,6 +66,20 @@ class Google_Service_AdExchangeBuyerII_Creative extends Google_Collection
   public function getAdChoicesDestinationUrl()
   {
     return $this->adChoicesDestinationUrl;
+  }
+  /**
+   * @param Google_Service_AdExchangeBuyerII_AdTechnologyProviders
+   */
+  public function setAdTechnologyProviders(Google_Service_AdExchangeBuyerII_AdTechnologyProviders $adTechnologyProviders)
+  {
+    $this->adTechnologyProviders = $adTechnologyProviders;
+  }
+  /**
+   * @return Google_Service_AdExchangeBuyerII_AdTechnologyProviders
+   */
+  public function getAdTechnologyProviders()
+  {
+    return $this->adTechnologyProviders;
   }
   public function setAdvertiserName($advertiserName)
   {

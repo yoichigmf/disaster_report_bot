@@ -23,6 +23,7 @@ class Google_Service_Dialogflow_GoogleCloudDialogflowV2InputAudioConfig extends 
   public $modelVariant;
   public $phraseHints;
   public $sampleRateHertz;
+  public $singleUtterance;
 
   public function setAudioEncoding($audioEncoding)
   {
@@ -63,5 +64,13 @@ class Google_Service_Dialogflow_GoogleCloudDialogflowV2InputAudioConfig extends 
   public function getSampleRateHertz()
   {
     return $this->sampleRateHertz;
+  }
+  public function setSingleUtterance($singleUtterance)
+  {
+    $this->singleUtterance = $singleUtterance;
+  }
+  public function getSingleUtterance()
+  {
+    return $this->singleUtterance;
   }
 }

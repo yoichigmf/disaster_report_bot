@@ -28,4 +28,5 @@ class ComponentType
     const SEPARATOR = 'separator';
     const SPACER = 'spacer';
     const TEXT = 'text';
+    const SPAN = 'span';
 }

@@ -22,6 +22,7 @@ class Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1TrainingOutput ex
   protected $builtInAlgorithmOutputDataType = '';
   public $completedTrialCount;
   public $consumedMLUnits;
+  public $hyperparameterMetricTag;
   public $isBuiltInAlgorithmJob;
   public $isHyperparameterTuningJob;
   protected $trialsType = 'Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1HyperparameterOutput';
@@ -56,6 +57,14 @@ class Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1TrainingOutput ex
   public function getConsumedMLUnits()
   {
     return $this->consumedMLUnits;
+  }
+  public function setHyperparameterMetricTag($hyperparameterMetricTag)
+  {
+    $this->hyperparameterMetricTag = $hyperparameterMetricTag;
+  }
+  public function getHyperparameterMetricTag()
+  {
+    return $this->hyperparameterMetricTag;
   }
   public function setIsBuiltInAlgorithmJob($isBuiltInAlgorithmJob)
   {

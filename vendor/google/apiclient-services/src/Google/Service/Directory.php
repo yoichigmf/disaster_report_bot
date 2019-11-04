@@ -112,6 +112,9 @@ class Google_Service_Directory extends Google_Service
   /** View user schemas on your domain. */
   const ADMIN_DIRECTORY_USERSCHEMA_READONLY =
       "https://www.googleapis.com/auth/admin.directory.userschema.readonly";
+  /** View and manage your data across Google Cloud Platform services. */
+  const CLOUD_PLATFORM =
+      "https://www.googleapis.com/auth/cloud-platform";
 
   public $asps;
   public $channels;
@@ -142,12 +145,13 @@ class Google_Service_Directory extends Google_Service
   /**
    * Constructs the internal representation of the Directory service.
    *
-   * @param Google_Client $client
+   * @param Google_Client $client The client used to deliver requests.
+   * @param string $rootUrl The root URL used for requests to the service.
    */
-  public function __construct(Google_Client $client)
+  public function __construct(Google_Client $client, $rootUrl = null)
   {
     parent::__construct($client);
-    $this->rootUrl = 'https://www.googleapis.com/';
+    $this->rootUrl = $rootUrl ?: 'https://www.googleapis.com/';
     $this->servicePath = 'admin/directory/v1/';
     $this->batchPath = 'batch/admin/directory_v1';
     $this->version = 'directory_v1';

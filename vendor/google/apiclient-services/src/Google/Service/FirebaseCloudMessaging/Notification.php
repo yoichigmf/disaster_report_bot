@@ -18,6 +18,7 @@
 class Google_Service_FirebaseCloudMessaging_Notification extends Google_Model
 {
   public $body;
+  public $image;
   public $title;
 
   public function setBody($body)
@@ -27,6 +28,14 @@ class Google_Service_FirebaseCloudMessaging_Notification extends Google_Model
   public function getBody()
   {
     return $this->body;
+  }
+  public function setImage($image)
+  {
+    $this->image = $image;
+  }
+  public function getImage()
+  {
+    return $this->image;
   }
   public function setTitle($title)
   {

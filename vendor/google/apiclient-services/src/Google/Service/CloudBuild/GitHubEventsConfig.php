@@ -17,8 +17,6 @@
 
 class Google_Service_CloudBuild_GitHubEventsConfig extends Google_Model
 {
-  protected $checkSuiteType = 'Google_Service_CloudBuild_CheckSuiteFilter';
-  protected $checkSuiteDataType = '';
   public $installationId;
   public $name;
   public $owner;
@@ -27,20 +25,6 @@ class Google_Service_CloudBuild_GitHubEventsConfig extends Google_Model
   protected $pushType = 'Google_Service_CloudBuild_PushFilter';
   protected $pushDataType = '';
 
-  /**
-   * @param Google_Service_CloudBuild_CheckSuiteFilter
-   */
-  public function setCheckSuite(Google_Service_CloudBuild_CheckSuiteFilter $checkSuite)
-  {
-    $this->checkSuite = $checkSuite;
-  }
-  /**
-   * @return Google_Service_CloudBuild_CheckSuiteFilter
-   */
-  public function getCheckSuite()
-  {
-    return $this->checkSuite;
-  }
   public function setInstallationId($installationId)
   {
     $this->installationId = $installationId;

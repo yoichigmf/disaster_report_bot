@@ -73,9 +73,9 @@ class Google_Service_CloudPrivateCatalogProducer_Resource_CatalogsAssociations e
    * are being retrieved. In the format `catalogs/`.
    * @param array $optParams Optional parameters.
    *
-   * @opt_param int pageSize The maximum number of catalog associations to return.
    * @opt_param string pageToken A pagination token returned from the previous
    * call to `ListAssociations`.
+   * @opt_param int pageSize The maximum number of catalog associations to return.
    * @return Google_Service_CloudPrivateCatalogProducer_GoogleCloudPrivatecatalogproducerV1beta1ListAssociationsResponse
    */
   public function listCatalogsAssociations($parent, $optParams = array())

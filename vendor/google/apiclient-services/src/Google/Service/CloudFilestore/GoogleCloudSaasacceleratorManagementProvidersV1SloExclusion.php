@@ -20,7 +20,7 @@ class Google_Service_CloudFilestore_GoogleCloudSaasacceleratorManagementProvider
   public $exclusionDuration;
   public $exclusionStartTime;
   public $reason;
-  public $sloName;
+  public $sliName;
 
   public function setExclusionDuration($exclusionDuration)
   {
@@ -46,12 +46,12 @@ class Google_Service_CloudFilestore_GoogleCloudSaasacceleratorManagementProvider
   {
     return $this->reason;
   }
-  public function setSloName($sloName)
+  public function setSliName($sliName)
   {
-    $this->sloName = $sloName;
+    $this->sliName = $sliName;
   }
-  public function getSloName()
+  public function getSliName()
   {
-    return $this->sloName;
+    return $this->sliName;
   }
 }

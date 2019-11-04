@@ -1,7 +1,7 @@
 <?php
 /*
  * Copyright 2014 Google Inc.
- *  
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
  * the License at
@@ -54,12 +54,13 @@ class Google_Service_Sheets extends Google_Service
   /**
    * Constructs the internal representation of the Sheets service.
    *
-   * @param Google_Client $client
+   * @param Google_Client $client The client used to deliver requests.
+   * @param string $rootUrl The root URL used for requests to the service.
    */
-  public function __construct(Google_Client $client)
+  public function __construct(Google_Client $client, $rootUrl = null)
   {
     parent::__construct($client);
-    $this->rootUrl = 'https://sheets.googleapis.com/';
+    $this->rootUrl = $rootUrl ?: 'https://sheets.googleapis.com/';
     $this->servicePath = '';
     $this->batchPath = 'batch';
     $this->version = 'v4';
@@ -198,14 +199,6 @@ class Google_Service_Sheets extends Google_Service
                   'type' => 'string',
                   'required' => true,
                 ),
-                'insertDataOption' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
-                'valueInputOption' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
                 'responseDateTimeRenderOption' => array(
                   'location' => 'query',
                   'type' => 'string',
@@ -215,6 +208,14 @@ class Google_Service_Sheets extends Google_Service
                   'type' => 'boolean',
                 ),
                 'responseValueRenderOption' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'insertDataOption' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'valueInputOption' => array(
                   'location' => 'query',
                   'type' => 'string',
                 ),
@@ -248,20 +249,20 @@ class Google_Service_Sheets extends Google_Service
                   'type' => 'string',
                   'required' => true,
                 ),
-                'valueRenderOption' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
-                'dateTimeRenderOption' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
                 'ranges' => array(
                   'location' => 'query',
                   'type' => 'string',
                   'repeated' => true,
                 ),
                 'majorDimension' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'valueRenderOption' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'dateTimeRenderOption' => array(
                   'location' => 'query',
                   'type' => 'string',
                 ),
@@ -325,15 +326,15 @@ class Google_Service_Sheets extends Google_Service
                   'type' => 'string',
                   'required' => true,
                 ),
-                'majorDimension' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
                 'valueRenderOption' => array(
                   'location' => 'query',
                   'type' => 'string',
                 ),
                 'dateTimeRenderOption' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'majorDimension' => array(
                   'location' => 'query',
                   'type' => 'string',
                 ),

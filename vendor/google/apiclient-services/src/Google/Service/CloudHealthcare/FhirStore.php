@@ -19,7 +19,6 @@ class Google_Service_CloudHealthcare_FhirStore extends Google_Model
 {
   public $disableReferentialIntegrity;
   public $disableResourceVersioning;
-  public $enableHistoryImport;
   public $enableUpdateCreate;
   public $labels;
   public $name;
@@ -41,14 +40,6 @@ class Google_Service_CloudHealthcare_FhirStore extends Google_Model
   public function getDisableResourceVersioning()
   {
     return $this->disableResourceVersioning;
-  }
-  public function setEnableHistoryImport($enableHistoryImport)
-  {
-    $this->enableHistoryImport = $enableHistoryImport;
-  }
-  public function getEnableHistoryImport()
-  {
-    return $this->enableHistoryImport;
   }
   public function setEnableUpdateCreate($enableUpdateCreate)
   {

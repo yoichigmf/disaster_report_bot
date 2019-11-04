@@ -88,10 +88,10 @@ class Google_Service_AccessContextManager_Resource_AccessPoliciesServicePerimete
    * Format: `accessPolicies/{policy_id}`
    * @param array $optParams Optional parameters.
    *
-   * @opt_param int pageSize Number of Service Perimeters to include in the list.
-   * Default 100.
    * @opt_param string pageToken Next page token for the next batch of Service
    * Perimeter instances. Defaults to the first page of results.
+   * @opt_param int pageSize Number of Service Perimeters to include in the list.
+   * Default 100.
    * @return Google_Service_AccessContextManager_ListServicePerimetersResponse
    */
   public function listAccessPoliciesServicePerimeters($parent, $optParams = array())

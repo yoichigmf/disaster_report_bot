@@ -33,10 +33,10 @@ class Google_Service_FirebaseHosting_Resource_SitesVersions extends Google_Servi
    * @param Google_Service_FirebaseHosting_Version $postBody
    * @param array $optParams Optional parameters.
    *
-   * @opt_param string versionId A unique id for the new version. This is only
-   * specified for legacy version creations.
    * @opt_param string sizeBytes The self-reported size of the version. This value
    * is used for a pre-emptive quota check for legacy version uploads.
+   * @opt_param string versionId A unique id for the new version. This is only
+   * specified for legacy version creations.
    * @return Google_Service_FirebaseHosting_Version
    */
   public function create($parent, Google_Service_FirebaseHosting_Version $postBody, $optParams = array())

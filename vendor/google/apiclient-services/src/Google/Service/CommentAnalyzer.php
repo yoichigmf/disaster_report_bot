@@ -28,7 +28,7 @@
  *
  * <p>
  * For more information about this service, see the API
- * <a href="https://conversationai.github.io/" target="_blank">Documentation</a>
+ * <a href="https://github.com/conversationai/perspectiveapi/blob/master/README.md" target="_blank">Documentation</a>
  * </p>
  *
  * @author Google, Inc.
@@ -44,12 +44,13 @@ class Google_Service_CommentAnalyzer extends Google_Service
   /**
    * Constructs the internal representation of the CommentAnalyzer service.
    *
-   * @param Google_Client $client
+   * @param Google_Client $client The client used to deliver requests.
+   * @param string $rootUrl The root URL used for requests to the service.
    */
-  public function __construct(Google_Client $client)
+  public function __construct(Google_Client $client, $rootUrl = null)
   {
     parent::__construct($client);
-    $this->rootUrl = 'https://commentanalyzer.googleapis.com/';
+    $this->rootUrl = $rootUrl ?: 'https://commentanalyzer.googleapis.com/';
     $this->servicePath = '';
     $this->batchPath = 'batch';
     $this->version = 'v1alpha1';

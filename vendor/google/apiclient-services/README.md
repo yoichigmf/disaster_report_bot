@@ -2,7 +2,7 @@ Google PHP API Client Services
 ==============================
 
 ## Requirements
-  
+
 [Google API PHP Client](https://github.com/googleapis/google-api-php-client/releases)
 
 ## Usage in v2 of Google API PHP Client

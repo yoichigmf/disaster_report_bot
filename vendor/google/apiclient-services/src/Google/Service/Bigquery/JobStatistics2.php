@@ -33,6 +33,8 @@ class Google_Service_Bigquery_JobStatistics2 extends Google_Collection
   public $numDmlAffectedRows;
   protected $queryPlanType = 'Google_Service_Bigquery_ExplainQueryStage';
   protected $queryPlanDataType = 'array';
+  protected $referencedRoutinesType = 'Google_Service_Bigquery_RoutineReference';
+  protected $referencedRoutinesDataType = 'array';
   protected $referencedTablesType = 'Google_Service_Bigquery_TableReference';
   protected $referencedTablesDataType = 'array';
   protected $reservationUsageType = 'Google_Service_Bigquery_JobStatistics2ReservationUsage';
@@ -161,6 +163,20 @@ class Google_Service_Bigquery_JobStatistics2 extends Google_Collection
   public function getQueryPlan()
   {
     return $this->queryPlan;
+  }
+  /**
+   * @param Google_Service_Bigquery_RoutineReference
+   */
+  public function setReferencedRoutines($referencedRoutines)
+  {
+    $this->referencedRoutines = $referencedRoutines;
+  }
+  /**
+   * @return Google_Service_Bigquery_RoutineReference
+   */
+  public function getReferencedRoutines()
+  {
+    return $this->referencedRoutines;
   }
   /**
    * @param Google_Service_Bigquery_TableReference

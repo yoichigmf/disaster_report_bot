@@ -21,6 +21,8 @@ class Google_Service_DLP_GooglePrivacyDlpV2Action extends Google_Model
   protected $jobNotificationEmailsDataType = '';
   protected $pubSubType = 'Google_Service_DLP_GooglePrivacyDlpV2PublishToPubSub';
   protected $pubSubDataType = '';
+  protected $publishFindingsToCloudDataCatalogType = 'Google_Service_DLP_GooglePrivacyDlpV2PublishFindingsToCloudDataCatalog';
+  protected $publishFindingsToCloudDataCatalogDataType = '';
   protected $publishSummaryToCsccType = 'Google_Service_DLP_GooglePrivacyDlpV2PublishSummaryToCscc';
   protected $publishSummaryToCsccDataType = '';
   protected $saveFindingsType = 'Google_Service_DLP_GooglePrivacyDlpV2SaveFindings';
@@ -53,6 +55,20 @@ class Google_Service_DLP_GooglePrivacyDlpV2Action extends Google_Model
   public function getPubSub()
   {
     return $this->pubSub;
+  }
+  /**
+   * @param Google_Service_DLP_GooglePrivacyDlpV2PublishFindingsToCloudDataCatalog
+   */
+  public function setPublishFindingsToCloudDataCatalog(Google_Service_DLP_GooglePrivacyDlpV2PublishFindingsToCloudDataCatalog $publishFindingsToCloudDataCatalog)
+  {
+    $this->publishFindingsToCloudDataCatalog = $publishFindingsToCloudDataCatalog;
+  }
+  /**
+   * @return Google_Service_DLP_GooglePrivacyDlpV2PublishFindingsToCloudDataCatalog
+   */
+  public function getPublishFindingsToCloudDataCatalog()
+  {
+    return $this->publishFindingsToCloudDataCatalog;
   }
   /**
    * @param Google_Service_DLP_GooglePrivacyDlpV2PublishSummaryToCscc

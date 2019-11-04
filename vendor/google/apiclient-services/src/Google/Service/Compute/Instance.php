@@ -25,6 +25,8 @@ class Google_Service_Compute_Instance extends Google_Collection
   public $description;
   protected $disksType = 'Google_Service_Compute_AttachedDisk';
   protected $disksDataType = 'array';
+  protected $displayDeviceType = 'Google_Service_Compute_DisplayDevice';
+  protected $displayDeviceDataType = '';
   protected $guestAcceleratorsType = 'Google_Service_Compute_AcceleratorConfig';
   protected $guestAcceleratorsDataType = 'array';
   public $hostname;
@@ -39,6 +41,8 @@ class Google_Service_Compute_Instance extends Google_Collection
   public $name;
   protected $networkInterfacesType = 'Google_Service_Compute_NetworkInterface';
   protected $networkInterfacesDataType = 'array';
+  protected $reservationAffinityType = 'Google_Service_Compute_ReservationAffinity';
+  protected $reservationAffinityDataType = '';
   protected $schedulingType = 'Google_Service_Compute_Scheduling';
   protected $schedulingDataType = '';
   public $selfLink;
@@ -108,6 +112,20 @@ class Google_Service_Compute_Instance extends Google_Collection
   public function getDisks()
   {
     return $this->disks;
+  }
+  /**
+   * @param Google_Service_Compute_DisplayDevice
+   */
+  public function setDisplayDevice(Google_Service_Compute_DisplayDevice $displayDevice)
+  {
+    $this->displayDevice = $displayDevice;
+  }
+  /**
+   * @return Google_Service_Compute_DisplayDevice
+   */
+  public function getDisplayDevice()
+  {
+    return $this->displayDevice;
   }
   /**
    * @param Google_Service_Compute_AcceleratorConfig
@@ -214,6 +232,20 @@ class Google_Service_Compute_Instance extends Google_Collection
   public function getNetworkInterfaces()
   {
     return $this->networkInterfaces;
+  }
+  /**
+   * @param Google_Service_Compute_ReservationAffinity
+   */
+  public function setReservationAffinity(Google_Service_Compute_ReservationAffinity $reservationAffinity)
+  {
+    $this->reservationAffinity = $reservationAffinity;
+  }
+  /**
+   * @return Google_Service_Compute_ReservationAffinity
+   */
+  public function getReservationAffinity()
+  {
+    return $this->reservationAffinity;
   }
   /**
    * @param Google_Service_Compute_Scheduling

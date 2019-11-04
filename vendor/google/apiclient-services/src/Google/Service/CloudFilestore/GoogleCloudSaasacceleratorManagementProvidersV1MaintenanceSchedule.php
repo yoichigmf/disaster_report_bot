@@ -17,9 +17,19 @@
 
 class Google_Service_CloudFilestore_GoogleCloudSaasacceleratorManagementProvidersV1MaintenanceSchedule extends Google_Model
 {
+  public $canReschedule;
   public $endTime;
+  public $rolloutManagementPolicy;
   public $startTime;
 
+  public function setCanReschedule($canReschedule)
+  {
+    $this->canReschedule = $canReschedule;
+  }
+  public function getCanReschedule()
+  {
+    return $this->canReschedule;
+  }
   public function setEndTime($endTime)
   {
     $this->endTime = $endTime;
@@ -27,6 +37,14 @@ class Google_Service_CloudFilestore_GoogleCloudSaasacceleratorManagementProvider
   public function getEndTime()
   {
     return $this->endTime;
+  }
+  public function setRolloutManagementPolicy($rolloutManagementPolicy)
+  {
+    $this->rolloutManagementPolicy = $rolloutManagementPolicy;
+  }
+  public function getRolloutManagementPolicy()
+  {
+    return $this->rolloutManagementPolicy;
   }
   public function setStartTime($startTime)
   {

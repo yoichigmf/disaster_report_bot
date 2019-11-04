@@ -34,7 +34,6 @@ class Google_Service_CloudMachineLearningEngine extends Google_Service
   const CLOUD_PLATFORM =
       "https://www.googleapis.com/auth/cloud-platform";
 
-  public $operations;
   public $projects;
   public $projects_jobs;
   public $projects_locations;
@@ -46,37 +45,18 @@ class Google_Service_CloudMachineLearningEngine extends Google_Service
    * Constructs the internal representation of the CloudMachineLearningEngine
    * service.
    *
-   * @param Google_Client $client
+   * @param Google_Client $client The client used to deliver requests.
+   * @param string $rootUrl The root URL used for requests to the service.
    */
-  public function __construct(Google_Client $client)
+  public function __construct(Google_Client $client, $rootUrl = null)
   {
     parent::__construct($client);
-    $this->rootUrl = 'https://ml.googleapis.com/';
+    $this->rootUrl = $rootUrl ?: 'https://ml.googleapis.com/';
     $this->servicePath = '';
     $this->batchPath = 'batch';
     $this->version = 'v1';
     $this->serviceName = 'ml';
 
-    $this->operations = new Google_Service_CloudMachineLearningEngine_Resource_Operations(
-        $this,
-        $this->serviceName,
-        'operations',
-        array(
-          'methods' => array(
-            'delete' => array(
-              'path' => 'v1/{+name}',
-              'httpMethod' => 'DELETE',
-              'parameters' => array(
-                'name' => array(
-                  'location' => 'path',
-                  'type' => 'string',
-                  'required' => true,
-                ),
-              ),
-            ),
-          )
-        )
-    );
     $this->projects = new Google_Service_CloudMachineLearningEngine_Resource_Projects(
         $this,
         $this->serviceName,
@@ -152,6 +132,10 @@ class Google_Service_CloudMachineLearningEngine extends Google_Service
                   'type' => 'string',
                   'required' => true,
                 ),
+                'options.requestedPolicyVersion' => array(
+                  'location' => 'query',
+                  'type' => 'integer',
+                ),
               ),
             ),'list' => array(
               'path' => 'v1/{+parent}/jobs',
@@ -162,15 +146,15 @@ class Google_Service_CloudMachineLearningEngine extends Google_Service
                   'type' => 'string',
                   'required' => true,
                 ),
-                'pageToken' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
                 'pageSize' => array(
                   'location' => 'query',
                   'type' => 'integer',
                 ),
                 'filter' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'pageToken' => array(
                   'location' => 'query',
                   'type' => 'string',
                 ),
@@ -296,6 +280,10 @@ class Google_Service_CloudMachineLearningEngine extends Google_Service
                   'type' => 'string',
                   'required' => true,
                 ),
+                'options.requestedPolicyVersion' => array(
+                  'location' => 'query',
+                  'type' => 'integer',
+                ),
               ),
             ),'list' => array(
               'path' => 'v1/{+parent}/models',
@@ -306,10 +294,6 @@ class Google_Service_CloudMachineLearningEngine extends Google_Service
                   'type' => 'string',
                   'required' => true,
                 ),
-                'filter' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
                 'pageToken' => array(
                   'location' => 'query',
                   'type' => 'string',
@@ -317,6 +301,10 @@ class Google_Service_CloudMachineLearningEngine extends Google_Service
                 'pageSize' => array(
                   'location' => 'query',
                   'type' => 'integer',
+                ),
+                'filter' => array(
+                  'location' => 'query',
+                  'type' => 'string',
                 ),
               ),
             ),'patch' => array(

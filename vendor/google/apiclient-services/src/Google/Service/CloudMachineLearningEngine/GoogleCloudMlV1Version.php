@@ -18,6 +18,8 @@
 class Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1Version extends Google_Collection
 {
   protected $collection_key = 'packageUris';
+  protected $acceleratorConfigType = 'Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1AcceleratorConfig';
+  protected $acceleratorConfigDataType = '';
   protected $autoScalingType = 'Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1AutoScaling';
   protected $autoScalingDataType = '';
   public $createTime;
@@ -36,9 +38,26 @@ class Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1Version extends G
   public $packageUris;
   public $predictionClass;
   public $pythonVersion;
+  protected $requestLoggingConfigType = 'Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1RequestLoggingConfig';
+  protected $requestLoggingConfigDataType = '';
   public $runtimeVersion;
+  public $serviceAccount;
   public $state;
 
+  /**
+   * @param Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1AcceleratorConfig
+   */
+  public function setAcceleratorConfig(Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1AcceleratorConfig $acceleratorConfig)
+  {
+    $this->acceleratorConfig = $acceleratorConfig;
+  }
+  /**
+   * @return Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1AcceleratorConfig
+   */
+  public function getAcceleratorConfig()
+  {
+    return $this->acceleratorConfig;
+  }
   /**
    * @param Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1AutoScaling
    */
@@ -179,6 +198,20 @@ class Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1Version extends G
   {
     return $this->pythonVersion;
   }
+  /**
+   * @param Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1RequestLoggingConfig
+   */
+  public function setRequestLoggingConfig(Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1RequestLoggingConfig $requestLoggingConfig)
+  {
+    $this->requestLoggingConfig = $requestLoggingConfig;
+  }
+  /**
+   * @return Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1RequestLoggingConfig
+   */
+  public function getRequestLoggingConfig()
+  {
+    return $this->requestLoggingConfig;
+  }
   public function setRuntimeVersion($runtimeVersion)
   {
     $this->runtimeVersion = $runtimeVersion;
@@ -186,6 +219,14 @@ class Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1Version extends G
   public function getRuntimeVersion()
   {
     return $this->runtimeVersion;
+  }
+  public function setServiceAccount($serviceAccount)
+  {
+    $this->serviceAccount = $serviceAccount;
+  }
+  public function getServiceAccount()
+  {
+    return $this->serviceAccount;
   }
   public function setState($state)
   {

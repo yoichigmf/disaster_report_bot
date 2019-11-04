@@ -73,13 +73,13 @@ class Google_Service_Container_Resource_ProjectsLocationsOperations extends Goog
    * matches all zones and all regions.
    * @param array $optParams Optional parameters.
    *
-   * @opt_param string zone Deprecated. The name of the Google Compute Engine
-   * [zone](/compute/docs/zones#available) to return operations for, or `-` for
-   * all zones. This field has been deprecated and replaced by the parent field.
    * @opt_param string projectId Deprecated. The Google Developers Console
    * [project ID or project
    * number](https://support.google.com/cloud/answer/6158840). This field has been
    * deprecated and replaced by the parent field.
+   * @opt_param string zone Deprecated. The name of the Google Compute Engine
+   * [zone](/compute/docs/zones#available) to return operations for, or `-` for
+   * all zones. This field has been deprecated and replaced by the parent field.
    * @return Google_Service_Container_ListOperationsResponse
    */
   public function listProjectsLocationsOperations($parent, $optParams = array())

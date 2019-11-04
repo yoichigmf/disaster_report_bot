@@ -76,6 +76,27 @@ class Google_Service_CloudRedis_Resource_ProjectsLocationsInstances extends Goog
     return $this->call('delete', array($params), "Google_Service_CloudRedis_Operation");
   }
   /**
+   * Export Redis instance data into a Redis RDB format file in Cloud Storage.
+   *
+   * Redis will continue serving during this operation.
+   *
+   * The returned operation is automatically deleted after a few hours, so there
+   * is no need to call DeleteOperation. (instances.export)
+   *
+   * @param string $name Required. Redis instance resource name using the form:
+   * `projects/{project_id}/locations/{location_id}/instances/{instance_id}` where
+   * `location_id` refers to a GCP region.
+   * @param Google_Service_CloudRedis_ExportInstanceRequest $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_CloudRedis_Operation
+   */
+  public function export($name, Google_Service_CloudRedis_ExportInstanceRequest $postBody, $optParams = array())
+  {
+    $params = array('name' => $name, 'postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('export', array($params), "Google_Service_CloudRedis_Operation");
+  }
+  /**
    * Initiates a failover of the master node to current replica node for a
    * specific STANDARD tier Cloud Memorystore for Redis instance.
    * (instances.failover)
@@ -109,6 +130,29 @@ class Google_Service_CloudRedis_Resource_ProjectsLocationsInstances extends Goog
     return $this->call('get', array($params), "Google_Service_CloudRedis_Instance");
   }
   /**
+   * Import a Redis RDB snapshot file from Cloud Storage into a Redis instance.
+   *
+   * Redis may stop serving during this operation. Instance state will be
+   * IMPORTING for entire operation. When complete, the instance will contain only
+   * data from the imported file.
+   *
+   * The returned operation is automatically deleted after a few hours, so there
+   * is no need to call DeleteOperation. (instances.import)
+   *
+   * @param string $name Required. Redis instance resource name using the form:
+   * `projects/{project_id}/locations/{location_id}/instances/{instance_id}` where
+   * `location_id` refers to a GCP region.
+   * @param Google_Service_CloudRedis_ImportInstanceRequest $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_CloudRedis_Operation
+   */
+  public function import($name, Google_Service_CloudRedis_ImportInstanceRequest $postBody, $optParams = array())
+  {
+    $params = array('name' => $name, 'postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('import', array($params), "Google_Service_CloudRedis_Operation");
+  }
+  /**
    * Lists all Redis instances owned by a project in either the specified location
    * (region) or all locations.
    *
@@ -124,14 +168,14 @@ class Google_Service_CloudRedis_Resource_ProjectsLocationsInstances extends Goog
    * `location_id` refers to a GCP region.
    * @param array $optParams Optional parameters.
    *
+   * @opt_param string pageToken The next_page_token value returned from a
+   * previous List request, if any.
    * @opt_param int pageSize The maximum number of items to return.
    *
    * If not specified, a default value of 1000 will be used by the service.
    * Regardless of the page_size value, the response may include a partial list
    * and a caller should only rely on response's next_page_token to determine if
    * there are more instances left to be queried.
-   * @opt_param string pageToken The next_page_token value returned from a
-   * previous List request, if any.
    * @return Google_Service_CloudRedis_ListInstancesResponse
    */
   public function listProjectsLocationsInstances($parent, $optParams = array())

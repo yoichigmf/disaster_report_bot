@@ -55,6 +55,8 @@ class Google_Service_AndroidManagement_Device extends Google_Collection
   protected $powerManagementEventsType = 'Google_Service_AndroidManagement_PowerManagementEvent';
   protected $powerManagementEventsDataType = 'array';
   public $previousDeviceNames;
+  protected $securityPostureType = 'Google_Service_AndroidManagement_SecurityPosture';
+  protected $securityPostureDataType = '';
   protected $softwareInfoType = 'Google_Service_AndroidManagement_SoftwareInfo';
   protected $softwareInfoDataType = '';
   public $state;
@@ -336,6 +338,20 @@ class Google_Service_AndroidManagement_Device extends Google_Collection
   public function getPreviousDeviceNames()
   {
     return $this->previousDeviceNames;
+  }
+  /**
+   * @param Google_Service_AndroidManagement_SecurityPosture
+   */
+  public function setSecurityPosture(Google_Service_AndroidManagement_SecurityPosture $securityPosture)
+  {
+    $this->securityPosture = $securityPosture;
+  }
+  /**
+   * @return Google_Service_AndroidManagement_SecurityPosture
+   */
+  public function getSecurityPosture()
+  {
+    return $this->securityPosture;
   }
   /**
    * @param Google_Service_AndroidManagement_SoftwareInfo

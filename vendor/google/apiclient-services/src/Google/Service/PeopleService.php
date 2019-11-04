@@ -63,12 +63,13 @@ class Google_Service_PeopleService extends Google_Service
   /**
    * Constructs the internal representation of the PeopleService service.
    *
-   * @param Google_Client $client
+   * @param Google_Client $client The client used to deliver requests.
+   * @param string $rootUrl The root URL used for requests to the service.
    */
-  public function __construct(Google_Client $client)
+  public function __construct(Google_Client $client, $rootUrl = null)
   {
     parent::__construct($client);
-    $this->rootUrl = 'https://people.googleapis.com/';
+    $this->rootUrl = $rootUrl ?: 'https://people.googleapis.com/';
     $this->servicePath = '';
     $this->batchPath = 'batch';
     $this->version = 'v1';
@@ -130,6 +131,10 @@ class Google_Service_PeopleService extends Google_Service
               'path' => 'v1/contactGroups',
               'httpMethod' => 'GET',
               'parameters' => array(
+                'syncToken' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
                 'pageToken' => array(
                   'location' => 'query',
                   'type' => 'string',
@@ -137,10 +142,6 @@ class Google_Service_PeopleService extends Google_Service
                 'pageSize' => array(
                   'location' => 'query',
                   'type' => 'integer',
-                ),
-                'syncToken' => array(
-                  'location' => 'query',
-                  'type' => 'string',
                 ),
               ),
             ),'update' => array(
@@ -186,12 +187,7 @@ class Google_Service_PeopleService extends Google_Service
             'createContact' => array(
               'path' => 'v1/people:createContact',
               'httpMethod' => 'POST',
-              'parameters' => array(
-                'parent' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
-              ),
+              'parameters' => array(),
             ),'deleteContact' => array(
               'path' => 'v1/{+resourceName}:deleteContact',
               'httpMethod' => 'DELETE',
@@ -200,6 +196,20 @@ class Google_Service_PeopleService extends Google_Service
                   'location' => 'path',
                   'type' => 'string',
                   'required' => true,
+                ),
+              ),
+            ),'deleteContactPhoto' => array(
+              'path' => 'v1/{+resourceName}:deleteContactPhoto',
+              'httpMethod' => 'DELETE',
+              'parameters' => array(
+                'resourceName' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'personFields' => array(
+                  'location' => 'query',
+                  'type' => 'string',
                 ),
               ),
             ),'get' => array(
@@ -252,6 +262,16 @@ class Google_Service_PeopleService extends Google_Service
                   'type' => 'string',
                 ),
               ),
+            ),'updateContactPhoto' => array(
+              'path' => 'v1/{+resourceName}:updateContactPhoto',
+              'httpMethod' => 'PATCH',
+              'parameters' => array(
+                'resourceName' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
             ),
           )
         )
@@ -270,6 +290,10 @@ class Google_Service_PeopleService extends Google_Service
                   'location' => 'path',
                   'type' => 'string',
                   'required' => true,
+                ),
+                'sortOrder' => array(
+                  'location' => 'query',
+                  'type' => 'string',
                 ),
                 'requestSyncToken' => array(
                   'location' => 'query',
@@ -292,10 +316,6 @@ class Google_Service_PeopleService extends Google_Service
                   'type' => 'string',
                 ),
                 'personFields' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
-                'sortOrder' => array(
                   'location' => 'query',
                   'type' => 'string',
                 ),

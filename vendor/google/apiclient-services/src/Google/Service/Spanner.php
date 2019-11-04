@@ -51,12 +51,13 @@ class Google_Service_Spanner extends Google_Service
   /**
    * Constructs the internal representation of the Spanner service.
    *
-   * @param Google_Client $client
+   * @param Google_Client $client The client used to deliver requests.
+   * @param string $rootUrl The root URL used for requests to the service.
    */
-  public function __construct(Google_Client $client)
+  public function __construct(Google_Client $client, $rootUrl = null)
   {
     parent::__construct($client);
-    $this->rootUrl = 'https://spanner.googleapis.com/';
+    $this->rootUrl = $rootUrl ?: 'https://spanner.googleapis.com/';
     $this->servicePath = '';
     $this->batchPath = 'batch';
     $this->version = 'v1';
@@ -87,13 +88,13 @@ class Google_Service_Spanner extends Google_Service
                   'type' => 'string',
                   'required' => true,
                 ),
-                'pageToken' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
                 'pageSize' => array(
                   'location' => 'query',
                   'type' => 'integer',
+                ),
+                'pageToken' => array(
+                  'location' => 'query',
+                  'type' => 'string',
                 ),
               ),
             ),
@@ -155,6 +156,10 @@ class Google_Service_Spanner extends Google_Service
                   'type' => 'string',
                   'required' => true,
                 ),
+                'pageSize' => array(
+                  'location' => 'query',
+                  'type' => 'integer',
+                ),
                 'filter' => array(
                   'location' => 'query',
                   'type' => 'string',
@@ -162,10 +167,6 @@ class Google_Service_Spanner extends Google_Service
                 'pageToken' => array(
                   'location' => 'query',
                   'type' => 'string',
-                ),
-                'pageSize' => array(
-                  'location' => 'query',
-                  'type' => 'integer',
                 ),
               ),
             ),'patch' => array(
@@ -267,13 +268,13 @@ class Google_Service_Spanner extends Google_Service
                   'type' => 'string',
                   'required' => true,
                 ),
-                'pageSize' => array(
-                  'location' => 'query',
-                  'type' => 'integer',
-                ),
                 'pageToken' => array(
                   'location' => 'query',
                   'type' => 'string',
+                ),
+                'pageSize' => array(
+                  'location' => 'query',
+                  'type' => 'integer',
                 ),
               ),
             ),'setIamPolicy' => array(
@@ -378,7 +379,17 @@ class Google_Service_Spanner extends Google_Service
         'sessions',
         array(
           'methods' => array(
-            'beginTransaction' => array(
+            'batchCreate' => array(
+              'path' => 'v1/{+database}/sessions:batchCreate',
+              'httpMethod' => 'POST',
+              'parameters' => array(
+                'database' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'beginTransaction' => array(
               'path' => 'v1/{+session}:beginTransaction',
               'httpMethod' => 'POST',
               'parameters' => array(
@@ -467,10 +478,6 @@ class Google_Service_Spanner extends Google_Service
                   'type' => 'string',
                   'required' => true,
                 ),
-                'filter' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
                 'pageToken' => array(
                   'location' => 'query',
                   'type' => 'string',
@@ -478,6 +485,10 @@ class Google_Service_Spanner extends Google_Service
                 'pageSize' => array(
                   'location' => 'query',
                   'type' => 'integer',
+                ),
+                'filter' => array(
+                  'location' => 'query',
+                  'type' => 'string',
                 ),
               ),
             ),'partitionQuery' => array(
@@ -579,6 +590,10 @@ class Google_Service_Spanner extends Google_Service
                   'type' => 'string',
                   'required' => true,
                 ),
+                'filter' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
                 'pageToken' => array(
                   'location' => 'query',
                   'type' => 'string',
@@ -586,10 +601,6 @@ class Google_Service_Spanner extends Google_Service
                 'pageSize' => array(
                   'location' => 'query',
                   'type' => 'integer',
-                ),
-                'filter' => array(
-                  'location' => 'query',
-                  'type' => 'string',
                 ),
               ),
             ),

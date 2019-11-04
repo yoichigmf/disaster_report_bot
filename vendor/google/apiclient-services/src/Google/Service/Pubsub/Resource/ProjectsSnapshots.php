@@ -103,6 +103,16 @@ class Google_Service_Pubsub_Resource_ProjectsSnapshots extends Google_Service_Re
    * requested. See the operation documentation for the appropriate value for this
    * field.
    * @param array $optParams Optional parameters.
+   *
+   * @opt_param int options.requestedPolicyVersion Optional. The policy format
+   * version to be returned.
+   *
+   * Valid values are 0, 1, and 3. Requests specifying an invalid value will be
+   * rejected.
+   *
+   * Requests for policies with any conditional bindings must specify version 3.
+   * Policies without any conditional bindings may specify any valid value or
+   * leave the field unset.
    * @return Google_Service_Pubsub_Policy
    */
   public function getIamPolicy($resource, $optParams = array())
@@ -153,7 +163,10 @@ class Google_Service_Pubsub_Resource_ProjectsSnapshots extends Google_Service_Re
   }
   /**
    * Sets the access control policy on the specified resource. Replaces any
-   * existing policy. (snapshots.setIamPolicy)
+   * existing policy.
+   *
+   * Can return Public Errors: NOT_FOUND, INVALID_ARGUMENT and PERMISSION_DENIED
+   * (snapshots.setIamPolicy)
    *
    * @param string $resource REQUIRED: The resource for which the policy is being
    * specified. See the operation documentation for the appropriate value for this

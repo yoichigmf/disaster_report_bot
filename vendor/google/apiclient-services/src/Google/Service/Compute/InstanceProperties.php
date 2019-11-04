@@ -31,6 +31,8 @@ class Google_Service_Compute_InstanceProperties extends Google_Collection
   public $minCpuPlatform;
   protected $networkInterfacesType = 'Google_Service_Compute_NetworkInterface';
   protected $networkInterfacesDataType = 'array';
+  protected $reservationAffinityType = 'Google_Service_Compute_ReservationAffinity';
+  protected $reservationAffinityDataType = '';
   protected $schedulingType = 'Google_Service_Compute_Scheduling';
   protected $schedulingDataType = '';
   protected $serviceAccountsType = 'Google_Service_Compute_ServiceAccount';
@@ -135,6 +137,20 @@ class Google_Service_Compute_InstanceProperties extends Google_Collection
   public function getNetworkInterfaces()
   {
     return $this->networkInterfaces;
+  }
+  /**
+   * @param Google_Service_Compute_ReservationAffinity
+   */
+  public function setReservationAffinity(Google_Service_Compute_ReservationAffinity $reservationAffinity)
+  {
+    $this->reservationAffinity = $reservationAffinity;
+  }
+  /**
+   * @return Google_Service_Compute_ReservationAffinity
+   */
+  public function getReservationAffinity()
+  {
+    return $this->reservationAffinity;
   }
   /**
    * @param Google_Service_Compute_Scheduling

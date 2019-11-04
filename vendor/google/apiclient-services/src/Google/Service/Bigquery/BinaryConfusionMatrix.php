@@ -17,6 +17,8 @@
 
 class Google_Service_Bigquery_BinaryConfusionMatrix extends Google_Model
 {
+  public $accuracy;
+  public $f1Score;
   public $falseNegatives;
   public $falsePositives;
   public $positiveClassThreshold;
@@ -25,6 +27,22 @@ class Google_Service_Bigquery_BinaryConfusionMatrix extends Google_Model
   public $trueNegatives;
   public $truePositives;
 
+  public function setAccuracy($accuracy)
+  {
+    $this->accuracy = $accuracy;
+  }
+  public function getAccuracy()
+  {
+    return $this->accuracy;
+  }
+  public function setF1Score($f1Score)
+  {
+    $this->f1Score = $f1Score;
+  }
+  public function getF1Score()
+  {
+    return $this->f1Score;
+  }
   public function setFalseNegatives($falseNegatives)
   {
     $this->falseNegatives = $falseNegatives;
