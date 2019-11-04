@@ -69,6 +69,18 @@ if (! is_null($slack_hook_url)){
   $response = file_get_contents($webhook_url, false, stream_context_create($options));
 
   $log->addWarning("response ${response}\n");
+  
+  
+  if ( $kind == "image" ) {    //  画像の場合画像本体のURLもポストする
+  
+    $nurl = preg_replace( "www.dropbox.com", "dl.dropboxusercontent.com", $url );
+    
+    $nnurl = preg_replace( "?dl=0", "", $nurl );
+    
+      $log->addWarning("new url ${nnurl}\n");
+  }
+  
+  
   return $response === 'ok';
 
 }
