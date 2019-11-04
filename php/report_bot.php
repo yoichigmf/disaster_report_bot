@@ -47,14 +47,14 @@ global  $log;
 
 
 if (! is_null($slack_hook_url)){
-  $message = array (
-    'username' => 'line_bot',
+ // $message = array (
+  //  'username' => 'line_bot',
 
-  );
+//  );
 
-  $message['text'] = "$date $user $kind $url $comment $lat $lon";
+ // $message['text'] = "$date $user $kind $url $comment $lat $lon";
 
-
+  $sttext = "$date $user $kind $url $comment $lat $lon";
   $webhook_url = $slack_hook_url;
   $options = array(
     'http' => array(
@@ -64,9 +64,18 @@ if (! is_null($slack_hook_url)){
     )
   );
 
+  $slack = new Slack($slack_hook_url);
+  
+  $message = new SlackMessage($slack);
+  
+  $message->setText($sttext);
+  
+  $message->send();
+  
+  
   $log->addWarning("url ${webhook_url}\n");
 
-  $response = file_get_contents($webhook_url, false, stream_context_create($options));
+  //$response = file_get_contents($webhook_url, false, stream_context_create($options));
 
   $log->addWarning("response ${response}\n");
   
