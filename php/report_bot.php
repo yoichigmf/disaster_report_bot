@@ -54,35 +54,35 @@ if (! is_null($slack_hook_url)){
 
 
   $slack = new Slack($slack_hook_url);
-  
+
   $message = new SlackMessage($slack);
-  
+
   $message->setText($sttext);
-  
- 
-  
-  
+
+
+
+
   $log->addWarning("url ${webhook_url}\n");
 
-  
-  
-  
+
+
+
   if ( $kind == "image" ) {    //  画像の場合画像本体のURLもポストする
-  
+
     $nurl = str_replace( "www.dropbox.com", "dl.dropboxusercontent.com", $url );
-    
+
     $nnurl = str_replace( "?dl=0", "", $nurl );
-    
+
     $log->addWarning("new url ${nurl} nn ${nnurl}\n");
-    
+
     $attachment = new SlackAttachment("画像");
     $attachment->setImage($nnurl);
     $message->addAttachment($attachment);
   }
-  
+
    $message->send();
-   
-   
+
+
   return TRUE;
 
 }
@@ -190,13 +190,18 @@ function  AddFileLink( $response, $event, string $filepath, string $kind ){
     if ( $kind != "image") {
     $orgfilename = $event->getFileName();   //  元ファイル名
     }
-    
+    else {
+      $imgurl = str_replace( "?dl=0", "?dl=1", $filepath );
+      $orgfilename = "=image(\"${imgurl}\")";
+    }
+
 
      //  ユーザ名の取得
     $user = GetUserName($event);
 
     $comment = "";
     $url = $filepath;
+
     $comment = $orgfilename;
 
      $value = new Google_Service_Sheets_ValueRange();
@@ -663,6 +668,3 @@ function displayHelp( $bote, $evente ) {
       $helpstr .= "#help HELPメッセージ表示\n";
       $bote->replyText($evente->getReplyToken(), $helpstr);
 }
-
-
-
