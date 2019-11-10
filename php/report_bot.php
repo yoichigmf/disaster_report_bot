@@ -168,6 +168,11 @@ function Getsheets($spreadsheetID, $client) {
 
 function  AddFileLink( $response, $event, string $filepath, string $kind ){
 
+          global $log;
+
+
+
+ 
     $spreadsheetId = getenv('SPREADSHEET_ID');
 
     $client = getClient();
@@ -190,7 +195,22 @@ function  AddFileLink( $response, $event, string $filepath, string $kind ){
     $comment = "";   // Google Sheets 書き出し用コメント
     $ncomment = "";  //  slack 書き出し用コメント
 
-    if ( $kind != "image") {
+
+              $log->addWarning("kind ${kind}\n");
+              
+              
+    if ( $kind == "image") {
+    
+              $log->addWarning("image ${kind}\n");
+      $imgurl = str_replace( "?dl=0", "?dl=1", $filepath );
+      $orgfilename = "=image(\"${imgurl}\")";
+      
+      $comment = $orgfilename;
+    }
+    else
+    {
+    
+                $log->addWarning("not image ${kind}\n");
     $orgfilename = $event->getFileName();   //  元ファイル名
     
         $comment = $orgfilename;
@@ -198,12 +218,7 @@ function  AddFileLink( $response, $event, string $filepath, string $kind ){
         
         
     }
-    else {
-      $imgurl = str_replace( "?dl=0", "?dl=1", $filepath );
-      $orgfilename = "=image(\"${imgurl}\")";
-      
-      $comment = $orgfilename;
-    }
+   
 
 
      //  ユーザ名の取得
