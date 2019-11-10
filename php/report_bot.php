@@ -201,13 +201,19 @@ function  AddFileLink( $response, $event, string $filepath, string $kind ){
 
     $comment = "";
     $url = $filepath;
+    
+    
+    PostSlack($date, $user, $kind, $url ,$comment, "","");
 
     $comment = $orgfilename;
 
      $value = new Google_Service_Sheets_ValueRange();
      $value->setValues([ 'values' => [ $date, $user, $kind, $url ,$comment ] ]);
      $resp = $service->spreadsheets_values->append($spreadsheetId , 'シート1!A1', $value, [ 'valueInputOption' => 'USER_ENTERED' ] );
-     PostSlack($date, $user, $kind, $url ,$comment, "","");
+     
+     
+     
+  
     var_dump($resp);
 
    if ( $user === "不明" ){
