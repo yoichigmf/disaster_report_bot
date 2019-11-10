@@ -205,7 +205,7 @@ function  AddFileLink( $response, $event, string $filepath, string $kind ){
       $imgurl = str_replace( "?dl=0", "?dl=1", $filepath );
       $orgfilename = "=image(\"${imgurl}\")";
       
-      $comment = $orgfilename;
+      $comment =  "=image(\"${imgurl}\")";
     }
     else
     {
@@ -228,7 +228,7 @@ function  AddFileLink( $response, $event, string $filepath, string $kind ){
     $url = $filepath;
     
     
- 
+              $log->addWarning("comment ${comment}\n");
 
 
 
