@@ -211,10 +211,10 @@ function  AddFileLink( $response, $event, string $filepath, string $kind ){
     {
     
                 $log->addWarning("not image ${kind}\n");
-    $orgfilename = $event->getFileName();   //  元ファイル名
+  //  $orgfilename = $event->getFileName();   //  元ファイル名
     
-        $comment = $orgfilename;
-        $ncomment = $comment;
+   //     $comment = $orgfilename;
+     //   $ncomment = $comment;
         
         
     }
