@@ -355,53 +355,6 @@ function AddLocationLink( $response, $event ){
 
 
 
-function upload_contents_gdr( $kind , $ext, $mime_type, $folder_id, $response ) {  // ファイルのGoogle Driveアップロード
-
-          $filename = make_filename( $kind, $ext );
-
-// Get the API client and construct the service object.
-         $client = getClient_drive();
-         //$client->setApplicationName(APPLICATION_NAME);
-
-
-
-
-   global $log;
-   $log->addWarning("file name ${filename}\n");
-
-$fileMetadata = new Google_Service_Drive_DriveFile(array(
-    'name' => $filename,
-    'parents' => array($folder_id),
-));
-
- //   'mimeType' => 'image/jpeg',
-
-$content = $response->getRawBody();
-
-   $log->addWarning("get Raw\n");
-var_dump($fileMetadata);
-
-$service = new Google_Service_Drive($client);
-
-   $log->addWarning("make service \n");
-   $file = $service->files->create($fileMetadata, array(
-    'data' => $content,
-    'mimeType' => 'image/jpeg',
-    'uploadType' => 'multipart',
-    'fields' => 'id'));
-
-    $file_id = $file->getId();
-
-    $tfileurl = "https://drive.google.com/uc?id=${file_id}";
-    //$tfilename = $file->alternateLink;
-    $log->addWarning("make file ${tfileurl}\n");
-
-
-
-    return $tfileurl;
-
-}
-
 function make_filename( $kind, $ext ){  //  make unique file name
 
 
@@ -576,41 +529,6 @@ define('GSCOPES', implode(' ', array(
         Google_Service_Drive::DRIVE)
 ));
 
-//   Google Drive 用クライアントの作成
-function getClient_drive() {
-
-    $client = new Google_Client();
-
-    $client->setApplicationName('upload contents');
-    $client->setScopes(GSCOPES);
-   $auth_str = getenv('authstr_drv');
-
-   $json = json_decode($auth_str, true);
-
-
-
-    $client->setAuthConfig( $json );
-
-    $token_str = getenv('token_drv');
-
-    $accessToken = json_decode($token_str, true);
-
-    $client->setAccessToken($accessToken);
-
- // Refresh the token if it's expired.
-    if ($client->isAccessTokenExpired()) {
-
-        $refresh_token= getenv('token_refresh');
-        $client->fetchAccessTokenWithRefreshToken( $refresh_token );
-
-    }
-
-
-
-    return $client;
-
-
-}
 
 //  flac オーディオファイルからテキストを取得する   debug
 function getTextFromAudio( $tflc ){
