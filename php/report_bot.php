@@ -399,7 +399,7 @@ function upload_contents( $kind , $ext, $content_type, $response ) {
 
 
              $url = "https://content.dropboxapi.com/2/files/upload";
-             $tgfilename = "/disasterinfo/${kind}/${filename}";
+             $tgfilename = "/disasterinfo/sample/${kind}/${filename}";
 
              $filearg = "Dropbox-API-Arg: {\"path\":\"${tgfilename}\"}";
 
