@@ -29,11 +29,14 @@ $slack_hook_url = getenv('SlackHookURL');
 
 $slack_dist_channel  = getenv('SlackdistChannel');
 
-$map_url = getenv('MapURL');
+$map_url = 'https://reportmap.herokuapp.com/';
+
+
+$map_var = getenv('MapURL');
 
 #  add 20200506
-if ( is_null($map_url)){
-    $map_url = 'https://reportmap.herokuapp.com/';
+if ( ! is_null($map_var)){
+    $map_url = $map_var;
 }
 
 
