@@ -46,7 +46,7 @@ global $slack_hook_url;
 global  $log;
 
 
-if (! is_null($slack_hook_url)){
+if (! empty($slack_hook_url)){
 
 
   $sttext = "$date $user $kind $url $comment $lat $lon";
@@ -172,7 +172,7 @@ function  AddFileLink( $response, $event, string $filepath, string $kind ){
 
 
 
- 
+
     $spreadsheetId = getenv('SPREADSHEET_ID');
 
     $client = getClient();
@@ -191,43 +191,43 @@ function  AddFileLink( $response, $event, string $filepath, string $kind ){
    //var_dump($event);
 
     $orgfilename = "";
-    
+
     $comment = "";   // Google Sheets 書き出し用コメント
     $ncomment = "";  //  slack 書き出し用コメント
 
 
               $log->addWarning("kind ${kind}\n");
-              
-              
+
+
     if ( $kind == "image") {
-    
+
               $log->addWarning("image ${kind}\n");
       $imgurl = str_replace( "?dl=0", "?dl=1", $filepath );
       $orgfilename = "=image(\"${imgurl}\")";
-      
+
       $comment =  "=image(\"${imgurl}\")";
     }
     else
     {
-    
+
                 $log->addWarning("not image ${kind}\n");
   //  $orgfilename = $event->getFileName();   //  元ファイル名
-    
+
    //     $comment = $orgfilename;
      //   $ncomment = $comment;
-        
-        
+
+
     }
-   
+
 
 
      //  ユーザ名の取得
     $user = GetUserName($event);
 
-  
+
     $url = $filepath;
-    
-    
+
+
               $log->addWarning("comment ${comment}\n");
 
 
@@ -235,10 +235,10 @@ function  AddFileLink( $response, $event, string $filepath, string $kind ){
      $value = new Google_Service_Sheets_ValueRange();
      $value->setValues([ 'values' => [ $date, $user, $kind, $url ,$comment ] ]);
      $resp = $service->spreadsheets_values->append($spreadsheetId , 'シート1!A1', $value, [ 'valueInputOption' => 'USER_ENTERED' ] );
-     
+
      PostSlack($date, $user, $kind, $url ,$ncomment, "","");
-     
-  
+
+
     var_dump($resp);
 
    if ( $user === "不明" ){
