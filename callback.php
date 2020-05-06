@@ -20,6 +20,8 @@ $sign = $_SERVER["HTTP_" . \LINE\LINEBot\Constant\HTTPHeader::LINE_SIGNATURE];
 
 $events = $bot->parseEventRequest(file_get_contents('php://input'), $sign);
 
+$appname = getenv('APPLICATION_NAME')
+
 date_default_timezone_set('Asia/Tokyo');
 
 
@@ -87,7 +89,7 @@ foreach ($events as $event) {
 
 
 
-                $filepath =  upload_contents( 'image' , 'jpg', 'application/octet-stream', $response );
+                $filepath =  upload_contents( 'image' , 'jpg', 'application/octet-stream', $response ,$appname );
 
 
                 $tst = AddFileLink( $response, $event, $filepath, "image"  );
@@ -132,7 +134,7 @@ foreach ($events as $event) {
 
             if ($response->isSucceeded()) {
 
-                 $filepath =  upload_contents( 'voice' , 'mp4', 'application/octet-stream', $response );
+                 $filepath =  upload_contents( 'voice' , 'mp4', 'application/octet-stream', $response , $appname );
 
 
                 //  mp4 ファイルの保存
@@ -201,7 +203,7 @@ foreach ($events as $event) {
 
             if ($response->isSucceeded()) {
 
-                 $filepath =  upload_contents( 'video' , 'mp4', 'application/octet-stream', $response );
+                 $filepath =  upload_contents( 'video' , 'mp4', 'application/octet-stream', $response, $appname );
 
 
                  $tst =  AddFileLink( $response, $event, $filepath, "video"  );
@@ -252,7 +254,7 @@ foreach ($events as $event) {
           $log->addWarning("file name   ${fname}\n");
           $log->addWarning("extention  ${ext}\n");        
 
-           $filepath =  upload_contents( 'file' , $ext, 'application/octet-stream', $response );
+           $filepath =  upload_contents( 'file' , $ext, 'application/octet-stream', $response ,$appname );
 
 
 

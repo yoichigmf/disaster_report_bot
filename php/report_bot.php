@@ -384,7 +384,7 @@ function make_filename_path( $kind, $ext ){  //  make unique file name full path
 //  $content_type  application/octet-stream
 
 //  content upload to dropbox
-function upload_contents( $kind , $ext, $content_type, $response ) {
+function upload_contents( $kind , $ext, $content_type, $response ,$appname ) {
           global $log;
 
 
@@ -399,7 +399,7 @@ function upload_contents( $kind , $ext, $content_type, $response ) {
 
 
              $url = "https://content.dropboxapi.com/2/files/upload";
-             $tgfilename = "/disasterinfo/sample/${kind}/${filename}";
+             $tgfilename = "/disasterinfo/${appname}/${kind}/${filename}";
 
              $filearg = "Dropbox-API-Arg: {\"path\":\"${tgfilename}\"}";
 
