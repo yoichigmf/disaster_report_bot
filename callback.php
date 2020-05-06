@@ -29,6 +29,12 @@ $slack_hook_url = getenv('SlackHookURL');
 
 $slack_dist_channel  = getenv('SlackdistChannel');
 
+$map_url = getenv('MapURL');
+
+#  add 20200506
+if ( is_null($map_url)){
+    $map_url = "https://reportmap.herokuapp.com/"
+}
 
 
 
@@ -241,18 +247,18 @@ foreach ($events as $event) {
              $message_id = $event->getMessageId();
 
             $response = $bot->getMessageContent($message_id );
-            
+
             $fname = $event->getFileName();
-            
+
             $fpath = pathinfo($fname);
-            
+
             $ext = $fpath['extension'];
-            
-                  
+
+
 
 
           $log->addWarning("file name   ${fname}\n");
-          $log->addWarning("extention  ${ext}\n");        
+          $log->addWarning("extention  ${ext}\n");
 
            $filepath =  upload_contents( 'file' , $ext, 'application/octet-stream', $response ,$appname );
 
@@ -319,11 +325,12 @@ foreach ($events as $event) {
            if ( strcmp($chktext, "#" ) == 0 ) {
 
 
+
                    $spreadsheetId = getenv('SPREADSHEET_ID');
 
                     if ( strcmp($tgText, "#map" ) == 0 ) {   //  display map URL
 
-                       $bot->replyText($event->getReplyToken(), "地図表示     https://reportmap.herokuapp.com/?sheetid=${spreadsheetId}");   //map urL
+                       $bot->replyText($event->getReplyToken(), "地図表示     ${map_url}?sheetid=${spreadsheetId}");   //map urL
                        }
 
                    if ( strcmp($tgText, "#sheet" ) == 0 ) {   //  display sheet URL
