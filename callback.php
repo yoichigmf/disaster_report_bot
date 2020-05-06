@@ -20,7 +20,7 @@ $sign = $_SERVER["HTTP_" . \LINE\LINEBot\Constant\HTTPHeader::LINE_SIGNATURE];
 
 $events = $bot->parseEventRequest(file_get_contents('php://input'), $sign);
 
-$appname = getenv('APPLICATION_NAME')
+$appname = getenv('APPLICATION_NAME');
 
 date_default_timezone_set('Asia/Tokyo');
 
