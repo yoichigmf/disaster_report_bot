@@ -33,7 +33,7 @@ $map_url = getenv('MapURL');
 
 #  add 20200506
 if ( is_null($map_url)){
-    $map_url = "https://reportmap.herokuapp.com/";
+    $map_url = 'https://reportmap.herokuapp.com/';
 }
 
 
