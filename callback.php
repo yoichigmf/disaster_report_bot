@@ -152,27 +152,27 @@ foreach ($events as $event) {
                 //  mp4 ファイルの保存
                         $tmp4 = make_filename_path( "voice", "mp4" );
 
-              　　　　  $fcontents = $response->getRawBody();
+                       $fcontents = $response->getRawBody();
 
-                　　　　file_put_contents( $tmp4, $fcontents );
+                       file_put_contents( $tmp4, $fcontents );
 
 
-              　　　　  $tflc = make_filename_path( "voice", "flac" );
+                       $tflc = make_filename_path( "voice", "flac" );
 
 
                 //  mp4  -> flac への変換
-              　　　　  shell_exec("ffmpeg -i ${tmp4} -vn -ar 16000 -ac 1 -acodec flac -f flac ${tflc}");
+                       shell_exec("ffmpeg -i ${tmp4} -vn -ar 16000 -ac 1 -acodec flac -f flac ${tflc}");
 
                 //  mp4 ファイルの削除
 
-                        unlink( $tmp4 );
+                       unlink( $tmp4 );
 
                 //  flac ファイルのテキスト変換
 
-                    $voicetext = getTextFromAudio( $tflc , $speech_apikey );
+                       $voicetext = getTextFromAudio( $tflc , $speech_apikey );
 
 
-                    unlink( $tflc );
+                       unlink( $tflc );
 
                  }
 
