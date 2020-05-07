@@ -40,6 +40,8 @@ if ( ! empty($map_var)){
 }
 
 
+$speech_apikey = getenv("SPEECHAPIKEY");
+
 
 
 $page = 1;
@@ -145,32 +147,37 @@ foreach ($events as $event) {
 
                  $filepath =  upload_contents( 'voice' , 'mp4', 'application/octet-stream', $response , $appname );
 
-
+                 //  Speech API key の指定がある場合のみ音声テキスト化する
+                if (!empty($speech_apikey )){
                 //  mp4 ファイルの保存
-                $tmp4 = make_filename_path( "voice", "mp4" );
+              　　　  $tmp4 = make_filename_path( "voice", "mp4" );
 
-                $fcontents = $response->getRawBody();
+              　　　　  $fcontents = $response->getRawBody();
 
-                file_put_contents( $tmp4, $fcontents );
+                　　　　file_put_contents( $tmp4, $fcontents );
 
 
-                $tflc = make_filename_path( "voice", "flac" );
+              　　　　  $tflc = make_filename_path( "voice", "flac" );
 
 
                 //  mp4  -> flac への変換
-                shell_exec("ffmpeg -i ${tmp4} -vn -ar 16000 -ac 1 -acodec flac -f flac ${tflc}");
+              　　　　  shell_exec("ffmpeg -i ${tmp4} -vn -ar 16000 -ac 1 -acodec flac -f flac ${tflc}");
 
                 //  mp4 ファイルの削除
 
-                unlink( $tmp4 );
+                        unlink( $tmp4 );
 
                 //  flac ファイルのテキスト変換
 
-                $voicetext = getTextFromAudio( $tflc );
+                      $voicetext = getTextFromAudio( $tflc , $speech_apikey );
 
 
-                unlink( $tflc );
+                    unlink( $tflc );
 
+              }
+                else  {   //  api key なしの場合テキスト変換は行わない
+                    $voicetext = "";
+                }
                 $tst =  AddAudioFileLink( $response, $event, $filepath, "voice" ,${voicetext} );
 
 

@@ -531,7 +531,7 @@ define('GSCOPES', implode(' ', array(
 
 
 //  flac オーディオファイルからテキストを取得する   debug
-function getTextFromAudio( $tflc ){
+function getTextFromAudio( $tflc , $apikey){
 
        global $log;
 
@@ -543,7 +543,7 @@ $jsonArray["config"]["sampleRateHertz"] = 16000;
 $jsonArray["config"]["languageCode"] = "ja-JP";
 $jsonArray["config"]["enableWordTimeOffsets"] = false;
 
-$apikey = getenv("SPEECHAPIKEY");
+#$apikey = getenv("SPEECHAPIKEY");
 
 
 $curl = curl_init();
