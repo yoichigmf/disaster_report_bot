@@ -543,7 +543,7 @@ $jsonArray["config"]["sampleRateHertz"] = 16000;
 $jsonArray["config"]["languageCode"] = "ja-JP";
 $jsonArray["config"]["enableWordTimeOffsets"] = false;
 
-#$apikey = getenv("SPEECHAPIKEY");
+// $apikey = getenv("SPEECHAPIKEY");
 
 
 $curl = curl_init();

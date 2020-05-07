@@ -34,7 +34,7 @@ $map_url = 'https://reportmap.herokuapp.com/';
 
 $map_var = getenv('MapURL');
 
-#  add 20200506
+//  add 20200506
 if ( ! empty($map_var)){
     $map_url = $map_var;
 }
@@ -146,11 +146,11 @@ foreach ($events as $event) {
             if ($response->isSucceeded()) {
 
                  $filepath =  upload_contents( 'voice' , 'mp4', 'application/octet-stream', $response , $appname );
-
+                 $voicetext = "";
                  //  Speech API key の指定がある場合のみ音声テキスト化する
                 if (!empty($speech_apikey )){
                 //  mp4 ファイルの保存
-              　　　  $tmp4 = make_filename_path( "voice", "mp4" );
+              　　　 　 $tmp4 = make_filename_path( "voice", "mp4" );
 
               　　　　  $fcontents = $response->getRawBody();
 
@@ -169,15 +169,13 @@ foreach ($events as $event) {
 
                 //  flac ファイルのテキスト変換
 
-                      $voicetext = getTextFromAudio( $tflc , $speech_apikey );
+                    $voicetext = getTextFromAudio( $tflc , $speech_apikey );
 
 
                     unlink( $tflc );
 
-              }
-                else  {   //  api key なしの場合テキスト変換は行わない
-                    $voicetext = "";
-                }
+                 }
+              
                 $tst =  AddAudioFileLink( $response, $event, $filepath, "voice" ,${voicetext} );
 
 
