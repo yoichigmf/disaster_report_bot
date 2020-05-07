@@ -150,7 +150,7 @@ foreach ($events as $event) {
                  //  Speech API key の指定がある場合のみ音声テキスト化する
                 if (!empty($speech_apikey )){
                 //  mp4 ファイルの保存
-              　　　 　 $tmp4 = make_filename_path( "voice", "mp4" );
+                        $tmp4 = make_filename_path( "voice", "mp4" );
 
               　　　　  $fcontents = $response->getRawBody();
 
@@ -175,7 +175,7 @@ foreach ($events as $event) {
                     unlink( $tflc );
 
                  }
-              
+
                 $tst =  AddAudioFileLink( $response, $event, $filepath, "voice" ,${voicetext} );
 
 
