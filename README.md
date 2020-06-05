@@ -18,7 +18,7 @@ LineMessageAPIChannelSecret　　　　　　LINEAPIチャンネルシークレ�
 MapURL　　　　　　　　　地図表示モジュールURL
 
 SPEECHAPIKEY　　　　　　Google Speech API　Key
-             (設定が無い場合でもOK )
+             (設定が無い場合でもOK その場合音声文字変換は行わない)
 
 SPREADSHEET_ID　　　　　Google Spread Sheet　ID
 

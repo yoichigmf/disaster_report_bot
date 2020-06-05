@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>災害情報報告マップ</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
+   integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+   crossorigin=""/>
+
+
+
+ <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
+   integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
+   crossorigin=""></script>
+
+<script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"
+     crossorigin=""></script>
+
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css"
+
+        crossorigin=""/>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css"
+                crossorigin=""/>
+
+
+<link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css">
+
+<script src="js/jquery.js"></script>
+<script src="js/jquery.mobile-1.4.5.min.js"></script>
+
+
+<script src="js/L.TileLayer.BetterWMS.js"></script>
+
+<script src="js/manage_contents.js"></script>
+
+
+     <style type="text/css">
+		body {
+			padding: 0;
+			margin: 0;
+		}
+		html, body{
+			height: 100%;
+		}
+
+#map { min-height:717px; height: 100vh;  margin: -15px;}
+
+
+
+/* Change cursor when mousing over clickable layer */
+.leaflet-clickable {
+  cursor: crosshair !important;
+}
+/* Change cursor when over entire map */
+.leaflet-container {
+  cursor: crosshair !important;
+//  cursor: help !important;
+}
+	</style>
+
+
+<script>
+
+//     引き数取得
+GetURLParameta();
+
+$(document).on("mobileinit", function () {
+        //  alert('mobileinit');
+          $.mobile.hashListeningEnabled = false;
+          $.mobile.pushStateEnabled = false;
+          $.mobile.changePage.defaults.changeHash = false;
+        //  alert("mobile init");
+});
+
+
+
+
+  $(document).bind('pagecreate', function(e, data) {
+         SetLayerinfo(　mapSheetId);  // 　利用レイヤ情報の設定
+         SelectSheetInit( mapSheetId, mapSheetName );   // 最初のシートデータ設定
+         SheetListSetup(mapSheetId);
+
+  });
+
+
+
+</script>
+
+
+</head>
+
+<body>
+
+
+<div　data-role="page" >
+
+
+  <script>
+
+
+  var   fstatus = {
+                NONE : 0,
+                MOUSE : 1,
+                FUDE : 2, };
+
+  var   click_status = fstatus.NONE;
+
+
+  var  use_geolocation = true;    //  geolocation を利用可能かどうか
+
+  var redMarker  = L.icon({
+    iconUrl: 'images/marker_red.png',
+    shadowUrl: 'images/marker-shadow.png',
+
+    iconSize:     [16, 34], // size of the icon
+    shadowSize:   [16, 34], // size of the shadow
+    iconAnchor:   [0, 0], // point of the icon which will correspond to marker's location
+    shadowAnchor: [0, 0],  // the same for the shadow
+    popupAnchor:  [0, 0] // point from which the popup should open relative to the iconAnchor
+});
+
+
+
+
+</script>
+
+
+
+
+
+<style>
+        .ui-grid-a, .ui-grid-a .ui-controlgroup-controls {width: 100%}
+
+
+#headerp {height:80px}
+
+
+
+</style>
+
+
+	<div data-role="header" data-position="fixed" data-tap-toggle="true" data-fullscreen="false" id="headerp">
+		<h2>災害情報報告マップ   by IT DART</h2>
+
+
+          <div data-role="navbar"  id="hbutton" >
+            <ul>
+                <li><a href="#nav_panel" id="move_display"  class="ui-btn ui-btn-icon-top ui-icon-navigation">位置指定</a>
+                     </li>
+                <li><a href="#panel" id="CONTACTS" class="ui-btn ui-btn-icon-top  ui-icon-grid">シート選択</a>
+           </li>
+                <li><a href="#panel_r" id="TRIPS"  class="ui-btn  ui-btn-icon-top  ui-icon-info">情報選択</a>
+           </li>
+                <li><a href="JavaScript:OpenLayerProp()"  class="ui-btn  ui-btn-icon-top ui-icon-location">地図指定</a>
+           </li>
+
+      　　  </ul>
+    		  </div>  <!--  navbar -->
+
+　</div><!-- /header -->
+
+<div data-role="ui-content" role="main" data-position="fixed"   >
+
+
+
+  <div  id="legendpos"  data-role="panel" data-display="overlay" data-dismissible="false" data-position="left">
+     <a href="#" data-rel="close" class="ui-btn ui-icon-delete ui-btn-right ui-btn-icon-notext ui-corner-all">Close</a>
+
+    <h3>凡例</h3>
+     <div id="legendarea" >
+       <!--
+     <img src="https://disaportal.gsi.go.jp/hazardmap/copyright/img/shinsui_legend2-1.png">
+   -->
+
+   </div>
+  </div>
+<!--
+  <div data-role="popup" id="legend" data-shadow="false" data-dismissible="false" data-position-to="#lagendpos">
+  		<a href="#" data-rel="back" class="ui-btn ui-icon-delete ui-btn-right ui-btn-icon-notext ui-corner-all">Close</a>
+  		<p>凡例表示</p>
+
+      <img src="https://disaportal.gsi.go.jp/hazardmap/copyright/img/shinsui_legend2-1.png">
+  </div>
+-->
+ <div id="panel_layer" data-role="panel" data-display="overlay" data-position="right">
+        <a href="#" data-rel="close"
+        class="ui-btn ui-corner-all ui-icon-delete ui-btn-icon-left">閉じる</a>
+
+        <a href="#legendpos" data-rel="popup"
+        class="ui-btn ui-corner-all ui-icon-bullets ui-btn-icon-left">凡例表示</a>
+            <h3>表示指定</h3>
+
+
+        <div id="tabs" data-role="tabs">
+        <!--2タブリストを準備-->
+         <div data-role="navbar">
+            <ul>
+              <li><a href="#backgr" id="ly_back"   class="ui-btn-active">ベースマップ</a></li>
+              <li><a href="#overlay"  id="ly_thema" >主題図</a></li>
+            </ul>
+          </div>  <!--  navbar -->
+
+
+
+        <!--1パネル（コンテンツ領域）を準備-->
+        <div id="backgr" class="ui-body ui-body-a">
+        <!--ラジオボタンで単一選択ボタンを作成-->
+          <form method="POST" action="">
+          <div class="ui-field-contain">
+               <fieldset data-role="controlgroup" id="baselayers">
+              </fieldset>      <!--  </fieldset> -->
+          </div>  <!--  fieldcontain -->
+          </form>
+        </div>   <!--  backgr  -->
+
+
+          <div id="overlay" class="ui-body ui-body-a">  <!-- 主題図指定 -->
+          　 <!-- <div class="ui-field-contain"> -->
+              <form>
+          　　　  <fieldset data-role="controlgroup"  id="overlaylist">
+                <!--    <legend><h3>主題図指定</h3></legend>
+-->
+        　　　    </fieldset>
+    　　　　　  </form>
+        　　</div>   <!--  overlay  -->
+
+      　　 </div>  <!-- tabs -->
+    　　</div>   <!-- panel right -->
+
+
+
+  <div id="panel" data-role="panel" data-display="overlay" data-position="left">
+        <!--3パネルを閉じるためのリンクボタン -->
+      <a href="#" data-rel="close"
+        class="ui-btn ui-corner-all ui-icon-delete ui-btn-icon-left">閉じる</a>
+
+      <h3>表示シート選択</h3>
+
+      <div data-role="controlgroup" id="sheetlist" data-type="vertical">
+
+
+      </div>
+
+  </div>
+
+
+
+    <div id="panel_r" data-role="panel" data-display="overlay" data-position="right">
+        <a href="#" data-rel="close"
+        class="ui-btn ui-corner-all ui-icon-delete ui-btn-icon-left">閉じる</a>
+
+        <div id="conditiontabs" data-role="tabs">
+                <!--2タブリストを準備-->
+                 <div data-role="navbar">
+                    <ul>
+                      <li><a href="#user_select" id="user_selection"   class="ui-btn-active">報告者</a></li>
+                      <li><a href="#set_date"  id="date_selection" >日付指定</a></li>
+                    </ul>
+                  </div>  <!--  navbar -->
+
+        <h3>表示情報指定</h3>
+        <div id="user_select" class="ui-body ui-body-a">  <!-- 主題図指定 -->
+        　 <!-- <div class="ui-field-contain"> -->
+            ユーザ指定
+            <form>
+        　　　  <fieldset data-role="controlgroup"  id="userlist">
+              <!--    <legend><h3>主題図指定</h3></legend>
+-->
+      　　　    </fieldset>
+  　　　　　  </form>
+      　　</div>   <!--  overlay  -->
+      <div id="set_date" class="ui-body ui-body-a">  <!-- 日時 -->
+      　 <!-- <div class="ui-field-contain"> -->
+          日付指定
+          <form>
+      　　　  <fieldset data-role="controlgroup"  id="datelist">
+            <!--    <legend><h3>主題図指定</h3></legend>
+-->
+    　　　    </fieldset>
+　　　　　  </form>
+    　　</div>   <!--  overlay  -->
+
+    </div><!--  tabs -->
+
+  </div>
+
+  <div id="nav_panel" data-role="panel" data-display="overlay" data-position="left">
+      <a href="#" data-rel="close"
+      class="ui-btn ui-corner-all ui-icon-delete ui-btn-icon-left">閉じる</a>
+
+      <h3>表示位置指定</h3>
+
+    　  <div data-role="controlgroup" id="navlist" data-type="vertical">
+
+
+    　　　　    <a href="JavaScript:PanCurrentLocation()" class="ui-btn">現在地</a>
+      　　　　　<a href="JavaScript:FitBound()" class="ui-btn">登録情報全域</a>
+
+
+      </div>
+
+  </div>
+
+
+
+
+	　　　　　<div id="map">
+
+	　　　　　</div>
+
+  </div>  <!-- content -->
+
+
+
+
+<script>
+
+//    レイヤ選択 種別
+var CurlayerKind ="background";
+
+
+
+$('#ly_back').on('click', function() {
+   // alert('back');
+   CurlayerKind = "background";
+});
+
+
+$('#ly_thema').on('click', function() {
+  //  alert('thema');
+     CurlayerKind = "thema";
+});
+
+//  凡例パネルが開くときの動作
+$( "#legendpos" ).panel({
+  beforeopen: function( event, ui ) {
+//alert("befor");
+　　var $overlaylist = $('#overlaylist');
+
+　　var n = $( "input[name='ov_layer1']:checked").length;
+
+
+    //  チェックされている主題図リスト取得
+   var chkdef  = $("input[name='ov_layer1']:checked" ).map(function(){
+    //$(this)でjQueryオブジェクトが取得できる。val()で値をvalue値を取得。
+                return $(this).val();
+          }).get();
+
+  //  console.log(chkdef);
+
+    var tghtml = ' ';
+    if ( n > 0 ){
+　　　　//  チェックされている主題図の情報取得
+      for ( let lp of chkdef) {
+          tgl = ovdef[lp];
+
+          if ( tgl ){
+          //  console.log( tgl );
+            if ( tgl["legend"]){
+              tghtml += "<h3>" + tgl["name"] + '</h3>'
+                    + '<img src="'
+                    + tgl["legend"]
+                    + '" />';
+            }
+          }
+      }
+    //  console.log(tghtml);
+      $('#legendarea').empty();
+      $('#legendarea').append(tghtml);
+    //  $('#legendarea').trigger("create");
+      $('#legendpos').trigger("updatelayout");
+
+    }
+　　//alert( String(n ));
+  }
+});
+
+
+
+function  OpenLayerProp() {
+
+
+	  //  $('#ly_thema').removeClass( 'ui-btn-active' );
+	    $('#ly_back').removeClass('ui-btn-active' );
+
+   if ( CurlayerKind == "background" ) {
+       $('#tabs').tabs({
+  			active: 0
+		});
+
+		$('#ly_back').addClass('ui-btn-active' );
+
+   }
+   else {
+	   $('#tabs').tabs({
+		active: 1
+		});
+
+     $('#ly_thema').addClass( 'ui-btn-active' );
+
+   }
+
+    $("#panel_layer").panel("open");
+}
+
+
+
+
+
+
+
+
+//  現在位置マーカー
+var  CPosMarker;
+
+//  現在位置マーカー表示
+function onLocationFound(e) {
+
+
+if ( CPosMarker  ) {
+
+       CPosMarker.setLatLng(e.latlng);
+    }
+    else {
+     CPosMarker = L.marker(e.latlng,{icon:redMarker}).addTo(map);
+    }
+
+
+
+
+}
+
+function onLocationError(e){
+   // var radius = e.accuracy / 2;
+
+   var ermess = "位置取得に失敗しました  " +  ermess
+    alert( ermess );
+
+
+}
+
+
+function  PanCurrentLocation(){
+		 map.locate({setView: true, maxZoom: 18});
+
+	   //  map.stopLocate();
+
+		}
+
+
+var map = L.map('map',{maxZoom:18});
+
+
+
+
+map.on('locationfound', onLocationFound);
+map.on('locationerror', onLocationError);
+
+
+var popup = new L.Popup({maxwidth: 800});
+
+  if ( CbaseLayer){
+   CbaseLayer.setZIndex(0);
+
+    CbaseLayer.addTo(map);
+}
+
+ //CbaseLayer = OSMLayer;
+
+var featureG;
+
+
+
+
+
+
+var Marker;
+
+
+  map.on('move',function( e ) {
+         click_status = fstatus.MOUSE;
+  });
+
+
+
+
+function  SetMarker( latlng ){
+
+  if ( Marker  ) {
+
+       Marker.setLatLng(latlng);
+    }
+    else {
+     Marker = L.marker( latlng).addTo(map);
+
+    }
+
+}
+
+function  SetMarkerLatLn( lat, lng ) {
+
+
+    var newLatLng = new L.LatLng(lat, lng);
+
+    SetMarker( newLatLng );
+}
+
+
+function GetClickedItemInfo( latlng ) {
+
+//
+
+
+  }
+
+
+ function getFeatureInfoExec( latlng, url )  {
+
+
+     $.ajax({
+      url: url,
+      type: "POST",
+      dataType: "text",
+      success: function (data, status, xhr) {
+        var err = typeof data === 'string' ? null : data;
+//alert(status);
+//           alert( url );
+
+        showGetFeatureInfoD(err, latlng, data);
+      },
+      error: function (xhr, status, error) {
+       showGetFeatureInfoD(error);
+      }
+    });
+
+
+ }
+
+ function getFeatureInfoUrl(latlng, wmsl ) {
+    // Construct a GetFeatureInfo request URL given a point
+    var point = map.latLngToContainerPoint(latlng, map.getZoom()),
+        size = map.getSize(),
+
+        params = {
+          request: 'GetFeatureInfo',
+          service: 'WMS',
+          srs: 'EPSG:4326',
+          styles: wmsl.wmsParams.styles,
+          transparent: wmsl.wmsParams.transparent,
+          version: wmsl.wmsParams.version,
+
+          format: wmsl.wmsParams.format,
+          bbox: map.getBounds().toBBoxString(),
+          height: size.y,
+          width: size.x,
+          layers: wmsl.wmsParams.layers,
+          query_layers: wmsl.wmsParams.layers,
+          info_format: 'text/html'
+        };
+
+    params[params.version === '1.3.0' ? 'i' : 'x'] = Math.round(point.x);
+    params[params.version === '1.3.0' ? 'j' : 'y'] = Math.round(point.y);
+
+    return wmsl._url + L.Util.getParamString(params, wmsl._url, true);
+  }
+
+
+function showGetFeatureInfoD(err, latlng, content) {
+    if (err) { console.log(err);  return; } // do nothing if there's an error
+
+    //alert(content)
+    // Otherwise show the content in a popup, or something.
+
+    var htxt = $("#item_info").html();
+
+    htxt = htxt + " " + content
+    $("#item_info").html(htxt);
+
+    $("#panel_r").panel("open");
+
+
+  }
+
+
+
+
+
+</script>
+
+
+<!--ページ領域-->
+
+</div>
+
+</body>
+</html>
