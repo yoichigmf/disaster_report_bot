@@ -337,8 +337,10 @@ foreach ($events as $event) {
                    $spreadsheetId = getenv('SPREADSHEET_ID');
 
                     if ( strcmp($tgText, "#map" ) == 0 ) {   //  display map URL
+                    
+                       $mhostname = gethostname();
 
-                       $bot->replyText($event->getReplyToken(), "地図表示     ${map_url}?sheetid=${spreadsheetId}");   //map urL
+                       $bot->replyText($event->getReplyToken(), "地図表示     https://${mhostname}/?sheetid=${spreadsheetId}");   //map urL
                        }
 
                    if ( strcmp($tgText, "#sheet" ) == 0 ) {   //  display sheet URL
