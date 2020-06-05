@@ -340,8 +340,12 @@ foreach ($events as $event) {
 
                        //$mhostname = gethostname();
 
-                       $mhostname = exec("apps:info -s  | grep web_url | cut -d= -f2");
+                       $appname = getenv('HEROKU_APP_NAME');
 
+                       //$mhostname = exec("apps:info -s  \| grep web_url \| cut -d= -f2");
+
+                       $mhostname = "${appname}.heroku.com";
+                       
                        $bot->replyText($event->getReplyToken(), "地図表示     https://${mhostname}/?sheetid=${spreadsheetId}");   //map urL
                        }
 
