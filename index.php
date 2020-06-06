@@ -11,7 +11,7 @@ use Monolog\Handler\StreamHandler;
 $log = new Logger('name');
 $log->pushHandler(new StreamHandler('php://stderr', Logger::WARNING));
 
-$uname = $_SESSION['username']
+$uname = $_SESSION['username'];
 $log->addWarning("username  ${uname}\n");
 
 readfile(__DIR__ . '/index.html'); 
