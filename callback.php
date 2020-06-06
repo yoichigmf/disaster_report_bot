@@ -53,16 +53,16 @@ $score = -1;
 session_set_cookie_params(60 * 5);
 
 session_start();
-
+$sid = session_id();
 
 foreach ($events as $event) {
 
-//  add 20200607   check in mapmodule 
+//  add 20200607   check in mapmodule
   //  ユーザ名の取得
    $user_name = GetUserName($event );
 
    $_SESSION['username'] = $user_name;
-
+$log->addWarning("sessionid  ${sid}\n");
 
    if ($event instanceof \LINE\LINEBot\Event\MessageEvent\LocationMessage) {  // Location event
 

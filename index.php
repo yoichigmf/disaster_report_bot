@@ -10,8 +10,10 @@ use Monolog\Handler\StreamHandler;
 
 $log = new Logger('name');
 $log->pushHandler(new StreamHandler('php://stderr', Logger::WARNING));
+session_start();
 
+$sid = session_id();
 $uname = $_SESSION['username'];
 $log->addWarning("username  ${uname}\n");
-
-readfile(__DIR__ . '/index.html'); 
+$log->addWarning("sessionid  ${sid}\n");
+readfile(__DIR__ . '/index.html');
