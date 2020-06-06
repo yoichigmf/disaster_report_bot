@@ -49,10 +49,19 @@ $action ="";
 
 $score = -1;
 
+//  add 20200607
+session_set_cookie_params(60 * 5);
+
+session_start();
 
 
 foreach ($events as $event) {
 
+//  add 20200607   check in mapmodule 
+  //  ユーザ名の取得
+   $user_name = GetUserName($event );
+
+   $_SESSION['username'] = $user_name;
 
 
    if ($event instanceof \LINE\LINEBot\Event\MessageEvent\LocationMessage) {  // Location event
@@ -340,13 +349,13 @@ foreach ($events as $event) {
 
                        //$mhostname = gethostname();
 
-                       $appname = getenv('HEROKU_APP_NAME');
+                      // $appname = getenv('HEROKU_APP_NAME');
 
                        //$mhostname = exec("apps:info -s  \| grep web_url \| cut -d= -f2");
 
-                       $mhostname = "${appname}.heroku.com";
-                       
-                       $bot->replyText($event->getReplyToken(), "地図表示     https://${mhostname}/?sheetid=${spreadsheetId}");   //map urL
+                      // $mhostname = "${appname}.heroku.com";
+
+                       $bot->replyText($event->getReplyToken(), "地図表示     ${map_url}");   //map urL
                        }
 
                    if ( strcmp($tgText, "#sheet" ) == 0 ) {   //  display sheet URL
