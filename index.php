@@ -27,7 +27,12 @@ $log->addWarning( "session state =${session_state}");
 
 
 $log->addWarning( "state =${state}");
+if ( !isset($code) or !isset($state) or !isset($session_state) ){
 
+  header( "Location: login.php" ) ;
+  //  echo 'アクセスエラー';
+    exit;
+}
 if ($session_state !== $state) {
   header( "Location: login.php" ) ;
   //  echo 'アクセスエラー';
