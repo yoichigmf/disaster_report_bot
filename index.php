@@ -1,5 +1,5 @@
 <?php
-header('Content-Type: text/html; charset=UTF-8');
+//header('Content-Type: text/html; charset=UTF-8');
 require_once __DIR__ . '/vendor/autoload.php';
 include_once __DIR__.'/php/report_bot.php';
 
@@ -23,7 +23,8 @@ $state = $_GET['state'];
 $session_state = $_SESSION['_line_state'];
 unset($_SESSION['_line_state']);
 if ($session_state !== $state) {
-    echo 'アクセスエラー';
+  header( "Location: login.php" ) ;
+  //  echo 'アクセスエラー';
     exit;
 }
 
