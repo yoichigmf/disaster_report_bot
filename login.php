@@ -16,6 +16,7 @@ if (!session_id()) {
     session_start();
 }
 
+$message = $_GET['message'];
 
 $base_url = "https://access.line.me/oauth2/v2.1/authorize";
 $client_id = getenv("CLIENT_ID");
@@ -52,6 +53,16 @@ $url = $base_url . '?' . $query;
             <a href="<?php echo $url; ?>">
                 <img src="images/btn_login_base.png">
             </a>
+        </div>
+
+        <div class="panel-body" id="message">
+          <p>
+                <?php
+                   if ( !isset($message){
+                       echo $message;
+                     }
+                      ?>
+            </p>
         </div>
     </div>
 </div>

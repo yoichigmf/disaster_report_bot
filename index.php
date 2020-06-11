@@ -28,14 +28,15 @@ $log->addWarning( "session state =${session_state}");
 
 $log->addWarning( "state =${state}");
 if ( !isset($code) or !isset($state) or !isset($session_state) ){
+  $loginm = "地図閲覧のためにはLINEアカウントのログインが必要です";
+  header( "Location:login.php?message=${loginm}" ) ;
 
-  header( "Location: login.php" ) ;
-  //  echo 'アクセスエラー';
     exit;
 }
 if ($session_state !== $state) {
-  header( "Location: login.php" ) ;
-  //  echo 'アクセスエラー';
+  $loginm = "地図閲覧のためにはLINEアカウントのログインが必要です";
+  header( "Location:login.php?message=${loginm}" ) ;
+
     exit;
 }
 
