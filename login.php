@@ -58,7 +58,7 @@ $url = $base_url . '?' . $query;
         <div class="panel-body" id="message">
           <p>
                 <?php
-                   if ( !isset($message)){
+                   if ( isset($message)){
                        echo $message;
                      }
                       ?>
