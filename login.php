@@ -45,10 +45,10 @@ $url = $base_url . '?' . $query;
 <div class="container" style="margin: 10px 0;">
     <div class="panel panel-default">
         <div class="panel-heading">
-            LINEログインv2.1テスト
+            災害情報調査結果地図
         </div>
         <div class="panel-body">
-            <p>ログインしてください。</p>
+            <p>ボットと友達のLINEユーザでログインしてください。</p>
             <a href="<?php echo $url; ?>">
                 <img src="images/btn_login_base.png">
             </a>
