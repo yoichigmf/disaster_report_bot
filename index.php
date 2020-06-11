@@ -10,10 +10,21 @@ use Monolog\Handler\StreamHandler;
 
 $log = new Logger('name');
 $log->pushHandler(new StreamHandler('php://stderr', Logger::WARNING));
-session_start();
 
-$sid = session_id();
-$uname = $_SESSION['username'];
-$log->addWarning("username  ${uname}\n");
-$log->addWarning("sessionid  ${sid}\n");
+
+if (!session_id()) {
+    session_start();
+}
+
+$code = $_GET['code'];
+
+$state = $_GET['state'];
+
+$session_state = $_SESSION['_line_state'];
+unset($_SESSION['_line_state']);
+if ($session_state !== $state) {
+    echo 'アクセスエラー';
+    exit;
+}
+
 readfile(__DIR__ . '/map.png');
