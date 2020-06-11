@@ -22,6 +22,12 @@ $state = $_GET['state'];
 
 $session_state = $_SESSION['_line_state'];
 unset($_SESSION['_line_state']);
+
+$log->addWarning( "session state =${session_state}");
+
+
+$log->addWarning( "state =${state}");
+
 if ($session_state !== $state) {
   header( "Location: login.php" ) ;
   //  echo 'アクセスエラー';
