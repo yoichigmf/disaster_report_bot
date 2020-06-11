@@ -16,4 +16,4 @@ $sid = session_id();
 $uname = $_SESSION['username'];
 $log->addWarning("username  ${uname}\n");
 $log->addWarning("sessionid  ${sid}\n");
-readfile(__DIR__ . '/map.page');
+readfile(__DIR__ . '/map.png');
