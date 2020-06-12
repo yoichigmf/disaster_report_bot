@@ -91,15 +91,21 @@ $val = explode(".", $res->id_token);
 $data_json = base64_decode($val[1]);
 $data = json_decode($data_json);
 
-echo '$data= ';
-print_r($data);
-echo '<br /><br />';
+//echo '$data= ';
+//print_r($data);
+//echo '<br /><br />';
 
 //取得したデータを表示
-print("[sub]:[" . $data->sub . "][対象ユーザーの識別子]<br />\n");
+//print("[sub]:[" . $data->sub . "][対象ユーザーの識別子]<br />\n");
 
 $uname = GetUserNameUsingID( $data->sub );
 
-print("[username]:[" . $uname. "][対象ユーザーの名前]<br />\n");
+//print("[username]:[" . $uname. "][対象ユーザーの名前]<br />\n");
 
-//readfile(__DIR__ . '/map.png');
+if ( isset($uname )) {
+  readfile(__DIR__ . '/map.png');
+}
+else {
+     $loginm = urlencode("情報調査LINEボットと友達になっていないと地図は閲覧できません");
+     header( "Location:login.php?message=${loginm}" );
+}

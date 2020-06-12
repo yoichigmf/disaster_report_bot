@@ -62,7 +62,7 @@ foreach ($events as $event) {
    $user_name = GetUserName($event );
 
    $_SESSION['username'] = $user_name;
-$log->addWarning("sessionid  ${sid}\n");
+   $log->addWarning("sessionid  ${sid}\n");
 
    if ($event instanceof \LINE\LINEBot\Event\MessageEvent\LocationMessage) {  // Location event
 
@@ -82,10 +82,7 @@ $log->addWarning("sessionid  ${sid}\n");
           }
         else
            {
-                    $bot->replyText($event->getReplyToken(), "【警告】LINE Botと友達になっていないのでユーザ名が取得できません。\n位置情報が正しく記録できないのでLINE Botと友達になって下さい。\n入力位置情報 ${title} ${address} ${latitude} ${longitude}");
-
-
-
+          $bot->replyText($event->getReplyToken(), "【警告】LINE Botと友達になっていないのでユーザ名が取得できません。\n位置情報が正しく記録できないのでLINE Botと友達になって下さい。\n入力位置情報 ${title} ${address} ${latitude} ${longitude}");
              }
          continue;
 
