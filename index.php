@@ -98,7 +98,7 @@ echo '<br /><br />';
 //取得したデータを表示
 print("[sub]:[" . $data->sub . "][対象ユーザーの識別子]<br />\n");
 
-$uname = GetUserNameUsingID( $data->sub )
+$uname = GetUserNameUsingID( $data->sub );
 
 print("[username]:[" . $uname. "][対象ユーザーの名前]<br />\n");
 
