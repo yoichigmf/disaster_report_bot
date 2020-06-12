@@ -28,13 +28,13 @@ $log->addWarning( "session state =${session_state}");
 
 $log->addWarning( "state =${state}");
 if ( !isset($code) or !isset($state) or !isset($session_state) ){
-  $loginm = urlencode("地図閲覧のためにはLINEアカウントのログインが必要です"）;
-  header( "Location:login.php?message=${loginm}" ) ;
+  $loginm = urlencode("地図閲覧のためにはLINEアカウントのログインが必要です");
+  header( "Location:login.php?message=${loginm}" );
 
     exit;
 }
 if ($session_state !== $state) {
-  $loginm = urlencode("地図閲覧のためにはLINEアカウントのログインが必要です"）;
+  $loginm = urlencode("地図閲覧のためにはLINEアカウントのログインが必要です");
   header( "Location:login.php?message=${loginm}" ) ;
 
     exit;
