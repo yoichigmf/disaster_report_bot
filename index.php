@@ -75,8 +75,8 @@ $res_json = file_get_contents($url, false, stream_context_create($context));
 
 if (isset($res->error)) {
 
-  $loginm = urlencode("ログインエラーが発生しました。<br />" . $res->error . '<br />'.$res->error_description）;
-  header( "Location:login.php?message=${loginm}" ) ;
+  $loginm = urlencode("ログインエラーが発生しました。<br />" . $res->error . '<br />'.$res->error_description);
+  header( "Location:login.php?message=${loginm}" );
 
     exit;
 
