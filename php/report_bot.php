@@ -9,6 +9,36 @@ use Monolog\Handler\StreamHandler;
 
 
 
+function GetUserNameUsingID( $user_id ) {
+//  $uid = $event->getUserId();
+
+   global $log;
+   global $httpClient;
+
+   $bot2 = new \LINE\LINEBot($httpClient, ['channelSecret' => getenv('LineMessageAPIChannelSecret')]);
+
+   $response = $bot2->getProfile($user_id);
+
+   $profile = $response->getJSONDecodedBody();
+
+   $username = $profile['displayName'];
+
+   $log->addWarning("user name ${username}\n");
+
+   $emp =  empty( $username );
+
+   $log->addWarning("empty  ${emp}\n");
+
+   if ( $emp == 1 ) {
+        $username = "不明";
+
+   }
+
+   return $username;
+
+}
+
+
 function GetUserName( $event ) {
   $uid = $event->getUserId();
 
