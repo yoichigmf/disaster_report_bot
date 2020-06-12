@@ -29,7 +29,7 @@ $query .= "response_type=" . urlencode("code") . "&";
 $query .= "client_id=" . urlencode($client_id) . "&";
 $query .= "redirect_uri=" . urlencode($redirect_uri) . "&";
 $query .= "state=" . urlencode($_SESSION['_line_state']) . "&";
-$query .= "scope=" . urlencode("openid") . "&";
+$query .= "scope=" . urlencode("profile openid") . "&";
 
 $url = $base_url . '?' . $query;
 ?>
