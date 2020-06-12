@@ -73,6 +73,8 @@ $context = array(
 );
 $res_json = file_get_contents($url, false, stream_context_create($context));
 
+$res = json_decode($res_json);
+
 if (isset($res->error)) {
 
   $loginm = urlencode("ログインエラーが発生しました。<br />" . $res->error . '<br />'.$res->error_description);
