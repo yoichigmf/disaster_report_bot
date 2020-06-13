@@ -28,7 +28,7 @@ $log->addWarning( "client_id ${client_id}");
 $log->addWarning( "redirect_uri ${redirect_uri}");
 $log->addWarning( "client_secret ${client_secret}");
 
-if ( isset($client_id) && isset($redirect_uri) && isset($client_secret )){
+if ( (!empty($client_id)) && (!empty($redirect_uri)) && (!empty($client_secret ))){
 
   $code = $_GET['code'];
 
