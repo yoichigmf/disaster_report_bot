@@ -17,32 +17,6 @@ if (!session_id()) {
 }
 
 $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient(getenv('LineMessageAPIChannelAccessToken'));
-
-
-$code = $_GET['code'];
-
-$state = $_GET['state'];
-
-$session_state = $_SESSION['_line_state'];
-//unset($_SESSION['_line_state']);
-
-$log->addWarning( "session state =${session_state}");
-
-
-$log->addWarning( "state =${state}");
-if ( !isset($code) or !isset($state) or !isset($session_state) ){
-  $loginm = urlencode("地図閲覧のためにはLINEアカウントのログインが必要です");
-  header( "Location:login.php?message=${loginm}" );
-
-    exit;
-}
-if ($session_state !== $state) {
-  $loginm = urlencode("地図閲覧のためにはLINEアカウントのログインが必要です");
-  header( "Location:login.php?message=${loginm}" ) ;
-
-    exit;
-}
-
 //    id token の取得
 $client_id = getenv("CLIENT_ID");
 $redirect_uri = getenv("REDIRECT_URI");
@@ -50,12 +24,37 @@ $redirect_uri = getenv("REDIRECT_URI");
 $client_secret = getenv("CLIENT_SECRET");
 
 
-
 $log.addWarning( "client_id ${client_id}");
 $log.addWarning( "redirect_uri ${redirect_uri}");
 $log.addWarning( "client_secret ${client_secret}");
 
 if ( isset($client_id) && isset($redirect_uri) && isset($client_secret )){
+
+  $code = $_GET['code'];
+
+  $state = $_GET['state'];
+
+  $session_state = $_SESSION['_line_state'];
+//unset($_SESSION['_line_state']);
+
+  $log->addWarning( "session state =${session_state}");
+
+
+  $log->addWarning( "state =${state}");
+  if ( !isset($code) or !isset($state) or !isset($session_state) ){
+    $loginm = urlencode("地図閲覧のためにはLINEアカウントのログインが必要です");
+    header( "Location:login.php?message=${loginm}" );
+
+      exit;
+    }
+    if ($session_state !== $state) {
+        $loginm = urlencode("地図閲覧のためにはLINEアカウントのログインが必要です");
+        header( "Location:login.php?message=${loginm}" ) ;
+
+        exit;
+      }
+
+
   //  認証ありの場合
 
   $url = "https://api.line.me/oauth2/v2.1/token";
