@@ -50,7 +50,8 @@ $redirect_uri = getenv("REDIRECT_URI");
 $client_secret = getenv("CLIENT_SECRET");
 
 
-if ( isset($client_secret)　&&  isset($redirect_uri) && isset($client_secret ) ){   //  認証ありの場合
+if ( isset($client_secret) && isset($redirect_uri) && isset($client_secret )){
+  //  認証ありの場合
 
   $url = "https://api.line.me/oauth2/v2.1/token";
 
