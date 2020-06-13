@@ -10,22 +10,13 @@
 |APPLICATION_NAME |アプリケーション名　|DropBoxフォルダ名に利用 |
 |authstr |Google Spread　Sheet アクセス認証用　JSON | |
 |DROPBOXACCESSTOKEN　|DropBoxアクセストークン | |
-
-LineMessageAPIChannelAccessToken　　　　LINE　アクセストークン
-
-LineMessageAPIChannelSecret　　　　　　LINEAPIチャンネルシークレット
-
-MapURL　　　　　　　　　　　　　　　　　地図表示モジュールURL
-                                      (login module のredirect URIにも利用)
-
-SPEECHAPIKEY　　　　　               　Google Speech API　Key
-             (設定が無い場合でもOK その場合音声文字変換は行わない)
-
-SPREADSHEET_ID　　　　　               Google Spread Sheet　ID
-
-CLIENT_ID                  LINE login module  channel ID
-
-CLIENT_SECRET              LINE login module channel secret
+|LineMessageAPIChannelAccessToken |LINEメッセージングアプリ アクセストークン ||
+|LineMessageAPIChannelSecret |LINEメッセージングアプリ チャンネルシークレット ||
+|MapURL |地図表示モジュールURL |login module のredirect URIにも利用 |
+|SPEECHAPIKEY |Google Speech API　Key |設定が無い場合でもOK その場合音声文字変換は行わない |
+|SPREADSHEET_ID |Google Spread Sheet　ID ||
+|CLIENT_ID |LINE login module  channel ID ||
+|CLIENT_SECRET |LINE login module channel secret ||
 
 
 ### 改訂履歴
