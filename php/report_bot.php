@@ -194,7 +194,23 @@ function Getsheets($spreadsheetID, $client) {
     return $sheets;
 }
 
+//  書き込み対象シート名を取得しておく　名前が　config でないもので先頭のシート
+function GetTargetSheetName( $spreadsheetId){
+  $client = getClient();
 
+
+  $client->addScope(Google_Service_Sheets::SPREADSHEETS);
+  $client->setApplicationName('AddSheet');
+
+  $sheetnames = Getsheets($spreadsheetI, $client);
+
+  if ( $sheetname[0] === 'config'){
+    return $sheetname[1];
+    }
+
+   return $sheetname[0];
+
+}
 
 function  AddFileLink( $response, $event, string $filepath, string $kind ){
 

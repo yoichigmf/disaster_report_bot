@@ -55,6 +55,13 @@ session_set_cookie_params(60 * 5);
 session_start();
 $sid = session_id();
 
+
+$spreadsheetId = getenv('SPREADSHEET_ID');
+//   書き込み対象シートの名前を取得しておく
+$target_sheetname = GetTargetSheetName( $spreadsheetId);
+
+ $log->addWarning("target_sheet  ${target_sheetname}\n");
+
 foreach ($events as $event) {
 
 //  add 20200607   check in mapmodule
@@ -62,7 +69,7 @@ foreach ($events as $event) {
    $user_name = GetUserName($event );
 
    $_SESSION['username'] = $user_name;
-   $log->addWarning("sessionid  ${sid}\n");
+  // $log->addWarning("sessionid  ${sid}\n");
 
    if ($event instanceof \LINE\LINEBot\Event\MessageEvent\LocationMessage) {  // Location event
 
