@@ -204,11 +204,11 @@ function GetTargetSheetName( $spreadsheetId){
 
   $sheetnames = Getsheets($spreadsheetId, $client);
 
-  if ( $sheetname[0] === 'config'){
-    return $sheetname[1];
+  if ( $sheetnames[0] === 'config'){
+    return $sheetnames[1];
     }
 
-   return $sheetname[0];
+   return $sheetnames[0];
 
 }
 
