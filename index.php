@@ -19,7 +19,7 @@ if (!session_id()) {
 $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient(getenv('LineMessageAPIChannelAccessToken'));
 //    id token の取得
 $client_id = getenv("CLIENT_ID");
-$redirect_uri = getenv("REDIRECT_URI");
+$redirect_uri = getenv("MapURL");
 
 $client_secret = getenv("CLIENT_SECRET");
 
