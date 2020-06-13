@@ -5,11 +5,11 @@
 
 ### 動作時の環境変数
 
-APPLICATION_NAME　　　　アプリケーション名　　DropBoxフォルダ名に利用
-
-authstr     　　　　　　 Google Spread　Sheet アクセス認証用　JSON
-
-DROPBOXACCESSTOKEN　　　　　　　　　　　DropBoxアクセストークン
+| 環境変数名 | 内容 | 備考 |
+|:---|:---|:---|
+|APPLICATION_NAME |アプリケーション名　|DropBoxフォルダ名に利用 |
+|authstr |Google Spread　Sheet アクセス認証用　JSON | |
+|DROPBOXACCESSTOKEN　|DropBoxアクセストークン | |
 
 LineMessageAPIChannelAccessToken　　　　LINE　アクセストークン
 
