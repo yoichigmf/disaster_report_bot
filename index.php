@@ -24,9 +24,9 @@ $redirect_uri = getenv("REDIRECT_URI");
 $client_secret = getenv("CLIENT_SECRET");
 
 
-$log.addWarning( "client_id ${client_id}");
-$log.addWarning( "redirect_uri ${redirect_uri}");
-$log.addWarning( "client_secret ${client_secret}");
+$log->addWarning( "client_id ${client_id}");
+$log->addWarning( "redirect_uri ${redirect_uri}");
+$log->addWarning( "client_secret ${client_secret}");
 
 if ( isset($client_id) && isset($redirect_uri) && isset($client_secret )){
 
