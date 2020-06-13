@@ -216,8 +216,10 @@ function  AddFileLink( $response, $event, string $filepath, string $kind ){
 
           global $log;
 
+      global $target_sheetname;
 
-
+     //  書き込みシート名
+    $sheet_tg = "${target_sheetname}!A1";
 
     $spreadsheetId = getenv('SPREADSHEET_ID');
 
@@ -280,7 +282,7 @@ function  AddFileLink( $response, $event, string $filepath, string $kind ){
 
      $value = new Google_Service_Sheets_ValueRange();
      $value->setValues([ 'values' => [ $date, $user, $kind, $url ,$comment ] ]);
-     $resp = $service->spreadsheets_values->append($spreadsheetId , 'シート1!A1', $value, [ 'valueInputOption' => 'USER_ENTERED' ] );
+     $resp = $service->spreadsheets_values->append($spreadsheetId , $sheet_tg, $value, [ 'valueInputOption' => 'USER_ENTERED' ] );
 
      PostSlack($date, $user, $kind, $url ,$ncomment, "","");
 
@@ -303,6 +305,11 @@ function  AddFileLink( $response, $event, string $filepath, string $kind ){
 
 function AddText( $event ){
    $spreadsheetId = getenv('SPREADSHEET_ID');
+
+   global $target_sheetname;
+
+  //  書き込みシート名
+ $sheet_tg = "${target_sheetname}!A1";
 
     $client = getClient();
 
@@ -331,7 +338,7 @@ function AddText( $event ){
 
      $value = new Google_Service_Sheets_ValueRange();
      $value->setValues([ 'values' => [ $date, $user, $kind, $url ,$comment ] ]);
-     $resp = $service->spreadsheets_values->append($spreadsheetId , 'シート1!A1', $value, [ 'valueInputOption' => 'USER_ENTERED' ] );
+     $resp = $service->spreadsheets_values->append($spreadsheetId ,  $sheet_tg , $value, [ 'valueInputOption' => 'USER_ENTERED' ] );
 
    // Slack へのPost
     PostSlack($date, $user, $kind, $url ,$comment, "", "" );
@@ -354,6 +361,13 @@ function AddText( $event ){
 
 function AddLocationLink( $response, $event ){
    $spreadsheetId = getenv('SPREADSHEET_ID');
+
+   global $target_sheetname;
+
+  //  書き込みシート名
+ $sheet_tg = "${target_sheetname}!A1";
+
+
 
     $client = getClient();
 
@@ -380,7 +394,7 @@ function AddLocationLink( $response, $event ){
 
      $value = new Google_Service_Sheets_ValueRange();
      $value->setValues([ 'values' => [ $date, $user, $kind, $url ,$comment, $latitude, $longitude ] ]);
-     $resp = $service->spreadsheets_values->append($spreadsheetId , 'シート1!A1', $value, [ 'valueInputOption' => 'USER_ENTERED' ] );
+     $resp = $service->spreadsheets_values->append($spreadsheetId ,  $sheet_tg , $value, [ 'valueInputOption' => 'USER_ENTERED' ] );
 
     PostSlack($date, $user, $kind, $url ,$comment, $latitude,$longitude);
     var_dump($resp);
