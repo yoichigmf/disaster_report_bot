@@ -15,8 +15,8 @@
 |MapURL |地図表示モジュールURL |login module のredirect URIにも利用 |
 |SPEECHAPIKEY |Google Speech API　Key |設定が無い場合でもOK その場合音声文字変換は行わない |
 |SPREADSHEET_ID |Google Spread Sheet　ID ||
-|CLIENT_ID |LINE login module  channel ID ||
-|CLIENT_SECRET |LINE login module channel secret ||
+|CLIENT_ID |LINE login module  channel ID |設定が無い場合認証は行われない|
+|CLIENT_SECRET |LINE login module channel secret |設定が無い場合認証は行われない|
 
 
 ### 改訂履歴
