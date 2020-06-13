@@ -202,7 +202,7 @@ function GetTargetSheetName( $spreadsheetId){
   $client->addScope(Google_Service_Sheets::SPREADSHEETS);
   $client->setApplicationName('AddSheet');
 
-  $sheetnames = Getsheets($spreadsheetI, $client);
+  $sheetnames = Getsheets($spreadsheetId, $client);
 
   if ( $sheetname[0] === 'config'){
     return $sheetname[1];
