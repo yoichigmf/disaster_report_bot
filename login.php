@@ -20,7 +20,7 @@ $message = $_GET['message'];
 
 $base_url = "https://access.line.me/oauth2/v2.1/authorize";
 $client_id = getenv("CLIENT_ID");
-$redirect_uri = getenv("REDIRECT_URI");
+$redirect_uri = getenv("MapURL");
 
 $_SESSION['_line_state'] = sha1(time());
 

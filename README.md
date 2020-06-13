@@ -16,6 +16,7 @@ LineMessageAPIChannelAccessToken　　　　LINE　アクセストークン
 LineMessageAPIChannelSecret　　　　　　LINEAPIチャンネルシークレット
 
 MapURL　　　　　　　　　　　　　　　　　地図表示モジュールURL
+                                      (login module のredirect URIにも利用)
 
 SPEECHAPIKEY　　　　　               　Google Speech API　Key
              (設定が無い場合でもOK その場合音声文字変換は行わない)
