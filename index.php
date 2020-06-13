@@ -49,47 +49,50 @@ $redirect_uri = getenv("REDIRECT_URI");
 
 $client_secret = getenv("CLIENT_SECRET");
 
-$url = "https://api.line.me/oauth2/v2.1/token";
+
+if ( isset($client_secret)　&&  isset($redirect_uri) && isset($client_secret ) ){   //  認証ありの場合
+
+  $url = "https://api.line.me/oauth2/v2.1/token";
 
 //----------------------------------------
 // POSTパラメータの作成
 //----------------------------------------
-$query = "";
-$query .= "grant_type=" . urlencode("authorization_code") . "&";
-$query .= "code=" . urlencode($code) . "&";
-$query .= "redirect_uri=" . urlencode($redirect_uri) . "&";
-$query .= "client_id=" . urlencode($client_id) . "&";
-$query .= "client_secret=" . urlencode($client_secret) . "&";
+  $query = "";
+  $query .= "grant_type=" . urlencode("authorization_code") . "&";
+  $query .= "code=" . urlencode($code) . "&";
+  $query .= "redirect_uri=" . urlencode($redirect_uri) . "&";
+  $query .= "client_id=" . urlencode($client_id) . "&";
+  $query .= "client_secret=" . urlencode($client_secret) . "&";
 
-$header = array(
+  $header = array(
     "Content-Type: application/x-www-form-urlencoded",
     "Content-Length: " . strlen($query),
-);
+  );
 
-$context = array(
+  $context = array(
     "http" => array(
         "method"        => "POST",
         "header"        => implode("\r\n", $header),
         "content"       => $query,
         "ignore_errors" => true,
     ),
-);
-$res_json = file_get_contents($url, false, stream_context_create($context));
+  );
+  $res_json = file_get_contents($url, false, stream_context_create($context));
 
-$res = json_decode($res_json);
+  $res = json_decode($res_json);
 
-if (isset($res->error)) {
+  if (isset($res->error)) {
 
-  $loginm = urlencode("ログインエラーが発生しました。<br />" . $res->error . '<br />'.$res->error_description);
-  header( "Location:login.php?message=${loginm}" );
+    $loginm = urlencode("ログインエラーが発生しました。<br />" . $res->error . '<br />'.$res->error_description);
+    header( "Location:login.php?message=${loginm}" );
 
-    exit;
+      exit;
 
-}
+  }
 //id_token(JWT)を分解
-$val = explode(".", $res->id_token);
-$data_json = base64_decode($val[1]);
-$data = json_decode($data_json);
+  $val = explode(".", $res->id_token);
+  $data_json = base64_decode($val[1]);
+  $data = json_decode($data_json);
 
 //echo '$data= ';
 //print_r($data);
@@ -98,14 +101,18 @@ $data = json_decode($data_json);
 //取得したデータを表示
 //print("[sub]:[" . $data->sub . "][対象ユーザーの識別子]<br />\n");
 
-$uname = GetUserNameUsingID( $data->sub );
+  $uname = GetUserNameUsingID( $data->sub );
 
 //print("[username]:[" . $uname. "][対象ユーザーの名前]<br />\n");
 
-if ( isset($uname )) {
-  readfile(__DIR__ . '/map.png');
-}
-else {
+  if ( isset($uname )) {
+    readfile(__DIR__ . '/map.png');
+  }
+  else {
      $loginm = urlencode("情報調査LINEボットと友達になっていないと地図は閲覧できません");
      header( "Location:login.php?message=${loginm}" );
+   }
+}
+else {   //  認証無しの場合
+    readfile(__DIR__ . '/map.png');
 }
