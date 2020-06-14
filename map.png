@@ -7,7 +7,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
-
+<!--
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
    integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
    crossorigin=""/>
@@ -17,6 +17,18 @@
  <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
    integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
    crossorigin=""></script>
+   
+ -->
+ 
+   
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+  integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+  crossorigin=""/>
+<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+  integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+  crossorigin=""></script>
+  
+
 
 <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"
      crossorigin=""></script>
@@ -42,16 +54,20 @@
 
 
      <style type="text/css">
-		body {
+			body {
 			padding: 0;
 			margin: 0;
 		}
-		html, body{
-			height: 100%;
-		}
-
-#map { min-height:717px; height: 100vh;  margin: -15px;}
-
+    html, body {
+    height: 100%;
+    width: 100vw;
+}
+  #map {
+    padding:0;
+    margin:0;
+    width: 100%;
+    height:100%;
+  }
 
 
 /* Change cursor when mousing over clickable layer */
@@ -83,7 +99,7 @@ $(document).on("mobileinit", function () {
 
 
   $(document).bind('pagecreate', function(e, data) {
-         SetLayerinfo(　mapSheetId);  // 　利用レイヤ情報の設定
+         SetLayerinfo( mapSheetId);  // 利用レイヤ情報の設定
          SelectSheetInit( mapSheetId, mapSheetName );   // 最初のシートデータ設定
          SheetListSetup(mapSheetId);
 
@@ -99,7 +115,7 @@ $(document).on("mobileinit", function () {
 <body>
 
 
-<div　data-role="page" >
+<div data-role="page" >
 
 
   <script>
@@ -139,7 +155,12 @@ $(document).on("mobileinit", function () {
         .ui-grid-a, .ui-grid-a .ui-controlgroup-controls {width: 100%}
 
 
-#headerp {height:80px}
+#headerp {height:8vh}
+
+#main_content {height:92vh;
+              padding:0;
+              margin:0;
+            }
 
 
 
@@ -161,12 +182,12 @@ $(document).on("mobileinit", function () {
                 <li><a href="JavaScript:OpenLayerProp()"  class="ui-btn  ui-btn-icon-top ui-icon-location">地図指定</a>
            </li>
 
-      　　  </ul>
+       </ul>
     		  </div>  <!--  navbar -->
 
-　</div><!-- /header -->
+ </div><!-- /header -->
 
-<div data-role="ui-content" role="main" data-position="fixed"   >
+<div data-role="content" role="main" data-position="fixed"  id="main_content" >
 
 
 
@@ -175,20 +196,11 @@ $(document).on("mobileinit", function () {
 
     <h3>凡例</h3>
      <div id="legendarea" >
-       <!--
-     <img src="https://disaportal.gsi.go.jp/hazardmap/copyright/img/shinsui_legend2-1.png">
-   -->
-
+     
    </div>
   </div>
-<!--
-  <div data-role="popup" id="legend" data-shadow="false" data-dismissible="false" data-position-to="#lagendpos">
-  		<a href="#" data-rel="back" class="ui-btn ui-icon-delete ui-btn-right ui-btn-icon-notext ui-corner-all">Close</a>
-  		<p>凡例表示</p>
 
-      <img src="https://disaportal.gsi.go.jp/hazardmap/copyright/img/shinsui_legend2-1.png">
-  </div>
--->
+
  <div id="panel_layer" data-role="panel" data-display="overlay" data-position="right">
         <a href="#" data-rel="close"
         class="ui-btn ui-corner-all ui-icon-delete ui-btn-icon-left">閉じる</a>
@@ -222,17 +234,16 @@ $(document).on("mobileinit", function () {
 
 
           <div id="overlay" class="ui-body ui-body-a">  <!-- 主題図指定 -->
-          　 <!-- <div class="ui-field-contain"> -->
+         
               <form>
-          　　　  <fieldset data-role="controlgroup"  id="overlaylist">
-                <!--    <legend><h3>主題図指定</h3></legend>
--->
-        　　　    </fieldset>
-    　　　　　  </form>
-        　　</div>   <!--  overlay  -->
+          <fieldset data-role="controlgroup"  id="overlaylist">
+              
+           </fieldset>
+     </form>
+         </div>   <!--  overlay  -->
 
-      　　 </div>  <!-- tabs -->
-    　　</div>   <!-- panel right -->
+        </div>  <!-- tabs -->
+     </div>   <!-- panel right -->
 
 
 
@@ -267,25 +278,23 @@ $(document).on("mobileinit", function () {
 
         <h3>表示情報指定</h3>
         <div id="user_select" class="ui-body ui-body-a">  <!-- 主題図指定 -->
-        　 <!-- <div class="ui-field-contain"> -->
+        
             ユーザ指定
             <form>
-        　　　  <fieldset data-role="controlgroup"  id="userlist">
-              <!--    <legend><h3>主題図指定</h3></legend>
--->
-      　　　    </fieldset>
-  　　　　　  </form>
-      　　</div>   <!--  overlay  -->
+          <fieldset data-role="controlgroup"  id="userlist">
+         
+           </fieldset>
+       </form>
+      </div>   <!--  overlay  -->
       <div id="set_date" class="ui-body ui-body-a">  <!-- 日時 -->
-      　 <!-- <div class="ui-field-contain"> -->
+    
           日付指定
           <form>
-      　　　  <fieldset data-role="controlgroup"  id="datelist">
-            <!--    <legend><h3>主題図指定</h3></legend>
--->
-    　　　    </fieldset>
-　　　　　  </form>
-    　　</div>   <!--  overlay  -->
+        <fieldset data-role="controlgroup"  id="datelist">
+
+           </fieldset>
+          </form>
+     </div>   <!--  overlay  -->
 
     </div><!--  tabs -->
 
@@ -297,11 +306,11 @@ $(document).on("mobileinit", function () {
 
       <h3>表示位置指定</h3>
 
-    　  <div data-role="controlgroup" id="navlist" data-type="vertical">
+     <div data-role="controlgroup" id="navlist" data-type="vertical">
 
 
-    　　　　    <a href="JavaScript:PanCurrentLocation()" class="ui-btn">現在地</a>
-      　　　　　<a href="JavaScript:FitBound()" class="ui-btn">登録情報全域</a>
+        <a href="JavaScript:PanCurrentLocation()" class="ui-btn">現在地</a>
+         <a href="JavaScript:FitBound()" class="ui-btn">登録情報全域</a>
 
 
       </div>
@@ -311,9 +320,9 @@ $(document).on("mobileinit", function () {
 
 
 
-	　　　　　<div id="map">
+	 <div id="map">
 
-	　　　　　</div>
+	   </div>
 
   </div>  <!-- content -->
 
@@ -357,7 +366,7 @@ $( "#legendpos" ).panel({
 
     var tghtml = ' ';
     if ( n > 0 ){
-　　　　//  チェックされている主題図の情報取得
+    //  チェックされている主題図の情報取得
       for ( let lp of chkdef) {
           tgl = ovdef[lp];
 
@@ -378,7 +387,7 @@ $( "#legendpos" ).panel({
       $('#legendpos').trigger("updatelayout");
 
     }
-　　//alert( String(n ));
+ 
   }
 });
 
@@ -512,81 +521,6 @@ function  SetMarkerLatLn( lat, lng ) {
     SetMarker( newLatLng );
 }
 
-
-function GetClickedItemInfo( latlng ) {
-
-//
-
-
-  }
-
-
- function getFeatureInfoExec( latlng, url )  {
-
-
-     $.ajax({
-      url: url,
-      type: "POST",
-      dataType: "text",
-      success: function (data, status, xhr) {
-        var err = typeof data === 'string' ? null : data;
-//alert(status);
-//           alert( url );
-
-        showGetFeatureInfoD(err, latlng, data);
-      },
-      error: function (xhr, status, error) {
-       showGetFeatureInfoD(error);
-      }
-    });
-
-
- }
-
- function getFeatureInfoUrl(latlng, wmsl ) {
-    // Construct a GetFeatureInfo request URL given a point
-    var point = map.latLngToContainerPoint(latlng, map.getZoom()),
-        size = map.getSize(),
-
-        params = {
-          request: 'GetFeatureInfo',
-          service: 'WMS',
-          srs: 'EPSG:4326',
-          styles: wmsl.wmsParams.styles,
-          transparent: wmsl.wmsParams.transparent,
-          version: wmsl.wmsParams.version,
-
-          format: wmsl.wmsParams.format,
-          bbox: map.getBounds().toBBoxString(),
-          height: size.y,
-          width: size.x,
-          layers: wmsl.wmsParams.layers,
-          query_layers: wmsl.wmsParams.layers,
-          info_format: 'text/html'
-        };
-
-    params[params.version === '1.3.0' ? 'i' : 'x'] = Math.round(point.x);
-    params[params.version === '1.3.0' ? 'j' : 'y'] = Math.round(point.y);
-
-    return wmsl._url + L.Util.getParamString(params, wmsl._url, true);
-  }
-
-
-function showGetFeatureInfoD(err, latlng, content) {
-    if (err) { console.log(err);  return; } // do nothing if there's an error
-
-    //alert(content)
-    // Otherwise show the content in a popup, or something.
-
-    var htxt = $("#item_info").html();
-
-    htxt = htxt + " " + content
-    $("#item_info").html(htxt);
-
-    $("#panel_r").panel("open");
-
-
-  }
 
 
 
