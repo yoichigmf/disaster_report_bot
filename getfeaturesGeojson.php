@@ -21,6 +21,8 @@ header("Content-Type: application/json; charset=UTF-8"); //ヘッダー情報の
 
  $sheetid= filter_input(INPUT_POST,"sheetid"); //変数の出力。jQueryで指定したキー値optを用いる
 
+
+
 $envname  = getenv('SHEET_NAME');
 $envid= getenv('SPREADSHEET_ID');
  //$sheetname = 'シート1';
@@ -47,6 +49,13 @@ $sheetd = GetSheet( $spreadsheetId, $sheetname, $client );
 
 
 $isdone = false;
+
+
+$geojson = array(
+   'type'      => 'FeatureCollection',
+   'features'  => array()
+);
+
 
 $output_ar = array();    // array of output data
 
@@ -77,8 +86,8 @@ foreach ($sheetd as $index => $cols) {
 
 
 
-        $xcod =$cols[6];    //  coordinate
-        $ycod = $cols[5];
+        $xcod = (double)$cols[6];    //  coordinate
+        $ycod = (double)$cols[5];
 
         if (array_key_exists( $userd, $uid_ar)){   //  is the user id in the array ?
 
@@ -94,41 +103,29 @@ foreach ($sheetd as $index => $cols) {
 
          $arkey = $userd . "_" . $ckey ;
 
-         $atrarray = array();
+         $atrar = array();
 
-         $location_rec = array();
+              //             $log->addWarning("feature id == ${arkey}  user == ${userd}");
+         $feature = array(
+           'id' => $arkey,
+           'type' => 'Feature',
+           'geometry' => array(
+           'type' => 'Point',
+       # Pass Longitude and Latitude Columns here
+             'coordinates' => array((double)$xcod, (double)$ycod)
+              ),
+   # Pass other attribute columns here
+           'properties' => array(
+              'user' => $userd,
+              'date' => $dated,
+              'kind' => $kind,
+              'text' => $stext,
+              'url' => $url,
+       'proplist' => $atrar
+       )
+   );
 
-         $head = array();
-
-         $head['vkey'] = $arkey;
-         $head['user'] = $userd;
-         $head['date'] = $dated;
-         $head['x'] = $xcod;
-         $head['y'] = $ycod;
-         $head['kind'] = $kind;
-         $head['stext'] = $stext;
-
-         $attr = array();
-
-         $attr['日付'] = $dated;
-         $attr['ユーザ'] = $userd;
-         $attr['種別'] = $kind;
-         $attr['TEXT'] = $stext;
-         $attr['url'] = $url;
-
-         $atrarray[] = $attr;
-
-         $location_rec[ 'location'] = $head;
-
-         $location_rec[ 'attribute'] = $atrarray;
-
-
-         $output_ar[$arkey] =$location_rec;
-
-         //echo ${topc};
-        // echo sprintf(' \\"type\\":\\"Feature\\",\\"geometry\\":{\\"type\\": \\"Point\\", \\"coordinates\\":[%s,%s]}, \\"properties\\":{\\"日付\\":\\"%s\\",\\"ユーザ\\":\\"%s\\",\\"種別\\":\\"%s\\",\\"uid\\":\\"%d\\",\\"url\\":\\"%s\\",\\"テキスト\\":\\"%s\\"}}',$xcod,$ycod, $dated,$userd,$kind,$ckey,$url,$stext);
-
-
+         array_push($geojson['features'], $feature);
 
        }    // location
        else  {
@@ -141,32 +138,56 @@ foreach ($sheetd as $index => $cols) {
            if (array_key_exists( $userd, $uid_ar)){
 
 
-                   $ukey = $uid_ar[$userd];
-
-
+                   $ukeyd = $uid_ar[$userd];
+                   $ukey = $userd . "_" . $ukeyd ;
+                   //$arkey = $ukey;
                   }
             else  {
 
 
-                    $output_ar[$arkey]['attribute'] = array();
+                  //  $output_ar[$arkey]['attribute'] = array();
+
+                     $ukey = $arkey;
+
                   }
                   $attr = array();
 
-                     $attr['日付'] = $dated;
+                  /*   $attr['日付'] = $dated;
                      $attr['ユーザ'] = $userd;
                      $attr['種別'] = $kind;
                      $attr['TEXT'] = $stext;
                      $attr['url'] = $url;
+*/
 
-          // $non_locr = array( "日付"=> $dated,"ユーザ"=>$userd, "種別"=>$kind, 'url'=>$url, 'TEXT'=> $stext );
+                     $atrdata = array(
+                       'date'=> $dated,
+                       'user' => $userd,
+                       'kind' => $kind,
+                       'text' => $stext,
+                       'url'=> $url
+                     );
 
-           $output_ar[$arkey]['attribute'] [] = $attr;
+                     $log->addWarning("attribute add  ${ukey}");
+                     foreach ( $geojson['features'] as &$feat){
+
+                          $fkey = $feat["id"];
+
+                        //   $log->addWarning("fkey == ${fkey}");
+
+                           if ( $feat["id"] === $ukey ){
+                             $log->addWarning("add attribute success ============== ${ukey}");
+
+                              array_push(  $feat["properties"]["proplist"], $atrdata );
+                           }
+
+                     }
+
           }
        }
 
      }  //  foreach
 
-     $retjson = json_encode( $output_ar );      // make json
+     $retjson = json_encode( $geojson  );      // make json
      echo $retjson;
 
 ?>

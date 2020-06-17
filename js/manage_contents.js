@@ -11,7 +11,7 @@ var CbaseLayer;           // Current　Base Layer
 
 var  UserList = {};       //   ユーザ名リスト
 
-var  urlParameta = new Object;　　　//  起動引き数
+var  urlParameta = new Object;     //  起動引き数
 
 var  OrgPointdata;    //  オリジナルポイントデータ
 
@@ -128,7 +128,7 @@ $('#overlaylist').trigger("create");
 }
 
 //   レイヤ情報の設定
-function SetLayerinfo(　mapsheetId) {
+function SetLayerinfo( mapsheetId) {
 
 
     var $overlaylist = $('#overlaylist');
@@ -214,168 +214,178 @@ function SetLayerinfo(　mapsheetId) {
     }
 
 
-    SelectSheet  (tgSheetname);
+  //  SelectSheet  (tgSheetname);
+
+
+      SelectSheet(tgSheetname);
    }
 
 
 
-function SelectSheet( sheetname ){
-     //  set sheet name list
-       url = 'getfeatures.php'
-       $.ajax({
-         url: url,
-         type: "POST",
-         data:{sheetname: sheetname, sheetid:mapSheetId},
-         dataType: "json",
-         success: function (data, status, xhr) {
-            //  console.log( data.length)
-          //    console.log( data );
+   function SelectSheet( sheetname ){
+        //  set sheet name list
+          url = 'getfeaturesGeojson.php'
+          $.ajax({
+            url: url,
+            type: "POST",
+            data:{sheetname: sheetname, sheetid:mapSheetId},
+            dataType: "json",
+            success: function (data, status, xhr) {
+               //  console.log( data.length)
+             //    console.log( data );
 
-            var PointACluster;
-            PointACluster = CreatePointCluster( data  , PointACluster);
-              //マーカークラスター設定
-
-
-            if ( default_d){
-                  map.removeLayer(default_d);
-              }
-
-            PointACluster.setZIndex(250);
-            PointACluster.addTo(map);
+               var PointACluster;
+               PointACluster = CreatePointClusterFromGeoJson( data  , PointACluster);
+                 //マーカークラスター設定
 
 
-　　　　　　 OrgPointdata = PointACluster;
+               if ( default_d){
+                     map.removeLayer(default_d);
+                 }
 
-            default_d = PointACluster;
-            featureG = L.featureGroup([ default_d ]);
-
-            overlays["default_d"] = default_d;
-                FitBound();
-
-
-          //  map.addLayer(PointACluster);
+               PointACluster.setZIndex(250);
+               PointACluster.addTo(map);
 
 
+                OrgPointdata = PointACluster;
+
+               default_d = PointACluster;
+               featureG = L.featureGroup([ default_d ]);
+
+               overlays["default_d"] = default_d;
+                   FitBound();
+
+
+             //  map.addLayer(PointACluster);
+
+
+
+                   },
+            error: function (xhr, status, error) {
+                  alert(error);
+
+                }
+              });
+      }
+
+
+
+      function CreatePointClusterFromGeoJson( data  , PointClusterd){
+
+        //マーカークラスター設定
+      PointClusterd = L.markerClusterGroup({
+        showCoverageOnHover: false,
+        spiderfyOnMaxZoom: true,
+        removeOutsideVisibleBounds: true,
+        disableClusteringAtZoom: 18
+            });
+
+     UserList = {};   //  User 別リストの初期化
+
+
+      for ( var item in data["features"]  ){
+        if ( !UserList[ data["features"][item]["properties"]["user"]]){
+              UserList[data["features"][item]["properties"]["user"]] = [];
+        }
+
+        UserList[data["features"][item]["properties"]["user"]].push(data["features"][item]);
+
+      }
+
+               //console.log(PointArray);
+      PointClusterd.addLayer(L.geoJson(data,{
+               onEachFeature:function (feature, layer) {
+                 // 地物クリック時の関数記述　プロパティが配列化した場合
+                      PropContents(feature,layer);
+                 //var field = "id: " + feature.properties.id;
+                 //  layer.bindPopup(field);
 
                 },
-         error: function (xhr, status, error) {
-               alert(error);
+            clickable: true
+            }));
 
-             }
-           });
+
+            //   条件指定用ユーザーリストの設定
+               SetUserList( UserList );
+
+            //   条件指定用日付リストの設定
+               SetDateList( data['features'] );
+
+
+             return( PointClusterd  );
+
+
+      }
+
+
+
+
+
+
+
+
+function PropContents(feature, layer) {
+       // does this feature have a property named popupContent?
+
+      //     console.log("propcontents2");
+    //   if (feature.properties && feature.properties.日付) {
+
+          var tgtext = "";
+        //  console.log(feature);
+           //var kind = feature.properties.種別;
+
+           tgtext = feature.properties.date + "<br>報告者:" +  feature.properties.user ;
+
+
+               var propList = feature.properties.proplist;
+
+
+              if ( propList ) {
+              for ( let vf of propList ) {
+            //        console.log(vf);
+                   tgtext = tgtext + "<br>" + vf["date"] ;
+
+                    kind = vf["kind"];
+
+
+                    if ( vf["url"]   ){
+                     imageurl = vf["url"];
+
+                          dlurl = imageurl;
+
+                          mmurl = dlurl.replace('?dl=0', '');
+                         mmurl = mmurl.replace('www.dropbox.com', 'dl.dropboxusercontent.com');
+
+                          tgtext = tgtext + "<br><a href=\""+ imageurl + "\" target=\"photo\">" + imageurl + "</a>";
+
+                           if ( kind === 'image' ) {
+
+
+
+                          tgtext = tgtext + "<br><a href=\""+ imageurl + "\" target=\"photo\"><img src=\"" + mmurl + "\"  width=\"200\"></a>";
+
+                            }
+
+
+
+                        }
+
+
+
+                     if ( vf["text"]  ) {
+                         tgtext = tgtext +  "<br>" + vf["text"]+ "<br>";
+
+                         }
+
+
+                   } // proplist loop
+
+              }  // if proplist
+
+
+           layer.bindPopup(tgtext);
+      // }  //
    }
-
-
-
-function CreatePointCluster( data, PointClusterd){
-   //マーカークラスター設定
- PointClusterd = L.markerClusterGroup({
-   showCoverageOnHover: false,
-   spiderfyOnMaxZoom: true,
-   removeOutsideVisibleBounds: true,
-   disableClusteringAtZoom: 18
-       });
-
-     //  ポイント geojson 定義
-   var PointArray = {
-     "type": "FeatureCollection",
-     "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } }
-   };
-
-　　　　　　　　　　//  ポイント地物リスト
-   var Features = [];
-   UserList = {};   //  User 別リストの初期化
-
-
-   for ( var item in data  ){
-        pfeature = data[item];
-
-        var dheader = pfeature["location"];
-        var dprop   = pfeature["attribute"];
-
-        if ( dheader ){
-          xpp = dheader['x'];
-          ypp = dheader['y'];
-
-
-
-          var feature = {};
-
-          var nproperties = {};
-          var ngeometry = {};
-
-             //  プロパティの配列化が必要
-             nproperties["id"] = dheader["vkey"];
-             nproperties["user"] = dheader["user"];
-             nproperties["date"] = dheader["date"];
-
-             var property_array = [];
-
-             for ( var iprop in dprop){
-               var  propd = {};
-              // console.log(dprop[iprop]);
-               propd['日付'] = dprop[iprop]['日付'] ;
-               propd['ユーザ'] = dprop[iprop]['ユーザ'] ;
-               propd['種別'] = dprop[iprop]['種別'] ;
-               propd['TEXT'] = dprop[iprop]['TEXT'];
-               propd['url'] = dprop[iprop]['url'] ;
-
-               property_array.push( propd );
-             }
-
-             nproperties["proplist"] = property_array ;
-
-             ngeometry["type"] = "Point";
-             ngeometry["coordinates"] = [];
-
-             ngeometry["coordinates"].push(xpp);
-             ngeometry["coordinates"].push(ypp);
-
-             feature["type"] = "Feature";
-             feature["properties"]= nproperties;
-             feature["geometry"]= ngeometry;
-
-             　　
-
-             Features.push(feature);
-
-             if ( ! UserList[nproperties["user"]]){
-                   UserList[nproperties["user"]] = [];
-             }
-
-             UserList[nproperties["user"]].push(feature);
-           }　　//  dbheader
-
-        //console.log( UserList);
-   }  // for loop
-
-//   条件指定用ユーザーリストの設定
-   SetUserList( UserList );
-
-//   条件指定用日付リストの設定
-   SetDateList( Features );
-
-   PointArray["features"]= Features;
-
-
-
-
-   //console.log(PointArray);
-   PointClusterd.addLayer(L.geoJson(PointArray,{
-   onEachFeature:function (feature, layer) {
-     // 地物クリック時の関数記述　プロパティが配列化した場合
-          PropContents2(feature,layer);
-     //var field = "id: " + feature.properties.id;
-     //  layer.bindPopup(field);
-
-    },
-clickable: true
-}));
-
-
- return( PointClusterd  );
-
-}
 
 //      日付リストの設定
 function SetDateList( features ){
@@ -442,12 +452,12 @@ function SetUserList( userListA ){
 
 //    日付のチェック変更
 function changeDateStat( stat ){
-       ChangeReportdisplay();　　　
+       ChangeReportdisplay();
 }
 
 //   調査員のチェック変更
 function changeUserStat( stat ){
-  　　//  調査データの再構成と再描画を行う
+     //  調査データの再構成と再描画を行う
        ChangeReportdisplay();
 }
 
@@ -457,7 +467,7 @@ function  ChangeReportdisplay(){
   var n = $( "input[name='userlist']:checked").length;
 
   //  チェックされているユーザリスト取得
-　　 var chkdef  = $("input[name='userlist']:checked" ).map(function(){
+    var chkdef  = $("input[name='userlist']:checked" ).map(function(){
   //$(this)でjQueryオブジェクトが取得できる。val()で値をvalue値を取得。
               return $(this).val();
         }).get();
@@ -480,20 +490,20 @@ function  ChangeReportdisplay(){
         });
 
   //  ポイント geojson 定義
-　　var PointArray = {
+   var PointArray = {
   "type": "FeatureCollection",
   "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } }
-　　　};
+   };
 
-　　　var Features = [];
+   var Features = [];
 
     for ( var userid in chkdef  ){
-　　       var flist = UserList[ chkdef[userid]];
+         var flist = UserList[ chkdef[userid]];
 
            for ( var feature in flist ){
                 //  日付チェックを追加
 
-              　var datestr = flist[feature]["properties"]["date"];
+               var datestr = flist[feature]["properties"]["date"];
 
                 //console.log(datestr);
                 var splitd = datestr.split(" ");
@@ -511,7 +521,7 @@ function  ChangeReportdisplay(){
      PointCluster.addLayer(L.geoJson(PointArray,{
     onEachFeature:function (feature, layer) {
       // 地物クリック時の関数記述　プロパティが配列化した場合
-           PropContents2(feature,layer);
+           PropContents(feature,layer);
 
 
      },
@@ -520,7 +530,7 @@ function  ChangeReportdisplay(){
 
 
   if ( default_d){
-    　　　　
+
               map.removeLayer(default_d);
               delete default_d;
           }
@@ -529,7 +539,7 @@ function  ChangeReportdisplay(){
   PointCluster.addTo(map);
 
 
- 　　　　
+
 
  default_d =  PointCluster;
  featureG  = L.featureGroup([ default_d ]);
@@ -539,68 +549,6 @@ overlays["default_d"] = default_d;
 }
 
 
-function PropContents2(feature, layer) {
-       // does this feature have a property named popupContent?
-
-      //     console.log("propcontents2");
-    //   if (feature.properties && feature.properties.日付) {
-
-          var tgtext = "";
-        //  console.log(feature);
-           //var kind = feature.properties.種別;
-
-           tgtext = feature.properties.date + "<br>報告者:" +  feature.properties.user ;
-
-
-               var propList = feature.properties.proplist;
-
-
-              if ( propList ) {
-              for ( let vf of propList ) {
-            //        console.log(vf);
-                   tgtext = tgtext + "<br>" + vf["日付"] ;
-
-                    kind = vf["種別"];
-
-
-                    if ( vf["url"]   ){
-                     imageurl = vf["url"];
-
-                          dlurl = imageurl;
-
-                          mmurl = dlurl.replace('?dl=0', '');
-                         mmurl = mmurl.replace('www.dropbox.com', 'dl.dropboxusercontent.com');
-
-                          tgtext = tgtext + "<br><a href=\""+ imageurl + "\" target=\"photo\">" + imageurl + "</a>";
-
-                           if ( kind === 'image' ) {
-
-
-
-                          tgtext = tgtext + "<br><a href=\""+ imageurl + "\" target=\"photo\"><img src=\"" + mmurl + "\"  width=\"200\"></a>";
-
-                        　　　　　　}
-
-
-
-                    　　　　　}
-
-
-
-                     if ( vf["TEXT"]  ) {
-                         tgtext = tgtext +  "<br>" + vf["TEXT"]+ "<br>";
-
-                      　　}
-
-
-                   }　// proplist loop
-
-           　　}  // if proplist
-
-
-           layer.bindPopup(tgtext);
-      // }  //
-   }
 
    function  FitBound() {
 
@@ -614,7 +562,7 @@ function PropContents2(feature, layer) {
 
    }
 
-   // 　　主題図チェックボックスをクリックした場合の動作
+   //   主題図チェックボックスをクリックした場合の動作
    function changechk( cb ){
 
      var tgkey = cb.value;
@@ -630,90 +578,3 @@ function PropContents2(feature, layer) {
 
      }
    }
-
-
-
-function PropContents(feature, layer) {
-    // does this feature have a property named popupContent?
-    if (feature.properties && feature.properties.日付) {
-
-       var tgtext = "";
-
-        var kind = feature.properties.種別;
-
-        tgtext = feature.properties.日付 + "<br>" + kind + "<br>報告者:" +  feature.properties.ユーザ ;
-
-
-
-
-        if ( kind === 'image' ) {
-
-        imageurl = feature.properties.url;
-
-        dlurl = imageurl;
-
-        mmurl = dlurl.replace('?dl=0', '');
-        mmurl = mmurl.replace('www.dropbox.com', 'dl.dropboxusercontent.com');
-
-        tgtext = tgtext + "<br><a href=\""+ imageurl + "\" target=\"photo\">" + imageurl + "</a>";
-
-        tgtext = tgtext + "<br><a href=\""+ imageurl + "\" target=\"photo\"><img src=\"" + mmurl + "\"  width=\"200\"></a>";
-
-        }
-        else {
-
-        tgtext = tgtext +  "<br>" + feature.properties.テキスト + "<br>";
-
-        }
-
-        if ( nlj === null ) {
-         }
-        else  {
-           if ( typeof nlj !== 'undefined' ){
-            var propList = nlj[feature.properties.ユーザ ][feature.properties.uid];
-
-
-           if ( propList ) {
-           for ( let vf of propList ) {
-                tgtext = tgtext + "<br>" + vf.date ;
-
-                 kind = vf.kind;
-
-
-                 if ( vf.url   ){
-                  imageurl = vf.url;
-
-                       dlurl = imageurl;
-
-                       mmurl = dlurl.replace('?dl=0', '');
-                      mmurl = mmurl.replace('www.dropbox.com', 'dl.dropboxusercontent.com');
-
-                       tgtext = tgtext + "<br><a href=\""+ imageurl + "\" target=\"photo\">" + imageurl + "</a>";
-
-                        if ( kind === 'image' ) {
-
-
-
-                       tgtext = tgtext + "<br><a href=\""+ imageurl + "\" target=\"photo\"><img src=\"" + mmurl + "\"  width=\"200\"></a>";
-
-                     }
-
-
-
-                 }
-
-
-
-                  if ( vf.text  ) {
-                      tgtext = tgtext +  " " + vf.text + "<br>";
-
-                   }
-                }
-              }
-            }
-        }
-
-
-        layer.bindPopup(tgtext);
-    }
-}

@@ -7,27 +7,13 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
-<!--
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
-   integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
-   crossorigin=""/>
 
-
-
- <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
-   integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
-   crossorigin=""></script>
-   
- -->
- 
-   
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
   integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
   crossorigin=""/>
 <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
   integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
   crossorigin=""></script>
-  
 
 
 <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"
@@ -53,8 +39,9 @@
 <script src="js/manage_contents.js"></script>
 
 
-     <style type="text/css">
-			body {
+
+<style type="text/css">
+		body {
 			padding: 0;
 			margin: 0;
 		}
@@ -68,6 +55,8 @@
     width: 100%;
     height:100%;
   }
+
+
 
 
 /* Change cursor when mousing over clickable layer */
@@ -99,8 +88,8 @@ $(document).on("mobileinit", function () {
 
 
   $(document).bind('pagecreate', function(e, data) {
-         SetLayerinfo( mapSheetId);  // 利用レイヤ情報の設定
-         SelectSheetInit( mapSheetId, mapSheetName );   // 最初のシートデータ設定
+         SetLayerinfo(mapSheetId);  // 　利用レイヤ情報の設定
+         SelectSheetInit(mapSheetId, mapSheetName );   // 最初のシートデータ設定
          SheetListSetup(mapSheetId);
 
   });
@@ -147,12 +136,9 @@ $(document).on("mobileinit", function () {
 
 </script>
 
-
-
-
-
 <style>
-        .ui-grid-a, .ui-grid-a .ui-controlgroup-controls {width: 100%}
+
+.ui-grid-a, .ui-grid-a .ui-controlgroup-controls {width: 100%}
 
 
 #headerp {height:8vh}
@@ -161,8 +147,6 @@ $(document).on("mobileinit", function () {
               padding:0;
               margin:0;
             }
-
-
 
 </style>
 
@@ -182,10 +166,10 @@ $(document).on("mobileinit", function () {
                 <li><a href="JavaScript:OpenLayerProp()"  class="ui-btn  ui-btn-icon-top ui-icon-location">地図指定</a>
            </li>
 
-       </ul>
+         </ul>
     		  </div>  <!--  navbar -->
 
- </div><!-- /header -->
+  </div><!-- /header -->
 
 <div data-role="content" role="main" data-position="fixed"  id="main_content" >
 
@@ -196,10 +180,10 @@ $(document).on("mobileinit", function () {
 
     <h3>凡例</h3>
      <div id="legendarea" >
-     
+
+
    </div>
   </div>
-
 
  <div id="panel_layer" data-role="panel" data-display="overlay" data-position="right">
         <a href="#" data-rel="close"
@@ -234,16 +218,16 @@ $(document).on("mobileinit", function () {
 
 
           <div id="overlay" class="ui-body ui-body-a">  <!-- 主題図指定 -->
-         
+           <!-- <div class="ui-field-contain"> -->
               <form>
-          <fieldset data-role="controlgroup"  id="overlaylist">
-              
-           </fieldset>
-     </form>
-         </div>   <!--  overlay  -->
+           <fieldset data-role="controlgroup"  id="overlaylist">
 
-        </div>  <!-- tabs -->
-     </div>   <!-- panel right -->
+           </fieldset>
+            </form>
+        </div>   <!--  overlay  -->
+
+       </div>  <!-- tabs -->
+    </div>   <!-- panel right -->
 
 
 
@@ -278,23 +262,24 @@ $(document).on("mobileinit", function () {
 
         <h3>表示情報指定</h3>
         <div id="user_select" class="ui-body ui-body-a">  <!-- 主題図指定 -->
-        
+
             ユーザ指定
             <form>
-          <fieldset data-role="controlgroup"  id="userlist">
-         
-           </fieldset>
-       </form>
+        <fieldset data-role="controlgroup"  id="userlist">
+
+         </fieldset>
+      </form>
       </div>   <!--  overlay  -->
       <div id="set_date" class="ui-body ui-body-a">  <!-- 日時 -->
-    
+
           日付指定
           <form>
         <fieldset data-role="controlgroup"  id="datelist">
-
-           </fieldset>
-          </form>
-     </div>   <!--  overlay  -->
+            <!--    <legend><h3>主題図指定</h3></legend>
+-->
+       </fieldset>
+      </form>
+    </div>   <!--  overlay  -->
 
     </div><!--  tabs -->
 
@@ -306,11 +291,11 @@ $(document).on("mobileinit", function () {
 
       <h3>表示位置指定</h3>
 
-     <div data-role="controlgroup" id="navlist" data-type="vertical">
+      <div data-role="controlgroup" id="navlist" data-type="vertical">
 
 
-        <a href="JavaScript:PanCurrentLocation()" class="ui-btn">現在地</a>
-         <a href="JavaScript:FitBound()" class="ui-btn">登録情報全域</a>
+       <a href="JavaScript:PanCurrentLocation()" class="ui-btn">現在地</a>
+       <a href="JavaScript:FitBound()" class="ui-btn">登録情報全域</a>
 
 
       </div>
@@ -320,9 +305,9 @@ $(document).on("mobileinit", function () {
 
 
 
-	 <div id="map">
+	<div id="map">
 
-	   </div>
+	</div>
 
   </div>  <!-- content -->
 
@@ -351,9 +336,9 @@ $('#ly_thema').on('click', function() {
 $( "#legendpos" ).panel({
   beforeopen: function( event, ui ) {
 //alert("befor");
-　　var $overlaylist = $('#overlaylist');
+   var $overlaylist = $('#overlaylist');
 
-　　var n = $( "input[name='ov_layer1']:checked").length;
+   var n = $( "input[name='ov_layer1']:checked").length;
 
 
     //  チェックされている主題図リスト取得
@@ -387,7 +372,7 @@ $( "#legendpos" ).panel({
       $('#legendpos').trigger("updatelayout");
 
     }
- 
+
   }
 });
 
@@ -520,7 +505,6 @@ function  SetMarkerLatLn( lat, lng ) {
 
     SetMarker( newLatLng );
 }
-
 
 
 
