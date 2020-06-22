@@ -28,16 +28,16 @@ $envid= getenv('SPREADSHEET_ID');
  //$sheetname = 'シート1';
  $spreadsheetId = getenv('SPREADSHEET_ID');
 
- if ( ! empty($sheetid)  ){
+ if ( ! empty($sheetid) ){
      $spreadsheetId = $sheetid;
  }
 
 $client = getGoogleSheetClient();
- if( empty($sheetname)  ) {
+ if( empty($sheetname) ) {
      $sheetname  = getenv('SHEET_NAME');
-     if( empty($sheetname)  ) {
+     if( empty($sheetname )) {
           //$sheetname = 'シート1';
-          $sheetname = GetFirstSheetName(  $spreadsheetId, $client );
+          $sheetname = GetFirstSheetName( $spreadsheetId , $client );
      }
  }
 
@@ -103,7 +103,7 @@ foreach ($sheetd as $index => $cols) {
 
          $arkey = $userd . "_" . $ckey ;
 
-         $atrar = array();
+         $atrar = "";
 
               //             $log->addWarning("feature id == ${arkey}  user == ${userd}");
          $feature = array(
@@ -158,7 +158,7 @@ foreach ($sheetd as $index => $cols) {
                      $attr['TEXT'] = $stext;
                      $attr['url'] = $url;
 */
-
+/*
                      $atrdata = array(
                        'date'=> $dated,
                        'user' => $userd,
@@ -166,7 +166,8 @@ foreach ($sheetd as $index => $cols) {
                        'text' => $stext,
                        'url'=> $url
                      );
-
+*/
+                     $atrtext = "<br>$dated<br>${kind}<br>${stext}<br>${url}";
                      $log->addWarning("attribute add  ${ukey}");
                      foreach ( $geojson['features'] as &$feat){
 
@@ -176,8 +177,8 @@ foreach ($sheetd as $index => $cols) {
 
                            if ( $feat["id"] === $ukey ){
                              $log->addWarning("add attribute success ============== ${ukey}");
-
-                              array_push(  $feat["properties"]["proplist"], $atrdata );
+                             $feat["properties"]["proplist"] .= $atrtext;
+                            //  array_push(  $feat["properties"]["proplist"], $atrdata );
                            }
 
                      }
