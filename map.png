@@ -3,7 +3,7 @@
 
 <head>
   	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>災害情報報告マップ</title>
+    <title>府中市バリアフリー情報調査マップ</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
@@ -152,7 +152,7 @@ $(document).on("mobileinit", function () {
 
 
 	<div data-role="header" data-position="fixed" data-tap-toggle="true" data-fullscreen="false" id="headerp">
-		<h2>災害情報報告マップ   by IT DART</h2>
+		<h2>府中市バリアフリー情報調査マップ</h2>
 
 
           <div data-role="navbar"  id="hbutton" >
