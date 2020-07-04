@@ -97,7 +97,7 @@ $(document).on("mobileinit", function () {
 
 function  GetImageWidth( url ){
 var img = new Image();
-img.src( url );
+img.src = url ;
 var img_width  = img.width;  // 幅
 var img_height = img.height; // 高さ
 
