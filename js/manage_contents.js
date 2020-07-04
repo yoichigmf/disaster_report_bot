@@ -33,15 +33,6 @@ function GetURLParameta(){
   }
 
 
-function  GetImageWidth( url ){
-var img = new Image();
-img.src( url );
-var img_width  = img.width;  // 幅
-var img_height = img.height; // 高さ
-
-return img_width;
-}
-
 
 //var dSearch;
 function SetBaseLayers( data ){
