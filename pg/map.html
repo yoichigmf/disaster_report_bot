@@ -343,11 +343,11 @@ $('#ly_thema').on('click', function() {
 
 //  凡例パネルが開くときの動作
 $( "#legendpos" ).panel({
-  beforeopen: function( event, ui ) {
+  afteropen: function( event, ui ) {
 //alert("befor");
    var $overlaylist = $('#overlaylist');
 
-   var   client_w = document.getElementById('#legendarea').clientWidth;
+   var   client_w = document.getElementById('legendarea').clientWidth;
 
 
 
