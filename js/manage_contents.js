@@ -34,7 +34,6 @@ function GetURLParameta(){
 
 
 
-
 //var dSearch;
 function SetBaseLayers( data ){
   var baselays = data["baselayers"];
@@ -205,7 +204,7 @@ function SetLayerinfo( mapsheetId) {
 
    }
 
-//   シートデータ設定　最初の場合
+//   シートデータ設定 最初の場合
   function SelectSheetInit(sheetid, sheetname){
 
     tgSheetname ="シート1"

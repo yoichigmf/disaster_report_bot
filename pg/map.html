@@ -88,12 +88,21 @@ $(document).on("mobileinit", function () {
 
 
   $(document).bind('pagecreate', function(e, data) {
-         SetLayerinfo(mapSheetId);  // 　利用レイヤ情報の設定
+         SetLayerinfo(mapSheetId);  // 利用レイヤ情報の設定
          SelectSheetInit(mapSheetId, mapSheetName );   // 最初のシートデータ設定
          SheetListSetup(mapSheetId);
 
   });
 
+
+function  GetImageWidth( url ){
+var img = new Image();
+img.src = url ;
+var img_width  = img.width;  // 幅
+var img_height = img.height; // 高さ
+
+return img_width;
+}
 
 
 </script>
@@ -334,9 +343,13 @@ $('#ly_thema').on('click', function() {
 
 //  凡例パネルが開くときの動作
 $( "#legendpos" ).panel({
-  beforeopen: function( event, ui ) {
+   open: function( event, ui ) {
 //alert("befor");
    var $overlaylist = $('#overlaylist');
+
+   var   client_w = document.getElementById('legendarea').clientWidth;
+
+
 
    var n = $( "input[name='ov_layer1']:checked").length;
 
@@ -358,10 +371,27 @@ $( "#legendpos" ).panel({
           if ( tgl ){
           //  console.log( tgl );
             if ( tgl["legend"]){
-              tghtml += "<h3>" + tgl["name"] + '</h3>'
+
+            //  tgwidth = GetImageWidth( tgl["legend"] );
+
+              //if ( tgwidth > client_w ) {
+                    nhtml = "<h3>" + tgl["name"] + '</h3>'
+                    + '<img src="'
+                    + tgl["legend"]
+                    + '" width=' + String(client_w) + '/>';
+
+            /*  }
+              else
+              {
+               nhtml = "<h3>" + tgl["name"] + '</h3>'
                     + '<img src="'
                     + tgl["legend"]
                     + '" />';
+
+              }
+              */
+
+              tghtml += nhtml;
             }
           }
       }
