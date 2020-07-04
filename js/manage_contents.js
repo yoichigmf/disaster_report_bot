@@ -33,6 +33,14 @@ function GetURLParameta(){
   }
 
 
+function  GetImageWidth( url ){
+var img = new Image();
+img.src( url );
+var img_width  = img.width;  // 幅
+var img_height = img.height; // 高さ
+
+return img_width;  
+}
 
 
 //var dSearch;
@@ -205,7 +213,7 @@ function SetLayerinfo( mapsheetId) {
 
    }
 
-//   シートデータ設定　最初の場合
+//   シートデータ設定 最初の場合
   function SelectSheetInit(sheetid, sheetname){
 
     tgSheetname ="シート1"
