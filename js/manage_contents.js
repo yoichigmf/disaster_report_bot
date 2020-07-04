@@ -39,7 +39,7 @@ img.src( url );
 var img_width  = img.width;  // 幅
 var img_height = img.height; // 高さ
 
-return img_width;  
+return img_width;
 }
 
 
