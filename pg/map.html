@@ -346,10 +346,10 @@ $( "#legendpos" ).panel({
   beforeopen: function( event, ui ) {
 //alert("befor");
    var $overlaylist = $('#overlaylist');
-   
+
    var   client_w = document.getElementById('legendarea').clientWidth;
-   
-   
+
+
 
    var n = $( "input[name='ov_layer1']:checked").length;
 
@@ -371,25 +371,26 @@ $( "#legendpos" ).panel({
           if ( tgl ){
           //  console.log( tgl );
             if ( tgl["legend"]){
-            
-              tgwidth = GetImageWidth( tgl["legend"] );
-              
-              if ( tgwidth > client_w ) {
+
+            //  tgwidth = GetImageWidth( tgl["legend"] );
+
+              //if ( tgwidth > client_w ) {
                     nhtml = "<h3>" + tgl["name"] + '</h3>'
                     + '<img src="'
                     + tgl["legend"]
                     + '" width=' + String(client_w) + '/>';
-              
-              }
+
+            /*  }
               else
               {
                nhtml = "<h3>" + tgl["name"] + '</h3>'
                     + '<img src="'
                     + tgl["legend"]
                     + '" />';
-              
+
               }
-              
+              */
+
               tghtml += nhtml;
             }
           }

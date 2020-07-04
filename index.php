@@ -111,7 +111,7 @@ if ( (!empty($client_id)) && (!empty($redirect_uri)) && (!empty($client_secret )
 //print("[username]:[" . $uname. "][対象ユーザーの名前]<br />\n");
 
   if ( isset($uname )) {
-    readfile(__DIR__ . '/map.png');
+    readfile(__DIR__ . '/pg/map.html');
   }
   else {
      $loginm = urlencode("情報調査LINEボットと友達になっていないと地図は閲覧できません");
@@ -119,5 +119,5 @@ if ( (!empty($client_id)) && (!empty($redirect_uri)) && (!empty($client_secret )
    }
 }
 else {   //  認証無しの場合
-    readfile(__DIR__ . '/map.png');
+    readfile(__DIR__ . '/pg/map.html');
 }
