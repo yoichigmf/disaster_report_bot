@@ -307,6 +307,24 @@ return img_width;
        <a href="JavaScript:FitBound()" class="ui-btn">登録情報全域</a>
 
 
+       <br>
+       <h4>都道府県指定</h4>
+          <form>
+            <div class="ui-field-contain">
+
+             <select name="select-pref" id="select-pref">
+   <!--
+                    <option value="1">北海道</option>
+                    <option value="2">青森県</option>
+
+                    <option value="3">岩手県</option>
+                  -->
+             </select>
+           </div>
+         </form>
+
+
+
       </div>
 
   </div>
@@ -340,6 +358,86 @@ $('#ly_thema').on('click', function() {
   //  alert('thema');
      CurlayerKind = "thema";
 });
+
+
+
+
+//   位置指定パネル
+$( "#nav_panel" ).panel({
+open: function( event, ui ) {
+
+    //   都道府県リストの取得
+
+    //  get layer information from config sheet
+     url = 'getpreflist.php'
+    $.ajax({
+             url: url,
+             type: "POST",
+             dataType: "json",
+             success: function (data, status, xhr) {
+
+
+                 SetPrefList( data );
+
+
+                    },
+             error: function (xhr, status, error) {
+                   alert(error);
+
+                 }
+               });
+
+
+  }
+
+});
+
+//   都道府県選択が変わったとき
+$('#select-pref').change(function () {
+     $("#select-pref option:selected").each(function () {
+             pref_name = $(this).text();
+
+             var strval =  $(this).val();
+
+             var spl = strval.split("," );
+
+             chiiki_lat = spl[0];
+             chiiki_lon = spl[1];
+             if ( chiiki_lat ) {
+                         		  map.panTo(L.latLng( chiiki_lat, chiiki_lon ));
+                            }
+
+
+
+     });
+
+
+});
+//   都道府県リスト`の設定`
+function SetPrefList( data ){
+  //  都道府県リストのセット
+  $('#select-pref').children().remove();
+
+  $(data.features).each(function(key, data) {
+
+     var prefname ;
+     var  location;
+
+     prefname =  data.properties["都道府県"];
+     location = data.geometry.coordinates[1] + "," + data.geometry.coordinates[0];
+     var $option = $('<option>' )
+             .val( location )
+             .text( prefname );
+
+     $('#select-pref').append($option);
+
+     });
+
+
+  $('#nav_panel').trigger("updatelayout");
+}
+
+
 
 //  凡例パネルが開くときの動作
 $( "#legendpos" ).panel({
