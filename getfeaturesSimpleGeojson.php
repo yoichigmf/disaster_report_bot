@@ -21,7 +21,7 @@ header("Content-Type: application/json; charset=UTF-8"); //ヘッダー情報の
 
  $sheetid= filter_input(INPUT_POST,"sheetid"); //変数の出力。jQueryで指定したキー値optを用いる
 
-$sheetname = "Copy";
+//$sheetname = "Copy";
 
 $envname  = getenv('SHEET_NAME');
 $envid= getenv('SPREADSHEET_ID');
