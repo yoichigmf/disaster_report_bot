@@ -125,7 +125,7 @@ foreach ($sheetd as $index => $cols) {
          //     'text' => $stext,
          //     'url' => $url
     //   'attrs' => $atrar
-       )
+      // )
    );
 
          array_push($geojson['features'], $feature);
