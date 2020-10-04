@@ -73,7 +73,7 @@ function Getsheets($spreadsheetID, $client) {
 //   return text dtring of attribute line
 //   format    html  xml    default   xml
 //
-function makeatrributetext( $date, $kind, $stext, $url ,$format ) {
+function makeattributetext( $date, $kind, $stext, $url ,$format ) {
 
    $rettext = "<attribute><date>${date}</date><kind>${kind}</kind>";
    
