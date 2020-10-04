@@ -178,7 +178,7 @@ foreach ($sheetd as $index => $cols) {
 
 
             //         $log->addWarning("attribute add  ${ukey}");
-                     foreach ( $geojson['features'] as $feat){
+                     foreach ( $geojson['features'] as &$feat){
                      
                          $fprop = $feat['properties'];
                          $nattr = $fprop . $attrtext2 ;
@@ -212,7 +212,7 @@ foreach ($sheetd as $index => $cols) {
 
                      }
 
-              unset( $feature2 );
+              //unset( $feature2 );
 
           }
        }
