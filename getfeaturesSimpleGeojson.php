@@ -105,6 +105,9 @@ foreach ($sheetd as $index => $cols) {
         // $atrar = array();
 
               //             $log->addWarning("feature id == ${arkey}  user == ${userd}");
+              
+         $attrtext = makeattributetext( $dated, $kind, $stext, $url, 'xml');
+         
          $feature = array(
            'id' => $arkey,
            'type' => 'Feature',
@@ -114,12 +117,13 @@ foreach ($sheetd as $index => $cols) {
              'coordinates' => array((double)$xcod, (double)$ycod)
               ),
    # Pass other attribute columns here
-           'properties' => array(
-              'user' => $userd,
-              'date' => $dated,
-              'kind' => $kind,
-              'text' => $stext,
-              'url' => $url
+               'properties' => $attrtext
+        //   'properties' => array(
+         //     'user' => $userd,
+         //     'date' => $dated,
+        //      'kind' => $kind,
+         //     'text' => $stext,
+         //     'url' => $url
     //   'attrs' => $atrar
        )
    );
@@ -149,49 +153,57 @@ foreach ($sheetd as $index => $cols) {
                      $ukey = $arkey;
 
                   }
-                  $attr = array();
+                 // $attr = array();
 
 
-                     $feature2 = array(
-                       'id' => $ukey,
-                       'type' => 'Feature',
+                   $attrtext2 = makeattributetext( $dated, $kind, $stext, $url, 'xml');
+                 //    $feature2 = array(
+                   //    'id' => $ukey,
+                   //    'type' => 'Feature',
                   //     'geometry' => array(
                   //     'type' => 'Point',
                    # Pass Longitude and Latitude Columns here
                   //       'coordinates' => array((double)$xcod, (double)$ycod)
                   //        ),
                # Pass other attribute columns here
-                       'properties' => array(
-                          'user' => $userd,
-                          'date' => $dated,
-                          'kind' => $kind,
-                          'text' => $stext,
-                          'url' => $url
+                    //   'properties' => array(
+                   //       'user' => $userd,
+                     //     'date' => $dated,
+                      //    'kind' => $kind,
+                       //   'text' => $stext,
+                       //   'url' => $url
                 //   'attrs' => $atrar
-                   )
-               );
+                   //)
+               //);
 
 
             //         $log->addWarning("attribute add  ${ukey}");
                      foreach ( $geojson['features'] as $feat){
+                     
+                         $fprop = $feat['properties'];
+                         $nattr = $fprop . $attrtext2 ;
+                         
+                         $feat['properties'] = $nattr;
+                         
 
-                          $fkey = $feat["id"];
+                        //  $fkey = $feat["id"];
 
                         //   $log->addWarning("fkey == ${fkey}");
 
                            if ( $feat["id"] === $ukey ){
 
-                             $poip = $feat['geometry'][ 'coordinates'];
+                            // $poip = $feat['geometry'][ 'coordinates'];
 
-                              $geomp = array('type' => 'Point',
-                                     'coordinates' => array($poip[0], $poip[1])
-                               );
+                             // $geomp = array('type' => 'Point',
+                             //        'coordinates' => array($poip[0], $poip[1])
+                              // );
 
-                              $feature2["geometry"]  = $geomp;
+                             // $feature2["geometry"]  = $geomp;
 
                             // $log->addWarning("add attribute success ============== ${ukey}");
 
-                             array_push( $geojson['features'], $feature2 );
+
+                            // array_push( $geojson['features'], $feature2 );
 
                              break;
                            }

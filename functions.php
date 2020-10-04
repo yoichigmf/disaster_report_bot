@@ -69,3 +69,43 @@ function Getsheets($spreadsheetID, $client) {
     }
     return $sheets;
 }
+
+//   return text dtring of attribute line
+//   format    html  xml    default   xml
+//
+function makeatrributetext( $date, $kind, $stext, $url ,$format ) {
+
+   $rettext = "<attribute><date>${date}</date><kind>${kind}</kind>";
+   
+   switch( $kind ) {
+      case 'location':
+          $rettext = $rettext . "<address>${stext}</address></attribute>";
+       
+           break;
+           
+      case 'text':
+           $rettext = $rettext . "<text>${stext}</text></attribute>";
+           break;
+           
+      case 'voice':
+      
+           $rettext = $rettext . "<url>${url}</url><text>${stext}</text></attribute>";
+           break;
+           
+ 
+ 
+      case  'image':
+      case  'video': 
+      case  'file':   
+             $rettext = $rettext . "<url>${url}</url></attribute>";
+             break;
+      
+      
+          
+   
+   }
+   
+   return $rettext;
+
+}
+
