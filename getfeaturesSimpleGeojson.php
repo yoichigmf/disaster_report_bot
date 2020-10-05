@@ -17,9 +17,9 @@ header("Content-Type: application/json; charset=UTF-8"); //ヘッダー情報の
 
 
 
- $sheetname = filter_input(INPUT_POST,"sheetname"); //変数の出力。jQueryで指定したキー値optを用いる
+ $sheetname = filter_input(INPUT_GET,"sheetname"); //変数の出力。jQueryで指定したキー値optを用いる
 
- $sheetid= filter_input(INPUT_POST,"sheetid"); //変数の出力。jQueryで指定したキー値optを用いる
+ $sheetid= filter_input(INPUT_GET,"sheetid"); //変数の出力。jQueryで指定したキー値optを用いる
 
 //$sheetname = "Copy";
 //  add  
