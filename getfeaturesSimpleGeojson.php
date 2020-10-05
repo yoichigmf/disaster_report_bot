@@ -180,10 +180,7 @@ foreach ($sheetd as $index => $cols) {
             //         $log->addWarning("attribute add  ${ukey}");
                      foreach ( $geojson['features'] as &$feat){
                      
-                         $fprop = $feat['properties']['attr'];
-                         $nattr = substr($fprop, 0, -1) . $attrtext2 .'"' ;
-                         
-                         $feat['properties']['attr'] = $nattr;
+                       
                          
 
                         //  $fkey = $feat["id"];
@@ -191,6 +188,11 @@ foreach ($sheetd as $index => $cols) {
                         //   $log->addWarning("fkey == ${fkey}");
 
                            if ( $feat["id"] === $ukey ){
+                           
+                             $fprop = $feat['properties']['attr'];
+                             $nattr = substr($fprop, 0, -1) . $attrtext2 .'"' ;
+                         
+                              $feat['properties']['attr'] = $nattr;
 
                             // $poip = $feat['geometry'][ 'coordinates'];
 
