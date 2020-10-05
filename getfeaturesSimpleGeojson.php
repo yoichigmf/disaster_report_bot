@@ -106,8 +106,9 @@ foreach ($sheetd as $index => $cols) {
 
               //             $log->addWarning("feature id == ${arkey}  user == ${userd}");
               
-         $attrtext = makeattributetext( $dated, $kind, $stext, $url, 'xml');
-         
+         $attr = makeattributetext( $dated, $kind, $stext, $url, 'xml');
+          $attrtext = "\"attribute\":". $attr;
+          
          $feature = array(
            'id' => $arkey,
            'type' => 'Feature',
