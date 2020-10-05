@@ -110,7 +110,7 @@ foreach ($sheetd as $index => $cols) {
               //             $log->addWarning("feature id == ${arkey}  user == ${userd}");
               
          $attr = makeattributetext( $dated, $kind, $stext, $url, 'xml');
-          $attrtext = '"attribute":"'. $attr . '"';
+          //$attrtext = '"attribute":"'. $attr . '"';
           
          $feature = array(
            'id' => $arkey,
@@ -121,14 +121,14 @@ foreach ($sheetd as $index => $cols) {
              'coordinates' => array((double)$xcod, (double)$ycod)
               ),
    # Pass other attribute columns here
-               'properties' => $attrtext
-        //   'properties' => array(
-         //     'user' => $userd,
+            //   'properties' => $attrtext
+           'properties' => array(
+         //    'user' => $userd,
          //     'date' => $dated,
         //      'kind' => $kind,
          //     'text' => $stext,
          //     'url' => $url
-    //   'attrs' => $atrar
+        'attr' => $attr
       // )
    );
 
@@ -184,10 +184,10 @@ foreach ($sheetd as $index => $cols) {
             //         $log->addWarning("attribute add  ${ukey}");
                      foreach ( $geojson['features'] as &$feat){
                      
-                         $fprop = $feat['properties'];
+                         $fprop = $feat['properties']['attrs'];
                          $nattr = substr($fprop, 0, -1) . $attrtext2 .'"' ;
                          
-                         $feat['properties'] = $nattr;
+                         $feat['properties']['attrs'] = $nattr;
                          
 
                         //  $fkey = $feat["id"];
