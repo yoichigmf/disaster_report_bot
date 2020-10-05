@@ -23,6 +23,8 @@ header("Content-Type: application/json; charset=UTF-8"); //ヘッダー情報の
 
 //$sheetname = "Copy";
 
+
+$log->addWarning("sheetname == ${sheetname}  sheetid == ${sheetid}");
 $envname  = getenv('SHEET_NAME');
 $envid= getenv('SPREADSHEET_ID');
  //$sheetname = 'シート1';
