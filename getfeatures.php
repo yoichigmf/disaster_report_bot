@@ -157,7 +157,7 @@ foreach ($sheetd as $index => $cols) {
                      
                      
                         $vurl =  str_replace("dl=0", "raw=1", $url);
-                        $imgemb = "<img src=\"${url}\"><br>";
+                        $imgemb = "<img src=\"${vurl}\"><br>";
                         
                      }
  
