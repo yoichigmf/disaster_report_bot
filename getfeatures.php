@@ -159,7 +159,7 @@ foreach ($sheetd as $index => $cols) {
                         $vurl =  str_replace("dl=0", "raw=1", $url);
                         
                          $log->addWarning("img url ============== ${vurl}");
-                        $imgemb = "<img src=\"${vurl}\"><br>";
+                        $imgemb = "<img src=\"${vurl}\"  width=\"512\"><br>";
                         
                      }
  
