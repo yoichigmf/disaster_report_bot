@@ -17,9 +17,9 @@ header("Content-Type: application/json; charset=UTF-8"); //ヘッダー情報の
 
 
 
- $sheetname = filter_input(INPUT_POST,"sheetname"); //変数の出力。jQueryで指定したキー値optを用いる
+ $sheetname = filter_input(INPUT_GET,"sheetname"); //変数の出力。jQueryで指定したキー値optを用いる
 
- $sheetid= filter_input(INPUT_POST,"sheetid"); //変数の出力。jQueryで指定したキー値optを用いる
+ $sheetid= filter_input(INPUT_GET,"sheetid"); //変数の出力。jQueryで指定したキー値optを用いる
 
 
 
@@ -152,22 +152,13 @@ foreach ($sheetd as $index => $cols) {
                   }
                   $attr = array();
 
-                  /*   $attr['日付'] = $dated;
-                     $attr['ユーザ'] = $userd;
-                     $attr['種別'] = $kind;
-                     $attr['TEXT'] = $stext;
-                     $attr['url'] = $url;
-*/
-/*
-                     $atrdata = array(
-                       'date'=> $dated,
-                       'user' => $userd,
-                       'kind' => $kind,
-                       'text' => $stext,
-                       'url'=> $url
-                     );
-*/
-                     $atrtext = "<br>$dated<br>${kind}<br>${stext}<br>${url}";
+                      $imgemb = " ";
+                     if ( $kind === "image" ) {
+                        $imgemb = "<img src=\"${url}\"><br>";
+                        
+                     }
+ 
+                     $atrtext = "<br>$dated<br>${kind}<br>${stext}<br>${imgemb}${url}";
                      $log->addWarning("attribute add  ${ukey}");
                      foreach ( $geojson['features'] as &$feat){
 
