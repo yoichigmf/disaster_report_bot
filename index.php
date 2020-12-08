@@ -23,6 +23,12 @@ $redirect_uri = getenv("MapURL");
 
 $client_secret = getenv("CLIENT_SECRET");
 
+$title_string = getenv("TITLE");
+
+if ( empty($title_string )) {
+ $title_string = "災害情報報告マップ by IT DART"
+}
+
 
 $log->addWarning( "client_id ${client_id}");
 $log->addWarning( "redirect_uri ${redirect_uri}");
@@ -124,7 +130,7 @@ print( "<!DOCTYPE html>\n");
 print("<html>");
 print("<head>");
 print("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">");
-print("<title>災害情報報告マップ by IT DART</title>");
+print("<title>" . $title_string  . "</title>");
 
     readfile(__DIR__ . '/pg/map.html');
 }
