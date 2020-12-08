@@ -117,6 +117,17 @@ if ( (!empty($client_id)) && (!empty($redirect_uri)) && (!empty($client_secret )
 //print("[username]:[" . $uname. "][対象ユーザーの名前]<br />\n");
 
   if ( isset($uname )) {
+  print( "<!DOCTYPE html>\n");
+  print("<html>");
+  print("<head>");
+  print("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">");
+  print("<title>" . $title_string  . "</title>");
+
+  print("<script>\n");
+  print("title_string =\"" . $title_string ."\";\n");
+  print("</script>\n");
+
+
     readfile(__DIR__ . '/pg/map.html');
   }
   else {
