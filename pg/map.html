@@ -76,6 +76,9 @@
 //     引き数取得
 GetURLParameta();
 
+document.title="災害情報報告マップ by IT DART";
+
+
 $(document).on("mobileinit", function () {
         //  alert('mobileinit');
           $.mobile.hashListeningEnabled = false;
@@ -161,7 +164,7 @@ return img_width;
 
 
 	<div data-role="header" data-position="fixed" data-tap-toggle="true" data-fullscreen="false" id="headerp">
-		<h2>災害情報報告マップ by IT DART</h2>
+		<h2><div id="title_text">災害情報報告マップ by IT DART</div></h2>
 
 
           <div data-role="navbar"  id="hbutton" >
