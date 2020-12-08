@@ -122,8 +122,9 @@ else {   //  認証無しの場合
 
 print( "<!DOCTYPE html>\n");
 print("<html>");
-
 print("<head>");
+print("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">");
+print("<title>災害情報報告マップ by IT DART</title>");
 
     readfile(__DIR__ . '/pg/map.html');
 }
