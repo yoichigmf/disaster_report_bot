@@ -26,7 +26,7 @@ $client_secret = getenv("CLIENT_SECRET");
 $title_string = getenv("TITLE");
 
 if ( empty($title_string )) {
- $title_string = "災害情報報告マップ by IT DART"
+ $title_string = "災害情報報告マップ by IT DART";
 }
 
 
