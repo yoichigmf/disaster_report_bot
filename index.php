@@ -119,5 +119,11 @@ if ( (!empty($client_id)) && (!empty($redirect_uri)) && (!empty($client_secret )
    }
 }
 else {   //  認証無しの場合
+
+print( "<!DOCTYPE html>\n");
+print("<html>");
+
+print("<head>");
+
     readfile(__DIR__ . '/pg/map.html');
 }
