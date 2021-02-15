@@ -109,12 +109,13 @@ foreach ($events as $event) {
 
             if ($response->isSucceeded()) {
 
-
+                $log->addWarning("image response  ok\n");
 
 
 
                 $filepath =  upload_contents( 'image' , 'jpg', 'application/octet-stream', $response ,$appname );
 
+                $log->addWarning("image upload   ok\n");
 
                 $tst = AddFileLink( $response, $event, $filepath, "image"  );
 
