@@ -137,7 +137,6 @@ foreach ($events as $event) {
 
 
 				} else {
-				      $log->addWarning("image GetMessageContent status  " . (string)$response->getHTTPStatus() );
   					  error_log($response->getHTTPStatus() . ' ' . $response->getRawBody());
 			}
 
