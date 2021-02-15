@@ -421,40 +421,48 @@
     },
     {
         "name": "linecorp/line-bot-sdk",
-        "version": "3.15.0",
-        "version_normalized": "3.15.0.0",
+        "version": "6.2.0",
+        "version_normalized": "6.2.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/line/line-bot-sdk-php.git",
-            "reference": "c0d9e32a910378598b59e358d757a9f801da1e98"
+            "reference": "b9d9a0d889c4a83b4521327882bf60be38b476e3"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/line/line-bot-sdk-php/zipball/c0d9e32a910378598b59e358d757a9f801da1e98",
-            "reference": "c0d9e32a910378598b59e358d757a9f801da1e98",
+            "url": "https://api.github.com/repos/line/line-bot-sdk-php/zipball/b9d9a0d889c4a83b4521327882bf60be38b476e3",
+            "reference": "b9d9a0d889c4a83b4521327882bf60be38b476e3",
             "shasum": ""
         },
         "require": {
             "ext-curl": "*",
             "ext-json": "*",
             "ext-sockets": "*",
-            "php": ">=5.5"
+            "php": ">=5.6"
         },
         "require-dev": {
             "ext-posix": "*",
-            "indigophp/hash-compat": "~1.1.0",
-            "phpmd/phpmd": "~2.4",
-            "phpunit/phpunit": "^4.8.24||^5||^6",
-            "squizlabs/php_codesniffer": "~2.6||^3",
-            "symfony/config": "^3.3",
-            "symfony/dependency-injection": "^3.3"
+            "orchestra/testbench": "*",
+            "phpmd/phpmd": "~2.9",
+            "phpunit/phpunit": "^4.8.36||^5||^6||^7",
+            "squizlabs/php_codesniffer": "~3.5"
         },
         "suggest": {
             "apigen/apigen": "Install with roave/better-reflection:dev-master to generate docs",
             "roave/better-reflection": "Required by apigen/apigen:dev-master"
         },
-        "time": "2019-11-01T09:49:14+00:00",
+        "time": "2021-02-08T02:21:33+00:00",
         "type": "library",
+        "extra": {
+            "laravel": {
+                "providers": [
+                    "LINE\\Laravel\\LINEBotServiceProvider"
+                ],
+                "aliases": {
+                    "LINEBot": "LINE\\Laravel\\Facade\\LINEBot"
+                }
+            }
+        },
         "installation-source": "dist",
         "autoload": {
             "psr-4": {
