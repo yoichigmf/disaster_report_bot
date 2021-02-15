@@ -24,6 +24,7 @@ class Google_Service_Bigquery_JobConfigurationLoad extends Google_Collection
   protected $clusteringType = 'Google_Service_Bigquery_Clustering';
   protected $clusteringDataType = '';
   public $createDisposition;
+  public $decimalTargetTypes;
   protected $destinationEncryptionConfigurationType = 'Google_Service_Bigquery_EncryptionConfiguration';
   protected $destinationEncryptionConfigurationDataType = '';
   protected $destinationTableType = 'Google_Service_Bigquery_TableReference';
@@ -32,10 +33,10 @@ class Google_Service_Bigquery_JobConfigurationLoad extends Google_Collection
   protected $destinationTablePropertiesDataType = '';
   public $encoding;
   public $fieldDelimiter;
-  public $hivePartitioningMode;
   protected $hivePartitioningOptionsType = 'Google_Service_Bigquery_HivePartitioningOptions';
   protected $hivePartitioningOptionsDataType = '';
   public $ignoreUnknownValues;
+  public $jsonExtension;
   public $maxBadRecords;
   public $nullMarker;
   public $projectionFields;
@@ -101,6 +102,14 @@ class Google_Service_Bigquery_JobConfigurationLoad extends Google_Collection
   {
     return $this->createDisposition;
   }
+  public function setDecimalTargetTypes($decimalTargetTypes)
+  {
+    $this->decimalTargetTypes = $decimalTargetTypes;
+  }
+  public function getDecimalTargetTypes()
+  {
+    return $this->decimalTargetTypes;
+  }
   /**
    * @param Google_Service_Bigquery_EncryptionConfiguration
    */
@@ -159,14 +168,6 @@ class Google_Service_Bigquery_JobConfigurationLoad extends Google_Collection
   {
     return $this->fieldDelimiter;
   }
-  public function setHivePartitioningMode($hivePartitioningMode)
-  {
-    $this->hivePartitioningMode = $hivePartitioningMode;
-  }
-  public function getHivePartitioningMode()
-  {
-    return $this->hivePartitioningMode;
-  }
   /**
    * @param Google_Service_Bigquery_HivePartitioningOptions
    */
@@ -188,6 +189,14 @@ class Google_Service_Bigquery_JobConfigurationLoad extends Google_Collection
   public function getIgnoreUnknownValues()
   {
     return $this->ignoreUnknownValues;
+  }
+  public function setJsonExtension($jsonExtension)
+  {
+    $this->jsonExtension = $jsonExtension;
+  }
+  public function getJsonExtension()
+  {
+    return $this->jsonExtension;
   }
   public function setMaxBadRecords($maxBadRecords)
   {

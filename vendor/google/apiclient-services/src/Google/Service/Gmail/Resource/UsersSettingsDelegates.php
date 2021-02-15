@@ -26,20 +26,15 @@
 class Google_Service_Gmail_Resource_UsersSettingsDelegates extends Google_Service_Resource
 {
   /**
-   * Adds a delegate with its verification status set directly to accepted,
+   * Adds a delegate with its verification status set directly to `accepted`,
    * without sending any verification email. The delegate user must be a member of
-   * the same G Suite organization as the delegator user.
-   *
-   * Gmail imposes limtations on the number of delegates and delegators each user
-   * in a G Suite organization can have. These limits depend on your organization,
-   * but in general each user can have up to 25 delegates and up to 10 delegators.
-   *
-   * Note that a delegate user must be referred to by their primary email address,
-   * and not an email alias.
-   *
-   * Also note that when a new delegate is created, there may be up to a one
-   * minute delay before the new delegate is available for use.
-   *
+   * the same G Suite organization as the delegator user. Gmail imposes
+   * limitations on the number of delegates and delegators each user in a G Suite
+   * organization can have. These limits depend on your organization, but in
+   * general each user can have up to 25 delegates and up to 10 delegators. Note
+   * that a delegate user must be referred to by their primary email address, and
+   * not an email alias. Also note that when a new delegate is created, there may
+   * be up to a one minute delay before the new delegate is available for use.
    * This method is only available to service account clients that have been
    * delegated domain-wide authority. (delegates.create)
    *
@@ -57,13 +52,10 @@ class Google_Service_Gmail_Resource_UsersSettingsDelegates extends Google_Servic
   }
   /**
    * Removes the specified delegate (which can be of any verification status), and
-   * revokes any verification that may have been required for using it.
-   *
-   * Note that a delegate user must be referred to by their primary email address,
-   * and not an email alias.
-   *
-   * This method is only available to service account clients that have been
-   * delegated domain-wide authority. (delegates.delete)
+   * revokes any verification that may have been required for using it. Note that
+   * a delegate user must be referred to by their primary email address, and not
+   * an email alias. This method is only available to service account clients that
+   * have been delegated domain-wide authority. (delegates.delete)
    *
    * @param string $userId User's email address. The special value "me" can be
    * used to indicate the authenticated user.
@@ -78,13 +70,10 @@ class Google_Service_Gmail_Resource_UsersSettingsDelegates extends Google_Servic
     return $this->call('delete', array($params));
   }
   /**
-   * Gets the specified delegate.
-   *
-   * Note that a delegate user must be referred to by their primary email address,
-   * and not an email alias.
-   *
-   * This method is only available to service account clients that have been
-   * delegated domain-wide authority. (delegates.get)
+   * Gets the specified delegate. Note that a delegate user must be referred to by
+   * their primary email address, and not an email alias. This method is only
+   * available to service account clients that have been delegated domain-wide
+   * authority. (delegates.get)
    *
    * @param string $userId User's email address. The special value "me" can be
    * used to indicate the authenticated user.
@@ -100,10 +89,9 @@ class Google_Service_Gmail_Resource_UsersSettingsDelegates extends Google_Servic
     return $this->call('get', array($params), "Google_Service_Gmail_Delegate");
   }
   /**
-   * Lists the delegates for the specified account.
-   *
-   * This method is only available to service account clients that have been
-   * delegated domain-wide authority. (delegates.listUsersSettingsDelegates)
+   * Lists the delegates for the specified account. This method is only available
+   * to service account clients that have been delegated domain-wide authority.
+   * (delegates.listUsersSettingsDelegates)
    *
    * @param string $userId User's email address. The special value "me" can be
    * used to indicate the authenticated user.

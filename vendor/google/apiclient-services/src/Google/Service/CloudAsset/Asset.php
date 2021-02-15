@@ -29,10 +29,13 @@ class Google_Service_CloudAsset_Asset extends Google_Collection
   public $name;
   protected $orgPolicyType = 'Google_Service_CloudAsset_GoogleCloudOrgpolicyV1Policy';
   protected $orgPolicyDataType = 'array';
+  protected $osInventoryType = 'Google_Service_CloudAsset_Inventory';
+  protected $osInventoryDataType = '';
   protected $resourceType = 'Google_Service_CloudAsset_CloudassetResource';
   protected $resourceDataType = '';
   protected $servicePerimeterType = 'Google_Service_CloudAsset_GoogleIdentityAccesscontextmanagerV1ServicePerimeter';
   protected $servicePerimeterDataType = '';
+  public $updateTime;
 
   /**
    * @param Google_Service_CloudAsset_GoogleIdentityAccesscontextmanagerV1AccessLevel
@@ -101,18 +104,32 @@ class Google_Service_CloudAsset_Asset extends Google_Collection
     return $this->name;
   }
   /**
-   * @param Google_Service_CloudAsset_GoogleCloudOrgpolicyV1Policy
+   * @param Google_Service_CloudAsset_GoogleCloudOrgpolicyV1Policy[]
    */
   public function setOrgPolicy($orgPolicy)
   {
     $this->orgPolicy = $orgPolicy;
   }
   /**
-   * @return Google_Service_CloudAsset_GoogleCloudOrgpolicyV1Policy
+   * @return Google_Service_CloudAsset_GoogleCloudOrgpolicyV1Policy[]
    */
   public function getOrgPolicy()
   {
     return $this->orgPolicy;
+  }
+  /**
+   * @param Google_Service_CloudAsset_Inventory
+   */
+  public function setOsInventory(Google_Service_CloudAsset_Inventory $osInventory)
+  {
+    $this->osInventory = $osInventory;
+  }
+  /**
+   * @return Google_Service_CloudAsset_Inventory
+   */
+  public function getOsInventory()
+  {
+    return $this->osInventory;
   }
   /**
    * @param Google_Service_CloudAsset_CloudassetResource
@@ -141,5 +158,13 @@ class Google_Service_CloudAsset_Asset extends Google_Collection
   public function getServicePerimeter()
   {
     return $this->servicePerimeter;
+  }
+  public function setUpdateTime($updateTime)
+  {
+    $this->updateTime = $updateTime;
+  }
+  public function getUpdateTime()
+  {
+    return $this->updateTime;
   }
 }

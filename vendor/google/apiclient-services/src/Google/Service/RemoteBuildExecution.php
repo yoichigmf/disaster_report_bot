@@ -39,7 +39,7 @@ class Google_Service_RemoteBuildExecution extends Google_Service
   public $blobs;
   public $operations;
   public $v2;
-  
+
   /**
    * Constructs the internal representation of the RemoteBuildExecution service.
    *
@@ -80,18 +80,18 @@ class Google_Service_RemoteBuildExecution extends Google_Service
                   'type' => 'string',
                   'required' => true,
                 ),
-                'inlineStdout' => array(
+                'inlineOutputFiles' => array(
                   'location' => 'query',
-                  'type' => 'boolean',
+                  'type' => 'string',
+                  'repeated' => true,
                 ),
                 'inlineStderr' => array(
                   'location' => 'query',
                   'type' => 'boolean',
                 ),
-                'inlineOutputFiles' => array(
+                'inlineStdout' => array(
                   'location' => 'query',
-                  'type' => 'string',
-                  'repeated' => true,
+                  'type' => 'boolean',
                 ),
               ),
             ),'update' => array(
@@ -197,13 +197,13 @@ class Google_Service_RemoteBuildExecution extends Google_Service
                   'type' => 'string',
                   'required' => true,
                 ),
-                'pageToken' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
                 'pageSize' => array(
                   'location' => 'query',
                   'type' => 'integer',
+                ),
+                'pageToken' => array(
+                  'location' => 'query',
+                  'type' => 'string',
                 ),
               ),
             ),

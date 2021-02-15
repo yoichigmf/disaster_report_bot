@@ -22,14 +22,20 @@ class Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1Version extends G
   protected $acceleratorConfigDataType = '';
   protected $autoScalingType = 'Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1AutoScaling';
   protected $autoScalingDataType = '';
+  protected $containerType = 'Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1ContainerSpec';
+  protected $containerDataType = '';
   public $createTime;
   public $deploymentUri;
   public $description;
   public $errorMessage;
   public $etag;
+  protected $explanationConfigType = 'Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1ExplanationConfig';
+  protected $explanationConfigDataType = '';
   public $framework;
   public $isDefault;
   public $labels;
+  public $lastMigrationModelId;
+  public $lastMigrationTime;
   public $lastUseTime;
   public $machineType;
   protected $manualScalingType = 'Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1ManualScaling';
@@ -40,6 +46,8 @@ class Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1Version extends G
   public $pythonVersion;
   protected $requestLoggingConfigType = 'Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1RequestLoggingConfig';
   protected $requestLoggingConfigDataType = '';
+  protected $routesType = 'Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1RouteMap';
+  protected $routesDataType = '';
   public $runtimeVersion;
   public $serviceAccount;
   public $state;
@@ -71,6 +79,20 @@ class Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1Version extends G
   public function getAutoScaling()
   {
     return $this->autoScaling;
+  }
+  /**
+   * @param Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1ContainerSpec
+   */
+  public function setContainer(Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1ContainerSpec $container)
+  {
+    $this->container = $container;
+  }
+  /**
+   * @return Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1ContainerSpec
+   */
+  public function getContainer()
+  {
+    return $this->container;
   }
   public function setCreateTime($createTime)
   {
@@ -112,6 +134,20 @@ class Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1Version extends G
   {
     return $this->etag;
   }
+  /**
+   * @param Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1ExplanationConfig
+   */
+  public function setExplanationConfig(Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1ExplanationConfig $explanationConfig)
+  {
+    $this->explanationConfig = $explanationConfig;
+  }
+  /**
+   * @return Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1ExplanationConfig
+   */
+  public function getExplanationConfig()
+  {
+    return $this->explanationConfig;
+  }
   public function setFramework($framework)
   {
     $this->framework = $framework;
@@ -135,6 +171,22 @@ class Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1Version extends G
   public function getLabels()
   {
     return $this->labels;
+  }
+  public function setLastMigrationModelId($lastMigrationModelId)
+  {
+    $this->lastMigrationModelId = $lastMigrationModelId;
+  }
+  public function getLastMigrationModelId()
+  {
+    return $this->lastMigrationModelId;
+  }
+  public function setLastMigrationTime($lastMigrationTime)
+  {
+    $this->lastMigrationTime = $lastMigrationTime;
+  }
+  public function getLastMigrationTime()
+  {
+    return $this->lastMigrationTime;
   }
   public function setLastUseTime($lastUseTime)
   {
@@ -211,6 +263,20 @@ class Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1Version extends G
   public function getRequestLoggingConfig()
   {
     return $this->requestLoggingConfig;
+  }
+  /**
+   * @param Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1RouteMap
+   */
+  public function setRoutes(Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1RouteMap $routes)
+  {
+    $this->routes = $routes;
+  }
+  /**
+   * @return Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1RouteMap
+   */
+  public function getRoutes()
+  {
+    return $this->routes;
   }
   public function setRuntimeVersion($runtimeVersion)
   {

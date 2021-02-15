@@ -35,48 +35,46 @@ class Google_Service_CivicInfo_VoterInfoResponse extends Google_Collection
   protected $pollingLocationsType = 'Google_Service_CivicInfo_PollingLocation';
   protected $pollingLocationsDataType = 'array';
   public $precinctId;
-  protected $segmentsType = 'Google_Service_CivicInfo_StreetSegment';
-  protected $segmentsDataType = 'array';
   protected $stateType = 'Google_Service_CivicInfo_AdministrationRegion';
   protected $stateDataType = 'array';
 
   /**
-   * @param Google_Service_CivicInfo_Contest
+   * @param Google_Service_CivicInfo_Contest[]
    */
   public function setContests($contests)
   {
     $this->contests = $contests;
   }
   /**
-   * @return Google_Service_CivicInfo_Contest
+   * @return Google_Service_CivicInfo_Contest[]
    */
   public function getContests()
   {
     return $this->contests;
   }
   /**
-   * @param Google_Service_CivicInfo_PollingLocation
+   * @param Google_Service_CivicInfo_PollingLocation[]
    */
   public function setDropOffLocations($dropOffLocations)
   {
     $this->dropOffLocations = $dropOffLocations;
   }
   /**
-   * @return Google_Service_CivicInfo_PollingLocation
+   * @return Google_Service_CivicInfo_PollingLocation[]
    */
   public function getDropOffLocations()
   {
     return $this->dropOffLocations;
   }
   /**
-   * @param Google_Service_CivicInfo_PollingLocation
+   * @param Google_Service_CivicInfo_PollingLocation[]
    */
   public function setEarlyVoteSites($earlyVoteSites)
   {
     $this->earlyVoteSites = $earlyVoteSites;
   }
   /**
-   * @return Google_Service_CivicInfo_PollingLocation
+   * @return Google_Service_CivicInfo_PollingLocation[]
    */
   public function getEarlyVoteSites()
   {
@@ -127,28 +125,28 @@ class Google_Service_CivicInfo_VoterInfoResponse extends Google_Collection
     return $this->normalizedInput;
   }
   /**
-   * @param Google_Service_CivicInfo_Election
+   * @param Google_Service_CivicInfo_Election[]
    */
   public function setOtherElections($otherElections)
   {
     $this->otherElections = $otherElections;
   }
   /**
-   * @return Google_Service_CivicInfo_Election
+   * @return Google_Service_CivicInfo_Election[]
    */
   public function getOtherElections()
   {
     return $this->otherElections;
   }
   /**
-   * @param Google_Service_CivicInfo_PollingLocation
+   * @param Google_Service_CivicInfo_PollingLocation[]
    */
   public function setPollingLocations($pollingLocations)
   {
     $this->pollingLocations = $pollingLocations;
   }
   /**
-   * @return Google_Service_CivicInfo_PollingLocation
+   * @return Google_Service_CivicInfo_PollingLocation[]
    */
   public function getPollingLocations()
   {
@@ -163,28 +161,14 @@ class Google_Service_CivicInfo_VoterInfoResponse extends Google_Collection
     return $this->precinctId;
   }
   /**
-   * @param Google_Service_CivicInfo_StreetSegment
-   */
-  public function setSegments($segments)
-  {
-    $this->segments = $segments;
-  }
-  /**
-   * @return Google_Service_CivicInfo_StreetSegment
-   */
-  public function getSegments()
-  {
-    return $this->segments;
-  }
-  /**
-   * @param Google_Service_CivicInfo_AdministrationRegion
+   * @param Google_Service_CivicInfo_AdministrationRegion[]
    */
   public function setState($state)
   {
     $this->state = $state;
   }
   /**
-   * @return Google_Service_CivicInfo_AdministrationRegion
+   * @return Google_Service_CivicInfo_AdministrationRegion[]
    */
   public function getState()
   {

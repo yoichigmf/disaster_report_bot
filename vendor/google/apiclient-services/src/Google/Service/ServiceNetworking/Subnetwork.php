@@ -15,12 +15,16 @@
  * the License.
  */
 
-class Google_Service_ServiceNetworking_Subnetwork extends Google_Model
+class Google_Service_ServiceNetworking_Subnetwork extends Google_Collection
 {
+  protected $collection_key = 'secondaryIpRanges';
   public $ipCidrRange;
   public $name;
   public $network;
   public $outsideAllocation;
+  public $region;
+  protected $secondaryIpRangesType = 'Google_Service_ServiceNetworking_SecondaryIpRange';
+  protected $secondaryIpRangesDataType = 'array';
 
   public function setIpCidrRange($ipCidrRange)
   {
@@ -53,5 +57,27 @@ class Google_Service_ServiceNetworking_Subnetwork extends Google_Model
   public function getOutsideAllocation()
   {
     return $this->outsideAllocation;
+  }
+  public function setRegion($region)
+  {
+    $this->region = $region;
+  }
+  public function getRegion()
+  {
+    return $this->region;
+  }
+  /**
+   * @param Google_Service_ServiceNetworking_SecondaryIpRange[]
+   */
+  public function setSecondaryIpRanges($secondaryIpRanges)
+  {
+    $this->secondaryIpRanges = $secondaryIpRanges;
+  }
+  /**
+   * @return Google_Service_ServiceNetworking_SecondaryIpRange[]
+   */
+  public function getSecondaryIpRanges()
+  {
+    return $this->secondaryIpRanges;
   }
 }

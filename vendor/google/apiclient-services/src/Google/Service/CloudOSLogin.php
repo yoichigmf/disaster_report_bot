@@ -19,8 +19,7 @@
  * Service definition for CloudOSLogin (v1).
  *
  * <p>
- * You can use OS Login to manage access to your VM instances using IAM roles.
- * For more information, read [OS Login](/compute/docs/oslogin/).</p>
+ * You can use OS Login to manage access to your VM instances using IAM roles.</p>
  *
  * <p>
  * For more information about this service, see the API
@@ -41,7 +40,7 @@ class Google_Service_CloudOSLogin extends Google_Service
   public $users;
   public $users_projects;
   public $users_sshPublicKeys;
-  
+
   /**
    * Constructs the internal representation of the CloudOSLogin service.
    *

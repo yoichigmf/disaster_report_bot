@@ -18,7 +18,11 @@
 class Google_Service_Compute_InstanceProperties extends Google_Collection
 {
   protected $collection_key = 'serviceAccounts';
+  protected $advancedMachineFeaturesType = 'Google_Service_Compute_AdvancedMachineFeatures';
+  protected $advancedMachineFeaturesDataType = '';
   public $canIpForward;
+  protected $confidentialInstanceConfigType = 'Google_Service_Compute_ConfidentialInstanceConfig';
+  protected $confidentialInstanceConfigDataType = '';
   public $description;
   protected $disksType = 'Google_Service_Compute_AttachedDisk';
   protected $disksDataType = 'array';
@@ -31,8 +35,10 @@ class Google_Service_Compute_InstanceProperties extends Google_Collection
   public $minCpuPlatform;
   protected $networkInterfacesType = 'Google_Service_Compute_NetworkInterface';
   protected $networkInterfacesDataType = 'array';
+  public $privateIpv6GoogleAccess;
   protected $reservationAffinityType = 'Google_Service_Compute_ReservationAffinity';
   protected $reservationAffinityDataType = '';
+  public $resourcePolicies;
   protected $schedulingType = 'Google_Service_Compute_Scheduling';
   protected $schedulingDataType = '';
   protected $serviceAccountsType = 'Google_Service_Compute_ServiceAccount';
@@ -42,6 +48,20 @@ class Google_Service_Compute_InstanceProperties extends Google_Collection
   protected $tagsType = 'Google_Service_Compute_Tags';
   protected $tagsDataType = '';
 
+  /**
+   * @param Google_Service_Compute_AdvancedMachineFeatures
+   */
+  public function setAdvancedMachineFeatures(Google_Service_Compute_AdvancedMachineFeatures $advancedMachineFeatures)
+  {
+    $this->advancedMachineFeatures = $advancedMachineFeatures;
+  }
+  /**
+   * @return Google_Service_Compute_AdvancedMachineFeatures
+   */
+  public function getAdvancedMachineFeatures()
+  {
+    return $this->advancedMachineFeatures;
+  }
   public function setCanIpForward($canIpForward)
   {
     $this->canIpForward = $canIpForward;
@@ -49,6 +69,20 @@ class Google_Service_Compute_InstanceProperties extends Google_Collection
   public function getCanIpForward()
   {
     return $this->canIpForward;
+  }
+  /**
+   * @param Google_Service_Compute_ConfidentialInstanceConfig
+   */
+  public function setConfidentialInstanceConfig(Google_Service_Compute_ConfidentialInstanceConfig $confidentialInstanceConfig)
+  {
+    $this->confidentialInstanceConfig = $confidentialInstanceConfig;
+  }
+  /**
+   * @return Google_Service_Compute_ConfidentialInstanceConfig
+   */
+  public function getConfidentialInstanceConfig()
+  {
+    return $this->confidentialInstanceConfig;
   }
   public function setDescription($description)
   {
@@ -59,28 +93,28 @@ class Google_Service_Compute_InstanceProperties extends Google_Collection
     return $this->description;
   }
   /**
-   * @param Google_Service_Compute_AttachedDisk
+   * @param Google_Service_Compute_AttachedDisk[]
    */
   public function setDisks($disks)
   {
     $this->disks = $disks;
   }
   /**
-   * @return Google_Service_Compute_AttachedDisk
+   * @return Google_Service_Compute_AttachedDisk[]
    */
   public function getDisks()
   {
     return $this->disks;
   }
   /**
-   * @param Google_Service_Compute_AcceleratorConfig
+   * @param Google_Service_Compute_AcceleratorConfig[]
    */
   public function setGuestAccelerators($guestAccelerators)
   {
     $this->guestAccelerators = $guestAccelerators;
   }
   /**
-   * @return Google_Service_Compute_AcceleratorConfig
+   * @return Google_Service_Compute_AcceleratorConfig[]
    */
   public function getGuestAccelerators()
   {
@@ -125,18 +159,26 @@ class Google_Service_Compute_InstanceProperties extends Google_Collection
     return $this->minCpuPlatform;
   }
   /**
-   * @param Google_Service_Compute_NetworkInterface
+   * @param Google_Service_Compute_NetworkInterface[]
    */
   public function setNetworkInterfaces($networkInterfaces)
   {
     $this->networkInterfaces = $networkInterfaces;
   }
   /**
-   * @return Google_Service_Compute_NetworkInterface
+   * @return Google_Service_Compute_NetworkInterface[]
    */
   public function getNetworkInterfaces()
   {
     return $this->networkInterfaces;
+  }
+  public function setPrivateIpv6GoogleAccess($privateIpv6GoogleAccess)
+  {
+    $this->privateIpv6GoogleAccess = $privateIpv6GoogleAccess;
+  }
+  public function getPrivateIpv6GoogleAccess()
+  {
+    return $this->privateIpv6GoogleAccess;
   }
   /**
    * @param Google_Service_Compute_ReservationAffinity
@@ -151,6 +193,14 @@ class Google_Service_Compute_InstanceProperties extends Google_Collection
   public function getReservationAffinity()
   {
     return $this->reservationAffinity;
+  }
+  public function setResourcePolicies($resourcePolicies)
+  {
+    $this->resourcePolicies = $resourcePolicies;
+  }
+  public function getResourcePolicies()
+  {
+    return $this->resourcePolicies;
   }
   /**
    * @param Google_Service_Compute_Scheduling
@@ -167,14 +217,14 @@ class Google_Service_Compute_InstanceProperties extends Google_Collection
     return $this->scheduling;
   }
   /**
-   * @param Google_Service_Compute_ServiceAccount
+   * @param Google_Service_Compute_ServiceAccount[]
    */
   public function setServiceAccounts($serviceAccounts)
   {
     $this->serviceAccounts = $serviceAccounts;
   }
   /**
-   * @return Google_Service_Compute_ServiceAccount
+   * @return Google_Service_Compute_ServiceAccount[]
    */
   public function getServiceAccounts()
   {

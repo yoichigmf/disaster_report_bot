@@ -19,12 +19,11 @@
  * Service definition for ShoppingContent (v2.1).
  *
  * <p>
- * Manages product items, inventory, and Merchant Center accounts for Google
- * Shopping.</p>
+ * Manage your product listings and accounts for Google Shopping</p>
  *
  * <p>
  * For more information about this service, see the API
- * <a href="https://developers.google.com/shopping-content" target="_blank">Documentation</a>
+ * <a href="https://developers.google.com/shopping-content/v2/" target="_blank">Documentation</a>
  * </p>
  *
  * @author Google, Inc.
@@ -36,23 +35,37 @@ class Google_Service_ShoppingContent extends Google_Service
       "https://www.googleapis.com/auth/content";
 
   public $accounts;
+  public $accounts_labels;
+  public $accounts_returncarrier;
   public $accountstatuses;
   public $accounttax;
+  public $collections;
+  public $collectionstatuses;
+  public $csses;
   public $datafeeds;
   public $datafeedstatuses;
   public $liasettings;
+  public $localinventory;
   public $orderinvoices;
   public $orderreports;
   public $orderreturns;
   public $orders;
+  public $ordertrackingsignals;
   public $pos;
   public $products;
   public $productstatuses;
+  public $productstatuses_repricingreports;
+  public $pubsubnotificationsettings;
   public $regionalinventory;
+  public $regions;
+  public $repricingrules;
+  public $repricingrules_repricingreports;
   public $returnaddress;
   public $returnpolicy;
+  public $settlementreports;
+  public $settlementtransactions;
   public $shippingsettings;
-  
+
   /**
    * Constructs the internal representation of the ShoppingContent service.
    *
@@ -62,9 +75,9 @@ class Google_Service_ShoppingContent extends Google_Service
   public function __construct(Google_Client $client, $rootUrl = null)
   {
     parent::__construct($client);
-    $this->rootUrl = $rootUrl ?: 'https://www.googleapis.com/';
-    $this->servicePath = 'content/v2.1/';
-    $this->batchPath = 'batch/content/v2.1';
+    $this->rootUrl = $rootUrl ?: 'https://shoppingcontent.googleapis.com/';
+    $this->servicePath = '';
+    $this->batchPath = 'batch';
     $this->version = 'v2.1';
     $this->serviceName = 'content';
 
@@ -75,11 +88,11 @@ class Google_Service_ShoppingContent extends Google_Service
         array(
           'methods' => array(
             'authinfo' => array(
-              'path' => 'accounts/authinfo',
+              'path' => 'content/v2.1/accounts/authinfo',
               'httpMethod' => 'GET',
               'parameters' => array(),
             ),'claimwebsite' => array(
-              'path' => '{merchantId}/accounts/{accountId}/claimwebsite',
+              'path' => 'content/v2.1/{merchantId}/accounts/{accountId}/claimwebsite',
               'httpMethod' => 'POST',
               'parameters' => array(
                 'merchantId' => array(
@@ -98,11 +111,11 @@ class Google_Service_ShoppingContent extends Google_Service
                 ),
               ),
             ),'custombatch' => array(
-              'path' => 'accounts/batch',
+              'path' => 'content/v2.1/accounts/batch',
               'httpMethod' => 'POST',
               'parameters' => array(),
             ),'delete' => array(
-              'path' => '{merchantId}/accounts/{accountId}',
+              'path' => 'content/v2.1/{merchantId}/accounts/{accountId}',
               'httpMethod' => 'DELETE',
               'parameters' => array(
                 'merchantId' => array(
@@ -121,7 +134,7 @@ class Google_Service_ShoppingContent extends Google_Service
                 ),
               ),
             ),'get' => array(
-              'path' => '{merchantId}/accounts/{accountId}',
+              'path' => 'content/v2.1/{merchantId}/accounts/{accountId}',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'merchantId' => array(
@@ -134,9 +147,13 @@ class Google_Service_ShoppingContent extends Google_Service
                   'type' => 'string',
                   'required' => true,
                 ),
+                'view' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
               ),
             ),'insert' => array(
-              'path' => '{merchantId}/accounts',
+              'path' => 'content/v2.1/{merchantId}/accounts',
               'httpMethod' => 'POST',
               'parameters' => array(
                 'merchantId' => array(
@@ -146,7 +163,7 @@ class Google_Service_ShoppingContent extends Google_Service
                 ),
               ),
             ),'link' => array(
-              'path' => '{merchantId}/accounts/{accountId}/link',
+              'path' => 'content/v2.1/{merchantId}/accounts/{accountId}/link',
               'httpMethod' => 'POST',
               'parameters' => array(
                 'merchantId' => array(
@@ -161,10 +178,41 @@ class Google_Service_ShoppingContent extends Google_Service
                 ),
               ),
             ),'list' => array(
-              'path' => '{merchantId}/accounts',
+              'path' => 'content/v2.1/{merchantId}/accounts',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'merchantId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'label' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'maxResults' => array(
+                  'location' => 'query',
+                  'type' => 'integer',
+                ),
+                'pageToken' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'view' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+              ),
+            ),'listlinks' => array(
+              'path' => 'content/v2.1/{merchantId}/accounts/{accountId}/listlinks',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'merchantId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'accountId' => array(
                   'location' => 'path',
                   'type' => 'string',
                   'required' => true,
@@ -179,8 +227,23 @@ class Google_Service_ShoppingContent extends Google_Service
                 ),
               ),
             ),'update' => array(
-              'path' => '{merchantId}/accounts/{accountId}',
+              'path' => 'content/v2.1/{merchantId}/accounts/{accountId}',
               'httpMethod' => 'PUT',
+              'parameters' => array(
+                'merchantId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'accountId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'updatelabels' => array(
+              'path' => 'content/v2.1/{merchantId}/accounts/{accountId}/updatelabels',
+              'httpMethod' => 'POST',
               'parameters' => array(
                 'merchantId' => array(
                   'location' => 'path',
@@ -197,6 +260,134 @@ class Google_Service_ShoppingContent extends Google_Service
           )
         )
     );
+    $this->accounts_labels = new Google_Service_ShoppingContent_Resource_AccountsLabels(
+        $this,
+        $this->serviceName,
+        'labels',
+        array(
+          'methods' => array(
+            'create' => array(
+              'path' => 'content/v2.1/accounts/{accountId}/labels',
+              'httpMethod' => 'POST',
+              'parameters' => array(
+                'accountId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'delete' => array(
+              'path' => 'content/v2.1/accounts/{accountId}/labels/{labelId}',
+              'httpMethod' => 'DELETE',
+              'parameters' => array(
+                'accountId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'labelId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'list' => array(
+              'path' => 'content/v2.1/accounts/{accountId}/labels',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'accountId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'pageSize' => array(
+                  'location' => 'query',
+                  'type' => 'integer',
+                ),
+                'pageToken' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+              ),
+            ),'patch' => array(
+              'path' => 'content/v2.1/accounts/{accountId}/labels/{labelId}',
+              'httpMethod' => 'PATCH',
+              'parameters' => array(
+                'accountId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'labelId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),
+          )
+        )
+    );
+    $this->accounts_returncarrier = new Google_Service_ShoppingContent_Resource_AccountsReturncarrier(
+        $this,
+        $this->serviceName,
+        'returncarrier',
+        array(
+          'methods' => array(
+            'create' => array(
+              'path' => 'content/v2.1/accounts/{accountId}/returncarrier',
+              'httpMethod' => 'POST',
+              'parameters' => array(
+                'accountId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'delete' => array(
+              'path' => 'content/v2.1/accounts/{accountId}/returncarrier/{carrierAccountId}',
+              'httpMethod' => 'DELETE',
+              'parameters' => array(
+                'accountId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'carrierAccountId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'list' => array(
+              'path' => 'content/v2.1/accounts/{accountId}/returncarrier',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'accountId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'patch' => array(
+              'path' => 'content/v2.1/accounts/{accountId}/returncarrier/{carrierAccountId}',
+              'httpMethod' => 'PATCH',
+              'parameters' => array(
+                'accountId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'carrierAccountId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),
+          )
+        )
+    );
     $this->accountstatuses = new Google_Service_ShoppingContent_Resource_Accountstatuses(
         $this,
         $this->serviceName,
@@ -204,11 +395,11 @@ class Google_Service_ShoppingContent extends Google_Service
         array(
           'methods' => array(
             'custombatch' => array(
-              'path' => 'accountstatuses/batch',
+              'path' => 'content/v2.1/accountstatuses/batch',
               'httpMethod' => 'POST',
               'parameters' => array(),
             ),'get' => array(
-              'path' => '{merchantId}/accountstatuses/{accountId}',
+              'path' => 'content/v2.1/{merchantId}/accountstatuses/{accountId}',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'merchantId' => array(
@@ -228,7 +419,7 @@ class Google_Service_ShoppingContent extends Google_Service
                 ),
               ),
             ),'list' => array(
-              'path' => '{merchantId}/accountstatuses',
+              'path' => 'content/v2.1/{merchantId}/accountstatuses',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'merchantId' => array(
@@ -261,11 +452,11 @@ class Google_Service_ShoppingContent extends Google_Service
         array(
           'methods' => array(
             'custombatch' => array(
-              'path' => 'accounttax/batch',
+              'path' => 'content/v2.1/accounttax/batch',
               'httpMethod' => 'POST',
               'parameters' => array(),
             ),'get' => array(
-              'path' => '{merchantId}/accounttax/{accountId}',
+              'path' => 'content/v2.1/{merchantId}/accounttax/{accountId}',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'merchantId' => array(
@@ -280,7 +471,7 @@ class Google_Service_ShoppingContent extends Google_Service
                 ),
               ),
             ),'list' => array(
-              'path' => '{merchantId}/accounttax',
+              'path' => 'content/v2.1/{merchantId}/accounttax',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'merchantId' => array(
@@ -298,7 +489,7 @@ class Google_Service_ShoppingContent extends Google_Service
                 ),
               ),
             ),'update' => array(
-              'path' => '{merchantId}/accounttax/{accountId}',
+              'path' => 'content/v2.1/{merchantId}/accounttax/{accountId}',
               'httpMethod' => 'PUT',
               'parameters' => array(
                 'merchantId' => array(
@@ -316,6 +507,175 @@ class Google_Service_ShoppingContent extends Google_Service
           )
         )
     );
+    $this->collections = new Google_Service_ShoppingContent_Resource_Collections(
+        $this,
+        $this->serviceName,
+        'collections',
+        array(
+          'methods' => array(
+            'create' => array(
+              'path' => 'content/v2.1/{merchantId}/collections',
+              'httpMethod' => 'POST',
+              'parameters' => array(
+                'merchantId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'delete' => array(
+              'path' => 'content/v2.1/{merchantId}/collections/{collectionId}',
+              'httpMethod' => 'DELETE',
+              'parameters' => array(
+                'merchantId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'collectionId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'get' => array(
+              'path' => 'content/v2.1/{merchantId}/collections/{collectionId}',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'merchantId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'collectionId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'list' => array(
+              'path' => 'content/v2.1/{merchantId}/collections',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'merchantId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'pageSize' => array(
+                  'location' => 'query',
+                  'type' => 'integer',
+                ),
+                'pageToken' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+              ),
+            ),
+          )
+        )
+    );
+    $this->collectionstatuses = new Google_Service_ShoppingContent_Resource_Collectionstatuses(
+        $this,
+        $this->serviceName,
+        'collectionstatuses',
+        array(
+          'methods' => array(
+            'get' => array(
+              'path' => 'content/v2.1/{merchantId}/collectionstatuses/{collectionId}',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'merchantId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'collectionId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'list' => array(
+              'path' => 'content/v2.1/{merchantId}/collectionstatuses',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'merchantId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'pageSize' => array(
+                  'location' => 'query',
+                  'type' => 'integer',
+                ),
+                'pageToken' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+              ),
+            ),
+          )
+        )
+    );
+    $this->csses = new Google_Service_ShoppingContent_Resource_Csses(
+        $this,
+        $this->serviceName,
+        'csses',
+        array(
+          'methods' => array(
+            'get' => array(
+              'path' => 'content/v2.1/{cssGroupId}/csses/{cssDomainId}',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'cssGroupId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'cssDomainId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'list' => array(
+              'path' => 'content/v2.1/{cssGroupId}/csses',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'cssGroupId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'pageSize' => array(
+                  'location' => 'query',
+                  'type' => 'integer',
+                ),
+                'pageToken' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+              ),
+            ),'updatelabels' => array(
+              'path' => 'content/v2.1/{cssGroupId}/csses/{cssDomainId}/updatelabels',
+              'httpMethod' => 'POST',
+              'parameters' => array(
+                'cssGroupId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'cssDomainId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),
+          )
+        )
+    );
     $this->datafeeds = new Google_Service_ShoppingContent_Resource_Datafeeds(
         $this,
         $this->serviceName,
@@ -323,11 +683,11 @@ class Google_Service_ShoppingContent extends Google_Service
         array(
           'methods' => array(
             'custombatch' => array(
-              'path' => 'datafeeds/batch',
+              'path' => 'content/v2.1/datafeeds/batch',
               'httpMethod' => 'POST',
               'parameters' => array(),
             ),'delete' => array(
-              'path' => '{merchantId}/datafeeds/{datafeedId}',
+              'path' => 'content/v2.1/{merchantId}/datafeeds/{datafeedId}',
               'httpMethod' => 'DELETE',
               'parameters' => array(
                 'merchantId' => array(
@@ -342,7 +702,7 @@ class Google_Service_ShoppingContent extends Google_Service
                 ),
               ),
             ),'fetchnow' => array(
-              'path' => '{merchantId}/datafeeds/{datafeedId}/fetchNow',
+              'path' => 'content/v2.1/{merchantId}/datafeeds/{datafeedId}/fetchNow',
               'httpMethod' => 'POST',
               'parameters' => array(
                 'merchantId' => array(
@@ -357,7 +717,7 @@ class Google_Service_ShoppingContent extends Google_Service
                 ),
               ),
             ),'get' => array(
-              'path' => '{merchantId}/datafeeds/{datafeedId}',
+              'path' => 'content/v2.1/{merchantId}/datafeeds/{datafeedId}',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'merchantId' => array(
@@ -372,7 +732,7 @@ class Google_Service_ShoppingContent extends Google_Service
                 ),
               ),
             ),'insert' => array(
-              'path' => '{merchantId}/datafeeds',
+              'path' => 'content/v2.1/{merchantId}/datafeeds',
               'httpMethod' => 'POST',
               'parameters' => array(
                 'merchantId' => array(
@@ -382,7 +742,7 @@ class Google_Service_ShoppingContent extends Google_Service
                 ),
               ),
             ),'list' => array(
-              'path' => '{merchantId}/datafeeds',
+              'path' => 'content/v2.1/{merchantId}/datafeeds',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'merchantId' => array(
@@ -400,7 +760,7 @@ class Google_Service_ShoppingContent extends Google_Service
                 ),
               ),
             ),'update' => array(
-              'path' => '{merchantId}/datafeeds/{datafeedId}',
+              'path' => 'content/v2.1/{merchantId}/datafeeds/{datafeedId}',
               'httpMethod' => 'PUT',
               'parameters' => array(
                 'merchantId' => array(
@@ -425,11 +785,11 @@ class Google_Service_ShoppingContent extends Google_Service
         array(
           'methods' => array(
             'custombatch' => array(
-              'path' => 'datafeedstatuses/batch',
+              'path' => 'content/v2.1/datafeedstatuses/batch',
               'httpMethod' => 'POST',
               'parameters' => array(),
             ),'get' => array(
-              'path' => '{merchantId}/datafeedstatuses/{datafeedId}',
+              'path' => 'content/v2.1/{merchantId}/datafeedstatuses/{datafeedId}',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'merchantId' => array(
@@ -452,7 +812,7 @@ class Google_Service_ShoppingContent extends Google_Service
                 ),
               ),
             ),'list' => array(
-              'path' => '{merchantId}/datafeedstatuses',
+              'path' => 'content/v2.1/{merchantId}/datafeedstatuses',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'merchantId' => array(
@@ -480,11 +840,11 @@ class Google_Service_ShoppingContent extends Google_Service
         array(
           'methods' => array(
             'custombatch' => array(
-              'path' => 'liasettings/batch',
+              'path' => 'content/v2.1/liasettings/batch',
               'httpMethod' => 'POST',
               'parameters' => array(),
             ),'get' => array(
-              'path' => '{merchantId}/liasettings/{accountId}',
+              'path' => 'content/v2.1/{merchantId}/liasettings/{accountId}',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'merchantId' => array(
@@ -499,7 +859,7 @@ class Google_Service_ShoppingContent extends Google_Service
                 ),
               ),
             ),'getaccessiblegmbaccounts' => array(
-              'path' => '{merchantId}/liasettings/{accountId}/accessiblegmbaccounts',
+              'path' => 'content/v2.1/{merchantId}/liasettings/{accountId}/accessiblegmbaccounts',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'merchantId' => array(
@@ -514,7 +874,7 @@ class Google_Service_ShoppingContent extends Google_Service
                 ),
               ),
             ),'list' => array(
-              'path' => '{merchantId}/liasettings',
+              'path' => 'content/v2.1/{merchantId}/liasettings',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'merchantId' => array(
@@ -532,11 +892,11 @@ class Google_Service_ShoppingContent extends Google_Service
                 ),
               ),
             ),'listposdataproviders' => array(
-              'path' => 'liasettings/posdataproviders',
+              'path' => 'content/v2.1/liasettings/posdataproviders',
               'httpMethod' => 'GET',
               'parameters' => array(),
             ),'requestgmbaccess' => array(
-              'path' => '{merchantId}/liasettings/{accountId}/requestgmbaccess',
+              'path' => 'content/v2.1/{merchantId}/liasettings/{accountId}/requestgmbaccess',
               'httpMethod' => 'POST',
               'parameters' => array(
                 'merchantId' => array(
@@ -556,7 +916,7 @@ class Google_Service_ShoppingContent extends Google_Service
                 ),
               ),
             ),'requestinventoryverification' => array(
-              'path' => '{merchantId}/liasettings/{accountId}/requestinventoryverification/{country}',
+              'path' => 'content/v2.1/{merchantId}/liasettings/{accountId}/requestinventoryverification/{country}',
               'httpMethod' => 'POST',
               'parameters' => array(
                 'merchantId' => array(
@@ -576,7 +936,7 @@ class Google_Service_ShoppingContent extends Google_Service
                 ),
               ),
             ),'setinventoryverificationcontact' => array(
-              'path' => '{merchantId}/liasettings/{accountId}/setinventoryverificationcontact',
+              'path' => 'content/v2.1/{merchantId}/liasettings/{accountId}/setinventoryverificationcontact',
               'httpMethod' => 'POST',
               'parameters' => array(
                 'merchantId' => array(
@@ -586,16 +946,6 @@ class Google_Service_ShoppingContent extends Google_Service
                 ),
                 'accountId' => array(
                   'location' => 'path',
-                  'type' => 'string',
-                  'required' => true,
-                ),
-                'contactEmail' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                  'required' => true,
-                ),
-                'contactName' => array(
-                  'location' => 'query',
                   'type' => 'string',
                   'required' => true,
                 ),
@@ -609,9 +959,19 @@ class Google_Service_ShoppingContent extends Google_Service
                   'type' => 'string',
                   'required' => true,
                 ),
+                'contactName' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'contactEmail' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                  'required' => true,
+                ),
               ),
             ),'setposdataprovider' => array(
-              'path' => '{merchantId}/liasettings/{accountId}/setposdataprovider',
+              'path' => 'content/v2.1/{merchantId}/liasettings/{accountId}/setposdataprovider',
               'httpMethod' => 'POST',
               'parameters' => array(
                 'merchantId' => array(
@@ -639,7 +999,7 @@ class Google_Service_ShoppingContent extends Google_Service
                 ),
               ),
             ),'update' => array(
-              'path' => '{merchantId}/liasettings/{accountId}',
+              'path' => 'content/v2.1/{merchantId}/liasettings/{accountId}',
               'httpMethod' => 'PUT',
               'parameters' => array(
                 'merchantId' => array(
@@ -657,6 +1017,35 @@ class Google_Service_ShoppingContent extends Google_Service
           )
         )
     );
+    $this->localinventory = new Google_Service_ShoppingContent_Resource_Localinventory(
+        $this,
+        $this->serviceName,
+        'localinventory',
+        array(
+          'methods' => array(
+            'custombatch' => array(
+              'path' => 'content/v2.1/localinventory/batch',
+              'httpMethod' => 'POST',
+              'parameters' => array(),
+            ),'insert' => array(
+              'path' => 'content/v2.1/{merchantId}/products/{productId}/localinventory',
+              'httpMethod' => 'POST',
+              'parameters' => array(
+                'merchantId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'productId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),
+          )
+        )
+    );
     $this->orderinvoices = new Google_Service_ShoppingContent_Resource_Orderinvoices(
         $this,
         $this->serviceName,
@@ -664,7 +1053,7 @@ class Google_Service_ShoppingContent extends Google_Service
         array(
           'methods' => array(
             'createchargeinvoice' => array(
-              'path' => '{merchantId}/orderinvoices/{orderId}/createChargeInvoice',
+              'path' => 'content/v2.1/{merchantId}/orderinvoices/{orderId}/createChargeInvoice',
               'httpMethod' => 'POST',
               'parameters' => array(
                 'merchantId' => array(
@@ -679,7 +1068,7 @@ class Google_Service_ShoppingContent extends Google_Service
                 ),
               ),
             ),'createrefundinvoice' => array(
-              'path' => '{merchantId}/orderinvoices/{orderId}/createRefundInvoice',
+              'path' => 'content/v2.1/{merchantId}/orderinvoices/{orderId}/createRefundInvoice',
               'httpMethod' => 'POST',
               'parameters' => array(
                 'merchantId' => array(
@@ -704,7 +1093,7 @@ class Google_Service_ShoppingContent extends Google_Service
         array(
           'methods' => array(
             'listdisbursements' => array(
-              'path' => '{merchantId}/orderreports/disbursements',
+              'path' => 'content/v2.1/{merchantId}/orderreports/disbursements',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'merchantId' => array(
@@ -712,12 +1101,11 @@ class Google_Service_ShoppingContent extends Google_Service
                   'type' => 'string',
                   'required' => true,
                 ),
-                'disbursementStartDate' => array(
+                'disbursementEndDate' => array(
                   'location' => 'query',
                   'type' => 'string',
-                  'required' => true,
                 ),
-                'disbursementEndDate' => array(
+                'disbursementStartDate' => array(
                   'location' => 'query',
                   'type' => 'string',
                 ),
@@ -731,7 +1119,7 @@ class Google_Service_ShoppingContent extends Google_Service
                 ),
               ),
             ),'listtransactions' => array(
-              'path' => '{merchantId}/orderreports/disbursements/{disbursementId}/transactions',
+              'path' => 'content/v2.1/{merchantId}/orderreports/disbursements/{disbursementId}/transactions',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'merchantId' => array(
@@ -741,11 +1129,6 @@ class Google_Service_ShoppingContent extends Google_Service
                 ),
                 'disbursementId' => array(
                   'location' => 'path',
-                  'type' => 'string',
-                  'required' => true,
-                ),
-                'transactionStartDate' => array(
-                  'location' => 'query',
                   'type' => 'string',
                   'required' => true,
                 ),
@@ -761,6 +1144,10 @@ class Google_Service_ShoppingContent extends Google_Service
                   'location' => 'query',
                   'type' => 'string',
                 ),
+                'transactionStartDate' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
               ),
             ),
           )
@@ -772,8 +1159,33 @@ class Google_Service_ShoppingContent extends Google_Service
         'orderreturns',
         array(
           'methods' => array(
-            'get' => array(
-              'path' => '{merchantId}/orderreturns/{returnId}',
+            'acknowledge' => array(
+              'path' => 'content/v2.1/{merchantId}/orderreturns/{returnId}/acknowledge',
+              'httpMethod' => 'POST',
+              'parameters' => array(
+                'merchantId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'returnId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'createorderreturn' => array(
+              'path' => 'content/v2.1/{merchantId}/orderreturns/createOrderReturn',
+              'httpMethod' => 'POST',
+              'parameters' => array(
+                'merchantId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'get' => array(
+              'path' => 'content/v2.1/{merchantId}/orderreturns/{returnId}',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'merchantId' => array(
@@ -788,13 +1200,17 @@ class Google_Service_ShoppingContent extends Google_Service
                 ),
               ),
             ),'list' => array(
-              'path' => '{merchantId}/orderreturns',
+              'path' => 'content/v2.1/{merchantId}/orderreturns',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'merchantId' => array(
                   'location' => 'path',
                   'type' => 'string',
                   'required' => true,
+                ),
+                'acknowledged' => array(
+                  'location' => 'query',
+                  'type' => 'boolean',
                 ),
                 'createdEndDate' => array(
                   'location' => 'query',
@@ -803,6 +1219,11 @@ class Google_Service_ShoppingContent extends Google_Service
                 'createdStartDate' => array(
                   'location' => 'query',
                   'type' => 'string',
+                ),
+                'googleOrderIds' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                  'repeated' => true,
                 ),
                 'maxResults' => array(
                   'location' => 'query',
@@ -816,6 +1237,41 @@ class Google_Service_ShoppingContent extends Google_Service
                   'location' => 'query',
                   'type' => 'string',
                 ),
+                'shipmentStates' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                  'repeated' => true,
+                ),
+                'shipmentStatus' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                  'repeated' => true,
+                ),
+                'shipmentTrackingNumbers' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                  'repeated' => true,
+                ),
+                'shipmentTypes' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                  'repeated' => true,
+                ),
+              ),
+            ),'process' => array(
+              'path' => 'content/v2.1/{merchantId}/orderreturns/{returnId}/process',
+              'httpMethod' => 'POST',
+              'parameters' => array(
+                'merchantId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'returnId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
               ),
             ),
           )
@@ -828,7 +1284,7 @@ class Google_Service_ShoppingContent extends Google_Service
         array(
           'methods' => array(
             'acknowledge' => array(
-              'path' => '{merchantId}/orders/{orderId}/acknowledge',
+              'path' => 'content/v2.1/{merchantId}/orders/{orderId}/acknowledge',
               'httpMethod' => 'POST',
               'parameters' => array(
                 'merchantId' => array(
@@ -843,7 +1299,7 @@ class Google_Service_ShoppingContent extends Google_Service
                 ),
               ),
             ),'advancetestorder' => array(
-              'path' => '{merchantId}/testorders/{orderId}/advance',
+              'path' => 'content/v2.1/{merchantId}/testorders/{orderId}/advance',
               'httpMethod' => 'POST',
               'parameters' => array(
                 'merchantId' => array(
@@ -858,7 +1314,7 @@ class Google_Service_ShoppingContent extends Google_Service
                 ),
               ),
             ),'cancel' => array(
-              'path' => '{merchantId}/orders/{orderId}/cancel',
+              'path' => 'content/v2.1/{merchantId}/orders/{orderId}/cancel',
               'httpMethod' => 'POST',
               'parameters' => array(
                 'merchantId' => array(
@@ -873,7 +1329,7 @@ class Google_Service_ShoppingContent extends Google_Service
                 ),
               ),
             ),'cancellineitem' => array(
-              'path' => '{merchantId}/orders/{orderId}/cancelLineItem',
+              'path' => 'content/v2.1/{merchantId}/orders/{orderId}/cancelLineItem',
               'httpMethod' => 'POST',
               'parameters' => array(
                 'merchantId' => array(
@@ -888,7 +1344,7 @@ class Google_Service_ShoppingContent extends Google_Service
                 ),
               ),
             ),'canceltestorderbycustomer' => array(
-              'path' => '{merchantId}/testorders/{orderId}/cancelByCustomer',
+              'path' => 'content/v2.1/{merchantId}/testorders/{orderId}/cancelByCustomer',
               'httpMethod' => 'POST',
               'parameters' => array(
                 'merchantId' => array(
@@ -903,7 +1359,7 @@ class Google_Service_ShoppingContent extends Google_Service
                 ),
               ),
             ),'createtestorder' => array(
-              'path' => '{merchantId}/testorders',
+              'path' => 'content/v2.1/{merchantId}/testorders',
               'httpMethod' => 'POST',
               'parameters' => array(
                 'merchantId' => array(
@@ -913,7 +1369,7 @@ class Google_Service_ShoppingContent extends Google_Service
                 ),
               ),
             ),'createtestreturn' => array(
-              'path' => '{merchantId}/orders/{orderId}/testreturn',
+              'path' => 'content/v2.1/{merchantId}/orders/{orderId}/testreturn',
               'httpMethod' => 'POST',
               'parameters' => array(
                 'merchantId' => array(
@@ -928,7 +1384,7 @@ class Google_Service_ShoppingContent extends Google_Service
                 ),
               ),
             ),'get' => array(
-              'path' => '{merchantId}/orders/{orderId}',
+              'path' => 'content/v2.1/{merchantId}/orders/{orderId}',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'merchantId' => array(
@@ -943,7 +1399,7 @@ class Google_Service_ShoppingContent extends Google_Service
                 ),
               ),
             ),'getbymerchantorderid' => array(
-              'path' => '{merchantId}/ordersbymerchantid/{merchantOrderId}',
+              'path' => 'content/v2.1/{merchantId}/ordersbymerchantid/{merchantOrderId}',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'merchantId' => array(
@@ -958,7 +1414,7 @@ class Google_Service_ShoppingContent extends Google_Service
                 ),
               ),
             ),'gettestordertemplate' => array(
-              'path' => '{merchantId}/testordertemplates/{templateName}',
+              'path' => 'content/v2.1/{merchantId}/testordertemplates/{templateName}',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'merchantId' => array(
@@ -977,7 +1433,7 @@ class Google_Service_ShoppingContent extends Google_Service
                 ),
               ),
             ),'instorerefundlineitem' => array(
-              'path' => '{merchantId}/orders/{orderId}/inStoreRefundLineItem',
+              'path' => 'content/v2.1/{merchantId}/orders/{orderId}/inStoreRefundLineItem',
               'httpMethod' => 'POST',
               'parameters' => array(
                 'merchantId' => array(
@@ -992,7 +1448,7 @@ class Google_Service_ShoppingContent extends Google_Service
                 ),
               ),
             ),'list' => array(
-              'path' => '{merchantId}/orders',
+              'path' => 'content/v2.1/{merchantId}/orders',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'merchantId' => array(
@@ -1030,8 +1486,38 @@ class Google_Service_ShoppingContent extends Google_Service
                   'repeated' => true,
                 ),
               ),
+            ),'refunditem' => array(
+              'path' => 'content/v2.1/{merchantId}/orders/{orderId}/refunditem',
+              'httpMethod' => 'POST',
+              'parameters' => array(
+                'merchantId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'orderId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'refundorder' => array(
+              'path' => 'content/v2.1/{merchantId}/orders/{orderId}/refundorder',
+              'httpMethod' => 'POST',
+              'parameters' => array(
+                'merchantId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'orderId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
             ),'rejectreturnlineitem' => array(
-              'path' => '{merchantId}/orders/{orderId}/rejectReturnLineItem',
+              'path' => 'content/v2.1/{merchantId}/orders/{orderId}/rejectReturnLineItem',
               'httpMethod' => 'POST',
               'parameters' => array(
                 'merchantId' => array(
@@ -1046,7 +1532,7 @@ class Google_Service_ShoppingContent extends Google_Service
                 ),
               ),
             ),'returnrefundlineitem' => array(
-              'path' => '{merchantId}/orders/{orderId}/returnRefundLineItem',
+              'path' => 'content/v2.1/{merchantId}/orders/{orderId}/returnRefundLineItem',
               'httpMethod' => 'POST',
               'parameters' => array(
                 'merchantId' => array(
@@ -1061,7 +1547,7 @@ class Google_Service_ShoppingContent extends Google_Service
                 ),
               ),
             ),'setlineitemmetadata' => array(
-              'path' => '{merchantId}/orders/{orderId}/setLineItemMetadata',
+              'path' => 'content/v2.1/{merchantId}/orders/{orderId}/setLineItemMetadata',
               'httpMethod' => 'POST',
               'parameters' => array(
                 'merchantId' => array(
@@ -1076,7 +1562,7 @@ class Google_Service_ShoppingContent extends Google_Service
                 ),
               ),
             ),'shiplineitems' => array(
-              'path' => '{merchantId}/orders/{orderId}/shipLineItems',
+              'path' => 'content/v2.1/{merchantId}/orders/{orderId}/shipLineItems',
               'httpMethod' => 'POST',
               'parameters' => array(
                 'merchantId' => array(
@@ -1091,7 +1577,7 @@ class Google_Service_ShoppingContent extends Google_Service
                 ),
               ),
             ),'updatelineitemshippingdetails' => array(
-              'path' => '{merchantId}/orders/{orderId}/updateLineItemShippingDetails',
+              'path' => 'content/v2.1/{merchantId}/orders/{orderId}/updateLineItemShippingDetails',
               'httpMethod' => 'POST',
               'parameters' => array(
                 'merchantId' => array(
@@ -1106,7 +1592,7 @@ class Google_Service_ShoppingContent extends Google_Service
                 ),
               ),
             ),'updatemerchantorderid' => array(
-              'path' => '{merchantId}/orders/{orderId}/updateMerchantOrderId',
+              'path' => 'content/v2.1/{merchantId}/orders/{orderId}/updateMerchantOrderId',
               'httpMethod' => 'POST',
               'parameters' => array(
                 'merchantId' => array(
@@ -1121,7 +1607,7 @@ class Google_Service_ShoppingContent extends Google_Service
                 ),
               ),
             ),'updateshipment' => array(
-              'path' => '{merchantId}/orders/{orderId}/updateShipment',
+              'path' => 'content/v2.1/{merchantId}/orders/{orderId}/updateShipment',
               'httpMethod' => 'POST',
               'parameters' => array(
                 'merchantId' => array(
@@ -1139,6 +1625,26 @@ class Google_Service_ShoppingContent extends Google_Service
           )
         )
     );
+    $this->ordertrackingsignals = new Google_Service_ShoppingContent_Resource_Ordertrackingsignals(
+        $this,
+        $this->serviceName,
+        'ordertrackingsignals',
+        array(
+          'methods' => array(
+            'create' => array(
+              'path' => 'content/v2.1/{merchantId}/ordertrackingsignals',
+              'httpMethod' => 'POST',
+              'parameters' => array(
+                'merchantId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),
+          )
+        )
+    );
     $this->pos = new Google_Service_ShoppingContent_Resource_Pos(
         $this,
         $this->serviceName,
@@ -1146,11 +1652,11 @@ class Google_Service_ShoppingContent extends Google_Service
         array(
           'methods' => array(
             'custombatch' => array(
-              'path' => 'pos/batch',
+              'path' => 'content/v2.1/pos/batch',
               'httpMethod' => 'POST',
               'parameters' => array(),
             ),'delete' => array(
-              'path' => '{merchantId}/pos/{targetMerchantId}/store/{storeCode}',
+              'path' => 'content/v2.1/{merchantId}/pos/{targetMerchantId}/store/{storeCode}',
               'httpMethod' => 'DELETE',
               'parameters' => array(
                 'merchantId' => array(
@@ -1170,7 +1676,7 @@ class Google_Service_ShoppingContent extends Google_Service
                 ),
               ),
             ),'get' => array(
-              'path' => '{merchantId}/pos/{targetMerchantId}/store/{storeCode}',
+              'path' => 'content/v2.1/{merchantId}/pos/{targetMerchantId}/store/{storeCode}',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'merchantId' => array(
@@ -1190,7 +1696,7 @@ class Google_Service_ShoppingContent extends Google_Service
                 ),
               ),
             ),'insert' => array(
-              'path' => '{merchantId}/pos/{targetMerchantId}/store',
+              'path' => 'content/v2.1/{merchantId}/pos/{targetMerchantId}/store',
               'httpMethod' => 'POST',
               'parameters' => array(
                 'merchantId' => array(
@@ -1205,7 +1711,7 @@ class Google_Service_ShoppingContent extends Google_Service
                 ),
               ),
             ),'inventory' => array(
-              'path' => '{merchantId}/pos/{targetMerchantId}/inventory',
+              'path' => 'content/v2.1/{merchantId}/pos/{targetMerchantId}/inventory',
               'httpMethod' => 'POST',
               'parameters' => array(
                 'merchantId' => array(
@@ -1220,7 +1726,7 @@ class Google_Service_ShoppingContent extends Google_Service
                 ),
               ),
             ),'list' => array(
-              'path' => '{merchantId}/pos/{targetMerchantId}/store',
+              'path' => 'content/v2.1/{merchantId}/pos/{targetMerchantId}/store',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'merchantId' => array(
@@ -1235,7 +1741,7 @@ class Google_Service_ShoppingContent extends Google_Service
                 ),
               ),
             ),'sale' => array(
-              'path' => '{merchantId}/pos/{targetMerchantId}/sale',
+              'path' => 'content/v2.1/{merchantId}/pos/{targetMerchantId}/sale',
               'httpMethod' => 'POST',
               'parameters' => array(
                 'merchantId' => array(
@@ -1260,11 +1766,11 @@ class Google_Service_ShoppingContent extends Google_Service
         array(
           'methods' => array(
             'custombatch' => array(
-              'path' => 'products/batch',
+              'path' => 'content/v2.1/products/batch',
               'httpMethod' => 'POST',
               'parameters' => array(),
             ),'delete' => array(
-              'path' => '{merchantId}/products/{productId}',
+              'path' => 'content/v2.1/{merchantId}/products/{productId}',
               'httpMethod' => 'DELETE',
               'parameters' => array(
                 'merchantId' => array(
@@ -1283,7 +1789,7 @@ class Google_Service_ShoppingContent extends Google_Service
                 ),
               ),
             ),'get' => array(
-              'path' => '{merchantId}/products/{productId}',
+              'path' => 'content/v2.1/{merchantId}/products/{productId}',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'merchantId' => array(
@@ -1298,7 +1804,7 @@ class Google_Service_ShoppingContent extends Google_Service
                 ),
               ),
             ),'insert' => array(
-              'path' => '{merchantId}/products',
+              'path' => 'content/v2.1/{merchantId}/products',
               'httpMethod' => 'POST',
               'parameters' => array(
                 'merchantId' => array(
@@ -1312,7 +1818,7 @@ class Google_Service_ShoppingContent extends Google_Service
                 ),
               ),
             ),'list' => array(
-              'path' => '{merchantId}/products',
+              'path' => 'content/v2.1/{merchantId}/products',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'merchantId' => array(
@@ -1340,11 +1846,11 @@ class Google_Service_ShoppingContent extends Google_Service
         array(
           'methods' => array(
             'custombatch' => array(
-              'path' => 'productstatuses/batch',
+              'path' => 'content/v2.1/productstatuses/batch',
               'httpMethod' => 'POST',
               'parameters' => array(),
             ),'get' => array(
-              'path' => '{merchantId}/productstatuses/{productId}',
+              'path' => 'content/v2.1/{merchantId}/productstatuses/{productId}',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'merchantId' => array(
@@ -1364,7 +1870,7 @@ class Google_Service_ShoppingContent extends Google_Service
                 ),
               ),
             ),'list' => array(
-              'path' => '{merchantId}/productstatuses',
+              'path' => 'content/v2.1/{merchantId}/productstatuses',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'merchantId' => array(
@@ -1390,6 +1896,81 @@ class Google_Service_ShoppingContent extends Google_Service
           )
         )
     );
+    $this->productstatuses_repricingreports = new Google_Service_ShoppingContent_Resource_ProductstatusesRepricingreports(
+        $this,
+        $this->serviceName,
+        'repricingreports',
+        array(
+          'methods' => array(
+            'list' => array(
+              'path' => 'content/v2.1/{merchantId}/productstatuses/{productId}/repricingreports',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'merchantId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'productId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'endDate' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'pageSize' => array(
+                  'location' => 'query',
+                  'type' => 'integer',
+                ),
+                'pageToken' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'ruleId' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'startDate' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+              ),
+            ),
+          )
+        )
+    );
+    $this->pubsubnotificationsettings = new Google_Service_ShoppingContent_Resource_Pubsubnotificationsettings(
+        $this,
+        $this->serviceName,
+        'pubsubnotificationsettings',
+        array(
+          'methods' => array(
+            'get' => array(
+              'path' => 'content/v2.1/{merchantId}/pubsubnotificationsettings',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'merchantId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'update' => array(
+              'path' => 'content/v2.1/{merchantId}/pubsubnotificationsettings',
+              'httpMethod' => 'PUT',
+              'parameters' => array(
+                'merchantId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),
+          )
+        )
+    );
     $this->regionalinventory = new Google_Service_ShoppingContent_Resource_Regionalinventory(
         $this,
         $this->serviceName,
@@ -1397,11 +1978,11 @@ class Google_Service_ShoppingContent extends Google_Service
         array(
           'methods' => array(
             'custombatch' => array(
-              'path' => 'regionalinventory/batch',
+              'path' => 'content/v2.1/regionalinventory/batch',
               'httpMethod' => 'POST',
               'parameters' => array(),
             ),'insert' => array(
-              'path' => '{merchantId}/products/{productId}/regionalinventory',
+              'path' => 'content/v2.1/{merchantId}/products/{productId}/regionalinventory',
               'httpMethod' => 'POST',
               'parameters' => array(
                 'merchantId' => array(
@@ -1419,6 +2000,233 @@ class Google_Service_ShoppingContent extends Google_Service
           )
         )
     );
+    $this->regions = new Google_Service_ShoppingContent_Resource_Regions(
+        $this,
+        $this->serviceName,
+        'regions',
+        array(
+          'methods' => array(
+            'create' => array(
+              'path' => 'content/v2.1/{merchantId}/regions',
+              'httpMethod' => 'POST',
+              'parameters' => array(
+                'merchantId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'regionId' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+              ),
+            ),'delete' => array(
+              'path' => 'content/v2.1/{merchantId}/regions/{regionId}',
+              'httpMethod' => 'DELETE',
+              'parameters' => array(
+                'merchantId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'regionId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'get' => array(
+              'path' => 'content/v2.1/{merchantId}/regions/{regionId}',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'merchantId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'regionId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'list' => array(
+              'path' => 'content/v2.1/{merchantId}/regions',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'merchantId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'pageSize' => array(
+                  'location' => 'query',
+                  'type' => 'integer',
+                ),
+                'pageToken' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+              ),
+            ),'patch' => array(
+              'path' => 'content/v2.1/{merchantId}/regions/{regionId}',
+              'httpMethod' => 'PATCH',
+              'parameters' => array(
+                'merchantId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'regionId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'updateMask' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+              ),
+            ),
+          )
+        )
+    );
+    $this->repricingrules = new Google_Service_ShoppingContent_Resource_Repricingrules(
+        $this,
+        $this->serviceName,
+        'repricingrules',
+        array(
+          'methods' => array(
+            'create' => array(
+              'path' => 'content/v2.1/{merchantId}/repricingrules',
+              'httpMethod' => 'POST',
+              'parameters' => array(
+                'merchantId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'ruleId' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+              ),
+            ),'delete' => array(
+              'path' => 'content/v2.1/{merchantId}/repricingrules/{ruleId}',
+              'httpMethod' => 'DELETE',
+              'parameters' => array(
+                'merchantId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'ruleId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'get' => array(
+              'path' => 'content/v2.1/{merchantId}/repricingrules/{ruleId}',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'merchantId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'ruleId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'list' => array(
+              'path' => 'content/v2.1/{merchantId}/repricingrules',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'merchantId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'countryCode' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'languageCode' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'pageSize' => array(
+                  'location' => 'query',
+                  'type' => 'integer',
+                ),
+                'pageToken' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+              ),
+            ),'patch' => array(
+              'path' => 'content/v2.1/{merchantId}/repricingrules/{ruleId}',
+              'httpMethod' => 'PATCH',
+              'parameters' => array(
+                'merchantId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'ruleId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),
+          )
+        )
+    );
+    $this->repricingrules_repricingreports = new Google_Service_ShoppingContent_Resource_RepricingrulesRepricingreports(
+        $this,
+        $this->serviceName,
+        'repricingreports',
+        array(
+          'methods' => array(
+            'list' => array(
+              'path' => 'content/v2.1/{merchantId}/repricingrules/{ruleId}/repricingreports',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'merchantId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'ruleId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'endDate' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'pageSize' => array(
+                  'location' => 'query',
+                  'type' => 'integer',
+                ),
+                'pageToken' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'startDate' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+              ),
+            ),
+          )
+        )
+    );
     $this->returnaddress = new Google_Service_ShoppingContent_Resource_Returnaddress(
         $this,
         $this->serviceName,
@@ -1426,11 +2234,11 @@ class Google_Service_ShoppingContent extends Google_Service
         array(
           'methods' => array(
             'custombatch' => array(
-              'path' => 'returnaddress/batch',
+              'path' => 'content/v2.1/returnaddress/batch',
               'httpMethod' => 'POST',
               'parameters' => array(),
             ),'delete' => array(
-              'path' => '{merchantId}/returnaddress/{returnAddressId}',
+              'path' => 'content/v2.1/{merchantId}/returnaddress/{returnAddressId}',
               'httpMethod' => 'DELETE',
               'parameters' => array(
                 'merchantId' => array(
@@ -1445,7 +2253,7 @@ class Google_Service_ShoppingContent extends Google_Service
                 ),
               ),
             ),'get' => array(
-              'path' => '{merchantId}/returnaddress/{returnAddressId}',
+              'path' => 'content/v2.1/{merchantId}/returnaddress/{returnAddressId}',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'merchantId' => array(
@@ -1460,7 +2268,7 @@ class Google_Service_ShoppingContent extends Google_Service
                 ),
               ),
             ),'insert' => array(
-              'path' => '{merchantId}/returnaddress',
+              'path' => 'content/v2.1/{merchantId}/returnaddress',
               'httpMethod' => 'POST',
               'parameters' => array(
                 'merchantId' => array(
@@ -1470,7 +2278,7 @@ class Google_Service_ShoppingContent extends Google_Service
                 ),
               ),
             ),'list' => array(
-              'path' => '{merchantId}/returnaddress',
+              'path' => 'content/v2.1/{merchantId}/returnaddress',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'merchantId' => array(
@@ -1502,11 +2310,11 @@ class Google_Service_ShoppingContent extends Google_Service
         array(
           'methods' => array(
             'custombatch' => array(
-              'path' => 'returnpolicy/batch',
+              'path' => 'content/v2.1/returnpolicy/batch',
               'httpMethod' => 'POST',
               'parameters' => array(),
             ),'delete' => array(
-              'path' => '{merchantId}/returnpolicy/{returnPolicyId}',
+              'path' => 'content/v2.1/{merchantId}/returnpolicy/{returnPolicyId}',
               'httpMethod' => 'DELETE',
               'parameters' => array(
                 'merchantId' => array(
@@ -1521,7 +2329,7 @@ class Google_Service_ShoppingContent extends Google_Service
                 ),
               ),
             ),'get' => array(
-              'path' => '{merchantId}/returnpolicy/{returnPolicyId}',
+              'path' => 'content/v2.1/{merchantId}/returnpolicy/{returnPolicyId}',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'merchantId' => array(
@@ -1536,7 +2344,7 @@ class Google_Service_ShoppingContent extends Google_Service
                 ),
               ),
             ),'insert' => array(
-              'path' => '{merchantId}/returnpolicy',
+              'path' => 'content/v2.1/{merchantId}/returnpolicy',
               'httpMethod' => 'POST',
               'parameters' => array(
                 'merchantId' => array(
@@ -1546,13 +2354,102 @@ class Google_Service_ShoppingContent extends Google_Service
                 ),
               ),
             ),'list' => array(
-              'path' => '{merchantId}/returnpolicy',
+              'path' => 'content/v2.1/{merchantId}/returnpolicy',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'merchantId' => array(
                   'location' => 'path',
                   'type' => 'string',
                   'required' => true,
+                ),
+              ),
+            ),
+          )
+        )
+    );
+    $this->settlementreports = new Google_Service_ShoppingContent_Resource_Settlementreports(
+        $this,
+        $this->serviceName,
+        'settlementreports',
+        array(
+          'methods' => array(
+            'get' => array(
+              'path' => 'content/v2.1/{merchantId}/settlementreports/{settlementId}',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'merchantId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'settlementId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'list' => array(
+              'path' => 'content/v2.1/{merchantId}/settlementreports',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'merchantId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'maxResults' => array(
+                  'location' => 'query',
+                  'type' => 'integer',
+                ),
+                'pageToken' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'transferEndDate' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'transferStartDate' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+              ),
+            ),
+          )
+        )
+    );
+    $this->settlementtransactions = new Google_Service_ShoppingContent_Resource_Settlementtransactions(
+        $this,
+        $this->serviceName,
+        'settlementtransactions',
+        array(
+          'methods' => array(
+            'list' => array(
+              'path' => 'content/v2.1/{merchantId}/settlementreports/{settlementId}/transactions',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'merchantId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'settlementId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'maxResults' => array(
+                  'location' => 'query',
+                  'type' => 'integer',
+                ),
+                'pageToken' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'transactionIds' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                  'repeated' => true,
                 ),
               ),
             ),
@@ -1566,11 +2463,11 @@ class Google_Service_ShoppingContent extends Google_Service
         array(
           'methods' => array(
             'custombatch' => array(
-              'path' => 'shippingsettings/batch',
+              'path' => 'content/v2.1/shippingsettings/batch',
               'httpMethod' => 'POST',
               'parameters' => array(),
             ),'get' => array(
-              'path' => '{merchantId}/shippingsettings/{accountId}',
+              'path' => 'content/v2.1/{merchantId}/shippingsettings/{accountId}',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'merchantId' => array(
@@ -1585,7 +2482,7 @@ class Google_Service_ShoppingContent extends Google_Service
                 ),
               ),
             ),'getsupportedcarriers' => array(
-              'path' => '{merchantId}/supportedCarriers',
+              'path' => 'content/v2.1/{merchantId}/supportedCarriers',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'merchantId' => array(
@@ -1595,7 +2492,17 @@ class Google_Service_ShoppingContent extends Google_Service
                 ),
               ),
             ),'getsupportedholidays' => array(
-              'path' => '{merchantId}/supportedHolidays',
+              'path' => 'content/v2.1/{merchantId}/supportedHolidays',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'merchantId' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
+            ),'getsupportedpickupservices' => array(
+              'path' => 'content/v2.1/{merchantId}/supportedPickupServices',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'merchantId' => array(
@@ -1605,7 +2512,7 @@ class Google_Service_ShoppingContent extends Google_Service
                 ),
               ),
             ),'list' => array(
-              'path' => '{merchantId}/shippingsettings',
+              'path' => 'content/v2.1/{merchantId}/shippingsettings',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'merchantId' => array(
@@ -1623,7 +2530,7 @@ class Google_Service_ShoppingContent extends Google_Service
                 ),
               ),
             ),'update' => array(
-              'path' => '{merchantId}/shippingsettings/{accountId}',
+              'path' => 'content/v2.1/{merchantId}/shippingsettings/{accountId}',
               'httpMethod' => 'PUT',
               'parameters' => array(
                 'merchantId' => array(

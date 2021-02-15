@@ -21,12 +21,16 @@ class Google_Service_AndroidPublisher_ProductPurchase extends Google_Model
   public $consumptionState;
   public $developerPayload;
   public $kind;
+  public $obfuscatedExternalAccountId;
+  public $obfuscatedExternalProfileId;
   public $orderId;
   public $productId;
   public $purchaseState;
   public $purchaseTimeMillis;
   public $purchaseToken;
   public $purchaseType;
+  public $quantity;
+  public $regionCode;
 
   public function setAcknowledgementState($acknowledgementState)
   {
@@ -59,6 +63,22 @@ class Google_Service_AndroidPublisher_ProductPurchase extends Google_Model
   public function getKind()
   {
     return $this->kind;
+  }
+  public function setObfuscatedExternalAccountId($obfuscatedExternalAccountId)
+  {
+    $this->obfuscatedExternalAccountId = $obfuscatedExternalAccountId;
+  }
+  public function getObfuscatedExternalAccountId()
+  {
+    return $this->obfuscatedExternalAccountId;
+  }
+  public function setObfuscatedExternalProfileId($obfuscatedExternalProfileId)
+  {
+    $this->obfuscatedExternalProfileId = $obfuscatedExternalProfileId;
+  }
+  public function getObfuscatedExternalProfileId()
+  {
+    return $this->obfuscatedExternalProfileId;
   }
   public function setOrderId($orderId)
   {
@@ -107,5 +127,21 @@ class Google_Service_AndroidPublisher_ProductPurchase extends Google_Model
   public function getPurchaseType()
   {
     return $this->purchaseType;
+  }
+  public function setQuantity($quantity)
+  {
+    $this->quantity = $quantity;
+  }
+  public function getQuantity()
+  {
+    return $this->quantity;
+  }
+  public function setRegionCode($regionCode)
+  {
+    $this->regionCode = $regionCode;
+  }
+  public function getRegionCode()
+  {
+    return $this->regionCode;
   }
 }

@@ -15,14 +15,16 @@
  * the License.
  */
 
-class Google_Service_Compute_TargetHttpProxyAggregatedList extends Google_Model
+class Google_Service_Compute_TargetHttpProxyAggregatedList extends Google_Collection
 {
+  protected $collection_key = 'unreachables';
   public $id;
   protected $itemsType = 'Google_Service_Compute_TargetHttpProxiesScopedList';
   protected $itemsDataType = 'map';
   public $kind;
   public $nextPageToken;
   public $selfLink;
+  public $unreachables;
 
   public function setId($id)
   {
@@ -33,14 +35,14 @@ class Google_Service_Compute_TargetHttpProxyAggregatedList extends Google_Model
     return $this->id;
   }
   /**
-   * @param Google_Service_Compute_TargetHttpProxiesScopedList
+   * @param Google_Service_Compute_TargetHttpProxiesScopedList[]
    */
   public function setItems($items)
   {
     $this->items = $items;
   }
   /**
-   * @return Google_Service_Compute_TargetHttpProxiesScopedList
+   * @return Google_Service_Compute_TargetHttpProxiesScopedList[]
    */
   public function getItems()
   {
@@ -69,5 +71,13 @@ class Google_Service_Compute_TargetHttpProxyAggregatedList extends Google_Model
   public function getSelfLink()
   {
     return $this->selfLink;
+  }
+  public function setUnreachables($unreachables)
+  {
+    $this->unreachables = $unreachables;
+  }
+  public function getUnreachables()
+  {
+    return $this->unreachables;
   }
 }

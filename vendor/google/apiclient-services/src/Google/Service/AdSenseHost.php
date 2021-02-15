@@ -44,7 +44,7 @@ class Google_Service_AdSenseHost extends Google_Service
   public $customchannels;
   public $reports;
   public $urlchannels;
-  
+
   /**
    * Constructs the internal representation of the AdSenseHost service.
    *
@@ -401,6 +401,10 @@ class Google_Service_AdSenseHost extends Google_Service
                   'location' => 'query',
                   'type' => 'string',
                   'required' => true,
+                ),
+                'callbackUrl' => array(
+                  'location' => 'query',
+                  'type' => 'string',
                 ),
                 'userLocale' => array(
                   'location' => 'query',

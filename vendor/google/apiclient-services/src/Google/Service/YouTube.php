@@ -19,12 +19,12 @@
  * Service definition for YouTube (v3).
  *
  * <p>
- * Supports core YouTube features, such as uploading videos, creating and
- * managing playlists, searching for content, and much more.</p>
+ * The YouTube Data API v3 is an API that provides access to YouTube data, such
+ * as videos, playlists, and channels.</p>
  *
  * <p>
  * For more information about this service, see the API
- * <a href="https://developers.google.com/youtube/v3" target="_blank">Documentation</a>
+ * <a href="https://developers.google.com/youtube/" target="_blank">Documentation</a>
  * </p>
  *
  * @author Google, Inc.
@@ -34,6 +34,9 @@ class Google_Service_YouTube extends Google_Service
   /** Manage your YouTube account. */
   const YOUTUBE =
       "https://www.googleapis.com/auth/youtube";
+  /** See a list of your current active channel members, their current level, and when they became a member. */
+  const YOUTUBE_CHANNEL_MEMBERSHIPS_CREATOR =
+      "https://www.googleapis.com/auth/youtube.channel-memberships.creator";
   /** See, edit, and permanently delete your YouTube videos, ratings, comments and captions. */
   const YOUTUBE_FORCE_SSL =
       "https://www.googleapis.com/auth/youtube.force-ssl";
@@ -50,6 +53,7 @@ class Google_Service_YouTube extends Google_Service
   const YOUTUBEPARTNER_CHANNEL_AUDIT =
       "https://www.googleapis.com/auth/youtubepartner-channel-audit";
 
+  public $abuseReports;
   public $activities;
   public $captions;
   public $channelBanners;
@@ -57,7 +61,6 @@ class Google_Service_YouTube extends Google_Service
   public $channels;
   public $commentThreads;
   public $comments;
-  public $guideCategories;
   public $i18nLanguages;
   public $i18nRegions;
   public $liveBroadcasts;
@@ -70,15 +73,16 @@ class Google_Service_YouTube extends Google_Service
   public $playlistItems;
   public $playlists;
   public $search;
-  public $sponsors;
   public $subscriptions;
   public $superChatEvents;
+  public $tests;
+  public $thirdPartyLinks;
   public $thumbnails;
   public $videoAbuseReportReasons;
   public $videoCategories;
   public $videos;
   public $watermarks;
-  
+
   /**
    * Constructs the internal representation of the YouTube service.
    *
@@ -88,35 +92,47 @@ class Google_Service_YouTube extends Google_Service
   public function __construct(Google_Client $client, $rootUrl = null)
   {
     parent::__construct($client);
-    $this->rootUrl = $rootUrl ?: 'https://www.googleapis.com/';
-    $this->servicePath = 'youtube/v3/';
-    $this->batchPath = 'batch/youtube/v3';
+    $this->rootUrl = $rootUrl ?: 'https://youtube.googleapis.com/';
+    $this->servicePath = '';
+    $this->batchPath = 'batch';
     $this->version = 'v3';
     $this->serviceName = 'youtube';
 
+    $this->abuseReports = new Google_Service_YouTube_Resource_AbuseReports(
+        $this,
+        $this->serviceName,
+        'abuseReports',
+        array(
+          'methods' => array(
+            'insert' => array(
+              'path' => 'youtube/v3/abuseReports',
+              'httpMethod' => 'POST',
+              'parameters' => array(
+                'part' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                  'repeated' => true,
+                  'required' => true,
+                ),
+              ),
+            ),
+          )
+        )
+    );
     $this->activities = new Google_Service_YouTube_Resource_Activities(
         $this,
         $this->serviceName,
         'activities',
         array(
           'methods' => array(
-            'insert' => array(
-              'path' => 'activities',
-              'httpMethod' => 'POST',
-              'parameters' => array(
-                'part' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                  'required' => true,
-                ),
-              ),
-            ),'list' => array(
-              'path' => 'activities',
+            'list' => array(
+              'path' => 'youtube/v3/activities',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'part' => array(
                   'location' => 'query',
                   'type' => 'string',
+                  'repeated' => true,
                   'required' => true,
                 ),
                 'channelId' => array(
@@ -163,7 +179,7 @@ class Google_Service_YouTube extends Google_Service
         array(
           'methods' => array(
             'delete' => array(
-              'path' => 'captions',
+              'path' => 'youtube/v3/captions',
               'httpMethod' => 'DELETE',
               'parameters' => array(
                 'id' => array(
@@ -181,7 +197,7 @@ class Google_Service_YouTube extends Google_Service
                 ),
               ),
             ),'download' => array(
-              'path' => 'captions/{id}',
+              'path' => 'youtube/v3/captions/{id}',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'id' => array(
@@ -207,12 +223,13 @@ class Google_Service_YouTube extends Google_Service
                 ),
               ),
             ),'insert' => array(
-              'path' => 'captions',
+              'path' => 'youtube/v3/captions',
               'httpMethod' => 'POST',
               'parameters' => array(
                 'part' => array(
                   'location' => 'query',
                   'type' => 'string',
+                  'repeated' => true,
                   'required' => true,
                 ),
                 'onBehalfOf' => array(
@@ -229,12 +246,13 @@ class Google_Service_YouTube extends Google_Service
                 ),
               ),
             ),'list' => array(
-              'path' => 'captions',
+              'path' => 'youtube/v3/captions',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'part' => array(
                   'location' => 'query',
                   'type' => 'string',
+                  'repeated' => true,
                   'required' => true,
                 ),
                 'videoId' => array(
@@ -245,6 +263,7 @@ class Google_Service_YouTube extends Google_Service
                 'id' => array(
                   'location' => 'query',
                   'type' => 'string',
+                  'repeated' => true,
                 ),
                 'onBehalfOf' => array(
                   'location' => 'query',
@@ -256,12 +275,13 @@ class Google_Service_YouTube extends Google_Service
                 ),
               ),
             ),'update' => array(
-              'path' => 'captions',
+              'path' => 'youtube/v3/captions',
               'httpMethod' => 'PUT',
               'parameters' => array(
                 'part' => array(
                   'location' => 'query',
                   'type' => 'string',
+                  'repeated' => true,
                   'required' => true,
                 ),
                 'onBehalfOf' => array(
@@ -288,7 +308,7 @@ class Google_Service_YouTube extends Google_Service
         array(
           'methods' => array(
             'insert' => array(
-              'path' => 'channelBanners/insert',
+              'path' => 'youtube/v3/channelBanners/insert',
               'httpMethod' => 'POST',
               'parameters' => array(
                 'channelId' => array(
@@ -296,6 +316,10 @@ class Google_Service_YouTube extends Google_Service
                   'type' => 'string',
                 ),
                 'onBehalfOfContentOwner' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'onBehalfOfContentOwnerChannel' => array(
                   'location' => 'query',
                   'type' => 'string',
                 ),
@@ -311,7 +335,7 @@ class Google_Service_YouTube extends Google_Service
         array(
           'methods' => array(
             'delete' => array(
-              'path' => 'channelSections',
+              'path' => 'youtube/v3/channelSections',
               'httpMethod' => 'DELETE',
               'parameters' => array(
                 'id' => array(
@@ -325,12 +349,13 @@ class Google_Service_YouTube extends Google_Service
                 ),
               ),
             ),'insert' => array(
-              'path' => 'channelSections',
+              'path' => 'youtube/v3/channelSections',
               'httpMethod' => 'POST',
               'parameters' => array(
                 'part' => array(
                   'location' => 'query',
                   'type' => 'string',
+                  'repeated' => true,
                   'required' => true,
                 ),
                 'onBehalfOfContentOwner' => array(
@@ -343,12 +368,13 @@ class Google_Service_YouTube extends Google_Service
                 ),
               ),
             ),'list' => array(
-              'path' => 'channelSections',
+              'path' => 'youtube/v3/channelSections',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'part' => array(
                   'location' => 'query',
                   'type' => 'string',
+                  'repeated' => true,
                   'required' => true,
                 ),
                 'channelId' => array(
@@ -362,6 +388,7 @@ class Google_Service_YouTube extends Google_Service
                 'id' => array(
                   'location' => 'query',
                   'type' => 'string',
+                  'repeated' => true,
                 ),
                 'mine' => array(
                   'location' => 'query',
@@ -373,12 +400,13 @@ class Google_Service_YouTube extends Google_Service
                 ),
               ),
             ),'update' => array(
-              'path' => 'channelSections',
+              'path' => 'youtube/v3/channelSections',
               'httpMethod' => 'PUT',
               'parameters' => array(
                 'part' => array(
                   'location' => 'query',
                   'type' => 'string',
+                  'repeated' => true,
                   'required' => true,
                 ),
                 'onBehalfOfContentOwner' => array(
@@ -397,12 +425,13 @@ class Google_Service_YouTube extends Google_Service
         array(
           'methods' => array(
             'list' => array(
-              'path' => 'channels',
+              'path' => 'youtube/v3/channels',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'part' => array(
                   'location' => 'query',
                   'type' => 'string',
+                  'repeated' => true,
                   'required' => true,
                 ),
                 'categoryId' => array(
@@ -420,6 +449,7 @@ class Google_Service_YouTube extends Google_Service
                 'id' => array(
                   'location' => 'query',
                   'type' => 'string',
+                  'repeated' => true,
                 ),
                 'managedByMe' => array(
                   'location' => 'query',
@@ -447,12 +477,13 @@ class Google_Service_YouTube extends Google_Service
                 ),
               ),
             ),'update' => array(
-              'path' => 'channels',
+              'path' => 'youtube/v3/channels',
               'httpMethod' => 'PUT',
               'parameters' => array(
                 'part' => array(
                   'location' => 'query',
                   'type' => 'string',
+                  'repeated' => true,
                   'required' => true,
                 ),
                 'onBehalfOfContentOwner' => array(
@@ -471,22 +502,24 @@ class Google_Service_YouTube extends Google_Service
         array(
           'methods' => array(
             'insert' => array(
-              'path' => 'commentThreads',
+              'path' => 'youtube/v3/commentThreads',
               'httpMethod' => 'POST',
               'parameters' => array(
                 'part' => array(
                   'location' => 'query',
                   'type' => 'string',
+                  'repeated' => true,
                   'required' => true,
                 ),
               ),
             ),'list' => array(
-              'path' => 'commentThreads',
+              'path' => 'youtube/v3/commentThreads',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'part' => array(
                   'location' => 'query',
                   'type' => 'string',
+                  'repeated' => true,
                   'required' => true,
                 ),
                 'allThreadsRelatedToChannelId' => array(
@@ -500,6 +533,7 @@ class Google_Service_YouTube extends Google_Service
                 'id' => array(
                   'location' => 'query',
                   'type' => 'string',
+                  'repeated' => true,
                 ),
                 'maxResults' => array(
                   'location' => 'query',
@@ -531,12 +565,13 @@ class Google_Service_YouTube extends Google_Service
                 ),
               ),
             ),'update' => array(
-              'path' => 'commentThreads',
+              'path' => 'youtube/v3/commentThreads',
               'httpMethod' => 'PUT',
               'parameters' => array(
                 'part' => array(
                   'location' => 'query',
                   'type' => 'string',
+                  'repeated' => true,
                   'required' => true,
                 ),
               ),
@@ -551,7 +586,7 @@ class Google_Service_YouTube extends Google_Service
         array(
           'methods' => array(
             'delete' => array(
-              'path' => 'comments',
+              'path' => 'youtube/v3/comments',
               'httpMethod' => 'DELETE',
               'parameters' => array(
                 'id' => array(
@@ -561,27 +596,30 @@ class Google_Service_YouTube extends Google_Service
                 ),
               ),
             ),'insert' => array(
-              'path' => 'comments',
+              'path' => 'youtube/v3/comments',
               'httpMethod' => 'POST',
               'parameters' => array(
                 'part' => array(
                   'location' => 'query',
                   'type' => 'string',
+                  'repeated' => true,
                   'required' => true,
                 ),
               ),
             ),'list' => array(
-              'path' => 'comments',
+              'path' => 'youtube/v3/comments',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'part' => array(
                   'location' => 'query',
                   'type' => 'string',
+                  'repeated' => true,
                   'required' => true,
                 ),
                 'id' => array(
                   'location' => 'query',
                   'type' => 'string',
+                  'repeated' => true,
                 ),
                 'maxResults' => array(
                   'location' => 'query',
@@ -601,22 +639,24 @@ class Google_Service_YouTube extends Google_Service
                 ),
               ),
             ),'markAsSpam' => array(
-              'path' => 'comments/markAsSpam',
+              'path' => 'youtube/v3/comments/markAsSpam',
               'httpMethod' => 'POST',
               'parameters' => array(
                 'id' => array(
                   'location' => 'query',
                   'type' => 'string',
+                  'repeated' => true,
                   'required' => true,
                 ),
               ),
             ),'setModerationStatus' => array(
-              'path' => 'comments/setModerationStatus',
+              'path' => 'youtube/v3/comments/setModerationStatus',
               'httpMethod' => 'POST',
               'parameters' => array(
                 'id' => array(
                   'location' => 'query',
                   'type' => 'string',
+                  'repeated' => true,
                   'required' => true,
                 ),
                 'moderationStatus' => array(
@@ -630,45 +670,14 @@ class Google_Service_YouTube extends Google_Service
                 ),
               ),
             ),'update' => array(
-              'path' => 'comments',
+              'path' => 'youtube/v3/comments',
               'httpMethod' => 'PUT',
               'parameters' => array(
                 'part' => array(
                   'location' => 'query',
                   'type' => 'string',
+                  'repeated' => true,
                   'required' => true,
-                ),
-              ),
-            ),
-          )
-        )
-    );
-    $this->guideCategories = new Google_Service_YouTube_Resource_GuideCategories(
-        $this,
-        $this->serviceName,
-        'guideCategories',
-        array(
-          'methods' => array(
-            'list' => array(
-              'path' => 'guideCategories',
-              'httpMethod' => 'GET',
-              'parameters' => array(
-                'part' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                  'required' => true,
-                ),
-                'hl' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
-                'id' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
-                'regionCode' => array(
-                  'location' => 'query',
-                  'type' => 'string',
                 ),
               ),
             ),
@@ -682,12 +691,13 @@ class Google_Service_YouTube extends Google_Service
         array(
           'methods' => array(
             'list' => array(
-              'path' => 'i18nLanguages',
+              'path' => 'youtube/v3/i18nLanguages',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'part' => array(
                   'location' => 'query',
                   'type' => 'string',
+                  'repeated' => true,
                   'required' => true,
                 ),
                 'hl' => array(
@@ -706,12 +716,13 @@ class Google_Service_YouTube extends Google_Service
         array(
           'methods' => array(
             'list' => array(
-              'path' => 'i18nRegions',
+              'path' => 'youtube/v3/i18nRegions',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'part' => array(
                   'location' => 'query',
                   'type' => 'string',
+                  'repeated' => true,
                   'required' => true,
                 ),
                 'hl' => array(
@@ -730,7 +741,7 @@ class Google_Service_YouTube extends Google_Service
         array(
           'methods' => array(
             'bind' => array(
-              'path' => 'liveBroadcasts/bind',
+              'path' => 'youtube/v3/liveBroadcasts/bind',
               'httpMethod' => 'POST',
               'parameters' => array(
                 'id' => array(
@@ -741,6 +752,7 @@ class Google_Service_YouTube extends Google_Service
                 'part' => array(
                   'location' => 'query',
                   'type' => 'string',
+                  'repeated' => true,
                   'required' => true,
                 ),
                 'onBehalfOfContentOwner' => array(
@@ -756,43 +768,8 @@ class Google_Service_YouTube extends Google_Service
                   'type' => 'string',
                 ),
               ),
-            ),'control' => array(
-              'path' => 'liveBroadcasts/control',
-              'httpMethod' => 'POST',
-              'parameters' => array(
-                'id' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                  'required' => true,
-                ),
-                'part' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                  'required' => true,
-                ),
-                'displaySlate' => array(
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ),
-                'offsetTimeMs' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
-                'onBehalfOfContentOwner' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
-                'onBehalfOfContentOwnerChannel' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
-                'walltime' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
-              ),
             ),'delete' => array(
-              'path' => 'liveBroadcasts',
+              'path' => 'youtube/v3/liveBroadcasts',
               'httpMethod' => 'DELETE',
               'parameters' => array(
                 'id' => array(
@@ -810,12 +787,13 @@ class Google_Service_YouTube extends Google_Service
                 ),
               ),
             ),'insert' => array(
-              'path' => 'liveBroadcasts',
+              'path' => 'youtube/v3/liveBroadcasts',
               'httpMethod' => 'POST',
               'parameters' => array(
                 'part' => array(
                   'location' => 'query',
                   'type' => 'string',
+                  'repeated' => true,
                   'required' => true,
                 ),
                 'onBehalfOfContentOwner' => array(
@@ -828,12 +806,13 @@ class Google_Service_YouTube extends Google_Service
                 ),
               ),
             ),'list' => array(
-              'path' => 'liveBroadcasts',
+              'path' => 'youtube/v3/liveBroadcasts',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'part' => array(
                   'location' => 'query',
                   'type' => 'string',
+                  'repeated' => true,
                   'required' => true,
                 ),
                 'broadcastStatus' => array(
@@ -847,6 +826,7 @@ class Google_Service_YouTube extends Google_Service
                 'id' => array(
                   'location' => 'query',
                   'type' => 'string',
+                  'repeated' => true,
                 ),
                 'maxResults' => array(
                   'location' => 'query',
@@ -870,7 +850,7 @@ class Google_Service_YouTube extends Google_Service
                 ),
               ),
             ),'transition' => array(
-              'path' => 'liveBroadcasts/transition',
+              'path' => 'youtube/v3/liveBroadcasts/transition',
               'httpMethod' => 'POST',
               'parameters' => array(
                 'broadcastStatus' => array(
@@ -886,6 +866,7 @@ class Google_Service_YouTube extends Google_Service
                 'part' => array(
                   'location' => 'query',
                   'type' => 'string',
+                  'repeated' => true,
                   'required' => true,
                 ),
                 'onBehalfOfContentOwner' => array(
@@ -898,12 +879,13 @@ class Google_Service_YouTube extends Google_Service
                 ),
               ),
             ),'update' => array(
-              'path' => 'liveBroadcasts',
+              'path' => 'youtube/v3/liveBroadcasts',
               'httpMethod' => 'PUT',
               'parameters' => array(
                 'part' => array(
                   'location' => 'query',
                   'type' => 'string',
+                  'repeated' => true,
                   'required' => true,
                 ),
                 'onBehalfOfContentOwner' => array(
@@ -926,7 +908,7 @@ class Google_Service_YouTube extends Google_Service
         array(
           'methods' => array(
             'delete' => array(
-              'path' => 'liveChat/bans',
+              'path' => 'youtube/v3/liveChat/bans',
               'httpMethod' => 'DELETE',
               'parameters' => array(
                 'id' => array(
@@ -936,12 +918,13 @@ class Google_Service_YouTube extends Google_Service
                 ),
               ),
             ),'insert' => array(
-              'path' => 'liveChat/bans',
+              'path' => 'youtube/v3/liveChat/bans',
               'httpMethod' => 'POST',
               'parameters' => array(
                 'part' => array(
                   'location' => 'query',
                   'type' => 'string',
+                  'repeated' => true,
                   'required' => true,
                 ),
               ),
@@ -956,7 +939,7 @@ class Google_Service_YouTube extends Google_Service
         array(
           'methods' => array(
             'delete' => array(
-              'path' => 'liveChat/messages',
+              'path' => 'youtube/v3/liveChat/messages',
               'httpMethod' => 'DELETE',
               'parameters' => array(
                 'id' => array(
@@ -966,17 +949,18 @@ class Google_Service_YouTube extends Google_Service
                 ),
               ),
             ),'insert' => array(
-              'path' => 'liveChat/messages',
+              'path' => 'youtube/v3/liveChat/messages',
               'httpMethod' => 'POST',
               'parameters' => array(
                 'part' => array(
                   'location' => 'query',
                   'type' => 'string',
+                  'repeated' => true,
                   'required' => true,
                 ),
               ),
             ),'list' => array(
-              'path' => 'liveChat/messages',
+              'path' => 'youtube/v3/liveChat/messages',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'liveChatId' => array(
@@ -987,6 +971,7 @@ class Google_Service_YouTube extends Google_Service
                 'part' => array(
                   'location' => 'query',
                   'type' => 'string',
+                  'repeated' => true,
                   'required' => true,
                 ),
                 'hl' => array(
@@ -1017,7 +1002,7 @@ class Google_Service_YouTube extends Google_Service
         array(
           'methods' => array(
             'delete' => array(
-              'path' => 'liveChat/moderators',
+              'path' => 'youtube/v3/liveChat/moderators',
               'httpMethod' => 'DELETE',
               'parameters' => array(
                 'id' => array(
@@ -1027,17 +1012,18 @@ class Google_Service_YouTube extends Google_Service
                 ),
               ),
             ),'insert' => array(
-              'path' => 'liveChat/moderators',
+              'path' => 'youtube/v3/liveChat/moderators',
               'httpMethod' => 'POST',
               'parameters' => array(
                 'part' => array(
                   'location' => 'query',
                   'type' => 'string',
+                  'repeated' => true,
                   'required' => true,
                 ),
               ),
             ),'list' => array(
-              'path' => 'liveChat/moderators',
+              'path' => 'youtube/v3/liveChat/moderators',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'liveChatId' => array(
@@ -1048,6 +1034,7 @@ class Google_Service_YouTube extends Google_Service
                 'part' => array(
                   'location' => 'query',
                   'type' => 'string',
+                  'repeated' => true,
                   'required' => true,
                 ),
                 'maxResults' => array(
@@ -1070,7 +1057,7 @@ class Google_Service_YouTube extends Google_Service
         array(
           'methods' => array(
             'delete' => array(
-              'path' => 'liveStreams',
+              'path' => 'youtube/v3/liveStreams',
               'httpMethod' => 'DELETE',
               'parameters' => array(
                 'id' => array(
@@ -1088,12 +1075,13 @@ class Google_Service_YouTube extends Google_Service
                 ),
               ),
             ),'insert' => array(
-              'path' => 'liveStreams',
+              'path' => 'youtube/v3/liveStreams',
               'httpMethod' => 'POST',
               'parameters' => array(
                 'part' => array(
                   'location' => 'query',
                   'type' => 'string',
+                  'repeated' => true,
                   'required' => true,
                 ),
                 'onBehalfOfContentOwner' => array(
@@ -1106,17 +1094,19 @@ class Google_Service_YouTube extends Google_Service
                 ),
               ),
             ),'list' => array(
-              'path' => 'liveStreams',
+              'path' => 'youtube/v3/liveStreams',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'part' => array(
                   'location' => 'query',
                   'type' => 'string',
+                  'repeated' => true,
                   'required' => true,
                 ),
                 'id' => array(
                   'location' => 'query',
                   'type' => 'string',
+                  'repeated' => true,
                 ),
                 'maxResults' => array(
                   'location' => 'query',
@@ -1140,12 +1130,13 @@ class Google_Service_YouTube extends Google_Service
                 ),
               ),
             ),'update' => array(
-              'path' => 'liveStreams',
+              'path' => 'youtube/v3/liveStreams',
               'httpMethod' => 'PUT',
               'parameters' => array(
                 'part' => array(
                   'location' => 'query',
                   'type' => 'string',
+                  'repeated' => true,
                   'required' => true,
                 ),
                 'onBehalfOfContentOwner' => array(
@@ -1168,13 +1159,18 @@ class Google_Service_YouTube extends Google_Service
         array(
           'methods' => array(
             'list' => array(
-              'path' => 'members',
+              'path' => 'youtube/v3/members',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'part' => array(
                   'location' => 'query',
                   'type' => 'string',
+                  'repeated' => true,
                   'required' => true,
+                ),
+                'filterByMemberChannelId' => array(
+                  'location' => 'query',
+                  'type' => 'string',
                 ),
                 'hasAccessToLevel' => array(
                   'location' => 'query',
@@ -1204,12 +1200,13 @@ class Google_Service_YouTube extends Google_Service
         array(
           'methods' => array(
             'list' => array(
-              'path' => 'membershipsLevels',
+              'path' => 'youtube/v3/membershipsLevels',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'part' => array(
                   'location' => 'query',
                   'type' => 'string',
+                  'repeated' => true,
                   'required' => true,
                 ),
               ),
@@ -1224,7 +1221,7 @@ class Google_Service_YouTube extends Google_Service
         array(
           'methods' => array(
             'delete' => array(
-              'path' => 'playlistItems',
+              'path' => 'youtube/v3/playlistItems',
               'httpMethod' => 'DELETE',
               'parameters' => array(
                 'id' => array(
@@ -1238,12 +1235,13 @@ class Google_Service_YouTube extends Google_Service
                 ),
               ),
             ),'insert' => array(
-              'path' => 'playlistItems',
+              'path' => 'youtube/v3/playlistItems',
               'httpMethod' => 'POST',
               'parameters' => array(
                 'part' => array(
                   'location' => 'query',
                   'type' => 'string',
+                  'repeated' => true,
                   'required' => true,
                 ),
                 'onBehalfOfContentOwner' => array(
@@ -1252,17 +1250,19 @@ class Google_Service_YouTube extends Google_Service
                 ),
               ),
             ),'list' => array(
-              'path' => 'playlistItems',
+              'path' => 'youtube/v3/playlistItems',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'part' => array(
                   'location' => 'query',
                   'type' => 'string',
+                  'repeated' => true,
                   'required' => true,
                 ),
                 'id' => array(
                   'location' => 'query',
                   'type' => 'string',
+                  'repeated' => true,
                 ),
                 'maxResults' => array(
                   'location' => 'query',
@@ -1286,12 +1286,13 @@ class Google_Service_YouTube extends Google_Service
                 ),
               ),
             ),'update' => array(
-              'path' => 'playlistItems',
+              'path' => 'youtube/v3/playlistItems',
               'httpMethod' => 'PUT',
               'parameters' => array(
                 'part' => array(
                   'location' => 'query',
                   'type' => 'string',
+                  'repeated' => true,
                   'required' => true,
                 ),
                 'onBehalfOfContentOwner' => array(
@@ -1310,7 +1311,7 @@ class Google_Service_YouTube extends Google_Service
         array(
           'methods' => array(
             'delete' => array(
-              'path' => 'playlists',
+              'path' => 'youtube/v3/playlists',
               'httpMethod' => 'DELETE',
               'parameters' => array(
                 'id' => array(
@@ -1324,12 +1325,13 @@ class Google_Service_YouTube extends Google_Service
                 ),
               ),
             ),'insert' => array(
-              'path' => 'playlists',
+              'path' => 'youtube/v3/playlists',
               'httpMethod' => 'POST',
               'parameters' => array(
                 'part' => array(
                   'location' => 'query',
                   'type' => 'string',
+                  'repeated' => true,
                   'required' => true,
                 ),
                 'onBehalfOfContentOwner' => array(
@@ -1342,12 +1344,13 @@ class Google_Service_YouTube extends Google_Service
                 ),
               ),
             ),'list' => array(
-              'path' => 'playlists',
+              'path' => 'youtube/v3/playlists',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'part' => array(
                   'location' => 'query',
                   'type' => 'string',
+                  'repeated' => true,
                   'required' => true,
                 ),
                 'channelId' => array(
@@ -1361,6 +1364,7 @@ class Google_Service_YouTube extends Google_Service
                 'id' => array(
                   'location' => 'query',
                   'type' => 'string',
+                  'repeated' => true,
                 ),
                 'maxResults' => array(
                   'location' => 'query',
@@ -1384,12 +1388,13 @@ class Google_Service_YouTube extends Google_Service
                 ),
               ),
             ),'update' => array(
-              'path' => 'playlists',
+              'path' => 'youtube/v3/playlists',
               'httpMethod' => 'PUT',
               'parameters' => array(
                 'part' => array(
                   'location' => 'query',
                   'type' => 'string',
+                  'repeated' => true,
                   'required' => true,
                 ),
                 'onBehalfOfContentOwner' => array(
@@ -1408,12 +1413,13 @@ class Google_Service_YouTube extends Google_Service
         array(
           'methods' => array(
             'list' => array(
-              'path' => 'search',
+              'path' => 'youtube/v3/search',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'part' => array(
                   'location' => 'query',
                   'type' => 'string',
+                  'repeated' => true,
                   'required' => true,
                 ),
                 'channelId' => array(
@@ -1499,6 +1505,7 @@ class Google_Service_YouTube extends Google_Service
                 'type' => array(
                   'location' => 'query',
                   'type' => 'string',
+                  'repeated' => true,
                 ),
                 'videoCaption' => array(
                   'location' => 'query',
@@ -1541,38 +1548,6 @@ class Google_Service_YouTube extends Google_Service
           )
         )
     );
-    $this->sponsors = new Google_Service_YouTube_Resource_Sponsors(
-        $this,
-        $this->serviceName,
-        'sponsors',
-        array(
-          'methods' => array(
-            'list' => array(
-              'path' => 'sponsors',
-              'httpMethod' => 'GET',
-              'parameters' => array(
-                'part' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                  'required' => true,
-                ),
-                'filter' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
-                'maxResults' => array(
-                  'location' => 'query',
-                  'type' => 'integer',
-                ),
-                'pageToken' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
-              ),
-            ),
-          )
-        )
-    );
     $this->subscriptions = new Google_Service_YouTube_Resource_Subscriptions(
         $this,
         $this->serviceName,
@@ -1580,7 +1555,7 @@ class Google_Service_YouTube extends Google_Service
         array(
           'methods' => array(
             'delete' => array(
-              'path' => 'subscriptions',
+              'path' => 'youtube/v3/subscriptions',
               'httpMethod' => 'DELETE',
               'parameters' => array(
                 'id' => array(
@@ -1590,22 +1565,24 @@ class Google_Service_YouTube extends Google_Service
                 ),
               ),
             ),'insert' => array(
-              'path' => 'subscriptions',
+              'path' => 'youtube/v3/subscriptions',
               'httpMethod' => 'POST',
               'parameters' => array(
                 'part' => array(
                   'location' => 'query',
                   'type' => 'string',
+                  'repeated' => true,
                   'required' => true,
                 ),
               ),
             ),'list' => array(
-              'path' => 'subscriptions',
+              'path' => 'youtube/v3/subscriptions',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'part' => array(
                   'location' => 'query',
                   'type' => 'string',
+                  'repeated' => true,
                   'required' => true,
                 ),
                 'channelId' => array(
@@ -1619,6 +1596,7 @@ class Google_Service_YouTube extends Google_Service
                 'id' => array(
                   'location' => 'query',
                   'type' => 'string',
+                  'repeated' => true,
                 ),
                 'maxResults' => array(
                   'location' => 'query',
@@ -1664,12 +1642,13 @@ class Google_Service_YouTube extends Google_Service
         array(
           'methods' => array(
             'list' => array(
-              'path' => 'superChatEvents',
+              'path' => 'youtube/v3/superChatEvents',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'part' => array(
                   'location' => 'query',
                   'type' => 'string',
+                  'repeated' => true,
                   'required' => true,
                 ),
                 'hl' => array(
@@ -1689,6 +1668,98 @@ class Google_Service_YouTube extends Google_Service
           )
         )
     );
+    $this->tests = new Google_Service_YouTube_Resource_Tests(
+        $this,
+        $this->serviceName,
+        'tests',
+        array(
+          'methods' => array(
+            'insert' => array(
+              'path' => 'youtube/v3/tests',
+              'httpMethod' => 'POST',
+              'parameters' => array(
+                'part' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                  'repeated' => true,
+                  'required' => true,
+                ),
+              ),
+            ),
+          )
+        )
+    );
+    $this->thirdPartyLinks = new Google_Service_YouTube_Resource_ThirdPartyLinks(
+        $this,
+        $this->serviceName,
+        'thirdPartyLinks',
+        array(
+          'methods' => array(
+            'delete' => array(
+              'path' => 'youtube/v3/thirdPartyLinks',
+              'httpMethod' => 'DELETE',
+              'parameters' => array(
+                'linkingToken' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'type' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'part' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                  'repeated' => true,
+                ),
+              ),
+            ),'insert' => array(
+              'path' => 'youtube/v3/thirdPartyLinks',
+              'httpMethod' => 'POST',
+              'parameters' => array(
+                'part' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                  'repeated' => true,
+                  'required' => true,
+                ),
+              ),
+            ),'list' => array(
+              'path' => 'youtube/v3/thirdPartyLinks',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'part' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                  'repeated' => true,
+                  'required' => true,
+                ),
+                'linkingToken' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'type' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+              ),
+            ),'update' => array(
+              'path' => 'youtube/v3/thirdPartyLinks',
+              'httpMethod' => 'PUT',
+              'parameters' => array(
+                'part' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                  'repeated' => true,
+                  'required' => true,
+                ),
+              ),
+            ),
+          )
+        )
+    );
     $this->thumbnails = new Google_Service_YouTube_Resource_Thumbnails(
         $this,
         $this->serviceName,
@@ -1696,7 +1767,7 @@ class Google_Service_YouTube extends Google_Service
         array(
           'methods' => array(
             'set' => array(
-              'path' => 'thumbnails/set',
+              'path' => 'youtube/v3/thumbnails/set',
               'httpMethod' => 'POST',
               'parameters' => array(
                 'videoId' => array(
@@ -1720,12 +1791,13 @@ class Google_Service_YouTube extends Google_Service
         array(
           'methods' => array(
             'list' => array(
-              'path' => 'videoAbuseReportReasons',
+              'path' => 'youtube/v3/videoAbuseReportReasons',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'part' => array(
                   'location' => 'query',
                   'type' => 'string',
+                  'repeated' => true,
                   'required' => true,
                 ),
                 'hl' => array(
@@ -1744,12 +1816,13 @@ class Google_Service_YouTube extends Google_Service
         array(
           'methods' => array(
             'list' => array(
-              'path' => 'videoCategories',
+              'path' => 'youtube/v3/videoCategories',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'part' => array(
                   'location' => 'query',
                   'type' => 'string',
+                  'repeated' => true,
                   'required' => true,
                 ),
                 'hl' => array(
@@ -1759,6 +1832,7 @@ class Google_Service_YouTube extends Google_Service
                 'id' => array(
                   'location' => 'query',
                   'type' => 'string',
+                  'repeated' => true,
                 ),
                 'regionCode' => array(
                   'location' => 'query',
@@ -1776,7 +1850,7 @@ class Google_Service_YouTube extends Google_Service
         array(
           'methods' => array(
             'delete' => array(
-              'path' => 'videos',
+              'path' => 'youtube/v3/videos',
               'httpMethod' => 'DELETE',
               'parameters' => array(
                 'id' => array(
@@ -1790,12 +1864,13 @@ class Google_Service_YouTube extends Google_Service
                 ),
               ),
             ),'getRating' => array(
-              'path' => 'videos/getRating',
+              'path' => 'youtube/v3/videos/getRating',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'id' => array(
                   'location' => 'query',
                   'type' => 'string',
+                  'repeated' => true,
                   'required' => true,
                 ),
                 'onBehalfOfContentOwner' => array(
@@ -1804,12 +1879,13 @@ class Google_Service_YouTube extends Google_Service
                 ),
               ),
             ),'insert' => array(
-              'path' => 'videos',
+              'path' => 'youtube/v3/videos',
               'httpMethod' => 'POST',
               'parameters' => array(
                 'part' => array(
                   'location' => 'query',
                   'type' => 'string',
+                  'repeated' => true,
                   'required' => true,
                 ),
                 'autoLevels' => array(
@@ -1834,12 +1910,13 @@ class Google_Service_YouTube extends Google_Service
                 ),
               ),
             ),'list' => array(
-              'path' => 'videos',
+              'path' => 'youtube/v3/videos',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'part' => array(
                   'location' => 'query',
                   'type' => 'string',
+                  'repeated' => true,
                   'required' => true,
                 ),
                 'chart' => array(
@@ -1853,6 +1930,7 @@ class Google_Service_YouTube extends Google_Service
                 'id' => array(
                   'location' => 'query',
                   'type' => 'string',
+                  'repeated' => true,
                 ),
                 'locale' => array(
                   'location' => 'query',
@@ -1892,7 +1970,7 @@ class Google_Service_YouTube extends Google_Service
                 ),
               ),
             ),'rate' => array(
-              'path' => 'videos/rate',
+              'path' => 'youtube/v3/videos/rate',
               'httpMethod' => 'POST',
               'parameters' => array(
                 'id' => array(
@@ -1907,7 +1985,7 @@ class Google_Service_YouTube extends Google_Service
                 ),
               ),
             ),'reportAbuse' => array(
-              'path' => 'videos/reportAbuse',
+              'path' => 'youtube/v3/videos/reportAbuse',
               'httpMethod' => 'POST',
               'parameters' => array(
                 'onBehalfOfContentOwner' => array(
@@ -1916,12 +1994,13 @@ class Google_Service_YouTube extends Google_Service
                 ),
               ),
             ),'update' => array(
-              'path' => 'videos',
+              'path' => 'youtube/v3/videos',
               'httpMethod' => 'PUT',
               'parameters' => array(
                 'part' => array(
                   'location' => 'query',
                   'type' => 'string',
+                  'repeated' => true,
                   'required' => true,
                 ),
                 'onBehalfOfContentOwner' => array(
@@ -1940,7 +2019,7 @@ class Google_Service_YouTube extends Google_Service
         array(
           'methods' => array(
             'set' => array(
-              'path' => 'watermarks/set',
+              'path' => 'youtube/v3/watermarks/set',
               'httpMethod' => 'POST',
               'parameters' => array(
                 'channelId' => array(
@@ -1954,7 +2033,7 @@ class Google_Service_YouTube extends Google_Service
                 ),
               ),
             ),'unset' => array(
-              'path' => 'watermarks/unset',
+              'path' => 'youtube/v3/watermarks/unset',
               'httpMethod' => 'POST',
               'parameters' => array(
                 'channelId' => array(

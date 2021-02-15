@@ -17,10 +17,21 @@
 
 class Google_Service_ServiceUsage_QuotaOverride extends Google_Model
 {
+  public $adminOverrideAncestor;
   public $dimensions;
+  public $metric;
   public $name;
   public $overrideValue;
+  public $unit;
 
+  public function setAdminOverrideAncestor($adminOverrideAncestor)
+  {
+    $this->adminOverrideAncestor = $adminOverrideAncestor;
+  }
+  public function getAdminOverrideAncestor()
+  {
+    return $this->adminOverrideAncestor;
+  }
   public function setDimensions($dimensions)
   {
     $this->dimensions = $dimensions;
@@ -28,6 +39,14 @@ class Google_Service_ServiceUsage_QuotaOverride extends Google_Model
   public function getDimensions()
   {
     return $this->dimensions;
+  }
+  public function setMetric($metric)
+  {
+    $this->metric = $metric;
+  }
+  public function getMetric()
+  {
+    return $this->metric;
   }
   public function setName($name)
   {
@@ -44,5 +63,13 @@ class Google_Service_ServiceUsage_QuotaOverride extends Google_Model
   public function getOverrideValue()
   {
     return $this->overrideValue;
+  }
+  public function setUnit($unit)
+  {
+    $this->unit = $unit;
+  }
+  public function getUnit()
+  {
+    return $this->unit;
   }
 }

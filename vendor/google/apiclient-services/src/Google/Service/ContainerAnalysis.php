@@ -16,7 +16,7 @@
  */
 
 /**
- * Service definition for ContainerAnalysis (v1alpha1).
+ * Service definition for ContainerAnalysis (v1beta1).
  *
  * <p>
  * An implementation of the Grafeas API, which stores, and enables querying and
@@ -38,11 +38,8 @@ class Google_Service_ContainerAnalysis extends Google_Service
   public $projects_notes;
   public $projects_notes_occurrences;
   public $projects_occurrences;
-  public $projects_operations;
   public $projects_scanConfigs;
-  public $providers_notes;
-  public $providers_notes_occurrences;
-  
+
   /**
    * Constructs the internal representation of the ContainerAnalysis service.
    *
@@ -55,7 +52,7 @@ class Google_Service_ContainerAnalysis extends Google_Service
     $this->rootUrl = $rootUrl ?: 'https://containeranalysis.googleapis.com/';
     $this->servicePath = '';
     $this->batchPath = 'batch';
-    $this->version = 'v1alpha1';
+    $this->version = 'v1beta1';
     $this->serviceName = 'containeranalysis';
 
     $this->projects_notes = new Google_Service_ContainerAnalysis_Resource_ProjectsNotes(
@@ -64,8 +61,8 @@ class Google_Service_ContainerAnalysis extends Google_Service
         'notes',
         array(
           'methods' => array(
-            'create' => array(
-              'path' => 'v1alpha1/{+parent}/notes',
+            'batchCreate' => array(
+              'path' => 'v1beta1/{+parent}/notes:batchCreate',
               'httpMethod' => 'POST',
               'parameters' => array(
                 'parent' => array(
@@ -73,9 +70,15 @@ class Google_Service_ContainerAnalysis extends Google_Service
                   'type' => 'string',
                   'required' => true,
                 ),
-                'name' => array(
-                  'location' => 'query',
+              ),
+            ),'create' => array(
+              'path' => 'v1beta1/{+parent}/notes',
+              'httpMethod' => 'POST',
+              'parameters' => array(
+                'parent' => array(
+                  'location' => 'path',
                   'type' => 'string',
+                  'required' => true,
                 ),
                 'noteId' => array(
                   'location' => 'query',
@@ -83,7 +86,7 @@ class Google_Service_ContainerAnalysis extends Google_Service
                 ),
               ),
             ),'delete' => array(
-              'path' => 'v1alpha1/{+name}',
+              'path' => 'v1beta1/{+name}',
               'httpMethod' => 'DELETE',
               'parameters' => array(
                 'name' => array(
@@ -93,7 +96,7 @@ class Google_Service_ContainerAnalysis extends Google_Service
                 ),
               ),
             ),'get' => array(
-              'path' => 'v1alpha1/{+name}',
+              'path' => 'v1beta1/{+name}',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'name' => array(
@@ -103,7 +106,7 @@ class Google_Service_ContainerAnalysis extends Google_Service
                 ),
               ),
             ),'getIamPolicy' => array(
-              'path' => 'v1alpha1/{+resource}:getIamPolicy',
+              'path' => 'v1beta1/{+resource}:getIamPolicy',
               'httpMethod' => 'POST',
               'parameters' => array(
                 'resource' => array(
@@ -113,7 +116,7 @@ class Google_Service_ContainerAnalysis extends Google_Service
                 ),
               ),
             ),'list' => array(
-              'path' => 'v1alpha1/{+parent}/notes',
+              'path' => 'v1beta1/{+parent}/notes',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'parent' => array(
@@ -125,21 +128,17 @@ class Google_Service_ContainerAnalysis extends Google_Service
                   'location' => 'query',
                   'type' => 'string',
                 ),
-                'name' => array(
+                'pageSize' => array(
                   'location' => 'query',
-                  'type' => 'string',
+                  'type' => 'integer',
                 ),
                 'pageToken' => array(
                   'location' => 'query',
                   'type' => 'string',
                 ),
-                'pageSize' => array(
-                  'location' => 'query',
-                  'type' => 'integer',
-                ),
               ),
             ),'patch' => array(
-              'path' => 'v1alpha1/{+name}',
+              'path' => 'v1beta1/{+name}',
               'httpMethod' => 'PATCH',
               'parameters' => array(
                 'name' => array(
@@ -153,7 +152,7 @@ class Google_Service_ContainerAnalysis extends Google_Service
                 ),
               ),
             ),'setIamPolicy' => array(
-              'path' => 'v1alpha1/{+resource}:setIamPolicy',
+              'path' => 'v1beta1/{+resource}:setIamPolicy',
               'httpMethod' => 'POST',
               'parameters' => array(
                 'resource' => array(
@@ -163,7 +162,7 @@ class Google_Service_ContainerAnalysis extends Google_Service
                 ),
               ),
             ),'testIamPermissions' => array(
-              'path' => 'v1alpha1/{+resource}:testIamPermissions',
+              'path' => 'v1beta1/{+resource}:testIamPermissions',
               'httpMethod' => 'POST',
               'parameters' => array(
                 'resource' => array(
@@ -183,7 +182,7 @@ class Google_Service_ContainerAnalysis extends Google_Service
         array(
           'methods' => array(
             'list' => array(
-              'path' => 'v1alpha1/{+name}/occurrences',
+              'path' => 'v1beta1/{+name}/occurrences',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'name' => array(
@@ -195,13 +194,13 @@ class Google_Service_ContainerAnalysis extends Google_Service
                   'location' => 'query',
                   'type' => 'string',
                 ),
-                'pageToken' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
                 'pageSize' => array(
                   'location' => 'query',
                   'type' => 'integer',
+                ),
+                'pageToken' => array(
+                  'location' => 'query',
+                  'type' => 'string',
                 ),
               ),
             ),
@@ -214,8 +213,8 @@ class Google_Service_ContainerAnalysis extends Google_Service
         'occurrences',
         array(
           'methods' => array(
-            'create' => array(
-              'path' => 'v1alpha1/{+parent}/occurrences',
+            'batchCreate' => array(
+              'path' => 'v1beta1/{+parent}/occurrences:batchCreate',
               'httpMethod' => 'POST',
               'parameters' => array(
                 'parent' => array(
@@ -223,13 +222,19 @@ class Google_Service_ContainerAnalysis extends Google_Service
                   'type' => 'string',
                   'required' => true,
                 ),
-                'name' => array(
-                  'location' => 'query',
+              ),
+            ),'create' => array(
+              'path' => 'v1beta1/{+parent}/occurrences',
+              'httpMethod' => 'POST',
+              'parameters' => array(
+                'parent' => array(
+                  'location' => 'path',
                   'type' => 'string',
+                  'required' => true,
                 ),
               ),
             ),'delete' => array(
-              'path' => 'v1alpha1/{+name}',
+              'path' => 'v1beta1/{+name}',
               'httpMethod' => 'DELETE',
               'parameters' => array(
                 'name' => array(
@@ -239,7 +244,7 @@ class Google_Service_ContainerAnalysis extends Google_Service
                 ),
               ),
             ),'get' => array(
-              'path' => 'v1alpha1/{+name}',
+              'path' => 'v1beta1/{+name}',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'name' => array(
@@ -249,7 +254,7 @@ class Google_Service_ContainerAnalysis extends Google_Service
                 ),
               ),
             ),'getIamPolicy' => array(
-              'path' => 'v1alpha1/{+resource}:getIamPolicy',
+              'path' => 'v1beta1/{+resource}:getIamPolicy',
               'httpMethod' => 'POST',
               'parameters' => array(
                 'resource' => array(
@@ -259,7 +264,7 @@ class Google_Service_ContainerAnalysis extends Google_Service
                 ),
               ),
             ),'getNotes' => array(
-              'path' => 'v1alpha1/{+name}/notes',
+              'path' => 'v1beta1/{+name}/notes',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'name' => array(
@@ -269,7 +274,7 @@ class Google_Service_ContainerAnalysis extends Google_Service
                 ),
               ),
             ),'getVulnerabilitySummary' => array(
-              'path' => 'v1alpha1/{+parent}/occurrences:vulnerabilitySummary',
+              'path' => 'v1beta1/{+parent}/occurrences:vulnerabilitySummary',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'parent' => array(
@@ -283,7 +288,7 @@ class Google_Service_ContainerAnalysis extends Google_Service
                 ),
               ),
             ),'list' => array(
-              'path' => 'v1alpha1/{+parent}/occurrences',
+              'path' => 'v1beta1/{+parent}/occurrences',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'parent' => array(
@@ -291,11 +296,7 @@ class Google_Service_ContainerAnalysis extends Google_Service
                   'type' => 'string',
                   'required' => true,
                 ),
-                'pageToken' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
-                'kind' => array(
+                'filter' => array(
                   'location' => 'query',
                   'type' => 'string',
                 ),
@@ -303,17 +304,13 @@ class Google_Service_ContainerAnalysis extends Google_Service
                   'location' => 'query',
                   'type' => 'integer',
                 ),
-                'name' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
-                'filter' => array(
+                'pageToken' => array(
                   'location' => 'query',
                   'type' => 'string',
                 ),
               ),
             ),'patch' => array(
-              'path' => 'v1alpha1/{+name}',
+              'path' => 'v1beta1/{+name}',
               'httpMethod' => 'PATCH',
               'parameters' => array(
                 'name' => array(
@@ -327,7 +324,7 @@ class Google_Service_ContainerAnalysis extends Google_Service
                 ),
               ),
             ),'setIamPolicy' => array(
-              'path' => 'v1alpha1/{+resource}:setIamPolicy',
+              'path' => 'v1beta1/{+resource}:setIamPolicy',
               'httpMethod' => 'POST',
               'parameters' => array(
                 'resource' => array(
@@ -337,40 +334,10 @@ class Google_Service_ContainerAnalysis extends Google_Service
                 ),
               ),
             ),'testIamPermissions' => array(
-              'path' => 'v1alpha1/{+resource}:testIamPermissions',
+              'path' => 'v1beta1/{+resource}:testIamPermissions',
               'httpMethod' => 'POST',
               'parameters' => array(
                 'resource' => array(
-                  'location' => 'path',
-                  'type' => 'string',
-                  'required' => true,
-                ),
-              ),
-            ),
-          )
-        )
-    );
-    $this->projects_operations = new Google_Service_ContainerAnalysis_Resource_ProjectsOperations(
-        $this,
-        $this->serviceName,
-        'operations',
-        array(
-          'methods' => array(
-            'create' => array(
-              'path' => 'v1alpha1/{+parent}/operations',
-              'httpMethod' => 'POST',
-              'parameters' => array(
-                'parent' => array(
-                  'location' => 'path',
-                  'type' => 'string',
-                  'required' => true,
-                ),
-              ),
-            ),'patch' => array(
-              'path' => 'v1alpha1/{+name}',
-              'httpMethod' => 'PATCH',
-              'parameters' => array(
-                'name' => array(
                   'location' => 'path',
                   'type' => 'string',
                   'required' => true,
@@ -387,7 +354,7 @@ class Google_Service_ContainerAnalysis extends Google_Service
         array(
           'methods' => array(
             'get' => array(
-              'path' => 'v1alpha1/{+name}',
+              'path' => 'v1beta1/{+name}',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'name' => array(
@@ -397,7 +364,7 @@ class Google_Service_ContainerAnalysis extends Google_Service
                 ),
               ),
             ),'list' => array(
-              'path' => 'v1alpha1/{+parent}/scanConfigs',
+              'path' => 'v1beta1/{+parent}/scanConfigs',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'parent' => array(
@@ -405,7 +372,7 @@ class Google_Service_ContainerAnalysis extends Google_Service
                   'type' => 'string',
                   'required' => true,
                 ),
-                'pageToken' => array(
+                'filter' => array(
                   'location' => 'query',
                   'type' => 'string',
                 ),
@@ -413,173 +380,19 @@ class Google_Service_ContainerAnalysis extends Google_Service
                   'location' => 'query',
                   'type' => 'integer',
                 ),
-                'filter' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
-              ),
-            ),'patch' => array(
-              'path' => 'v1alpha1/{+name}',
-              'httpMethod' => 'PATCH',
-              'parameters' => array(
-                'name' => array(
-                  'location' => 'path',
-                  'type' => 'string',
-                  'required' => true,
-                ),
-                'updateMask' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
-              ),
-            ),
-          )
-        )
-    );
-    $this->providers_notes = new Google_Service_ContainerAnalysis_Resource_ProvidersNotes(
-        $this,
-        $this->serviceName,
-        'notes',
-        array(
-          'methods' => array(
-            'create' => array(
-              'path' => 'v1alpha1/{+name}/notes',
-              'httpMethod' => 'POST',
-              'parameters' => array(
-                'name' => array(
-                  'location' => 'path',
-                  'type' => 'string',
-                  'required' => true,
-                ),
-                'parent' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
-                'noteId' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
-              ),
-            ),'delete' => array(
-              'path' => 'v1alpha1/{+name}',
-              'httpMethod' => 'DELETE',
-              'parameters' => array(
-                'name' => array(
-                  'location' => 'path',
-                  'type' => 'string',
-                  'required' => true,
-                ),
-              ),
-            ),'get' => array(
-              'path' => 'v1alpha1/{+name}',
-              'httpMethod' => 'GET',
-              'parameters' => array(
-                'name' => array(
-                  'location' => 'path',
-                  'type' => 'string',
-                  'required' => true,
-                ),
-              ),
-            ),'getIamPolicy' => array(
-              'path' => 'v1alpha1/{+resource}:getIamPolicy',
-              'httpMethod' => 'POST',
-              'parameters' => array(
-                'resource' => array(
-                  'location' => 'path',
-                  'type' => 'string',
-                  'required' => true,
-                ),
-              ),
-            ),'list' => array(
-              'path' => 'v1alpha1/{+name}/notes',
-              'httpMethod' => 'GET',
-              'parameters' => array(
-                'name' => array(
-                  'location' => 'path',
-                  'type' => 'string',
-                  'required' => true,
-                ),
                 'pageToken' => array(
                   'location' => 'query',
                   'type' => 'string',
                 ),
-                'pageSize' => array(
-                  'location' => 'query',
-                  'type' => 'integer',
-                ),
-                'parent' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
-                'filter' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
               ),
-            ),'patch' => array(
-              'path' => 'v1alpha1/{+name}',
-              'httpMethod' => 'PATCH',
+            ),'update' => array(
+              'path' => 'v1beta1/{+name}',
+              'httpMethod' => 'PUT',
               'parameters' => array(
                 'name' => array(
                   'location' => 'path',
                   'type' => 'string',
                   'required' => true,
-                ),
-                'updateMask' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
-              ),
-            ),'setIamPolicy' => array(
-              'path' => 'v1alpha1/{+resource}:setIamPolicy',
-              'httpMethod' => 'POST',
-              'parameters' => array(
-                'resource' => array(
-                  'location' => 'path',
-                  'type' => 'string',
-                  'required' => true,
-                ),
-              ),
-            ),'testIamPermissions' => array(
-              'path' => 'v1alpha1/{+resource}:testIamPermissions',
-              'httpMethod' => 'POST',
-              'parameters' => array(
-                'resource' => array(
-                  'location' => 'path',
-                  'type' => 'string',
-                  'required' => true,
-                ),
-              ),
-            ),
-          )
-        )
-    );
-    $this->providers_notes_occurrences = new Google_Service_ContainerAnalysis_Resource_ProvidersNotesOccurrences(
-        $this,
-        $this->serviceName,
-        'occurrences',
-        array(
-          'methods' => array(
-            'list' => array(
-              'path' => 'v1alpha1/{+name}/occurrences',
-              'httpMethod' => 'GET',
-              'parameters' => array(
-                'name' => array(
-                  'location' => 'path',
-                  'type' => 'string',
-                  'required' => true,
-                ),
-                'pageToken' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
-                'pageSize' => array(
-                  'location' => 'query',
-                  'type' => 'integer',
-                ),
-                'filter' => array(
-                  'location' => 'query',
-                  'type' => 'string',
                 ),
               ),
             ),

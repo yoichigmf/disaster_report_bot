@@ -17,11 +17,22 @@
 
 class Google_Service_Compute_HealthStatus extends Google_Model
 {
+  public $annotations;
   public $healthState;
   public $instance;
   public $ipAddress;
   public $port;
+  public $weight;
+  public $weightError;
 
+  public function setAnnotations($annotations)
+  {
+    $this->annotations = $annotations;
+  }
+  public function getAnnotations()
+  {
+    return $this->annotations;
+  }
   public function setHealthState($healthState)
   {
     $this->healthState = $healthState;
@@ -53,5 +64,21 @@ class Google_Service_Compute_HealthStatus extends Google_Model
   public function getPort()
   {
     return $this->port;
+  }
+  public function setWeight($weight)
+  {
+    $this->weight = $weight;
+  }
+  public function getWeight()
+  {
+    return $this->weight;
+  }
+  public function setWeightError($weightError)
+  {
+    $this->weightError = $weightError;
+  }
+  public function getWeightError()
+  {
+    return $this->weightError;
   }
 }

@@ -44,8 +44,8 @@ class Google_Service_CloudHealthcare_Resource_ProjectsLocationsDatasetsHl7V2Stor
     return $this->call('create', array($params), "Google_Service_CloudHealthcare_Hl7V2Store");
   }
   /**
-   * Deletes the specified HL7v2 store and removes all messages that are contained
-   * within it. (hl7V2Stores.delete)
+   * Deletes the specified HL7v2 store and removes all messages that it contains.
+   * (hl7V2Stores.delete)
    *
    * @param string $name The resource name of the HL7v2 store to delete.
    * @param array $optParams Optional parameters.
@@ -80,14 +80,13 @@ class Google_Service_CloudHealthcare_Resource_ProjectsLocationsDatasetsHl7V2Stor
    * @param array $optParams Optional parameters.
    *
    * @opt_param int options.requestedPolicyVersion Optional. The policy format
-   * version to be returned.
-   *
-   * Valid values are 0, 1, and 3. Requests specifying an invalid value will be
-   * rejected.
-   *
-   * Requests for policies with any conditional bindings must specify version 3.
-   * Policies without any conditional bindings may specify any valid value or
-   * leave the field unset.
+   * version to be returned. Valid values are 0, 1, and 3. Requests specifying an
+   * invalid value will be rejected. Requests for policies with any conditional
+   * bindings must specify version 3. Policies without any conditional bindings
+   * may specify any valid value or leave the field unset. To learn which
+   * resources support conditions in their IAM policies, see the [IAM
+   * documentation](https://cloud.google.com/iam/help/conditions/resource-
+   * policies).
    * @return Google_Service_CloudHealthcare_Policy
    */
   public function getIamPolicy($resource, $optParams = array())
@@ -107,10 +106,10 @@ class Google_Service_CloudHealthcare_Resource_ProjectsLocationsDatasetsHl7V2Stor
    * filter. Syntax:
    * https://cloud.google.com/appengine/docs/standard/python/search/query_strings
    * Only filtering on labels is supported. For example, `labels.key=value`.
+   * @opt_param int pageSize Limit on the number of HL7v2 stores to return in a
+   * single response. If not specified, 100 is used. May not be larger than 1000.
    * @opt_param string pageToken The next_page_token value returned from the
    * previous List request, if any.
-   * @opt_param int pageSize Limit on the number of HL7v2 stores to return in a
-   * single response. If zero the default page size of 100 is used.
    * @return Google_Service_CloudHealthcare_ListHl7V2StoresResponse
    */
   public function listProjectsLocationsDatasetsHl7V2Stores($parent, $optParams = array())
@@ -122,8 +121,7 @@ class Google_Service_CloudHealthcare_Resource_ProjectsLocationsDatasetsHl7V2Stor
   /**
    * Updates the HL7v2 store. (hl7V2Stores.patch)
    *
-   * @param string $name Output only. Resource name of the HL7v2 store, of the
-   * form
+   * @param string $name Resource name of the HL7v2 store, of the form
    * `projects/{project_id}/datasets/{dataset_id}/hl7V2Stores/{hl7v2_store_id}`.
    * @param Google_Service_CloudHealthcare_Hl7V2Store $postBody
    * @param array $optParams Optional parameters.
@@ -141,10 +139,8 @@ class Google_Service_CloudHealthcare_Resource_ProjectsLocationsDatasetsHl7V2Stor
   }
   /**
    * Sets the access control policy on the specified resource. Replaces any
-   * existing policy.
-   *
-   * Can return Public Errors: NOT_FOUND, INVALID_ARGUMENT and PERMISSION_DENIED
-   * (hl7V2Stores.setIamPolicy)
+   * existing policy. Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and
+   * `PERMISSION_DENIED` errors. (hl7V2Stores.setIamPolicy)
    *
    * @param string $resource REQUIRED: The resource for which the policy is being
    * specified. See the operation documentation for the appropriate value for this
@@ -162,11 +158,10 @@ class Google_Service_CloudHealthcare_Resource_ProjectsLocationsDatasetsHl7V2Stor
   /**
    * Returns permissions that a caller has on the specified resource. If the
    * resource does not exist, this will return an empty set of permissions, not a
-   * NOT_FOUND error.
-   *
-   * Note: This operation is designed to be used for building permission-aware UIs
-   * and command-line tools, not for authorization checking. This operation may
-   * "fail open" without warning. (hl7V2Stores.testIamPermissions)
+   * `NOT_FOUND` error. Note: This operation is designed to be used for building
+   * permission-aware UIs and command-line tools, not for authorization checking.
+   * This operation may "fail open" without warning.
+   * (hl7V2Stores.testIamPermissions)
    *
    * @param string $resource REQUIRED: The resource for which the policy detail is
    * being requested. See the operation documentation for the appropriate value

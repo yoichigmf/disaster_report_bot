@@ -18,12 +18,39 @@
 class Google_Service_SecurityCommandCenter_SecurityCenterProperties extends Google_Collection
 {
   protected $collection_key = 'resourceOwners';
+  protected $foldersType = 'Google_Service_SecurityCommandCenter_Folder';
+  protected $foldersDataType = 'array';
+  public $resourceDisplayName;
   public $resourceName;
   public $resourceOwners;
   public $resourceParent;
+  public $resourceParentDisplayName;
   public $resourceProject;
+  public $resourceProjectDisplayName;
   public $resourceType;
 
+  /**
+   * @param Google_Service_SecurityCommandCenter_Folder[]
+   */
+  public function setFolders($folders)
+  {
+    $this->folders = $folders;
+  }
+  /**
+   * @return Google_Service_SecurityCommandCenter_Folder[]
+   */
+  public function getFolders()
+  {
+    return $this->folders;
+  }
+  public function setResourceDisplayName($resourceDisplayName)
+  {
+    $this->resourceDisplayName = $resourceDisplayName;
+  }
+  public function getResourceDisplayName()
+  {
+    return $this->resourceDisplayName;
+  }
   public function setResourceName($resourceName)
   {
     $this->resourceName = $resourceName;
@@ -48,6 +75,14 @@ class Google_Service_SecurityCommandCenter_SecurityCenterProperties extends Goog
   {
     return $this->resourceParent;
   }
+  public function setResourceParentDisplayName($resourceParentDisplayName)
+  {
+    $this->resourceParentDisplayName = $resourceParentDisplayName;
+  }
+  public function getResourceParentDisplayName()
+  {
+    return $this->resourceParentDisplayName;
+  }
   public function setResourceProject($resourceProject)
   {
     $this->resourceProject = $resourceProject;
@@ -55,6 +90,14 @@ class Google_Service_SecurityCommandCenter_SecurityCenterProperties extends Goog
   public function getResourceProject()
   {
     return $this->resourceProject;
+  }
+  public function setResourceProjectDisplayName($resourceProjectDisplayName)
+  {
+    $this->resourceProjectDisplayName = $resourceProjectDisplayName;
+  }
+  public function getResourceProjectDisplayName()
+  {
+    return $this->resourceProjectDisplayName;
   }
   public function setResourceType($resourceType)
   {

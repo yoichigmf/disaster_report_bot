@@ -35,7 +35,7 @@ class Google_Service_ManufacturerCenter extends Google_Service
       "https://www.googleapis.com/auth/manufacturercenter";
 
   public $accounts_products;
-  
+
   /**
    * Constructs the internal representation of the ManufacturerCenter service.
    *
@@ -101,18 +101,18 @@ class Google_Service_ManufacturerCenter extends Google_Service
                   'type' => 'string',
                   'required' => true,
                 ),
-                'pageToken' => array(
+                'include' => array(
                   'location' => 'query',
                   'type' => 'string',
+                  'repeated' => true,
                 ),
                 'pageSize' => array(
                   'location' => 'query',
                   'type' => 'integer',
                 ),
-                'include' => array(
+                'pageToken' => array(
                   'location' => 'query',
                   'type' => 'string',
-                  'repeated' => true,
                 ),
               ),
             ),'update' => array(

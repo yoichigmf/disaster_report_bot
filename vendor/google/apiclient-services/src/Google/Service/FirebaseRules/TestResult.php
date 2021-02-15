@@ -21,6 +21,8 @@ class Google_Service_FirebaseRules_TestResult extends Google_Collection
   public $debugMessages;
   protected $errorPositionType = 'Google_Service_FirebaseRules_SourcePosition';
   protected $errorPositionDataType = '';
+  protected $expressionReportsType = 'Google_Service_FirebaseRules_ExpressionReport';
+  protected $expressionReportsDataType = 'array';
   protected $functionCallsType = 'Google_Service_FirebaseRules_FunctionCall';
   protected $functionCallsDataType = 'array';
   public $state;
@@ -50,14 +52,28 @@ class Google_Service_FirebaseRules_TestResult extends Google_Collection
     return $this->errorPosition;
   }
   /**
-   * @param Google_Service_FirebaseRules_FunctionCall
+   * @param Google_Service_FirebaseRules_ExpressionReport[]
+   */
+  public function setExpressionReports($expressionReports)
+  {
+    $this->expressionReports = $expressionReports;
+  }
+  /**
+   * @return Google_Service_FirebaseRules_ExpressionReport[]
+   */
+  public function getExpressionReports()
+  {
+    return $this->expressionReports;
+  }
+  /**
+   * @param Google_Service_FirebaseRules_FunctionCall[]
    */
   public function setFunctionCalls($functionCalls)
   {
     $this->functionCalls = $functionCalls;
   }
   /**
-   * @return Google_Service_FirebaseRules_FunctionCall
+   * @return Google_Service_FirebaseRules_FunctionCall[]
    */
   public function getFunctionCalls()
   {
@@ -72,14 +88,14 @@ class Google_Service_FirebaseRules_TestResult extends Google_Collection
     return $this->state;
   }
   /**
-   * @param Google_Service_FirebaseRules_VisitedExpression
+   * @param Google_Service_FirebaseRules_VisitedExpression[]
    */
   public function setVisitedExpressions($visitedExpressions)
   {
     $this->visitedExpressions = $visitedExpressions;
   }
   /**
-   * @return Google_Service_FirebaseRules_VisitedExpression
+   * @return Google_Service_FirebaseRules_VisitedExpression[]
    */
   public function getVisitedExpressions()
   {

@@ -17,6 +17,14 @@
 
 class Google_Service_Container_AddonsConfig extends Google_Model
 {
+  protected $cloudRunConfigType = 'Google_Service_Container_CloudRunConfig';
+  protected $cloudRunConfigDataType = '';
+  protected $configConnectorConfigType = 'Google_Service_Container_ConfigConnectorConfig';
+  protected $configConnectorConfigDataType = '';
+  protected $dnsCacheConfigType = 'Google_Service_Container_DnsCacheConfig';
+  protected $dnsCacheConfigDataType = '';
+  protected $gcePersistentDiskCsiDriverConfigType = 'Google_Service_Container_GcePersistentDiskCsiDriverConfig';
+  protected $gcePersistentDiskCsiDriverConfigDataType = '';
   protected $horizontalPodAutoscalingType = 'Google_Service_Container_HorizontalPodAutoscaling';
   protected $horizontalPodAutoscalingDataType = '';
   protected $httpLoadBalancingType = 'Google_Service_Container_HttpLoadBalancing';
@@ -26,6 +34,62 @@ class Google_Service_Container_AddonsConfig extends Google_Model
   protected $networkPolicyConfigType = 'Google_Service_Container_NetworkPolicyConfig';
   protected $networkPolicyConfigDataType = '';
 
+  /**
+   * @param Google_Service_Container_CloudRunConfig
+   */
+  public function setCloudRunConfig(Google_Service_Container_CloudRunConfig $cloudRunConfig)
+  {
+    $this->cloudRunConfig = $cloudRunConfig;
+  }
+  /**
+   * @return Google_Service_Container_CloudRunConfig
+   */
+  public function getCloudRunConfig()
+  {
+    return $this->cloudRunConfig;
+  }
+  /**
+   * @param Google_Service_Container_ConfigConnectorConfig
+   */
+  public function setConfigConnectorConfig(Google_Service_Container_ConfigConnectorConfig $configConnectorConfig)
+  {
+    $this->configConnectorConfig = $configConnectorConfig;
+  }
+  /**
+   * @return Google_Service_Container_ConfigConnectorConfig
+   */
+  public function getConfigConnectorConfig()
+  {
+    return $this->configConnectorConfig;
+  }
+  /**
+   * @param Google_Service_Container_DnsCacheConfig
+   */
+  public function setDnsCacheConfig(Google_Service_Container_DnsCacheConfig $dnsCacheConfig)
+  {
+    $this->dnsCacheConfig = $dnsCacheConfig;
+  }
+  /**
+   * @return Google_Service_Container_DnsCacheConfig
+   */
+  public function getDnsCacheConfig()
+  {
+    return $this->dnsCacheConfig;
+  }
+  /**
+   * @param Google_Service_Container_GcePersistentDiskCsiDriverConfig
+   */
+  public function setGcePersistentDiskCsiDriverConfig(Google_Service_Container_GcePersistentDiskCsiDriverConfig $gcePersistentDiskCsiDriverConfig)
+  {
+    $this->gcePersistentDiskCsiDriverConfig = $gcePersistentDiskCsiDriverConfig;
+  }
+  /**
+   * @return Google_Service_Container_GcePersistentDiskCsiDriverConfig
+   */
+  public function getGcePersistentDiskCsiDriverConfig()
+  {
+    return $this->gcePersistentDiskCsiDriverConfig;
+  }
   /**
    * @param Google_Service_Container_HorizontalPodAutoscaling
    */

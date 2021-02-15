@@ -27,8 +27,9 @@ class Google_Service_Compute_Resource_LicenseCodes extends Google_Service_Resour
 {
   /**
    * Return a specified license code. License codes are mirrored across all
-   * projects that have permissions to read the License Code. (== suppress_warning
-   * http-rest-shadowed ==) (licenseCodes.get)
+   * projects that have permissions to read the License Code.  Caution This
+   * resource is intended for use only by third-party partners who are creating
+   * Cloud Marketplace images. (licenseCodes.get)
    *
    * @param string $project Project ID for this request.
    * @param string $licenseCode Number corresponding to the License code resource
@@ -43,8 +44,9 @@ class Google_Service_Compute_Resource_LicenseCodes extends Google_Service_Resour
     return $this->call('get', array($params), "Google_Service_Compute_LicenseCode");
   }
   /**
-   * Returns permissions that a caller has on the specified resource. (==
-   * suppress_warning http-rest-shadowed ==) (licenseCodes.testIamPermissions)
+   * Returns permissions that a caller has on the specified resource.  Caution
+   * This resource is intended for use only by third-party partners who are
+   * creating Cloud Marketplace images. (licenseCodes.testIamPermissions)
    *
    * @param string $project Project ID for this request.
    * @param string $resource Name or id of the resource for this request.

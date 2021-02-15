@@ -18,6 +18,7 @@
 class Google_Service_SQLAdmin_SqlScheduledMaintenance extends Google_Model
 {
   public $canDefer;
+  public $canReschedule;
   public $startTime;
 
   public function setCanDefer($canDefer)
@@ -27,6 +28,14 @@ class Google_Service_SQLAdmin_SqlScheduledMaintenance extends Google_Model
   public function getCanDefer()
   {
     return $this->canDefer;
+  }
+  public function setCanReschedule($canReschedule)
+  {
+    $this->canReschedule = $canReschedule;
+  }
+  public function getCanReschedule()
+  {
+    return $this->canReschedule;
   }
   public function setStartTime($startTime)
   {

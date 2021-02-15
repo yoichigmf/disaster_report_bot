@@ -17,8 +17,24 @@
 
 class Google_Service_Docs_CreateHeaderRequest extends Google_Model
 {
+  protected $sectionBreakLocationType = 'Google_Service_Docs_Location';
+  protected $sectionBreakLocationDataType = '';
   public $type;
 
+  /**
+   * @param Google_Service_Docs_Location
+   */
+  public function setSectionBreakLocation(Google_Service_Docs_Location $sectionBreakLocation)
+  {
+    $this->sectionBreakLocation = $sectionBreakLocation;
+  }
+  /**
+   * @return Google_Service_Docs_Location
+   */
+  public function getSectionBreakLocation()
+  {
+    return $this->sectionBreakLocation;
+  }
   public function setType($type)
   {
     $this->type = $type;

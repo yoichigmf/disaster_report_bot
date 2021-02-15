@@ -17,15 +17,33 @@
 
 class Google_Service_Bigquery_DatasetAccess extends Google_Model
 {
+  protected $datasetType = 'Google_Service_Bigquery_DatasetAccessEntry';
+  protected $datasetDataType = '';
   public $domain;
   public $groupByEmail;
   public $iamMember;
   public $role;
+  protected $routineType = 'Google_Service_Bigquery_RoutineReference';
+  protected $routineDataType = '';
   public $specialGroup;
   public $userByEmail;
   protected $viewType = 'Google_Service_Bigquery_TableReference';
   protected $viewDataType = '';
 
+  /**
+   * @param Google_Service_Bigquery_DatasetAccessEntry
+   */
+  public function setDataset(Google_Service_Bigquery_DatasetAccessEntry $dataset)
+  {
+    $this->dataset = $dataset;
+  }
+  /**
+   * @return Google_Service_Bigquery_DatasetAccessEntry
+   */
+  public function getDataset()
+  {
+    return $this->dataset;
+  }
   public function setDomain($domain)
   {
     $this->domain = $domain;
@@ -57,6 +75,20 @@ class Google_Service_Bigquery_DatasetAccess extends Google_Model
   public function getRole()
   {
     return $this->role;
+  }
+  /**
+   * @param Google_Service_Bigquery_RoutineReference
+   */
+  public function setRoutine(Google_Service_Bigquery_RoutineReference $routine)
+  {
+    $this->routine = $routine;
+  }
+  /**
+   * @return Google_Service_Bigquery_RoutineReference
+   */
+  public function getRoutine()
+  {
+    return $this->routine;
   }
   public function setSpecialGroup($specialGroup)
   {

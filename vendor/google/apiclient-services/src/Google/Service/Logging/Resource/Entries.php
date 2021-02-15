@@ -28,7 +28,8 @@ class Google_Service_Logging_Resource_Entries extends Google_Service_Resource
   /**
    * Lists log entries. Use this method to retrieve log entries that originated
    * from a project/folder/organization/billing account. For ways to export log
-   * entries, see Exporting Logs. (entries.listEntries)
+   * entries, see Exporting Logs (https://cloud.google.com/logging/docs/export).
+   * (entries.listEntries)
    *
    * @param Google_Service_Logging_ListLogEntriesRequest $postBody
    * @param array $optParams Optional parameters.
@@ -39,6 +40,20 @@ class Google_Service_Logging_Resource_Entries extends Google_Service_Resource
     $params = array('postBody' => $postBody);
     $params = array_merge($params, $optParams);
     return $this->call('list', array($params), "Google_Service_Logging_ListLogEntriesResponse");
+  }
+  /**
+   * Streaming read of log entries as they are ingested. Until the stream is
+   * terminated, it will continue reading logs. (entries.tail)
+   *
+   * @param Google_Service_Logging_TailLogEntriesRequest $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Logging_TailLogEntriesResponse
+   */
+  public function tail(Google_Service_Logging_TailLogEntriesRequest $postBody, $optParams = array())
+  {
+    $params = array('postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('tail', array($params), "Google_Service_Logging_TailLogEntriesResponse");
   }
   /**
    * Writes log entries to Logging. This API method is the only way to send log

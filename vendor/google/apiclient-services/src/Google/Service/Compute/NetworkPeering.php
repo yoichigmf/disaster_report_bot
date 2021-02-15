@@ -20,9 +20,12 @@ class Google_Service_Compute_NetworkPeering extends Google_Model
   public $autoCreateRoutes;
   public $exchangeSubnetRoutes;
   public $exportCustomRoutes;
+  public $exportSubnetRoutesWithPublicIp;
   public $importCustomRoutes;
+  public $importSubnetRoutesWithPublicIp;
   public $name;
   public $network;
+  public $peerMtu;
   public $state;
   public $stateDetails;
 
@@ -50,6 +53,14 @@ class Google_Service_Compute_NetworkPeering extends Google_Model
   {
     return $this->exportCustomRoutes;
   }
+  public function setExportSubnetRoutesWithPublicIp($exportSubnetRoutesWithPublicIp)
+  {
+    $this->exportSubnetRoutesWithPublicIp = $exportSubnetRoutesWithPublicIp;
+  }
+  public function getExportSubnetRoutesWithPublicIp()
+  {
+    return $this->exportSubnetRoutesWithPublicIp;
+  }
   public function setImportCustomRoutes($importCustomRoutes)
   {
     $this->importCustomRoutes = $importCustomRoutes;
@@ -57,6 +68,14 @@ class Google_Service_Compute_NetworkPeering extends Google_Model
   public function getImportCustomRoutes()
   {
     return $this->importCustomRoutes;
+  }
+  public function setImportSubnetRoutesWithPublicIp($importSubnetRoutesWithPublicIp)
+  {
+    $this->importSubnetRoutesWithPublicIp = $importSubnetRoutesWithPublicIp;
+  }
+  public function getImportSubnetRoutesWithPublicIp()
+  {
+    return $this->importSubnetRoutesWithPublicIp;
   }
   public function setName($name)
   {
@@ -73,6 +92,14 @@ class Google_Service_Compute_NetworkPeering extends Google_Model
   public function getNetwork()
   {
     return $this->network;
+  }
+  public function setPeerMtu($peerMtu)
+  {
+    $this->peerMtu = $peerMtu;
+  }
+  public function getPeerMtu()
+  {
+    return $this->peerMtu;
   }
   public function setState($state)
   {

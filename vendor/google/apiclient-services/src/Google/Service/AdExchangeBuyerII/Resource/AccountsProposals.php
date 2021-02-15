@@ -29,8 +29,9 @@ class Google_Service_AdExchangeBuyerII_Resource_AccountsProposals extends Google
    * Mark the proposal as accepted at the given revision number. If the number
    * does not match the server's revision number an `ABORTED` error message will
    * be returned. This call updates the proposal_state from `PROPOSED` to
-   * `BUYER_ACCEPTED`, or from `SELLER_ACCEPTED` to `FINALIZED`.
-   * (proposals.accept)
+   * `BUYER_ACCEPTED`, or from `SELLER_ACCEPTED` to `FINALIZED`. Upon calling this
+   * endpoint, the buyer implicitly agrees to the terms and conditions optionally
+   * set within the proposal by the publisher. (proposals.accept)
    *
    * @param string $accountId Account ID of the buyer.
    * @param string $proposalId The ID of the proposal to accept.
@@ -139,16 +140,14 @@ class Google_Service_AdExchangeBuyerII_Resource_AccountsProposals extends Google
    * @param string $accountId Account ID of the buyer.
    * @param array $optParams Optional parameters.
    *
+   * @opt_param string filter An optional PQL filter query used to query for
+   * proposals. Nested repeated fields, such as proposal.deals.targetingCriterion,
+   * cannot be filtered.
+   * @opt_param string filterSyntax Syntax the filter is written in. Current
+   * implementation defaults to PQL but in the future it will be LIST_FILTER.
    * @opt_param int pageSize Requested page size. The server may return fewer
    * results than requested. If unspecified, the server will pick an appropriate
    * default.
-   * @opt_param string filterSyntax Syntax the filter is written in. Current
-   * implementation defaults to PQL but in the future it will be LIST_FILTER.
-   * @opt_param string filter An optional PQL filter query used to query for
-   * proposals.
-   *
-   * Nested repeated fields, such as proposal.deals.targetingCriterion, cannot be
-   * filtered.
    * @opt_param string pageToken The page token as returned from
    * ListProposalsResponse.
    * @return Google_Service_AdExchangeBuyerII_ListProposalsResponse
@@ -162,11 +161,9 @@ class Google_Service_AdExchangeBuyerII_Resource_AccountsProposals extends Google
   /**
    * Update the given proposal to pause serving. This method will set the
    * `DealServingMetadata.DealPauseStatus.has_buyer_paused` bit to true for all
-   * deals in the proposal.
-   *
-   * It is a no-op to pause an already-paused proposal. It is an error to call
-   * PauseProposal for a proposal that is not finalized or renegotiating.
-   * (proposals.pause)
+   * deals in the proposal. It is a no-op to pause an already-paused proposal. It
+   * is an error to call PauseProposal for a proposal that is not finalized or
+   * renegotiating. (proposals.pause)
    *
    * @param string $accountId Account ID of the buyer.
    * @param string $proposalId The ID of the proposal to pause.
@@ -183,14 +180,10 @@ class Google_Service_AdExchangeBuyerII_Resource_AccountsProposals extends Google
   /**
    * Update the given proposal to resume serving. This method will set the
    * `DealServingMetadata.DealPauseStatus.has_buyer_paused` bit to false for all
-   * deals in the proposal.
-   *
-   * Note that if the `has_seller_paused` bit is also set, serving will not resume
-   * until the seller also resumes.
-   *
-   * It is a no-op to resume an already-running proposal. It is an error to call
-   * ResumeProposal for a proposal that is not finalized or renegotiating.
-   * (proposals.resume)
+   * deals in the proposal. Note that if the `has_seller_paused` bit is also set,
+   * serving will not resume until the seller also resumes. It is a no-op to
+   * resume an already-running proposal. It is an error to call ResumeProposal for
+   * a proposal that is not finalized or renegotiating. (proposals.resume)
    *
    * @param string $accountId Account ID of the buyer.
    * @param string $proposalId The ID of the proposal to resume.
@@ -208,14 +201,13 @@ class Google_Service_AdExchangeBuyerII_Resource_AccountsProposals extends Google
    * Update the given proposal at the client known revision number. If the server
    * revision has advanced since the passed-in `proposal.proposal_revision`, an
    * `ABORTED` error message will be returned. Only the buyer-modifiable fields of
-   * the proposal will be updated.
-   *
-   * Note that the deals in the proposal will be updated to match the passed-in
-   * copy. If a passed-in deal does not have a `deal_id`, the server will assign a
-   * new unique ID and create the deal. If passed-in deal has a `deal_id`, it will
-   * be updated to match the passed-in copy. Any existing deals not present in the
-   * passed-in proposal will be deleted. It is an error to pass in a deal with a
-   * `deal_id` not present at head. (proposals.update)
+   * the proposal will be updated. Note that the deals in the proposal will be
+   * updated to match the passed-in copy. If a passed-in deal does not have a
+   * `deal_id`, the server will assign a new unique ID and create the deal. If
+   * passed-in deal has a `deal_id`, it will be updated to match the passed-in
+   * copy. Any existing deals not present in the passed-in proposal will be
+   * deleted. It is an error to pass in a deal with a `deal_id` not present at
+   * head. (proposals.update)
    *
    * @param string $accountId Account ID of the buyer.
    * @param string $proposalId The unique ID of the proposal.

@@ -25,6 +25,7 @@ class Google_Service_AlertCenter_MailPhishing extends Google_Collection
   protected $maliciousEntityDataType = '';
   protected $messagesType = 'Google_Service_AlertCenter_GmailMessageInfo';
   protected $messagesDataType = 'array';
+  public $systemActionType;
 
   /**
    * @param Google_Service_AlertCenter_DomainId
@@ -63,17 +64,25 @@ class Google_Service_AlertCenter_MailPhishing extends Google_Collection
     return $this->maliciousEntity;
   }
   /**
-   * @param Google_Service_AlertCenter_GmailMessageInfo
+   * @param Google_Service_AlertCenter_GmailMessageInfo[]
    */
   public function setMessages($messages)
   {
     $this->messages = $messages;
   }
   /**
-   * @return Google_Service_AlertCenter_GmailMessageInfo
+   * @return Google_Service_AlertCenter_GmailMessageInfo[]
    */
   public function getMessages()
   {
     return $this->messages;
+  }
+  public function setSystemActionType($systemActionType)
+  {
+    $this->systemActionType = $systemActionType;
+  }
+  public function getSystemActionType()
+  {
+    return $this->systemActionType;
   }
 }

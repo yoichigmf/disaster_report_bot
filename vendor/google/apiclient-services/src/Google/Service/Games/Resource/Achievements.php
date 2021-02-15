@@ -48,7 +48,7 @@ class Google_Service_Games_Resource_Achievements extends Google_Service_Resource
    * Lists the progress for all your application's achievements for the currently
    * authenticated player. (achievements.listAchievements)
    *
-   * @param string $playerId A player ID. A value of me may be used in place of
+   * @param string $playerId A player ID. A value of `me` may be used in place of
    * the authenticated player's ID.
    * @param array $optParams Optional parameters.
    *
@@ -56,7 +56,8 @@ class Google_Service_Games_Resource_Achievements extends Google_Service_Resource
    * by this method.
    * @opt_param int maxResults The maximum number of achievement resources to
    * return in the response, used for paging. For any response, the actual number
-   * of achievement resources returned may be less than the specified maxResults.
+   * of achievement resources returned may be less than the specified
+   * `maxResults`.
    * @opt_param string pageToken The token returned by the previous request.
    * @opt_param string state Tells the server to return only achievements with the
    * specified state. If this parameter isn't specified, all achievements are
@@ -70,7 +71,7 @@ class Google_Service_Games_Resource_Achievements extends Google_Service_Resource
     return $this->call('list', array($params), "Google_Service_Games_PlayerAchievementListResponse");
   }
   /**
-   * Sets the state of the achievement with the given ID to REVEALED for the
+   * Sets the state of the achievement with the given ID to `REVEALED` for the
    * currently authenticated player. (achievements.reveal)
    *
    * @param string $achievementId The ID of the achievement used by this method.
@@ -106,9 +107,6 @@ class Google_Service_Games_Resource_Achievements extends Google_Service_Resource
    *
    * @param string $achievementId The ID of the achievement used by this method.
    * @param array $optParams Optional parameters.
-   *
-   * @opt_param string builtinGameId Override used only by built-in games in Play
-   * Games application.
    * @return Google_Service_Games_AchievementUnlockResponse
    */
   public function unlock($achievementId, $optParams = array())
@@ -123,9 +121,6 @@ class Google_Service_Games_Resource_Achievements extends Google_Service_Resource
    *
    * @param Google_Service_Games_AchievementUpdateMultipleRequest $postBody
    * @param array $optParams Optional parameters.
-   *
-   * @opt_param string builtinGameId Override used only by built-in games in Play
-   * Games application.
    * @return Google_Service_Games_AchievementUpdateMultipleResponse
    */
   public function updateMultiple(Google_Service_Games_AchievementUpdateMultipleRequest $postBody, $optParams = array())

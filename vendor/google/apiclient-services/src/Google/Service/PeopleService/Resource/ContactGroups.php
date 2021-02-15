@@ -31,6 +31,10 @@ class Google_Service_PeopleService_Resource_ContactGroups extends Google_Service
    *
    * @param array $optParams Optional parameters.
    *
+   * @opt_param string groupFields Optional. A field mask to restrict which fields
+   * on the group are returned. Defaults to `metadata`, `groupType`,
+   * `memberCount`, and `name` if not set or set to empty. Valid fields are: *
+   * clientData * groupType * memberCount * metadata * name
    * @opt_param int maxMembers Optional. Specifies the maximum number of members
    * to return for each group. Defaults to 0 if not set, which will return zero
    * members.
@@ -84,6 +88,10 @@ class Google_Service_PeopleService_Resource_ContactGroups extends Google_Service
    * to get.
    * @param array $optParams Optional parameters.
    *
+   * @opt_param string groupFields Optional. A field mask to restrict which fields
+   * on the group are returned. Defaults to `metadata`, `groupType`,
+   * `memberCount`, and `name` if not set or set to empty. Valid fields are: *
+   * clientData * groupType * memberCount * metadata * name
    * @opt_param int maxMembers Optional. Specifies the maximum number of members
    * to return. Defaults to 0 if not set, which will return zero members.
    * @return Google_Service_PeopleService_ContactGroup
@@ -100,15 +108,20 @@ class Google_Service_PeopleService_Resource_ContactGroups extends Google_Service
    *
    * @param array $optParams Optional parameters.
    *
-   * @opt_param string syncToken A sync token, returned by a previous call to
-   * `contactgroups.list`. Only resources changed since the sync token was created
-   * will be returned.
-   * @opt_param string pageToken The next_page_token value returned from a
-   * previous call to [ListContactGroups](/people/api/rest/v1/contactgroups/list).
-   * Requests the next page of resources.
+   * @opt_param string groupFields Optional. A field mask to restrict which fields
+   * on the group are returned. Defaults to `metadata`, `groupType`,
+   * `memberCount`, and `name` if not set or set to empty. Valid fields are: *
+   * clientData * groupType * memberCount * metadata * name
    * @opt_param int pageSize Optional. The maximum number of resources to return.
    * Valid values are between 1 and 1000, inclusive. Defaults to 30 if not set or
    * set to 0.
+   * @opt_param string pageToken Optional. The next_page_token value returned from
+   * a previous call to
+   * [ListContactGroups](/people/api/rest/v1/contactgroups/list). Requests the
+   * next page of resources.
+   * @opt_param string syncToken Optional. A sync token, returned by a previous
+   * call to `contactgroups.list`. Only resources changed since the sync token was
+   * created will be returned.
    * @return Google_Service_PeopleService_ListContactGroupsResponse
    */
   public function listContactGroups($optParams = array())
@@ -123,7 +136,7 @@ class Google_Service_PeopleService_Resource_ContactGroups extends Google_Service
    *
    * @param string $resourceName The resource name for the contact group, assigned
    * by the server. An ASCII string, in the form of
-   * `contactGroups/`contact_group_id.
+   * `contactGroups/{contact_group_id}`.
    * @param Google_Service_PeopleService_UpdateContactGroupRequest $postBody
    * @param array $optParams Optional parameters.
    * @return Google_Service_PeopleService_ContactGroup

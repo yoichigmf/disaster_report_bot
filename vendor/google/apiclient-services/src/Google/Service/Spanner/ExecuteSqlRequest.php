@@ -22,6 +22,8 @@ class Google_Service_Spanner_ExecuteSqlRequest extends Google_Model
   public $params;
   public $partitionToken;
   public $queryMode;
+  protected $queryOptionsType = 'Google_Service_Spanner_QueryOptions';
+  protected $queryOptionsDataType = '';
   public $resumeToken;
   public $seqno;
   public $sql;
@@ -29,14 +31,14 @@ class Google_Service_Spanner_ExecuteSqlRequest extends Google_Model
   protected $transactionDataType = '';
 
   /**
-   * @param Google_Service_Spanner_Type
+   * @param Google_Service_Spanner_Type[]
    */
   public function setParamTypes($paramTypes)
   {
     $this->paramTypes = $paramTypes;
   }
   /**
-   * @return Google_Service_Spanner_Type
+   * @return Google_Service_Spanner_Type[]
    */
   public function getParamTypes()
   {
@@ -65,6 +67,20 @@ class Google_Service_Spanner_ExecuteSqlRequest extends Google_Model
   public function getQueryMode()
   {
     return $this->queryMode;
+  }
+  /**
+   * @param Google_Service_Spanner_QueryOptions
+   */
+  public function setQueryOptions(Google_Service_Spanner_QueryOptions $queryOptions)
+  {
+    $this->queryOptions = $queryOptions;
+  }
+  /**
+   * @return Google_Service_Spanner_QueryOptions
+   */
+  public function getQueryOptions()
+  {
+    return $this->queryOptions;
   }
   public function setResumeToken($resumeToken)
   {

@@ -20,6 +20,7 @@ class Google_Service_AndroidPublisher_TrackRelease extends Google_Collection
   protected $collection_key = 'versionCodes';
   protected $countryTargetingType = 'Google_Service_AndroidPublisher_CountryTargeting';
   protected $countryTargetingDataType = '';
+  public $inAppUpdatePriority;
   public $name;
   protected $releaseNotesType = 'Google_Service_AndroidPublisher_LocalizedText';
   protected $releaseNotesDataType = 'array';
@@ -41,6 +42,14 @@ class Google_Service_AndroidPublisher_TrackRelease extends Google_Collection
   {
     return $this->countryTargeting;
   }
+  public function setInAppUpdatePriority($inAppUpdatePriority)
+  {
+    $this->inAppUpdatePriority = $inAppUpdatePriority;
+  }
+  public function getInAppUpdatePriority()
+  {
+    return $this->inAppUpdatePriority;
+  }
   public function setName($name)
   {
     $this->name = $name;
@@ -50,14 +59,14 @@ class Google_Service_AndroidPublisher_TrackRelease extends Google_Collection
     return $this->name;
   }
   /**
-   * @param Google_Service_AndroidPublisher_LocalizedText
+   * @param Google_Service_AndroidPublisher_LocalizedText[]
    */
   public function setReleaseNotes($releaseNotes)
   {
     $this->releaseNotes = $releaseNotes;
   }
   /**
-   * @return Google_Service_AndroidPublisher_LocalizedText
+   * @return Google_Service_AndroidPublisher_LocalizedText[]
    */
   public function getReleaseNotes()
   {

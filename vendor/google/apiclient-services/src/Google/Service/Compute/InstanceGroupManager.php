@@ -37,6 +37,8 @@ class Google_Service_Compute_InstanceGroupManager extends Google_Collection
   protected $namedPortsDataType = 'array';
   public $region;
   public $selfLink;
+  protected $statefulPolicyType = 'Google_Service_Compute_StatefulPolicy';
+  protected $statefulPolicyDataType = '';
   protected $statusType = 'Google_Service_Compute_InstanceGroupManagerStatus';
   protected $statusDataType = '';
   public $targetPools;
@@ -48,14 +50,14 @@ class Google_Service_Compute_InstanceGroupManager extends Google_Collection
   public $zone;
 
   /**
-   * @param Google_Service_Compute_InstanceGroupManagerAutoHealingPolicy
+   * @param Google_Service_Compute_InstanceGroupManagerAutoHealingPolicy[]
    */
   public function setAutoHealingPolicies($autoHealingPolicies)
   {
     $this->autoHealingPolicies = $autoHealingPolicies;
   }
   /**
-   * @return Google_Service_Compute_InstanceGroupManagerAutoHealingPolicy
+   * @return Google_Service_Compute_InstanceGroupManagerAutoHealingPolicy[]
    */
   public function getAutoHealingPolicies()
   {
@@ -162,14 +164,14 @@ class Google_Service_Compute_InstanceGroupManager extends Google_Collection
     return $this->name;
   }
   /**
-   * @param Google_Service_Compute_NamedPort
+   * @param Google_Service_Compute_NamedPort[]
    */
   public function setNamedPorts($namedPorts)
   {
     $this->namedPorts = $namedPorts;
   }
   /**
-   * @return Google_Service_Compute_NamedPort
+   * @return Google_Service_Compute_NamedPort[]
    */
   public function getNamedPorts()
   {
@@ -190,6 +192,20 @@ class Google_Service_Compute_InstanceGroupManager extends Google_Collection
   public function getSelfLink()
   {
     return $this->selfLink;
+  }
+  /**
+   * @param Google_Service_Compute_StatefulPolicy
+   */
+  public function setStatefulPolicy(Google_Service_Compute_StatefulPolicy $statefulPolicy)
+  {
+    $this->statefulPolicy = $statefulPolicy;
+  }
+  /**
+   * @return Google_Service_Compute_StatefulPolicy
+   */
+  public function getStatefulPolicy()
+  {
+    return $this->statefulPolicy;
   }
   /**
    * @param Google_Service_Compute_InstanceGroupManagerStatus
@@ -236,14 +252,14 @@ class Google_Service_Compute_InstanceGroupManager extends Google_Collection
     return $this->updatePolicy;
   }
   /**
-   * @param Google_Service_Compute_InstanceGroupManagerVersion
+   * @param Google_Service_Compute_InstanceGroupManagerVersion[]
    */
   public function setVersions($versions)
   {
     $this->versions = $versions;
   }
   /**
-   * @return Google_Service_Compute_InstanceGroupManagerVersion
+   * @return Google_Service_Compute_InstanceGroupManagerVersion[]
    */
   public function getVersions()
   {

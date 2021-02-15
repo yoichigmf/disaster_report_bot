@@ -17,13 +17,14 @@
 
 class Google_Service_YouTube_MembershipsDetails extends Google_Collection
 {
-  protected $collection_key = 'accessibleLevels';
+  protected $collection_key = 'membershipsDurationAtLevels';
   public $accessibleLevels;
-  public $memberSince;
-  public $memberSinceCurrentLevel;
-  public $memberTotalDuration;
-  public $memberTotalDurationCurrentLevel;
-  public $purchasedLevel;
+  public $highestAccessibleLevel;
+  public $highestAccessibleLevelDisplayName;
+  protected $membershipsDurationType = 'Google_Service_YouTube_MembershipsDuration';
+  protected $membershipsDurationDataType = '';
+  protected $membershipsDurationAtLevelsType = 'Google_Service_YouTube_MembershipsDurationAtLevel';
+  protected $membershipsDurationAtLevelsDataType = 'array';
 
   public function setAccessibleLevels($accessibleLevels)
   {
@@ -33,44 +34,48 @@ class Google_Service_YouTube_MembershipsDetails extends Google_Collection
   {
     return $this->accessibleLevels;
   }
-  public function setMemberSince($memberSince)
+  public function setHighestAccessibleLevel($highestAccessibleLevel)
   {
-    $this->memberSince = $memberSince;
+    $this->highestAccessibleLevel = $highestAccessibleLevel;
   }
-  public function getMemberSince()
+  public function getHighestAccessibleLevel()
   {
-    return $this->memberSince;
+    return $this->highestAccessibleLevel;
   }
-  public function setMemberSinceCurrentLevel($memberSinceCurrentLevel)
+  public function setHighestAccessibleLevelDisplayName($highestAccessibleLevelDisplayName)
   {
-    $this->memberSinceCurrentLevel = $memberSinceCurrentLevel;
+    $this->highestAccessibleLevelDisplayName = $highestAccessibleLevelDisplayName;
   }
-  public function getMemberSinceCurrentLevel()
+  public function getHighestAccessibleLevelDisplayName()
   {
-    return $this->memberSinceCurrentLevel;
+    return $this->highestAccessibleLevelDisplayName;
   }
-  public function setMemberTotalDuration($memberTotalDuration)
+  /**
+   * @param Google_Service_YouTube_MembershipsDuration
+   */
+  public function setMembershipsDuration(Google_Service_YouTube_MembershipsDuration $membershipsDuration)
   {
-    $this->memberTotalDuration = $memberTotalDuration;
+    $this->membershipsDuration = $membershipsDuration;
   }
-  public function getMemberTotalDuration()
+  /**
+   * @return Google_Service_YouTube_MembershipsDuration
+   */
+  public function getMembershipsDuration()
   {
-    return $this->memberTotalDuration;
+    return $this->membershipsDuration;
   }
-  public function setMemberTotalDurationCurrentLevel($memberTotalDurationCurrentLevel)
+  /**
+   * @param Google_Service_YouTube_MembershipsDurationAtLevel[]
+   */
+  public function setMembershipsDurationAtLevels($membershipsDurationAtLevels)
   {
-    $this->memberTotalDurationCurrentLevel = $memberTotalDurationCurrentLevel;
+    $this->membershipsDurationAtLevels = $membershipsDurationAtLevels;
   }
-  public function getMemberTotalDurationCurrentLevel()
+  /**
+   * @return Google_Service_YouTube_MembershipsDurationAtLevel[]
+   */
+  public function getMembershipsDurationAtLevels()
   {
-    return $this->memberTotalDurationCurrentLevel;
-  }
-  public function setPurchasedLevel($purchasedLevel)
-  {
-    $this->purchasedLevel = $purchasedLevel;
-  }
-  public function getPurchasedLevel()
-  {
-    return $this->purchasedLevel;
+    return $this->membershipsDurationAtLevels;
   }
 }

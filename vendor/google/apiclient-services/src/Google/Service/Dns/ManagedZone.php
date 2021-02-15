@@ -31,8 +31,14 @@ class Google_Service_Dns_ManagedZone extends Google_Collection
   public $name;
   public $nameServerSet;
   public $nameServers;
+  protected $peeringConfigType = 'Google_Service_Dns_ManagedZonePeeringConfig';
+  protected $peeringConfigDataType = '';
   protected $privateVisibilityConfigType = 'Google_Service_Dns_ManagedZonePrivateVisibilityConfig';
   protected $privateVisibilityConfigDataType = '';
+  protected $reverseLookupConfigType = 'Google_Service_Dns_ManagedZoneReverseLookupConfig';
+  protected $reverseLookupConfigDataType = '';
+  protected $serviceDirectoryConfigType = 'Google_Service_Dns_ManagedZoneServiceDirectoryConfig';
+  protected $serviceDirectoryConfigDataType = '';
   public $visibility;
 
   public function setCreationTime($creationTime)
@@ -136,6 +142,20 @@ class Google_Service_Dns_ManagedZone extends Google_Collection
     return $this->nameServers;
   }
   /**
+   * @param Google_Service_Dns_ManagedZonePeeringConfig
+   */
+  public function setPeeringConfig(Google_Service_Dns_ManagedZonePeeringConfig $peeringConfig)
+  {
+    $this->peeringConfig = $peeringConfig;
+  }
+  /**
+   * @return Google_Service_Dns_ManagedZonePeeringConfig
+   */
+  public function getPeeringConfig()
+  {
+    return $this->peeringConfig;
+  }
+  /**
    * @param Google_Service_Dns_ManagedZonePrivateVisibilityConfig
    */
   public function setPrivateVisibilityConfig(Google_Service_Dns_ManagedZonePrivateVisibilityConfig $privateVisibilityConfig)
@@ -148,6 +168,34 @@ class Google_Service_Dns_ManagedZone extends Google_Collection
   public function getPrivateVisibilityConfig()
   {
     return $this->privateVisibilityConfig;
+  }
+  /**
+   * @param Google_Service_Dns_ManagedZoneReverseLookupConfig
+   */
+  public function setReverseLookupConfig(Google_Service_Dns_ManagedZoneReverseLookupConfig $reverseLookupConfig)
+  {
+    $this->reverseLookupConfig = $reverseLookupConfig;
+  }
+  /**
+   * @return Google_Service_Dns_ManagedZoneReverseLookupConfig
+   */
+  public function getReverseLookupConfig()
+  {
+    return $this->reverseLookupConfig;
+  }
+  /**
+   * @param Google_Service_Dns_ManagedZoneServiceDirectoryConfig
+   */
+  public function setServiceDirectoryConfig(Google_Service_Dns_ManagedZoneServiceDirectoryConfig $serviceDirectoryConfig)
+  {
+    $this->serviceDirectoryConfig = $serviceDirectoryConfig;
+  }
+  /**
+   * @return Google_Service_Dns_ManagedZoneServiceDirectoryConfig
+   */
+  public function getServiceDirectoryConfig()
+  {
+    return $this->serviceDirectoryConfig;
   }
   public function setVisibility($visibility)
   {

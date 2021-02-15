@@ -21,6 +21,7 @@ class Google_Service_ToolResults_TestSuiteOverview extends Google_Model
   protected $elapsedTimeDataType = '';
   public $errorCount;
   public $failureCount;
+  public $flakyCount;
   public $name;
   public $skippedCount;
   public $totalCount;
@@ -56,6 +57,14 @@ class Google_Service_ToolResults_TestSuiteOverview extends Google_Model
   public function getFailureCount()
   {
     return $this->failureCount;
+  }
+  public function setFlakyCount($flakyCount)
+  {
+    $this->flakyCount = $flakyCount;
+  }
+  public function getFlakyCount()
+  {
+    return $this->flakyCount;
   }
   public function setName($name)
   {

@@ -20,6 +20,7 @@ class Google_Service_Speech_SpeakerDiarizationConfig extends Google_Model
   public $enableSpeakerDiarization;
   public $maxSpeakerCount;
   public $minSpeakerCount;
+  public $speakerTag;
 
   public function setEnableSpeakerDiarization($enableSpeakerDiarization)
   {
@@ -44,5 +45,13 @@ class Google_Service_Speech_SpeakerDiarizationConfig extends Google_Model
   public function getMinSpeakerCount()
   {
     return $this->minSpeakerCount;
+  }
+  public function setSpeakerTag($speakerTag)
+  {
+    $this->speakerTag = $speakerTag;
+  }
+  public function getSpeakerTag()
+  {
+    return $this->speakerTag;
   }
 }

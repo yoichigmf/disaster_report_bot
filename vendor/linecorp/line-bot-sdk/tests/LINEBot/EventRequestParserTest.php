@@ -19,6 +19,7 @@
 namespace LINE\Tests\LINEBot;
 
 use LINE\LINEBot;
+use LINE\LINEBot\Constant\StickerResourceType;
 use LINE\LINEBot\Event\AccountLinkEvent;
 use LINE\LINEBot\Event\BeaconDetectionEvent;
 use LINE\LINEBot\Event\FollowEvent;
@@ -37,6 +38,7 @@ use LINE\LINEBot\Event\MessageEvent\VideoMessage;
 use LINE\LINEBot\Event\PostbackEvent;
 use LINE\LINEBot\Event\Things\ThingsResultAction;
 use LINE\LINEBot\Event\ThingsEvent;
+use LINE\LINEBot\Event\VideoPlayCompleteEvent;
 use LINE\LINEBot\Event\UnfollowEvent;
 use LINE\LINEBot\Event\UnknownEvent;
 use LINE\Tests\LINEBot\Util\DummyHttpClient;
@@ -50,6 +52,7 @@ class EventRequestParserTest extends TestCase
  "events":[
   {
    "type":"message",
+   "mode":"active",
    "timestamp":12345678901234,
    "source":{
     "type":"user",
@@ -59,11 +62,20 @@ class EventRequestParserTest extends TestCase
    "message":{
     "id":"contentid",
     "type":"text",
-    "text":"message"
+    "text":"message (love)",
+    "emojis": [
+      {
+        "index": 8,
+        "length": 6,
+        "productId": "5ac1bfd5040ab15980c9b435",
+        "emojiId": "001"
+      }
+    ]
    }
   },
   {
    "type":"message",
+   "mode":"active",
    "timestamp":12345678901234,
    "source":{
     "type":"group",
@@ -82,6 +94,7 @@ class EventRequestParserTest extends TestCase
   },
   {
    "type":"message",
+   "mode":"active",
    "timestamp":12345678901234,
    "source":{
     "type":"group",
@@ -101,6 +114,7 @@ class EventRequestParserTest extends TestCase
   },
   {
    "type":"message",
+   "mode":"active",
    "timestamp":12345678901234,
    "source":{
     "type":"room",
@@ -120,6 +134,7 @@ class EventRequestParserTest extends TestCase
   },
   {
    "type":"message",
+   "mode":"active",
    "timestamp":12345678901234,
    "source":{
     "type":"room",
@@ -139,6 +154,7 @@ class EventRequestParserTest extends TestCase
   },
   {
    "type":"message",
+   "mode":"active",
    "timestamp":12345678901234,
    "source":{
     "type":"user",
@@ -156,6 +172,7 @@ class EventRequestParserTest extends TestCase
   },
   {
    "type":"message",
+   "mode":"active",
    "timestamp":12345678901234,
    "source":{
     "type":"user",
@@ -172,6 +189,7 @@ class EventRequestParserTest extends TestCase
   },
   {
    "type":"message",
+   "mode":"active",
    "timestamp":12345678901234,
    "source":{
     "type":"user",
@@ -188,6 +206,7 @@ class EventRequestParserTest extends TestCase
   },
   {
    "type":"message",
+   "mode":"active",
    "timestamp":12345678901234,
    "source":{
     "type":"user",
@@ -198,11 +217,14 @@ class EventRequestParserTest extends TestCase
     "id":"contentid",
     "type":"sticker",
     "packageId":"1",
-    "stickerId":"2"
+    "stickerId":"2",
+    "stickerResourceType":"STATIC",
+    "keywords": ["a","b","c","d","e","f","g","h","i","j","k","l","m","n"]
    }
   },
   {
    "type":"follow",
+   "mode":"active",
    "timestamp":12345678901234,
    "source":{
     "type":"user",
@@ -212,6 +234,7 @@ class EventRequestParserTest extends TestCase
   },
   {
    "type":"unfollow",
+   "mode":"active",
    "timestamp":12345678901234,
    "source":{
     "type":"user",
@@ -220,6 +243,7 @@ class EventRequestParserTest extends TestCase
   },
   {
    "type":"join",
+   "mode":"active",
    "timestamp":12345678901234,
    "source":{
     "type":"user",
@@ -229,6 +253,7 @@ class EventRequestParserTest extends TestCase
   },
   {
    "type":"leave",
+   "mode":"active",
    "timestamp":12345678901234,
    "source":{
     "type":"user",
@@ -237,6 +262,7 @@ class EventRequestParserTest extends TestCase
   },
   {
    "type":"postback",
+   "mode":"active",
    "timestamp":12345678901234,
    "source":{
     "type":"user",
@@ -249,6 +275,7 @@ class EventRequestParserTest extends TestCase
   },
   {
    "type":"beacon",
+   "mode":"active",
    "timestamp":12345678901234,
    "source":{
     "type":"user",
@@ -263,6 +290,7 @@ class EventRequestParserTest extends TestCase
   },
   {
    "type":"__unknown__",
+   "mode":"active",
    "timestamp":12345678901234,
    "source":{
     "type":"user",
@@ -271,6 +299,7 @@ class EventRequestParserTest extends TestCase
   },
   {
    "type":"__unknown__",
+   "mode":"active",
    "timestamp":12345678901234,
    "source":{
     "type":"__unknown__"
@@ -278,6 +307,7 @@ class EventRequestParserTest extends TestCase
   },
   {
    "type":"message",
+   "mode":"active",
    "timestamp":12345678901234,
    "source":{
     "type":"user",
@@ -292,6 +322,7 @@ class EventRequestParserTest extends TestCase
   {
    "replyToken": "replytoken",
    "type": "message",
+   "mode":"active",
    "timestamp": 1462629479859,
    "source": {
     "type": "user",
@@ -307,6 +338,7 @@ class EventRequestParserTest extends TestCase
   {
    "replyToken": "replytoken",
    "type": "postback",
+   "mode":"active",
    "timestamp": 1501234567890,
    "source": {
     "type": "user",
@@ -322,6 +354,7 @@ class EventRequestParserTest extends TestCase
   {
    "replyToken": "replytoken",
    "type": "postback",
+   "mode":"active",
    "timestamp": 1501234567890,
    "source": {
     "type": "user",
@@ -337,6 +370,7 @@ class EventRequestParserTest extends TestCase
   {
    "replyToken": "replytoken",
    "type": "postback",
+   "mode":"active",
    "timestamp": 1501234567890,
    "source": {
     "type": "user",
@@ -352,6 +386,7 @@ class EventRequestParserTest extends TestCase
   {
    "replyToken": "replytoken",
    "type": "accountLink",
+   "mode":"standby",
    "timestamp": 1501234567890,
    "source": {
     "type": "user",
@@ -365,6 +400,7 @@ class EventRequestParserTest extends TestCase
   {
    "replyToken": "replytoken",
    "type": "accountLink",
+   "mode":"active",
    "timestamp": 1501234567890,
    "source": {
     "type": "user",
@@ -377,6 +413,7 @@ class EventRequestParserTest extends TestCase
   },
   {
    "type":"memberJoined",
+   "mode":"active",
    "timestamp":12345678901234,
    "source":{
     "type":"group",
@@ -398,6 +435,7 @@ class EventRequestParserTest extends TestCase
   },
   {
    "type":"memberLeft",
+   "mode":"active",
    "timestamp":12345678901234,
    "source":{
     "type":"group",
@@ -418,6 +456,7 @@ class EventRequestParserTest extends TestCase
   },
   {
    "type":"things",
+   "mode":"active",
    "timestamp":12345678901234,
    "source":{
     "type":"user",
@@ -431,6 +470,7 @@ class EventRequestParserTest extends TestCase
   },
   {
    "type":"things",
+   "mode":"active",
    "timestamp":12345678901234,
    "source":{
     "type":"user",
@@ -444,6 +484,7 @@ class EventRequestParserTest extends TestCase
   },
   {
    "type": "things",
+   "mode":"active",
    "timestamp":12345678901234,
    "source":{
     "type":"user",
@@ -468,6 +509,108 @@ class EventRequestParserTest extends TestCase
      ]
     }
    }
+  },
+  {
+   "type":"message",
+   "mode":"active",
+   "timestamp":12345678901234,
+   "source":{
+    "type":"user",
+    "userId":"userid"
+   },
+   "replyToken":"replytoken",
+   "message":{
+    "id":"contentid",
+    "type":"text",
+    "text":"message without emoji"
+   }
+  },
+  {
+   "type":"unsend",
+   "timestamp":12345678901234,
+   "source":{
+    "type": "group",
+    "groupId":"groupid",
+    "userId":"userid"
+   },
+   "unsend": {
+        "messageId": "325708"
+   }
+  },
+  {
+   "type":"videoPlayComplete",
+   "timestamp":12345678901234,
+   "source":{
+    "type": "group",
+    "groupId":"groupid",
+    "userId":"userid"
+   },
+   "videoPlayComplete": {
+    "trackingId": "track_id"
+   },
+   "replyToken":"replytoken"
+  },
+  {
+   "replyToken": "nHuyWiB7yP5Zw52FIkcQobQuGDXCTA",
+   "type": "message",
+   "mode": "active",
+   "timestamp": 1462629479859,
+   "source": {
+    "type": "user",
+    "userId": "U4af4980629..."
+   },
+   "message": {
+    "id": "325708",
+    "type": "text",
+    "text": "@example Hello, world! (love)",
+    "mention": {
+     "mentionees": [
+      {
+       "index": 0,
+       "length": 8,
+       "userId": "U0123456789abcd0123456789abcdef"
+      }
+     ]
+    }
+   }
+  },
+  {
+   "replyToken": "nHuyWiB7yP5Zw52FIkcQobQuGDXCTA",
+   "type": "message",
+   "mode": "active",
+   "timestamp": 1462629479859,
+   "source": {
+    "type": "user",
+    "userId": "U0123456789abcd0123456789abcdef"
+   },
+   "message": {
+    "id": "325708",
+    "type": "text",
+    "text": "@example message without mentionee userId",
+    "mention": {
+     "mentionees": [
+      {
+       "index": 0,
+       "length": 8
+      }
+     ]
+    }
+   }
+  },
+  {
+   "replyToken": "nHuyWiB7yP5Zw52FIkcQobQuGDXCTA",
+   "type": "message",
+   "mode": "active",
+   "timestamp": 1462629479859,
+   "source": {
+    "type": "user",
+    "userId": "U0123456789abcd0123456789abcdef"
+   },
+   "message": {
+    "id": "325708",
+    "type": "text",
+    "text": "message without mention"
+   }
   }
  ]
 }
@@ -484,18 +627,19 @@ JSON;
         }), ['channelSecret' => 'testsecret']);
         list($destination, $events) = $bot->parseEventRequest(
             $this::$json,
-            'QbldItjJS8DrEngSZWTdbmZi1ZWppeQVLVKWnrlc1V4=',
+            'Q4tp1jGo39vhlcbd4QiQ/9I+zoJDwGIkPP22wgoOjDI=',
             false
         );
 
         $this->assertEquals($destination, 'U0123456789abcdef0123456789abcd');
 
-        $this->assertEquals(count($events), 29);
+        $this->assertEquals(count($events), 35);
 
         {
             // text
             $event = $events[0];
             $this->assertEquals(12345678901234, $event->getTimestamp());
+            $this->assertEquals('active', $event->getMode());
             $this->assertTrue($event->isUserEvent());
             $this->assertEquals('userid', $event->getUserId());
             $this->assertEquals('userid', $event->getEventSourceId());
@@ -505,7 +649,12 @@ JSON;
             $this->assertEquals('replytoken', $event->getReplyToken());
             $this->assertEquals('contentid', $event->getMessageId());
             $this->assertEquals('text', $event->getMessageType());
-            $this->assertEquals('message', $event->getText());
+            $this->assertEquals('message (love)', $event->getText());
+            $emojiInfo = $event->getEmojis()[0];
+            $this->assertEquals(8, $emojiInfo->getIndex());
+            $this->assertEquals(6, $emojiInfo->getLength());
+            $this->assertEquals('5ac1bfd5040ab15980c9b435', $emojiInfo->getProductId());
+            $this->assertEquals('001', $emojiInfo->getEmojiId());
         }
 
         {
@@ -633,6 +782,11 @@ JSON;
             $this->assertEquals('sticker', $event->getMessageType());
             $this->assertEquals(1, $event->getPackageId());
             $this->assertEquals(2, $event->getStickerId());
+            $this->assertEquals(StickerResourceType::STATIC_IMAGE, $event->getStickerResourceType());
+            $this->assertEquals(
+                ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n'],
+                $event->getKeywords()
+            );
         }
 
         {
@@ -697,6 +851,7 @@ JSON;
             $this->assertEquals('__unknown__', $event->getEventBody()['type']); // with unprocessed event body
             $this->assertEquals(null, $event->getReplyToken());
             $this->assertEquals(12345678901234, $event->getTimestamp());
+            $this->assertEquals('active', $event->getMode());
             $this->assertEquals('userid', $event->getEventSourceId());
             $this->assertEquals('userid', $event->getUserId());
             $this->assertEquals(true, $event->isUserEvent());
@@ -711,6 +866,7 @@ JSON;
             $this->assertEquals('__unknown__', $event->getEventBody()['type']); // with unprocessed event body
             $this->assertEquals(null, $event->getReplyToken());
             $this->assertEquals(12345678901234, $event->getTimestamp());
+            $this->assertEquals('active', $event->getMode());
             $this->assertEquals(null, $event->getEventSourceId());
             $this->assertEquals(true, $event->isUnknownEvent());
         }
@@ -773,6 +929,7 @@ JSON;
             /** @var AccountLinkEvent $event */
             $this->assertEquals('replytoken', $event->getReplyToken());
             $this->assertEquals(1501234567890, $event->getTimestamp());
+            $this->assertEquals('standby', $event->getMode());
             $this->assertEquals("ok", $event->getResult());
             $this->assertEquals(true, $event->isSuccess());
             $this->assertEquals(false, $event->isFailed());
@@ -786,6 +943,7 @@ JSON;
             /** @var AccountLinkEvent $event */
             $this->assertEquals('replytoken', $event->getReplyToken());
             $this->assertEquals(1501234567890, $event->getTimestamp());
+            $this->assertEquals('active', $event->getMode());
             $this->assertEquals("failed", $event->getResult());
             $this->assertEquals(false, $event->isSuccess());
             $this->assertEquals(true, $event->isFailed());
@@ -799,6 +957,7 @@ JSON;
             /** @var MemberJoinEvent $event */
             $this->assertEquals('replytoken', $event->getReplyToken());
             $this->assertEquals(12345678901234, $event->getTimestamp());
+            $this->assertEquals('active', $event->getMode());
             $members = $event->getMembers();
             $this->assertEquals(["type" => "user", "userId" => "U4af4980629..."], $members[0]);
             $this->assertEquals(["type" => "user", "userId" => "U91eeaf62d9..."], $members[1]);
@@ -811,6 +970,7 @@ JSON;
             /** @var MemberLeaveEvent $event */
             $this->assertTrue($event->getReplyToken() === null);
             $this->assertEquals(12345678901234, $event->getTimestamp());
+            $this->assertEquals('active', $event->getMode());
             $members = $event->getMembers();
             $this->assertEquals(["type" => "user", "userId" => "U4af4980629..."], $members[0]);
             $this->assertEquals(["type" => "user", "userId" => "U91eeaf62d9..."], $members[1]);
@@ -854,6 +1014,100 @@ JSON;
             $actionResults = $scenarioResult->getActionResults();
             $this->assertEquals(ThingsResultAction::TYPE_BINARY, $actionResults[0]->getType());
             $this->assertEquals('/w==', $actionResults[0]->getData());
+        }
+
+        {
+            // text without emoji
+            $event = $events[29];
+            $this->assertEquals(12345678901234, $event->getTimestamp());
+            $this->assertEquals('active', $event->getMode());
+            $this->assertTrue($event->isUserEvent());
+            $this->assertEquals('userid', $event->getUserId());
+            $this->assertEquals('userid', $event->getEventSourceId());
+            $this->assertInstanceOf('LINE\LINEBot\Event\MessageEvent', $event);
+            $this->assertInstanceOf('LINE\LINEBot\Event\MessageEvent\TextMessage', $event);
+            /** @var TextMessage $event */
+            $this->assertEquals('replytoken', $event->getReplyToken());
+            $this->assertEquals('contentid', $event->getMessageId());
+            $this->assertEquals('text', $event->getMessageType());
+            $this->assertEquals('message without emoji', $event->getText());
+            $this->assertEquals(null, $event->getEmojis());
+        }
+
+        {
+            // unsend event
+            $event = $events[30];
+            $this->assertInstanceOf('LINE\LINEBot\Event\UnsendEvent', $event);
+            /** @var UnsendMessage $event */
+            $this->assertEquals('325708', $event->getUnsendMessageId());
+        }
+
+        {
+            // video play complete event
+            $event = $events[31];
+            $this->assertInstanceOf('LINE\LINEBot\Event\VideoPlayCompleteEvent', $event);
+            /** @var UnsendMessage $event */
+            $this->assertEquals('track_id', $event->getTrackingId());
+        }
+
+        {
+            // text
+            $event = $events[32];
+            $this->assertEquals(1462629479859, $event->getTimestamp());
+            $this->assertEquals('active', $event->getMode());
+            $this->assertTrue($event->isUserEvent());
+            $this->assertEquals('U4af4980629...', $event->getUserId());
+            $this->assertEquals('U4af4980629...', $event->getEventSourceId());
+            $this->assertInstanceOf('LINE\LINEBot\Event\MessageEvent', $event);
+            $this->assertInstanceOf('LINE\LINEBot\Event\MessageEvent\TextMessage', $event);
+            /** @var TextMessage $event */
+            $this->assertEquals('nHuyWiB7yP5Zw52FIkcQobQuGDXCTA', $event->getReplyToken());
+            $this->assertEquals('325708', $event->getMessageId());
+            $this->assertEquals('text', $event->getMessageType());
+            $this->assertEquals('@example Hello, world! (love)', $event->getText());
+            $mentioneeInfo = $event->getMentionees()[0];
+            $this->assertEquals(0, $mentioneeInfo->getIndex());
+            $this->assertEquals(8, $mentioneeInfo->getLength());
+            $this->assertEquals('U0123456789abcd0123456789abcdef', $mentioneeInfo->getUserId());
+        }
+
+        {
+            // text without mentionee userId
+            $event = $events[33];
+            $this->assertEquals(1462629479859, $event->getTimestamp());
+            $this->assertEquals('active', $event->getMode());
+            $this->assertTrue($event->isUserEvent());
+            $this->assertEquals('U0123456789abcd0123456789abcdef', $event->getUserId());
+            $this->assertEquals('U0123456789abcd0123456789abcdef', $event->getEventSourceId());
+            $this->assertInstanceOf('LINE\LINEBot\Event\MessageEvent', $event);
+            $this->assertInstanceOf('LINE\LINEBot\Event\MessageEvent\TextMessage', $event);
+            /** @var TextMessage $event */
+            $this->assertEquals('nHuyWiB7yP5Zw52FIkcQobQuGDXCTA', $event->getReplyToken());
+            $this->assertEquals('325708', $event->getMessageId());
+            $this->assertEquals('text', $event->getMessageType());
+            $this->assertEquals('@example message without mentionee userId', $event->getText());
+            $mentioneeInfo = $event->getMentionees()[0];
+            $this->assertEquals(0, $mentioneeInfo->getIndex());
+            $this->assertEquals(8, $mentioneeInfo->getLength());
+            $this->assertEquals(null, $mentioneeInfo->getUserId());
+        }
+
+        {
+            // text without mention
+            $event = $events[34];
+            $this->assertEquals(1462629479859, $event->getTimestamp());
+            $this->assertEquals('active', $event->getMode());
+            $this->assertTrue($event->isUserEvent());
+            $this->assertEquals('U0123456789abcd0123456789abcdef', $event->getUserId());
+            $this->assertEquals('U0123456789abcd0123456789abcdef', $event->getEventSourceId());
+            $this->assertInstanceOf('LINE\LINEBot\Event\MessageEvent', $event);
+            $this->assertInstanceOf('LINE\LINEBot\Event\MessageEvent\TextMessage', $event);
+            /** @var TextMessage $event */
+            $this->assertEquals('nHuyWiB7yP5Zw52FIkcQobQuGDXCTA', $event->getReplyToken());
+            $this->assertEquals('325708', $event->getMessageId());
+            $this->assertEquals('text', $event->getMessageType());
+            $this->assertEquals('message without mention', $event->getText());
+            $this->assertEquals(null, $event->getMentionees());
         }
     }
 }

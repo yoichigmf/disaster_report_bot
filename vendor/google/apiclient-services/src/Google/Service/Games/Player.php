@@ -23,14 +23,12 @@ class Google_Service_Games_Player extends Google_Model
   public $displayName;
   protected $experienceInfoType = 'Google_Service_Games_PlayerExperienceInfo';
   protected $experienceInfoDataType = '';
+  public $friendStatus;
   public $kind;
-  protected $lastPlayedWithType = 'Google_Service_Games_Played';
-  protected $lastPlayedWithDataType = '';
   protected $nameType = 'Google_Service_Games_PlayerName';
   protected $nameDataType = '';
   public $originalPlayerId;
   public $playerId;
-  public $playerStattus;
   protected $profileSettingsType = 'Google_Service_Games_ProfileSettings';
   protected $profileSettingsDataType = '';
   public $title;
@@ -81,6 +79,14 @@ class Google_Service_Games_Player extends Google_Model
   {
     return $this->experienceInfo;
   }
+  public function setFriendStatus($friendStatus)
+  {
+    $this->friendStatus = $friendStatus;
+  }
+  public function getFriendStatus()
+  {
+    return $this->friendStatus;
+  }
   public function setKind($kind)
   {
     $this->kind = $kind;
@@ -88,20 +94,6 @@ class Google_Service_Games_Player extends Google_Model
   public function getKind()
   {
     return $this->kind;
-  }
-  /**
-   * @param Google_Service_Games_Played
-   */
-  public function setLastPlayedWith(Google_Service_Games_Played $lastPlayedWith)
-  {
-    $this->lastPlayedWith = $lastPlayedWith;
-  }
-  /**
-   * @return Google_Service_Games_Played
-   */
-  public function getLastPlayedWith()
-  {
-    return $this->lastPlayedWith;
   }
   /**
    * @param Google_Service_Games_PlayerName
@@ -132,14 +124,6 @@ class Google_Service_Games_Player extends Google_Model
   public function getPlayerId()
   {
     return $this->playerId;
-  }
-  public function setPlayerStattus($playerStattus)
-  {
-    $this->playerStattus = $playerStattus;
-  }
-  public function getPlayerStattus()
-  {
-    return $this->playerStattus;
   }
   /**
    * @param Google_Service_Games_ProfileSettings

@@ -32,9 +32,8 @@ class Google_Service_ServiceNetworking_Resource_Services extends Google_Service_
    * method checks against the assigned allocated ranges to find a non-conflicting
    * IP address range. The method will reuse a subnet if subsequent calls contain
    * the same subnet name, region, and prefix length. This method will make
-   * producer's tenant project to be a shared VPC service project as needed. The
-   * response from the `get` operation will be of type `Subnetwork` if the
-   * operation successfully completes. (services.addSubnetwork)
+   * producer's tenant project to be a shared VPC service project as needed.
+   * (services.addSubnetwork)
    *
    * @param string $parent Required. A tenant project in the service producer
    * organization, in the following format: services/{service}/{collection-id
@@ -54,11 +53,45 @@ class Google_Service_ServiceNetworking_Resource_Services extends Google_Service_
     return $this->call('addSubnetwork', array($params), "Google_Service_ServiceNetworking_Operation");
   }
   /**
+   * Disables VPC service controls for a connection.
+   * (services.disableVpcServiceControls)
+   *
+   * @param string $parent The service that is managing peering connectivity for a
+   * service producer's organization. For Google services that support this
+   * functionality, this value is `services/servicenetworking.googleapis.com`.
+   * @param Google_Service_ServiceNetworking_DisableVpcServiceControlsRequest $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_ServiceNetworking_Operation
+   */
+  public function disableVpcServiceControls($parent, Google_Service_ServiceNetworking_DisableVpcServiceControlsRequest $postBody, $optParams = array())
+  {
+    $params = array('parent' => $parent, 'postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('disableVpcServiceControls', array($params), "Google_Service_ServiceNetworking_Operation");
+  }
+  /**
+   * Enables VPC service controls for a connection.
+   * (services.enableVpcServiceControls)
+   *
+   * @param string $parent The service that is managing peering connectivity for a
+   * service producer's organization. For Google services that support this
+   * functionality, this value is `services/servicenetworking.googleapis.com`.
+   * @param Google_Service_ServiceNetworking_EnableVpcServiceControlsRequest $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_ServiceNetworking_Operation
+   */
+  public function enableVpcServiceControls($parent, Google_Service_ServiceNetworking_EnableVpcServiceControlsRequest $postBody, $optParams = array())
+  {
+    $params = array('parent' => $parent, 'postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('enableVpcServiceControls', array($params), "Google_Service_ServiceNetworking_Operation");
+  }
+  /**
    * Service producers can use this method to find a currently unused range within
-   * consumer allocated ranges.   This returned range is not reserved, and not
+   * consumer allocated ranges. This returned range is not reserved, and not
    * guaranteed to remain unused. It will validate previously provided allocated
    * ranges, find non-conflicting sub-range of requested size (expressed in number
-   * of leading bits of ipv4 network mask, as in CIDR range notation). Operation
+   * of leading bits of ipv4 network mask, as in CIDR range notation).
    * (services.searchRange)
    *
    * @param string $parent Required. This is in a form services/{service}.
@@ -73,5 +106,25 @@ class Google_Service_ServiceNetworking_Resource_Services extends Google_Service_
     $params = array('parent' => $parent, 'postBody' => $postBody);
     $params = array_merge($params, $optParams);
     return $this->call('searchRange', array($params), "Google_Service_ServiceNetworking_Operation");
+  }
+  /**
+   * Service producers use this method to validate if the consumer provided
+   * network, project and requested range are valid. This allows them to use a
+   * fail-fast mechanism for consumer requests, and not have to wait for
+   * AddSubnetwork operation completion to determine if user request is invalid.
+   * (services.validate)
+   *
+   * @param string $parent Required. This is in a form services/{service} where
+   * {service} is the name of the private access management service. For example
+   * 'service-peering.example.com'.
+   * @param Google_Service_ServiceNetworking_ValidateConsumerConfigRequest $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_ServiceNetworking_ValidateConsumerConfigResponse
+   */
+  public function validate($parent, Google_Service_ServiceNetworking_ValidateConsumerConfigRequest $postBody, $optParams = array())
+  {
+    $params = array('parent' => $parent, 'postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('validate', array($params), "Google_Service_ServiceNetworking_ValidateConsumerConfigResponse");
   }
 }

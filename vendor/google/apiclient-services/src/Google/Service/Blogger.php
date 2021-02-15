@@ -19,7 +19,8 @@
  * Service definition for Blogger (v3).
  *
  * <p>
- * API for access to the data within Blogger.</p>
+ * The Blogger API provides access to posts, comments and pages of a Blogger
+ * blog.</p>
  *
  * <p>
  * For more information about this service, see the API
@@ -45,7 +46,7 @@ class Google_Service_Blogger extends Google_Service
   public $postUserInfos;
   public $posts;
   public $users;
-  
+
   /**
    * Constructs the internal representation of the Blogger service.
    *
@@ -55,9 +56,9 @@ class Google_Service_Blogger extends Google_Service
   public function __construct(Google_Client $client, $rootUrl = null)
   {
     parent::__construct($client);
-    $this->rootUrl = $rootUrl ?: 'https://www.googleapis.com/';
-    $this->servicePath = 'blogger/v3/';
-    $this->batchPath = 'batch/blogger/v3';
+    $this->rootUrl = $rootUrl ?: 'https://blogger.googleapis.com/';
+    $this->servicePath = '';
+    $this->batchPath = 'batch';
     $this->version = 'v3';
     $this->serviceName = 'blogger';
 
@@ -68,7 +69,7 @@ class Google_Service_Blogger extends Google_Service
         array(
           'methods' => array(
             'get' => array(
-              'path' => 'users/{userId}/blogs/{blogId}',
+              'path' => 'v3/users/{userId}/blogs/{blogId}',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'userId' => array(
@@ -97,7 +98,7 @@ class Google_Service_Blogger extends Google_Service
         array(
           'methods' => array(
             'get' => array(
-              'path' => 'blogs/{blogId}',
+              'path' => 'v3/blogs/{blogId}',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'blogId' => array(
@@ -115,7 +116,7 @@ class Google_Service_Blogger extends Google_Service
                 ),
               ),
             ),'getByUrl' => array(
-              'path' => 'blogs/byurl',
+              'path' => 'v3/blogs/byurl',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'url' => array(
@@ -129,7 +130,7 @@ class Google_Service_Blogger extends Google_Service
                 ),
               ),
             ),'listByUser' => array(
-              'path' => 'users/{userId}/blogs',
+              'path' => 'v3/users/{userId}/blogs',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'userId' => array(
@@ -167,7 +168,7 @@ class Google_Service_Blogger extends Google_Service
         array(
           'methods' => array(
             'approve' => array(
-              'path' => 'blogs/{blogId}/posts/{postId}/comments/{commentId}/approve',
+              'path' => 'v3/blogs/{blogId}/posts/{postId}/comments/{commentId}/approve',
               'httpMethod' => 'POST',
               'parameters' => array(
                 'blogId' => array(
@@ -187,7 +188,7 @@ class Google_Service_Blogger extends Google_Service
                 ),
               ),
             ),'delete' => array(
-              'path' => 'blogs/{blogId}/posts/{postId}/comments/{commentId}',
+              'path' => 'v3/blogs/{blogId}/posts/{postId}/comments/{commentId}',
               'httpMethod' => 'DELETE',
               'parameters' => array(
                 'blogId' => array(
@@ -207,7 +208,7 @@ class Google_Service_Blogger extends Google_Service
                 ),
               ),
             ),'get' => array(
-              'path' => 'blogs/{blogId}/posts/{postId}/comments/{commentId}',
+              'path' => 'v3/blogs/{blogId}/posts/{postId}/comments/{commentId}',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'blogId' => array(
@@ -231,7 +232,7 @@ class Google_Service_Blogger extends Google_Service
                 ),
               ),
             ),'list' => array(
-              'path' => 'blogs/{blogId}/posts/{postId}/comments',
+              'path' => 'v3/blogs/{blogId}/posts/{postId}/comments',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'blogId' => array(
@@ -267,7 +268,6 @@ class Google_Service_Blogger extends Google_Service
                 'status' => array(
                   'location' => 'query',
                   'type' => 'string',
-                  'repeated' => true,
                 ),
                 'view' => array(
                   'location' => 'query',
@@ -275,7 +275,7 @@ class Google_Service_Blogger extends Google_Service
                 ),
               ),
             ),'listByBlog' => array(
-              'path' => 'blogs/{blogId}/comments',
+              'path' => 'v3/blogs/{blogId}/comments',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'blogId' => array(
@@ -310,7 +310,7 @@ class Google_Service_Blogger extends Google_Service
                 ),
               ),
             ),'markAsSpam' => array(
-              'path' => 'blogs/{blogId}/posts/{postId}/comments/{commentId}/spam',
+              'path' => 'v3/blogs/{blogId}/posts/{postId}/comments/{commentId}/spam',
               'httpMethod' => 'POST',
               'parameters' => array(
                 'blogId' => array(
@@ -330,7 +330,7 @@ class Google_Service_Blogger extends Google_Service
                 ),
               ),
             ),'removeContent' => array(
-              'path' => 'blogs/{blogId}/posts/{postId}/comments/{commentId}/removecontent',
+              'path' => 'v3/blogs/{blogId}/posts/{postId}/comments/{commentId}/removecontent',
               'httpMethod' => 'POST',
               'parameters' => array(
                 'blogId' => array(
@@ -360,7 +360,7 @@ class Google_Service_Blogger extends Google_Service
         array(
           'methods' => array(
             'get' => array(
-              'path' => 'blogs/{blogId}/pageviews',
+              'path' => 'v3/blogs/{blogId}/pageviews',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'blogId' => array(
@@ -385,7 +385,7 @@ class Google_Service_Blogger extends Google_Service
         array(
           'methods' => array(
             'delete' => array(
-              'path' => 'blogs/{blogId}/pages/{pageId}',
+              'path' => 'v3/blogs/{blogId}/pages/{pageId}',
               'httpMethod' => 'DELETE',
               'parameters' => array(
                 'blogId' => array(
@@ -400,7 +400,7 @@ class Google_Service_Blogger extends Google_Service
                 ),
               ),
             ),'get' => array(
-              'path' => 'blogs/{blogId}/pages/{pageId}',
+              'path' => 'v3/blogs/{blogId}/pages/{pageId}',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'blogId' => array(
@@ -419,7 +419,7 @@ class Google_Service_Blogger extends Google_Service
                 ),
               ),
             ),'insert' => array(
-              'path' => 'blogs/{blogId}/pages',
+              'path' => 'v3/blogs/{blogId}/pages',
               'httpMethod' => 'POST',
               'parameters' => array(
                 'blogId' => array(
@@ -433,7 +433,7 @@ class Google_Service_Blogger extends Google_Service
                 ),
               ),
             ),'list' => array(
-              'path' => 'blogs/{blogId}/pages',
+              'path' => 'v3/blogs/{blogId}/pages',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'blogId' => array(
@@ -464,7 +464,7 @@ class Google_Service_Blogger extends Google_Service
                 ),
               ),
             ),'patch' => array(
-              'path' => 'blogs/{blogId}/pages/{pageId}',
+              'path' => 'v3/blogs/{blogId}/pages/{pageId}',
               'httpMethod' => 'PATCH',
               'parameters' => array(
                 'blogId' => array(
@@ -487,7 +487,7 @@ class Google_Service_Blogger extends Google_Service
                 ),
               ),
             ),'publish' => array(
-              'path' => 'blogs/{blogId}/pages/{pageId}/publish',
+              'path' => 'v3/blogs/{blogId}/pages/{pageId}/publish',
               'httpMethod' => 'POST',
               'parameters' => array(
                 'blogId' => array(
@@ -502,7 +502,7 @@ class Google_Service_Blogger extends Google_Service
                 ),
               ),
             ),'revert' => array(
-              'path' => 'blogs/{blogId}/pages/{pageId}/revert',
+              'path' => 'v3/blogs/{blogId}/pages/{pageId}/revert',
               'httpMethod' => 'POST',
               'parameters' => array(
                 'blogId' => array(
@@ -517,7 +517,7 @@ class Google_Service_Blogger extends Google_Service
                 ),
               ),
             ),'update' => array(
-              'path' => 'blogs/{blogId}/pages/{pageId}',
+              'path' => 'v3/blogs/{blogId}/pages/{pageId}',
               'httpMethod' => 'PUT',
               'parameters' => array(
                 'blogId' => array(
@@ -550,7 +550,7 @@ class Google_Service_Blogger extends Google_Service
         array(
           'methods' => array(
             'get' => array(
-              'path' => 'users/{userId}/blogs/{blogId}/posts/{postId}',
+              'path' => 'v3/users/{userId}/blogs/{blogId}/posts/{postId}',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'userId' => array(
@@ -574,7 +574,7 @@ class Google_Service_Blogger extends Google_Service
                 ),
               ),
             ),'list' => array(
-              'path' => 'users/{userId}/blogs/{blogId}/posts',
+              'path' => 'v3/users/{userId}/blogs/{blogId}/posts',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'userId' => array(
@@ -636,7 +636,7 @@ class Google_Service_Blogger extends Google_Service
         array(
           'methods' => array(
             'delete' => array(
-              'path' => 'blogs/{blogId}/posts/{postId}',
+              'path' => 'v3/blogs/{blogId}/posts/{postId}',
               'httpMethod' => 'DELETE',
               'parameters' => array(
                 'blogId' => array(
@@ -651,7 +651,7 @@ class Google_Service_Blogger extends Google_Service
                 ),
               ),
             ),'get' => array(
-              'path' => 'blogs/{blogId}/posts/{postId}',
+              'path' => 'v3/blogs/{blogId}/posts/{postId}',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'blogId' => array(
@@ -682,7 +682,7 @@ class Google_Service_Blogger extends Google_Service
                 ),
               ),
             ),'getByPath' => array(
-              'path' => 'blogs/{blogId}/posts/bypath',
+              'path' => 'v3/blogs/{blogId}/posts/bypath',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'blogId' => array(
@@ -705,7 +705,7 @@ class Google_Service_Blogger extends Google_Service
                 ),
               ),
             ),'insert' => array(
-              'path' => 'blogs/{blogId}/posts',
+              'path' => 'v3/blogs/{blogId}/posts',
               'httpMethod' => 'POST',
               'parameters' => array(
                 'blogId' => array(
@@ -727,7 +727,7 @@ class Google_Service_Blogger extends Google_Service
                 ),
               ),
             ),'list' => array(
-              'path' => 'blogs/{blogId}/posts',
+              'path' => 'v3/blogs/{blogId}/posts',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'blogId' => array(
@@ -778,7 +778,7 @@ class Google_Service_Blogger extends Google_Service
                 ),
               ),
             ),'patch' => array(
-              'path' => 'blogs/{blogId}/posts/{postId}',
+              'path' => 'v3/blogs/{blogId}/posts/{postId}',
               'httpMethod' => 'PATCH',
               'parameters' => array(
                 'blogId' => array(
@@ -813,7 +813,7 @@ class Google_Service_Blogger extends Google_Service
                 ),
               ),
             ),'publish' => array(
-              'path' => 'blogs/{blogId}/posts/{postId}/publish',
+              'path' => 'v3/blogs/{blogId}/posts/{postId}/publish',
               'httpMethod' => 'POST',
               'parameters' => array(
                 'blogId' => array(
@@ -832,7 +832,7 @@ class Google_Service_Blogger extends Google_Service
                 ),
               ),
             ),'revert' => array(
-              'path' => 'blogs/{blogId}/posts/{postId}/revert',
+              'path' => 'v3/blogs/{blogId}/posts/{postId}/revert',
               'httpMethod' => 'POST',
               'parameters' => array(
                 'blogId' => array(
@@ -847,7 +847,7 @@ class Google_Service_Blogger extends Google_Service
                 ),
               ),
             ),'search' => array(
-              'path' => 'blogs/{blogId}/posts/search',
+              'path' => 'v3/blogs/{blogId}/posts/search',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'blogId' => array(
@@ -870,7 +870,7 @@ class Google_Service_Blogger extends Google_Service
                 ),
               ),
             ),'update' => array(
-              'path' => 'blogs/{blogId}/posts/{postId}',
+              'path' => 'v3/blogs/{blogId}/posts/{postId}',
               'httpMethod' => 'PUT',
               'parameters' => array(
                 'blogId' => array(
@@ -915,7 +915,7 @@ class Google_Service_Blogger extends Google_Service
         array(
           'methods' => array(
             'get' => array(
-              'path' => 'users/{userId}',
+              'path' => 'v3/users/{userId}',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'userId' => array(

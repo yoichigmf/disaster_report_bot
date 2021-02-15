@@ -16,13 +16,13 @@
  */
 
 /**
- * Service definition for DataFusion (v1beta1).
+ * Service definition for DataFusion (v1).
  *
  * <p>
  * Cloud Data Fusion is a fully-managed, cloud native, enterprise data
- * integration service for     quickly building and managing data pipelines. It
- * provides a graphical interface to increase     time efficiency and reduce
- * complexity, and allows business users, developers, and data     scientists to
+ * integration service for quickly building and managing data pipelines. It
+ * provides a graphical interface to increase time efficiency and reduce
+ * complexity, and allows business users, developers, and data scientists to
  * easily and reliably build scalable data integration solutions to cleanse,
  * prepare, blend, transfer and transform data without having to wrestle with
  * infrastructure.</p>
@@ -43,7 +43,8 @@ class Google_Service_DataFusion extends Google_Service
   public $projects_locations;
   public $projects_locations_instances;
   public $projects_locations_operations;
-  
+  public $projects_locations_versions;
+
   /**
    * Constructs the internal representation of the DataFusion service.
    *
@@ -56,7 +57,7 @@ class Google_Service_DataFusion extends Google_Service
     $this->rootUrl = $rootUrl ?: 'https://datafusion.googleapis.com/';
     $this->servicePath = '';
     $this->batchPath = 'batch';
-    $this->version = 'v1beta1';
+    $this->version = 'v1';
     $this->serviceName = 'datafusion';
 
     $this->projects_locations = new Google_Service_DataFusion_Resource_ProjectsLocations(
@@ -66,7 +67,7 @@ class Google_Service_DataFusion extends Google_Service
         array(
           'methods' => array(
             'get' => array(
-              'path' => 'v1beta1/{+name}',
+              'path' => 'v1/{+name}',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'name' => array(
@@ -76,7 +77,7 @@ class Google_Service_DataFusion extends Google_Service
                 ),
               ),
             ),'list' => array(
-              'path' => 'v1beta1/{+name}/locations',
+              'path' => 'v1/{+name}/locations',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'name' => array(
@@ -88,13 +89,17 @@ class Google_Service_DataFusion extends Google_Service
                   'location' => 'query',
                   'type' => 'string',
                 ),
-                'pageToken' => array(
+                'includeUnrevealedLocations' => array(
                   'location' => 'query',
-                  'type' => 'string',
+                  'type' => 'boolean',
                 ),
                 'pageSize' => array(
                   'location' => 'query',
                   'type' => 'integer',
+                ),
+                'pageToken' => array(
+                  'location' => 'query',
+                  'type' => 'string',
                 ),
               ),
             ),
@@ -108,7 +113,7 @@ class Google_Service_DataFusion extends Google_Service
         array(
           'methods' => array(
             'create' => array(
-              'path' => 'v1beta1/{+parent}/instances',
+              'path' => 'v1/{+parent}/instances',
               'httpMethod' => 'POST',
               'parameters' => array(
                 'parent' => array(
@@ -122,7 +127,7 @@ class Google_Service_DataFusion extends Google_Service
                 ),
               ),
             ),'delete' => array(
-              'path' => 'v1beta1/{+name}',
+              'path' => 'v1/{+name}',
               'httpMethod' => 'DELETE',
               'parameters' => array(
                 'name' => array(
@@ -132,7 +137,7 @@ class Google_Service_DataFusion extends Google_Service
                 ),
               ),
             ),'get' => array(
-              'path' => 'v1beta1/{+name}',
+              'path' => 'v1/{+name}',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'name' => array(
@@ -142,7 +147,7 @@ class Google_Service_DataFusion extends Google_Service
                 ),
               ),
             ),'getIamPolicy' => array(
-              'path' => 'v1beta1/{+resource}:getIamPolicy',
+              'path' => 'v1/{+resource}:getIamPolicy',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'resource' => array(
@@ -156,7 +161,7 @@ class Google_Service_DataFusion extends Google_Service
                 ),
               ),
             ),'list' => array(
-              'path' => 'v1beta1/{+parent}/instances',
+              'path' => 'v1/{+parent}/instances',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'parent' => array(
@@ -164,7 +169,7 @@ class Google_Service_DataFusion extends Google_Service
                   'type' => 'string',
                   'required' => true,
                 ),
-                'pageToken' => array(
+                'filter' => array(
                   'location' => 'query',
                   'type' => 'string',
                 ),
@@ -176,13 +181,13 @@ class Google_Service_DataFusion extends Google_Service
                   'location' => 'query',
                   'type' => 'integer',
                 ),
-                'filter' => array(
+                'pageToken' => array(
                   'location' => 'query',
                   'type' => 'string',
                 ),
               ),
             ),'patch' => array(
-              'path' => 'v1beta1/{+name}',
+              'path' => 'v1/{+name}',
               'httpMethod' => 'PATCH',
               'parameters' => array(
                 'name' => array(
@@ -196,7 +201,7 @@ class Google_Service_DataFusion extends Google_Service
                 ),
               ),
             ),'restart' => array(
-              'path' => 'v1beta1/{+name}:restart',
+              'path' => 'v1/{+name}:restart',
               'httpMethod' => 'POST',
               'parameters' => array(
                 'name' => array(
@@ -206,7 +211,7 @@ class Google_Service_DataFusion extends Google_Service
                 ),
               ),
             ),'setIamPolicy' => array(
-              'path' => 'v1beta1/{+resource}:setIamPolicy',
+              'path' => 'v1/{+resource}:setIamPolicy',
               'httpMethod' => 'POST',
               'parameters' => array(
                 'resource' => array(
@@ -216,20 +221,10 @@ class Google_Service_DataFusion extends Google_Service
                 ),
               ),
             ),'testIamPermissions' => array(
-              'path' => 'v1beta1/{+resource}:testIamPermissions',
+              'path' => 'v1/{+resource}:testIamPermissions',
               'httpMethod' => 'POST',
               'parameters' => array(
                 'resource' => array(
-                  'location' => 'path',
-                  'type' => 'string',
-                  'required' => true,
-                ),
-              ),
-            ),'upgrade' => array(
-              'path' => 'v1beta1/{+name}:upgrade',
-              'httpMethod' => 'POST',
-              'parameters' => array(
-                'name' => array(
                   'location' => 'path',
                   'type' => 'string',
                   'required' => true,
@@ -246,7 +241,7 @@ class Google_Service_DataFusion extends Google_Service
         array(
           'methods' => array(
             'cancel' => array(
-              'path' => 'v1beta1/{+name}:cancel',
+              'path' => 'v1/{+name}:cancel',
               'httpMethod' => 'POST',
               'parameters' => array(
                 'name' => array(
@@ -256,7 +251,7 @@ class Google_Service_DataFusion extends Google_Service
                 ),
               ),
             ),'delete' => array(
-              'path' => 'v1beta1/{+name}',
+              'path' => 'v1/{+name}',
               'httpMethod' => 'DELETE',
               'parameters' => array(
                 'name' => array(
@@ -266,7 +261,7 @@ class Google_Service_DataFusion extends Google_Service
                 ),
               ),
             ),'get' => array(
-              'path' => 'v1beta1/{+name}',
+              'path' => 'v1/{+name}',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'name' => array(
@@ -276,7 +271,7 @@ class Google_Service_DataFusion extends Google_Service
                 ),
               ),
             ),'list' => array(
-              'path' => 'v1beta1/{+name}/operations',
+              'path' => 'v1/{+name}/operations',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'name' => array(
@@ -284,7 +279,7 @@ class Google_Service_DataFusion extends Google_Service
                   'type' => 'string',
                   'required' => true,
                 ),
-                'pageToken' => array(
+                'filter' => array(
                   'location' => 'query',
                   'type' => 'string',
                 ),
@@ -292,7 +287,39 @@ class Google_Service_DataFusion extends Google_Service
                   'location' => 'query',
                   'type' => 'integer',
                 ),
-                'filter' => array(
+                'pageToken' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+              ),
+            ),
+          )
+        )
+    );
+    $this->projects_locations_versions = new Google_Service_DataFusion_Resource_ProjectsLocationsVersions(
+        $this,
+        $this->serviceName,
+        'versions',
+        array(
+          'methods' => array(
+            'list' => array(
+              'path' => 'v1/{+parent}/versions',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'parent' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+                'latestPatchOnly' => array(
+                  'location' => 'query',
+                  'type' => 'boolean',
+                ),
+                'pageSize' => array(
+                  'location' => 'query',
+                  'type' => 'integer',
+                ),
+                'pageToken' => array(
                   'location' => 'query',
                   'type' => 'string',
                 ),

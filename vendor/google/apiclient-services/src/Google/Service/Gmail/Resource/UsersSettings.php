@@ -98,10 +98,9 @@ class Google_Service_Gmail_Resource_UsersSettings extends Google_Service_Resourc
   }
   /**
    * Updates the auto-forwarding setting for the specified account. A verified
-   * forwarding address must be specified when auto-forwarding is enabled.
-   *
-   * This method is only available to service account clients that have been
-   * delegated domain-wide authority. (settings.updateAutoForwarding)
+   * forwarding address must be specified when auto-forwarding is enabled. This
+   * method is only available to service account clients that have been delegated
+   * domain-wide authority. (settings.updateAutoForwarding)
    *
    * @param string $userId User's email address. The special value "me" can be
    * used to indicate the authenticated user.
@@ -131,13 +130,12 @@ class Google_Service_Gmail_Resource_UsersSettings extends Google_Service_Resourc
     return $this->call('updateImap', array($params), "Google_Service_Gmail_ImapSettings");
   }
   /**
-   * Updates language settings.
-   *
-   * If successful, the return object contains the displayLanguage that was saved
-   * for the user, which may differ from the value passed into the request. This
-   * is because the requested displayLanguage may not be directly supported by
-   * Gmail but have a close variant that is, and so the variant may be chosen and
-   * saved instead. (settings.updateLanguage)
+   * Updates language settings. If successful, the return object contains the
+   * `displayLanguage` that was saved for the user, which may differ from the
+   * value passed into the request. This is because the requested
+   * `displayLanguage` may not be directly supported by Gmail but have a close
+   * variant that is, and so the variant may be chosen and saved instead.
+   * (settings.updateLanguage)
    *
    * @param string $userId User's email address. The special value "me" can be
    * used to indicate the authenticated user.

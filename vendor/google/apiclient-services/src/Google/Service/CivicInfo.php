@@ -24,7 +24,7 @@
  *
  * <p>
  * For more information about this service, see the API
- * <a href="https://developers.google.com/civic-information" target="_blank">Documentation</a>
+ * <a href="https://developers.google.com/civic-information/" target="_blank">Documentation</a>
  * </p>
  *
  * @author Google, Inc.
@@ -36,7 +36,7 @@ class Google_Service_CivicInfo extends Google_Service
   public $divisions;
   public $elections;
   public $representatives;
-  
+
   /**
    * Constructs the internal representation of the CivicInfo service.
    *
@@ -46,9 +46,9 @@ class Google_Service_CivicInfo extends Google_Service
   public function __construct(Google_Client $client, $rootUrl = null)
   {
     parent::__construct($client);
-    $this->rootUrl = $rootUrl ?: 'https://www.googleapis.com/';
-    $this->servicePath = 'civicinfo/v2/';
-    $this->batchPath = 'batch/civicinfo/v2';
+    $this->rootUrl = $rootUrl ?: 'https://civicinfo.googleapis.com/';
+    $this->servicePath = '';
+    $this->batchPath = 'batch';
     $this->version = 'v2';
     $this->serviceName = 'civicinfo';
 
@@ -59,7 +59,7 @@ class Google_Service_CivicInfo extends Google_Service
         array(
           'methods' => array(
             'search' => array(
-              'path' => 'divisions',
+              'path' => 'civicinfo/v2/divisions',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'query' => array(
@@ -78,11 +78,11 @@ class Google_Service_CivicInfo extends Google_Service
         array(
           'methods' => array(
             'electionQuery' => array(
-              'path' => 'elections',
+              'path' => 'civicinfo/v2/elections',
               'httpMethod' => 'GET',
               'parameters' => array(),
             ),'voterInfoQuery' => array(
-              'path' => 'voterinfo',
+              'path' => 'civicinfo/v2/voterinfo',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'address' => array(
@@ -114,7 +114,7 @@ class Google_Service_CivicInfo extends Google_Service
         array(
           'methods' => array(
             'representativeInfoByAddress' => array(
-              'path' => 'representatives',
+              'path' => 'civicinfo/v2/representatives',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'address' => array(
@@ -137,7 +137,7 @@ class Google_Service_CivicInfo extends Google_Service
                 ),
               ),
             ),'representativeInfoByDivision' => array(
-              'path' => 'representatives/{ocdId}',
+              'path' => 'civicinfo/v2/representatives/{ocdId}',
               'httpMethod' => 'GET',
               'parameters' => array(
                 'ocdId' => array(

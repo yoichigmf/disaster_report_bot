@@ -19,8 +19,14 @@ class Google_Service_CloudAsset_GoogleIdentityAccesscontextmanagerV1ServicePerim
 {
   protected $collection_key = 'restrictedServices';
   public $accessLevels;
+  protected $egressPoliciesType = 'Google_Service_CloudAsset_GoogleIdentityAccesscontextmanagerV1EgressPolicy';
+  protected $egressPoliciesDataType = 'array';
+  protected $ingressPoliciesType = 'Google_Service_CloudAsset_GoogleIdentityAccesscontextmanagerV1IngressPolicy';
+  protected $ingressPoliciesDataType = 'array';
   public $resources;
   public $restrictedServices;
+  protected $vpcAccessibleServicesType = 'Google_Service_CloudAsset_GoogleIdentityAccesscontextmanagerV1VpcAccessibleServices';
+  protected $vpcAccessibleServicesDataType = '';
 
   public function setAccessLevels($accessLevels)
   {
@@ -29,6 +35,34 @@ class Google_Service_CloudAsset_GoogleIdentityAccesscontextmanagerV1ServicePerim
   public function getAccessLevels()
   {
     return $this->accessLevels;
+  }
+  /**
+   * @param Google_Service_CloudAsset_GoogleIdentityAccesscontextmanagerV1EgressPolicy[]
+   */
+  public function setEgressPolicies($egressPolicies)
+  {
+    $this->egressPolicies = $egressPolicies;
+  }
+  /**
+   * @return Google_Service_CloudAsset_GoogleIdentityAccesscontextmanagerV1EgressPolicy[]
+   */
+  public function getEgressPolicies()
+  {
+    return $this->egressPolicies;
+  }
+  /**
+   * @param Google_Service_CloudAsset_GoogleIdentityAccesscontextmanagerV1IngressPolicy[]
+   */
+  public function setIngressPolicies($ingressPolicies)
+  {
+    $this->ingressPolicies = $ingressPolicies;
+  }
+  /**
+   * @return Google_Service_CloudAsset_GoogleIdentityAccesscontextmanagerV1IngressPolicy[]
+   */
+  public function getIngressPolicies()
+  {
+    return $this->ingressPolicies;
   }
   public function setResources($resources)
   {
@@ -45,5 +79,19 @@ class Google_Service_CloudAsset_GoogleIdentityAccesscontextmanagerV1ServicePerim
   public function getRestrictedServices()
   {
     return $this->restrictedServices;
+  }
+  /**
+   * @param Google_Service_CloudAsset_GoogleIdentityAccesscontextmanagerV1VpcAccessibleServices
+   */
+  public function setVpcAccessibleServices(Google_Service_CloudAsset_GoogleIdentityAccesscontextmanagerV1VpcAccessibleServices $vpcAccessibleServices)
+  {
+    $this->vpcAccessibleServices = $vpcAccessibleServices;
+  }
+  /**
+   * @return Google_Service_CloudAsset_GoogleIdentityAccesscontextmanagerV1VpcAccessibleServices
+   */
+  public function getVpcAccessibleServices()
+  {
+    return $this->vpcAccessibleServices;
   }
 }

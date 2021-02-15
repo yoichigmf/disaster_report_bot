@@ -17,10 +17,16 @@
 
 class Google_Service_Compute_NodeGroup extends Google_Model
 {
+  protected $autoscalingPolicyType = 'Google_Service_Compute_NodeGroupAutoscalingPolicy';
+  protected $autoscalingPolicyDataType = '';
   public $creationTimestamp;
   public $description;
+  public $fingerprint;
   public $id;
   public $kind;
+  public $maintenancePolicy;
+  protected $maintenanceWindowType = 'Google_Service_Compute_NodeGroupMaintenanceWindow';
+  protected $maintenanceWindowDataType = '';
   public $name;
   public $nodeTemplate;
   public $selfLink;
@@ -28,6 +34,20 @@ class Google_Service_Compute_NodeGroup extends Google_Model
   public $status;
   public $zone;
 
+  /**
+   * @param Google_Service_Compute_NodeGroupAutoscalingPolicy
+   */
+  public function setAutoscalingPolicy(Google_Service_Compute_NodeGroupAutoscalingPolicy $autoscalingPolicy)
+  {
+    $this->autoscalingPolicy = $autoscalingPolicy;
+  }
+  /**
+   * @return Google_Service_Compute_NodeGroupAutoscalingPolicy
+   */
+  public function getAutoscalingPolicy()
+  {
+    return $this->autoscalingPolicy;
+  }
   public function setCreationTimestamp($creationTimestamp)
   {
     $this->creationTimestamp = $creationTimestamp;
@@ -44,6 +64,14 @@ class Google_Service_Compute_NodeGroup extends Google_Model
   {
     return $this->description;
   }
+  public function setFingerprint($fingerprint)
+  {
+    $this->fingerprint = $fingerprint;
+  }
+  public function getFingerprint()
+  {
+    return $this->fingerprint;
+  }
   public function setId($id)
   {
     $this->id = $id;
@@ -59,6 +87,28 @@ class Google_Service_Compute_NodeGroup extends Google_Model
   public function getKind()
   {
     return $this->kind;
+  }
+  public function setMaintenancePolicy($maintenancePolicy)
+  {
+    $this->maintenancePolicy = $maintenancePolicy;
+  }
+  public function getMaintenancePolicy()
+  {
+    return $this->maintenancePolicy;
+  }
+  /**
+   * @param Google_Service_Compute_NodeGroupMaintenanceWindow
+   */
+  public function setMaintenanceWindow(Google_Service_Compute_NodeGroupMaintenanceWindow $maintenanceWindow)
+  {
+    $this->maintenanceWindow = $maintenanceWindow;
+  }
+  /**
+   * @return Google_Service_Compute_NodeGroupMaintenanceWindow
+   */
+  public function getMaintenanceWindow()
+  {
+    return $this->maintenanceWindow;
   }
   public function setName($name)
   {

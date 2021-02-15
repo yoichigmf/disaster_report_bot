@@ -35,17 +35,18 @@ class Google_Service_Bigquery_Dataset extends Google_Collection
   public $labels;
   public $lastModifiedTime;
   public $location;
+  public $satisfiesPZS;
   public $selfLink;
 
   /**
-   * @param Google_Service_Bigquery_DatasetAccess
+   * @param Google_Service_Bigquery_DatasetAccess[]
    */
   public function setAccess($access)
   {
     $this->access = $access;
   }
   /**
-   * @return Google_Service_Bigquery_DatasetAccess
+   * @return Google_Service_Bigquery_DatasetAccess[]
    */
   public function getAccess()
   {
@@ -166,6 +167,14 @@ class Google_Service_Bigquery_Dataset extends Google_Collection
   public function getLocation()
   {
     return $this->location;
+  }
+  public function setSatisfiesPZS($satisfiesPZS)
+  {
+    $this->satisfiesPZS = $satisfiesPZS;
+  }
+  public function getSatisfiesPZS()
+  {
+    return $this->satisfiesPZS;
   }
   public function setSelfLink($selfLink)
   {

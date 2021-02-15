@@ -21,8 +21,15 @@ class Google_Service_Dataproc_GceClusterConfig extends Google_Collection
   public $internalIpOnly;
   public $metadata;
   public $networkUri;
+  protected $nodeGroupAffinityType = 'Google_Service_Dataproc_NodeGroupAffinity';
+  protected $nodeGroupAffinityDataType = '';
+  public $privateIpv6GoogleAccess;
+  protected $reservationAffinityType = 'Google_Service_Dataproc_ReservationAffinity';
+  protected $reservationAffinityDataType = '';
   public $serviceAccount;
   public $serviceAccountScopes;
+  protected $shieldedInstanceConfigType = 'Google_Service_Dataproc_ShieldedInstanceConfig';
+  protected $shieldedInstanceConfigDataType = '';
   public $subnetworkUri;
   public $tags;
   public $zoneUri;
@@ -51,6 +58,42 @@ class Google_Service_Dataproc_GceClusterConfig extends Google_Collection
   {
     return $this->networkUri;
   }
+  /**
+   * @param Google_Service_Dataproc_NodeGroupAffinity
+   */
+  public function setNodeGroupAffinity(Google_Service_Dataproc_NodeGroupAffinity $nodeGroupAffinity)
+  {
+    $this->nodeGroupAffinity = $nodeGroupAffinity;
+  }
+  /**
+   * @return Google_Service_Dataproc_NodeGroupAffinity
+   */
+  public function getNodeGroupAffinity()
+  {
+    return $this->nodeGroupAffinity;
+  }
+  public function setPrivateIpv6GoogleAccess($privateIpv6GoogleAccess)
+  {
+    $this->privateIpv6GoogleAccess = $privateIpv6GoogleAccess;
+  }
+  public function getPrivateIpv6GoogleAccess()
+  {
+    return $this->privateIpv6GoogleAccess;
+  }
+  /**
+   * @param Google_Service_Dataproc_ReservationAffinity
+   */
+  public function setReservationAffinity(Google_Service_Dataproc_ReservationAffinity $reservationAffinity)
+  {
+    $this->reservationAffinity = $reservationAffinity;
+  }
+  /**
+   * @return Google_Service_Dataproc_ReservationAffinity
+   */
+  public function getReservationAffinity()
+  {
+    return $this->reservationAffinity;
+  }
   public function setServiceAccount($serviceAccount)
   {
     $this->serviceAccount = $serviceAccount;
@@ -66,6 +109,20 @@ class Google_Service_Dataproc_GceClusterConfig extends Google_Collection
   public function getServiceAccountScopes()
   {
     return $this->serviceAccountScopes;
+  }
+  /**
+   * @param Google_Service_Dataproc_ShieldedInstanceConfig
+   */
+  public function setShieldedInstanceConfig(Google_Service_Dataproc_ShieldedInstanceConfig $shieldedInstanceConfig)
+  {
+    $this->shieldedInstanceConfig = $shieldedInstanceConfig;
+  }
+  /**
+   * @return Google_Service_Dataproc_ShieldedInstanceConfig
+   */
+  public function getShieldedInstanceConfig()
+  {
+    return $this->shieldedInstanceConfig;
   }
   public function setSubnetworkUri($subnetworkUri)
   {

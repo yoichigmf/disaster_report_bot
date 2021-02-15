@@ -83,14 +83,13 @@ class Google_Service_BinaryAuthorization_Resource_ProjectsAttestors extends Goog
    * @param array $optParams Optional parameters.
    *
    * @opt_param int options.requestedPolicyVersion Optional. The policy format
-   * version to be returned.
-   *
-   * Valid values are 0, 1, and 3. Requests specifying an invalid value will be
-   * rejected.
-   *
-   * Requests for policies with any conditional bindings must specify version 3.
-   * Policies without any conditional bindings may specify any valid value or
-   * leave the field unset.
+   * version to be returned. Valid values are 0, 1, and 3. Requests specifying an
+   * invalid value will be rejected. Requests for policies with any conditional
+   * bindings must specify version 3. Policies without any conditional bindings
+   * may specify any valid value or leave the field unset. To learn which
+   * resources support conditions in their IAM policies, see the [IAM
+   * documentation](https://cloud.google.com/iam/help/conditions/resource-
+   * policies).
    * @return Google_Service_BinaryAuthorization_IamPolicy
    */
   public function getIamPolicy($resource, $optParams = array())
@@ -107,13 +106,13 @@ class Google_Service_BinaryAuthorization_Resource_ProjectsAttestors extends Goog
    * with the attestors, in the format `projects`.
    * @param array $optParams Optional parameters.
    *
+   * @opt_param int pageSize Requested page size. The server may return fewer
+   * results than requested. If unspecified, the server will pick an appropriate
+   * default.
    * @opt_param string pageToken A token identifying a page of results the server
    * should return. Typically, this is the value of
    * ListAttestorsResponse.next_page_token returned from the previous call to the
    * `ListAttestors` method.
-   * @opt_param int pageSize Requested page size. The server may return fewer
-   * results than requested. If unspecified, the server will pick an appropriate
-   * default.
    * @return Google_Service_BinaryAuthorization_ListAttestorsResponse
    */
   public function listProjectsAttestors($parent, $optParams = array())
@@ -124,10 +123,8 @@ class Google_Service_BinaryAuthorization_Resource_ProjectsAttestors extends Goog
   }
   /**
    * Sets the access control policy on the specified resource. Replaces any
-   * existing policy.
-   *
-   * Can return Public Errors: NOT_FOUND, INVALID_ARGUMENT and PERMISSION_DENIED
-   * (attestors.setIamPolicy)
+   * existing policy. Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and
+   * `PERMISSION_DENIED` errors. (attestors.setIamPolicy)
    *
    * @param string $resource REQUIRED: The resource for which the policy is being
    * specified. See the operation documentation for the appropriate value for this
@@ -145,11 +142,10 @@ class Google_Service_BinaryAuthorization_Resource_ProjectsAttestors extends Goog
   /**
    * Returns permissions that a caller has on the specified resource. If the
    * resource does not exist, this will return an empty set of permissions, not a
-   * NOT_FOUND error.
-   *
-   * Note: This operation is designed to be used for building permission-aware UIs
-   * and command-line tools, not for authorization checking. This operation may
-   * "fail open" without warning. (attestors.testIamPermissions)
+   * `NOT_FOUND` error. Note: This operation is designed to be used for building
+   * permission-aware UIs and command-line tools, not for authorization checking.
+   * This operation may "fail open" without warning.
+   * (attestors.testIamPermissions)
    *
    * @param string $resource REQUIRED: The resource for which the policy detail is
    * being requested. See the operation documentation for the appropriate value
@@ -179,5 +175,21 @@ class Google_Service_BinaryAuthorization_Resource_ProjectsAttestors extends Goog
     $params = array('name' => $name, 'postBody' => $postBody);
     $params = array_merge($params, $optParams);
     return $this->call('update', array($params), "Google_Service_BinaryAuthorization_Attestor");
+  }
+  /**
+   * Returns whether the given Attestation for the given image URI was signed by
+   * the given Attestor (attestors.validateAttestationOccurrence)
+   *
+   * @param string $attestor Required. The resource name of the Attestor of the
+   * occurrence, in the format `projects/attestors`.
+   * @param Google_Service_BinaryAuthorization_ValidateAttestationOccurrenceRequest $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_BinaryAuthorization_ValidateAttestationOccurrenceResponse
+   */
+  public function validateAttestationOccurrence($attestor, Google_Service_BinaryAuthorization_ValidateAttestationOccurrenceRequest $postBody, $optParams = array())
+  {
+    $params = array('attestor' => $attestor, 'postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('validateAttestationOccurrence', array($params), "Google_Service_BinaryAuthorization_ValidateAttestationOccurrenceResponse");
   }
 }

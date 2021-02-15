@@ -17,33 +17,24 @@
 
 class Google_Service_DataFusion_AuditConfig extends Google_Collection
 {
-  protected $collection_key = 'exemptedMembers';
+  protected $collection_key = 'auditLogConfigs';
   protected $auditLogConfigsType = 'Google_Service_DataFusion_AuditLogConfig';
   protected $auditLogConfigsDataType = 'array';
-  public $exemptedMembers;
   public $service;
 
   /**
-   * @param Google_Service_DataFusion_AuditLogConfig
+   * @param Google_Service_DataFusion_AuditLogConfig[]
    */
   public function setAuditLogConfigs($auditLogConfigs)
   {
     $this->auditLogConfigs = $auditLogConfigs;
   }
   /**
-   * @return Google_Service_DataFusion_AuditLogConfig
+   * @return Google_Service_DataFusion_AuditLogConfig[]
    */
   public function getAuditLogConfigs()
   {
     return $this->auditLogConfigs;
-  }
-  public function setExemptedMembers($exemptedMembers)
-  {
-    $this->exemptedMembers = $exemptedMembers;
-  }
-  public function getExemptedMembers()
-  {
-    return $this->exemptedMembers;
   }
   public function setService($service)
   {

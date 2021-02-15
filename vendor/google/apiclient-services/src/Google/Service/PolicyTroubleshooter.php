@@ -16,7 +16,7 @@
  */
 
 /**
- * Service definition for PolicyTroubleshooter (v1beta).
+ * Service definition for PolicyTroubleshooter (v1).
  *
  * <p>
 </p>
@@ -35,7 +35,7 @@ class Google_Service_PolicyTroubleshooter extends Google_Service
       "https://www.googleapis.com/auth/cloud-platform";
 
   public $iam;
-  
+
   /**
    * Constructs the internal representation of the PolicyTroubleshooter service.
    *
@@ -48,7 +48,7 @@ class Google_Service_PolicyTroubleshooter extends Google_Service
     $this->rootUrl = $rootUrl ?: 'https://policytroubleshooter.googleapis.com/';
     $this->servicePath = '';
     $this->batchPath = 'batch';
-    $this->version = 'v1beta';
+    $this->version = 'v1';
     $this->serviceName = 'policytroubleshooter';
 
     $this->iam = new Google_Service_PolicyTroubleshooter_Resource_Iam(
@@ -58,7 +58,7 @@ class Google_Service_PolicyTroubleshooter extends Google_Service
         array(
           'methods' => array(
             'troubleshoot' => array(
-              'path' => 'v1beta/iam:troubleshoot',
+              'path' => 'v1/iam:troubleshoot',
               'httpMethod' => 'POST',
               'parameters' => array(),
             ),

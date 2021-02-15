@@ -24,6 +24,9 @@ class Google_Service_ServiceNetworking_AddSubnetworkRequest extends Google_Colle
   public $ipPrefixLength;
   public $region;
   public $requestedAddress;
+  public $requestedRanges;
+  protected $secondaryIpRangeSpecsType = 'Google_Service_ServiceNetworking_SecondaryIpRangeSpec';
+  protected $secondaryIpRangeSpecsDataType = 'array';
   public $subnetwork;
   public $subnetworkUsers;
 
@@ -74,6 +77,28 @@ class Google_Service_ServiceNetworking_AddSubnetworkRequest extends Google_Colle
   public function getRequestedAddress()
   {
     return $this->requestedAddress;
+  }
+  public function setRequestedRanges($requestedRanges)
+  {
+    $this->requestedRanges = $requestedRanges;
+  }
+  public function getRequestedRanges()
+  {
+    return $this->requestedRanges;
+  }
+  /**
+   * @param Google_Service_ServiceNetworking_SecondaryIpRangeSpec[]
+   */
+  public function setSecondaryIpRangeSpecs($secondaryIpRangeSpecs)
+  {
+    $this->secondaryIpRangeSpecs = $secondaryIpRangeSpecs;
+  }
+  /**
+   * @return Google_Service_ServiceNetworking_SecondaryIpRangeSpec[]
+   */
+  public function getSecondaryIpRangeSpecs()
+  {
+    return $this->secondaryIpRangeSpecs;
   }
   public function setSubnetwork($subnetwork)
   {

@@ -30,11 +30,10 @@ class Google_Service_Dataproc_Resource_ProjectsLocationsWorkflowTemplates extend
    *
    * @param string $parent Required. The resource name of the region or location,
    * as described in https://cloud.google.com/apis/design/resource_names. For
-   * projects.regions.workflowTemplates,create, the resource name of the  region
-   * has the following format:  projects/{project_id}/regions/{region} For
-   * projects.locations.workflowTemplates.create, the resource name of  the
-   * location has the following format:
-   * projects/{project_id}/locations/{location}
+   * projects.regions.workflowTemplates,create, the resource name of the region
+   * has the following format: projects/{project_id}/regions/{region} For
+   * projects.locations.workflowTemplates.create, the resource name of the
+   * location has the following format: projects/{project_id}/locations/{location}
    * @param Google_Service_Dataproc_WorkflowTemplate $postBody
    * @param array $optParams Optional parameters.
    * @return Google_Service_Dataproc_WorkflowTemplate
@@ -54,7 +53,7 @@ class Google_Service_Dataproc_Resource_ProjectsLocationsWorkflowTemplates extend
    * projects.regions.workflowTemplates.delete, the resource name of the template
    * has the following format:
    * projects/{project_id}/regions/{region}/workflowTemplates/{template_id} For
-   * projects.locations.workflowTemplates.instantiate, the resource name  of the
+   * projects.locations.workflowTemplates.instantiate, the resource name of the
    * template has the following format:
    * projects/{project_id}/locations/{location}/workflowTemplates/{template_id}
    * @param array $optParams Optional parameters.
@@ -76,10 +75,10 @@ class Google_Service_Dataproc_Resource_ProjectsLocationsWorkflowTemplates extend
    *
    * @param string $name Required. The resource name of the workflow template, as
    * described in https://cloud.google.com/apis/design/resource_names. For
-   * projects.regions.workflowTemplates.get, the resource name of the  template
-   * has the following format:
+   * projects.regions.workflowTemplates.get, the resource name of the template has
+   * the following format:
    * projects/{project_id}/regions/{region}/workflowTemplates/{template_id} For
-   * projects.locations.workflowTemplates.get, the resource name of the  template
+   * projects.locations.workflowTemplates.get, the resource name of the template
    * has the following format:
    * projects/{project_id}/locations/{location}/workflowTemplates/{template_id}
    * @param array $optParams Optional parameters.
@@ -119,15 +118,18 @@ class Google_Service_Dataproc_Resource_ProjectsLocationsWorkflowTemplates extend
    * will complete when entire workflow is finished.The running workflow can be
    * aborted via operations.cancel. This will cause any inflight jobs to be
    * cancelled and workflow-owned clusters to be deleted.The Operation.metadata
-   * will be WorkflowMetadata. Also see Using WorkflowMetadata.On successful
-   * completion, Operation.response will be Empty. (workflowTemplates.instantiate)
+   * will be WorkflowMetadata (https://cloud.google.com/dataproc/docs/reference/rp
+   * c/google.cloud.dataproc.v1#workflowmetadata). Also see Using WorkflowMetadata
+   * (https://cloud.google.com/dataproc/docs/concepts/workflows/debugging#using_wo
+   * rkflowmetadata).On successful completion, Operation.response will be Empty.
+   * (workflowTemplates.instantiate)
    *
    * @param string $name Required. The resource name of the workflow template, as
    * described in https://cloud.google.com/apis/design/resource_names. For
    * projects.regions.workflowTemplates.instantiate, the resource name of the
    * template has the following format:
    * projects/{project_id}/regions/{region}/workflowTemplates/{template_id} For
-   * projects.locations.workflowTemplates.instantiate, the resource name  of the
+   * projects.locations.workflowTemplates.instantiate, the resource name of the
    * template has the following format:
    * projects/{project_id}/locations/{location}/workflowTemplates/{template_id}
    * @param Google_Service_Dataproc_InstantiateWorkflowTemplateRequest $postBody
@@ -148,15 +150,18 @@ class Google_Service_Dataproc_Resource_ProjectsLocationsWorkflowTemplates extend
    * entire workflow is finished.The running workflow can be aborted via
    * operations.cancel. This will cause any inflight jobs to be cancelled and
    * workflow-owned clusters to be deleted.The Operation.metadata will be
-   * WorkflowMetadata. Also see Using WorkflowMetadata.On successful completion,
-   * Operation.response will be Empty. (workflowTemplates.instantiateInline)
+   * WorkflowMetadata (https://cloud.google.com/dataproc/docs/reference/rpc/google
+   * .cloud.dataproc.v1#workflowmetadata). Also see Using WorkflowMetadata (https:
+   * //cloud.google.com/dataproc/docs/concepts/workflows/debugging#using_workflowm
+   * etadata).On successful completion, Operation.response will be Empty.
+   * (workflowTemplates.instantiateInline)
    *
    * @param string $parent Required. The resource name of the region or location,
    * as described in https://cloud.google.com/apis/design/resource_names. For
-   * projects.regions.workflowTemplates,instantiateinline, the resource  name of
-   * the region has the following format:  projects/{project_id}/regions/{region}
-   * For projects.locations.workflowTemplates.instantiateinline, the  resource
-   * name of the location has the following format:
+   * projects.regions.workflowTemplates,instantiateinline, the resource name of
+   * the region has the following format: projects/{project_id}/regions/{region}
+   * For projects.locations.workflowTemplates.instantiateinline, the resource name
+   * of the location has the following format:
    * projects/{project_id}/locations/{location}
    * @param Google_Service_Dataproc_WorkflowTemplate $postBody
    * @param array $optParams Optional parameters.
@@ -182,16 +187,16 @@ class Google_Service_Dataproc_Resource_ProjectsLocationsWorkflowTemplates extend
    *
    * @param string $parent Required. The resource name of the region or location,
    * as described in https://cloud.google.com/apis/design/resource_names. For
-   * projects.regions.workflowTemplates,list, the resource  name of the region has
-   * the following format:  projects/{project_id}/regions/{region} For
-   * projects.locations.workflowTemplates.list, the  resource name of the location
-   * has the following format:  projects/{project_id}/locations/{location}
+   * projects.regions.workflowTemplates,list, the resource name of the region has
+   * the following format: projects/{project_id}/regions/{region} For
+   * projects.locations.workflowTemplates.list, the resource name of the location
+   * has the following format: projects/{project_id}/locations/{location}
    * @param array $optParams Optional parameters.
    *
-   * @opt_param string pageToken Optional. The page token, returned by a previous
-   * call, to request the next page of results.
    * @opt_param int pageSize Optional. The maximum number of results to return in
    * each response.
+   * @opt_param string pageToken Optional. The page token, returned by a previous
+   * call, to request the next page of results.
    * @return Google_Service_Dataproc_ListWorkflowTemplatesResponse
    */
   public function listProjectsLocationsWorkflowTemplates($parent, $optParams = array())
@@ -202,7 +207,8 @@ class Google_Service_Dataproc_Resource_ProjectsLocationsWorkflowTemplates extend
   }
   /**
    * Sets the access control policy on the specified resource. Replaces any
-   * existing policy. (workflowTemplates.setIamPolicy)
+   * existing policy.Can return NOT_FOUND, INVALID_ARGUMENT, and PERMISSION_DENIED
+   * errors. (workflowTemplates.setIamPolicy)
    *
    * @param string $resource REQUIRED: The resource for which the policy is being
    * specified. See the operation documentation for the appropriate value for this
@@ -244,10 +250,10 @@ class Google_Service_Dataproc_Resource_ProjectsLocationsWorkflowTemplates extend
    *
    * @param string $name Output only. The resource name of the workflow template,
    * as described in https://cloud.google.com/apis/design/resource_names. For
-   * projects.regions.workflowTemplates, the resource name of the  template has
-   * the following format:
+   * projects.regions.workflowTemplates, the resource name of the template has the
+   * following format:
    * projects/{project_id}/regions/{region}/workflowTemplates/{template_id} For
-   * projects.locations.workflowTemplates, the resource name of the  template has
+   * projects.locations.workflowTemplates, the resource name of the template has
    * the following format:
    * projects/{project_id}/locations/{location}/workflowTemplates/{template_id}
    * @param Google_Service_Dataproc_WorkflowTemplate $postBody

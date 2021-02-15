@@ -26,12 +26,10 @@
 class Google_Service_CloudBuild_Resource_ProjectsTriggers extends Google_Service_Resource
 {
   /**
-   * Creates a new `BuildTrigger`.
+   * Creates a new `BuildTrigger`. This API is experimental. (triggers.create)
    *
-   * This API is experimental. (triggers.create)
-   *
-   * @param string $projectId ID of the project for which to configure automatic
-   * builds.
+   * @param string $projectId Required. ID of the project for which to configure
+   * automatic builds.
    * @param Google_Service_CloudBuild_BuildTrigger $postBody
    * @param array $optParams Optional parameters.
    * @return Google_Service_CloudBuild_BuildTrigger
@@ -43,12 +41,11 @@ class Google_Service_CloudBuild_Resource_ProjectsTriggers extends Google_Service
     return $this->call('create', array($params), "Google_Service_CloudBuild_BuildTrigger");
   }
   /**
-   * Deletes a `BuildTrigger` by its project ID and trigger ID.
+   * Deletes a `BuildTrigger` by its project ID and trigger ID. This API is
+   * experimental. (triggers.delete)
    *
-   * This API is experimental. (triggers.delete)
-   *
-   * @param string $projectId ID of the project that owns the trigger.
-   * @param string $triggerId ID of the `BuildTrigger` to delete.
+   * @param string $projectId Required. ID of the project that owns the trigger.
+   * @param string $triggerId Required. ID of the `BuildTrigger` to delete.
    * @param array $optParams Optional parameters.
    * @return Google_Service_CloudBuild_CloudbuildEmpty
    */
@@ -59,12 +56,12 @@ class Google_Service_CloudBuild_Resource_ProjectsTriggers extends Google_Service
     return $this->call('delete', array($params), "Google_Service_CloudBuild_CloudbuildEmpty");
   }
   /**
-   * Returns information about a `BuildTrigger`.
+   * Returns information about a `BuildTrigger`. This API is experimental.
+   * (triggers.get)
    *
-   * This API is experimental. (triggers.get)
-   *
-   * @param string $projectId ID of the project that owns the trigger.
-   * @param string $triggerId ID of the `BuildTrigger` to get.
+   * @param string $projectId Required. ID of the project that owns the trigger.
+   * @param string $triggerId Required. Identifier (`id` or `name`) of the
+   * `BuildTrigger` to get.
    * @param array $optParams Optional parameters.
    * @return Google_Service_CloudBuild_BuildTrigger
    */
@@ -75,16 +72,16 @@ class Google_Service_CloudBuild_Resource_ProjectsTriggers extends Google_Service
     return $this->call('get', array($params), "Google_Service_CloudBuild_BuildTrigger");
   }
   /**
-   * Lists existing `BuildTrigger`s.
+   * Lists existing `BuildTrigger`s. This API is experimental.
+   * (triggers.listProjectsTriggers)
    *
-   * This API is experimental. (triggers.listProjectsTriggers)
-   *
-   * @param string $projectId ID of the project for which to list BuildTriggers.
+   * @param string $projectId Required. ID of the project for which to list
+   * BuildTriggers.
    * @param array $optParams Optional parameters.
    *
+   * @opt_param int pageSize Number of results to return in the list.
    * @opt_param string pageToken Token to provide to skip to a particular spot in
    * the list.
-   * @opt_param int pageSize Number of results to return in the list.
    * @return Google_Service_CloudBuild_ListBuildTriggersResponse
    */
   public function listProjectsTriggers($projectId, $optParams = array())
@@ -94,12 +91,11 @@ class Google_Service_CloudBuild_Resource_ProjectsTriggers extends Google_Service
     return $this->call('list', array($params), "Google_Service_CloudBuild_ListBuildTriggersResponse");
   }
   /**
-   * Updates a `BuildTrigger` by its project ID and trigger ID.
+   * Updates a `BuildTrigger` by its project ID and trigger ID. This API is
+   * experimental. (triggers.patch)
    *
-   * This API is experimental. (triggers.patch)
-   *
-   * @param string $projectId ID of the project that owns the trigger.
-   * @param string $triggerId ID of the `BuildTrigger` to update.
+   * @param string $projectId Required. ID of the project that owns the trigger.
+   * @param string $triggerId Required. ID of the `BuildTrigger` to update.
    * @param Google_Service_CloudBuild_BuildTrigger $postBody
    * @param array $optParams Optional parameters.
    * @return Google_Service_CloudBuild_BuildTrigger
@@ -113,8 +109,8 @@ class Google_Service_CloudBuild_Resource_ProjectsTriggers extends Google_Service
   /**
    * Runs a `BuildTrigger` at a particular source revision. (triggers.run)
    *
-   * @param string $projectId ID of the project.
-   * @param string $triggerId ID of the trigger.
+   * @param string $projectId Required. ID of the project.
+   * @param string $triggerId Required. ID of the trigger.
    * @param Google_Service_CloudBuild_RepoSource $postBody
    * @param array $optParams Optional parameters.
    * @return Google_Service_CloudBuild_Operation
@@ -124,5 +120,24 @@ class Google_Service_CloudBuild_Resource_ProjectsTriggers extends Google_Service
     $params = array('projectId' => $projectId, 'triggerId' => $triggerId, 'postBody' => $postBody);
     $params = array_merge($params, $optParams);
     return $this->call('run', array($params), "Google_Service_CloudBuild_Operation");
+  }
+  /**
+   * ReceiveTriggerWebhook [Experimental] is called when the API receives a
+   * webhook request targeted at a specific trigger. (triggers.webhook)
+   *
+   * @param string $projectId Project in which the specified trigger lives
+   * @param string $trigger Name of the trigger to run the payload against
+   * @param Google_Service_CloudBuild_HttpBody $postBody
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param string secret Secret token used for authorization if an OAuth
+   * token isn't provided.
+   * @return Google_Service_CloudBuild_ReceiveTriggerWebhookResponse
+   */
+  public function webhook($projectId, $trigger, Google_Service_CloudBuild_HttpBody $postBody, $optParams = array())
+  {
+    $params = array('projectId' => $projectId, 'trigger' => $trigger, 'postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('webhook', array($params), "Google_Service_CloudBuild_ReceiveTriggerWebhookResponse");
   }
 }

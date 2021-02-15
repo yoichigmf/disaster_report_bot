@@ -21,16 +21,17 @@ class Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1beta2T
   protected $segmentsType = 'Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1beta2TextSegment';
   protected $segmentsDataType = 'array';
   public $text;
+  public $version;
 
   /**
-   * @param Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1beta2TextSegment
+   * @param Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1beta2TextSegment[]
    */
   public function setSegments($segments)
   {
     $this->segments = $segments;
   }
   /**
-   * @return Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1beta2TextSegment
+   * @return Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1beta2TextSegment[]
    */
   public function getSegments()
   {
@@ -43,5 +44,13 @@ class Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1beta2T
   public function getText()
   {
     return $this->text;
+  }
+  public function setVersion($version)
+  {
+    $this->version = $version;
+  }
+  public function getVersion()
+  {
+    return $this->version;
   }
 }

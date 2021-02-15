@@ -26,6 +26,7 @@ class Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1beta2O
   protected $segmentType = 'Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1beta2VideoSegment';
   protected $segmentDataType = '';
   public $trackId;
+  public $version;
 
   public function setConfidence($confidence)
   {
@@ -50,14 +51,14 @@ class Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1beta2O
     return $this->entity;
   }
   /**
-   * @param Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1beta2ObjectTrackingFrame
+   * @param Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1beta2ObjectTrackingFrame[]
    */
   public function setFrames($frames)
   {
     $this->frames = $frames;
   }
   /**
-   * @return Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1beta2ObjectTrackingFrame
+   * @return Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1beta2ObjectTrackingFrame[]
    */
   public function getFrames()
   {
@@ -84,5 +85,13 @@ class Google_Service_CloudVideoIntelligence_GoogleCloudVideointelligenceV1beta2O
   public function getTrackId()
   {
     return $this->trackId;
+  }
+  public function setVersion($version)
+  {
+    $this->version = $version;
+  }
+  public function getVersion()
+  {
+    return $this->version;
   }
 }

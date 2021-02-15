@@ -17,12 +17,22 @@
 
 class Google_Service_CloudFunctions_OperationMetadataV1 extends Google_Model
 {
+  public $buildId;
   public $request;
+  public $sourceToken;
   public $target;
   public $type;
   public $updateTime;
   public $versionId;
 
+  public function setBuildId($buildId)
+  {
+    $this->buildId = $buildId;
+  }
+  public function getBuildId()
+  {
+    return $this->buildId;
+  }
   public function setRequest($request)
   {
     $this->request = $request;
@@ -30,6 +40,14 @@ class Google_Service_CloudFunctions_OperationMetadataV1 extends Google_Model
   public function getRequest()
   {
     return $this->request;
+  }
+  public function setSourceToken($sourceToken)
+  {
+    $this->sourceToken = $sourceToken;
+  }
+  public function getSourceToken()
+  {
+    return $this->sourceToken;
   }
   public function setTarget($target)
   {

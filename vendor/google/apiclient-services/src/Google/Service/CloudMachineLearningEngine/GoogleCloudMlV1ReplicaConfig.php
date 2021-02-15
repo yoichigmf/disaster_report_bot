@@ -15,10 +15,15 @@
  * the License.
  */
 
-class Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1ReplicaConfig extends Google_Model
+class Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1ReplicaConfig extends Google_Collection
 {
+  protected $collection_key = 'containerCommand';
   protected $acceleratorConfigType = 'Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1AcceleratorConfig';
   protected $acceleratorConfigDataType = '';
+  public $containerArgs;
+  public $containerCommand;
+  protected $diskConfigType = 'Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1DiskConfig';
+  protected $diskConfigDataType = '';
   public $imageUri;
   public $tpuTfVersion;
 
@@ -35,6 +40,36 @@ class Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1ReplicaConfig ext
   public function getAcceleratorConfig()
   {
     return $this->acceleratorConfig;
+  }
+  public function setContainerArgs($containerArgs)
+  {
+    $this->containerArgs = $containerArgs;
+  }
+  public function getContainerArgs()
+  {
+    return $this->containerArgs;
+  }
+  public function setContainerCommand($containerCommand)
+  {
+    $this->containerCommand = $containerCommand;
+  }
+  public function getContainerCommand()
+  {
+    return $this->containerCommand;
+  }
+  /**
+   * @param Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1DiskConfig
+   */
+  public function setDiskConfig(Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1DiskConfig $diskConfig)
+  {
+    $this->diskConfig = $diskConfig;
+  }
+  /**
+   * @return Google_Service_CloudMachineLearningEngine_GoogleCloudMlV1DiskConfig
+   */
+  public function getDiskConfig()
+  {
+    return $this->diskConfig;
   }
   public function setImageUri($imageUri)
   {

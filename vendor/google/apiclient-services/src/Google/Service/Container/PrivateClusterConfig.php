@@ -19,7 +19,10 @@ class Google_Service_Container_PrivateClusterConfig extends Google_Model
 {
   public $enablePrivateEndpoint;
   public $enablePrivateNodes;
+  protected $masterGlobalAccessConfigType = 'Google_Service_Container_PrivateClusterMasterGlobalAccessConfig';
+  protected $masterGlobalAccessConfigDataType = '';
   public $masterIpv4CidrBlock;
+  public $peeringName;
   public $privateEndpoint;
   public $publicEndpoint;
 
@@ -39,6 +42,20 @@ class Google_Service_Container_PrivateClusterConfig extends Google_Model
   {
     return $this->enablePrivateNodes;
   }
+  /**
+   * @param Google_Service_Container_PrivateClusterMasterGlobalAccessConfig
+   */
+  public function setMasterGlobalAccessConfig(Google_Service_Container_PrivateClusterMasterGlobalAccessConfig $masterGlobalAccessConfig)
+  {
+    $this->masterGlobalAccessConfig = $masterGlobalAccessConfig;
+  }
+  /**
+   * @return Google_Service_Container_PrivateClusterMasterGlobalAccessConfig
+   */
+  public function getMasterGlobalAccessConfig()
+  {
+    return $this->masterGlobalAccessConfig;
+  }
   public function setMasterIpv4CidrBlock($masterIpv4CidrBlock)
   {
     $this->masterIpv4CidrBlock = $masterIpv4CidrBlock;
@@ -46,6 +63,14 @@ class Google_Service_Container_PrivateClusterConfig extends Google_Model
   public function getMasterIpv4CidrBlock()
   {
     return $this->masterIpv4CidrBlock;
+  }
+  public function setPeeringName($peeringName)
+  {
+    $this->peeringName = $peeringName;
+  }
+  public function getPeeringName()
+  {
+    return $this->peeringName;
   }
   public function setPrivateEndpoint($privateEndpoint)
   {

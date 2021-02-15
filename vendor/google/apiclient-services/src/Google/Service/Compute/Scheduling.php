@@ -19,6 +19,8 @@ class Google_Service_Compute_Scheduling extends Google_Collection
 {
   protected $collection_key = 'nodeAffinities';
   public $automaticRestart;
+  public $locationHint;
+  public $minNodeCpus;
   protected $nodeAffinitiesType = 'Google_Service_Compute_SchedulingNodeAffinity';
   protected $nodeAffinitiesDataType = 'array';
   public $onHostMaintenance;
@@ -32,15 +34,31 @@ class Google_Service_Compute_Scheduling extends Google_Collection
   {
     return $this->automaticRestart;
   }
+  public function setLocationHint($locationHint)
+  {
+    $this->locationHint = $locationHint;
+  }
+  public function getLocationHint()
+  {
+    return $this->locationHint;
+  }
+  public function setMinNodeCpus($minNodeCpus)
+  {
+    $this->minNodeCpus = $minNodeCpus;
+  }
+  public function getMinNodeCpus()
+  {
+    return $this->minNodeCpus;
+  }
   /**
-   * @param Google_Service_Compute_SchedulingNodeAffinity
+   * @param Google_Service_Compute_SchedulingNodeAffinity[]
    */
   public function setNodeAffinities($nodeAffinities)
   {
     $this->nodeAffinities = $nodeAffinities;
   }
   /**
-   * @return Google_Service_Compute_SchedulingNodeAffinity
+   * @return Google_Service_Compute_SchedulingNodeAffinity[]
    */
   public function getNodeAffinities()
   {

@@ -31,13 +31,11 @@
  */
 class Google_Service_AdExperienceReport extends Google_Service
 {
-  /** Test scope for access to the Zoo service. */
-  const XAPI_ZOO =
-      "https://www.googleapis.com/auth/xapi.zoo";
+
 
   public $sites;
   public $violatingSites;
-  
+
   /**
    * Constructs the internal representation of the AdExperienceReport service.
    *

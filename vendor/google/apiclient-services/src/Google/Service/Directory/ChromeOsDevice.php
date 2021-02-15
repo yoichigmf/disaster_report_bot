@@ -39,6 +39,8 @@ class Google_Service_Directory_ChromeOsDevice extends Google_Collection
   public $firmwareVersion;
   public $kind;
   public $lastEnrollmentTime;
+  protected $lastKnownNetworkType = 'Google_Service_Directory_ChromeOsDeviceLastKnownNetwork';
+  protected $lastKnownNetworkDataType = 'array';
   public $lastSync;
   public $macAddress;
   public $manufactureDate;
@@ -49,7 +51,7 @@ class Google_Service_Directory_ChromeOsDevice extends Google_Collection
   public $orgUnitPath;
   public $osVersion;
   public $platformVersion;
-  protected $recentUsersType = 'Google_Service_Directory_ChromeOsDeviceRecentUsers';
+  protected $recentUsersType = 'Google_Service_Directory_RecentUsers';
   protected $recentUsersDataType = 'array';
   public $serialNumber;
   public $status;
@@ -62,14 +64,14 @@ class Google_Service_Directory_ChromeOsDevice extends Google_Collection
   public $willAutoRenew;
 
   /**
-   * @param Google_Service_Directory_ChromeOsDeviceActiveTimeRanges
+   * @param Google_Service_Directory_ChromeOsDeviceActiveTimeRanges[]
    */
   public function setActiveTimeRanges($activeTimeRanges)
   {
     $this->activeTimeRanges = $activeTimeRanges;
   }
   /**
-   * @return Google_Service_Directory_ChromeOsDeviceActiveTimeRanges
+   * @return Google_Service_Directory_ChromeOsDeviceActiveTimeRanges[]
    */
   public function getActiveTimeRanges()
   {
@@ -116,28 +118,28 @@ class Google_Service_Directory_ChromeOsDevice extends Google_Collection
     return $this->bootMode;
   }
   /**
-   * @param Google_Service_Directory_ChromeOsDeviceCpuStatusReports
+   * @param Google_Service_Directory_ChromeOsDeviceCpuStatusReports[]
    */
   public function setCpuStatusReports($cpuStatusReports)
   {
     $this->cpuStatusReports = $cpuStatusReports;
   }
   /**
-   * @return Google_Service_Directory_ChromeOsDeviceCpuStatusReports
+   * @return Google_Service_Directory_ChromeOsDeviceCpuStatusReports[]
    */
   public function getCpuStatusReports()
   {
     return $this->cpuStatusReports;
   }
   /**
-   * @param Google_Service_Directory_ChromeOsDeviceDeviceFiles
+   * @param Google_Service_Directory_ChromeOsDeviceDeviceFiles[]
    */
   public function setDeviceFiles($deviceFiles)
   {
     $this->deviceFiles = $deviceFiles;
   }
   /**
-   * @return Google_Service_Directory_ChromeOsDeviceDeviceFiles
+   * @return Google_Service_Directory_ChromeOsDeviceDeviceFiles[]
    */
   public function getDeviceFiles()
   {
@@ -152,14 +154,14 @@ class Google_Service_Directory_ChromeOsDevice extends Google_Collection
     return $this->deviceId;
   }
   /**
-   * @param Google_Service_Directory_ChromeOsDeviceDiskVolumeReports
+   * @param Google_Service_Directory_ChromeOsDeviceDiskVolumeReports[]
    */
   public function setDiskVolumeReports($diskVolumeReports)
   {
     $this->diskVolumeReports = $diskVolumeReports;
   }
   /**
-   * @return Google_Service_Directory_ChromeOsDeviceDiskVolumeReports
+   * @return Google_Service_Directory_ChromeOsDeviceDiskVolumeReports[]
    */
   public function getDiskVolumeReports()
   {
@@ -220,6 +222,20 @@ class Google_Service_Directory_ChromeOsDevice extends Google_Collection
   public function getLastEnrollmentTime()
   {
     return $this->lastEnrollmentTime;
+  }
+  /**
+   * @param Google_Service_Directory_ChromeOsDeviceLastKnownNetwork[]
+   */
+  public function setLastKnownNetwork($lastKnownNetwork)
+  {
+    $this->lastKnownNetwork = $lastKnownNetwork;
+  }
+  /**
+   * @return Google_Service_Directory_ChromeOsDeviceLastKnownNetwork[]
+   */
+  public function getLastKnownNetwork()
+  {
+    return $this->lastKnownNetwork;
   }
   public function setLastSync($lastSync)
   {
@@ -302,14 +318,14 @@ class Google_Service_Directory_ChromeOsDevice extends Google_Collection
     return $this->platformVersion;
   }
   /**
-   * @param Google_Service_Directory_ChromeOsDeviceRecentUsers
+   * @param Google_Service_Directory_RecentUsers[]
    */
   public function setRecentUsers($recentUsers)
   {
     $this->recentUsers = $recentUsers;
   }
   /**
-   * @return Google_Service_Directory_ChromeOsDeviceRecentUsers
+   * @return Google_Service_Directory_RecentUsers[]
    */
   public function getRecentUsers()
   {
@@ -340,14 +356,14 @@ class Google_Service_Directory_ChromeOsDevice extends Google_Collection
     return $this->supportEndDate;
   }
   /**
-   * @param Google_Service_Directory_ChromeOsDeviceSystemRamFreeReports
+   * @param Google_Service_Directory_ChromeOsDeviceSystemRamFreeReports[]
    */
   public function setSystemRamFreeReports($systemRamFreeReports)
   {
     $this->systemRamFreeReports = $systemRamFreeReports;
   }
   /**
-   * @return Google_Service_Directory_ChromeOsDeviceSystemRamFreeReports
+   * @return Google_Service_Directory_ChromeOsDeviceSystemRamFreeReports[]
    */
   public function getSystemRamFreeReports()
   {

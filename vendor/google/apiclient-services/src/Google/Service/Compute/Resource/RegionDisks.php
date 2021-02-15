@@ -28,7 +28,7 @@ class Google_Service_Compute_Resource_RegionDisks extends Google_Service_Resourc
   /**
    * Adds existing resource policies to a regional disk. You can only add one
    * policy which will be applied to this disk for scheduling snapshot creation.
-   * (== suppress_warning http-rest-shadowed ==) (regionDisks.addResourcePolicies)
+   * (regionDisks.addResourcePolicies)
    *
    * @param string $project Project ID for this request.
    * @param string $region The name of the region for this request.
@@ -57,8 +57,7 @@ class Google_Service_Compute_Resource_RegionDisks extends Google_Service_Resourc
     return $this->call('addResourcePolicies', array($params), "Google_Service_Compute_Operation");
   }
   /**
-   * Creates a snapshot of this regional disk. (== suppress_warning http-rest-
-   * shadowed ==) (regionDisks.createSnapshot)
+   * Creates a snapshot of this regional disk. (regionDisks.createSnapshot)
    *
    * @param string $project Project ID for this request.
    * @param string $region Name of the region for this request.
@@ -90,8 +89,7 @@ class Google_Service_Compute_Resource_RegionDisks extends Google_Service_Resourc
    * Deletes the specified regional persistent disk. Deleting a regional disk
    * removes all the replicas of its data permanently and is irreversible.
    * However, deleting a disk does not delete any snapshots previously made from
-   * the disk. You must separately delete snapshots. (== suppress_warning http-
-   * rest-shadowed ==) (regionDisks.delete)
+   * the disk. You must separately delete snapshots. (regionDisks.delete)
    *
    * @param string $project Project ID for this request.
    * @param string $region Name of the region for this request.
@@ -119,8 +117,7 @@ class Google_Service_Compute_Resource_RegionDisks extends Google_Service_Resourc
     return $this->call('delete', array($params), "Google_Service_Compute_Operation");
   }
   /**
-   * Returns a specified regional persistent disk. (== suppress_warning http-rest-
-   * shadowed ==) (regionDisks.get)
+   * Returns a specified regional persistent disk. (regionDisks.get)
    *
    * @param string $project Project ID for this request.
    * @param string $region Name of the region for this request.
@@ -135,9 +132,26 @@ class Google_Service_Compute_Resource_RegionDisks extends Google_Service_Resourc
     return $this->call('get', array($params), "Google_Service_Compute_Disk");
   }
   /**
+   * Gets the access control policy for a resource. May be empty if no such policy
+   * or resource exists. (regionDisks.getIamPolicy)
+   *
+   * @param string $project Project ID for this request.
+   * @param string $region The name of the region for this request.
+   * @param string $resource Name or id of the resource for this request.
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param int optionsRequestedPolicyVersion Requested IAM Policy version.
+   * @return Google_Service_Compute_Policy
+   */
+  public function getIamPolicy($project, $region, $resource, $optParams = array())
+  {
+    $params = array('project' => $project, 'region' => $region, 'resource' => $resource);
+    $params = array_merge($params, $optParams);
+    return $this->call('getIamPolicy', array($params), "Google_Service_Compute_Policy");
+  }
+  /**
    * Creates a persistent regional disk in the specified project using the data
-   * included in the request. (== suppress_warning http-rest-shadowed ==)
-   * (regionDisks.insert)
+   * included in the request. (regionDisks.insert)
    *
    * @param string $project Project ID for this request.
    * @param string $region Name of the region for this request.
@@ -156,7 +170,8 @@ class Google_Service_Compute_Resource_RegionDisks extends Google_Service_Resourc
    *
    * The request ID must be a valid UUID with the exception that zero UUID is not
    * supported (00000000-0000-0000-0000-000000000000).
-   * @opt_param string sourceImage Optional. Source image to restore onto a disk.
+   * @opt_param string sourceImage Source image to restore onto a disk. This field
+   * is optional.
    * @return Google_Service_Compute_Operation
    */
   public function insert($project, $region, Google_Service_Compute_Disk $postBody, $optParams = array())
@@ -167,7 +182,7 @@ class Google_Service_Compute_Resource_RegionDisks extends Google_Service_Resourc
   }
   /**
    * Retrieves the list of persistent disks contained within the specified region.
-   * (== suppress_warning http-rest-shadowed ==) (regionDisks.listRegionDisks)
+   * (regionDisks.listRegionDisks)
    *
    * @param string $project Project ID for this request.
    * @param string $region Name of the region for this request.
@@ -176,41 +191,44 @@ class Google_Service_Compute_Resource_RegionDisks extends Google_Service_Resourc
    * @opt_param string filter A filter expression that filters resources listed in
    * the response. The expression must specify the field name, a comparison
    * operator, and the value that you want to use for filtering. The value must be
-   * a string, a number, or a boolean. The comparison operator must be either =,
-   * !=, >, or <.
+   * a string, a number, or a boolean. The comparison operator must be either `=`,
+   * `!=`, `>`, or `<`.
    *
    * For example, if you are filtering Compute Engine instances, you can exclude
-   * instances named example-instance by specifying name != example-instance.
+   * instances named `example-instance` by specifying `name != example-instance`.
    *
    * You can also filter nested fields. For example, you could specify
-   * scheduling.automaticRestart = false to include instances only if they are not
-   * scheduled for automatic restarts. You can use filtering on nested fields to
-   * filter based on resource labels.
+   * `scheduling.automaticRestart = false` to include instances only if they are
+   * not scheduled for automatic restarts. You can use filtering on nested fields
+   * to filter based on resource labels.
    *
    * To filter on multiple expressions, provide each separate expression within
-   * parentheses. For example, (scheduling.automaticRestart = true) (cpuPlatform =
-   * "Intel Skylake"). By default, each expression is an AND expression. However,
-   * you can include AND and OR expressions explicitly. For example, (cpuPlatform
-   * = "Intel Skylake") OR (cpuPlatform = "Intel Broadwell") AND
-   * (scheduling.automaticRestart = true).
+   * parentheses. For example: ``` (scheduling.automaticRestart = true)
+   * (cpuPlatform = "Intel Skylake") ``` By default, each expression is an `AND`
+   * expression. However, you can include `AND` and `OR` expressions explicitly.
+   * For example: ``` (cpuPlatform = "Intel Skylake") OR (cpuPlatform = "Intel
+   * Broadwell") AND (scheduling.automaticRestart = true) ```
    * @opt_param string maxResults The maximum number of results per page that
    * should be returned. If the number of available results is larger than
-   * maxResults, Compute Engine returns a nextPageToken that can be used to get
-   * the next page of results in subsequent list requests. Acceptable values are 0
-   * to 500, inclusive. (Default: 500)
+   * `maxResults`, Compute Engine returns a `nextPageToken` that can be used to
+   * get the next page of results in subsequent list requests. Acceptable values
+   * are `0` to `500`, inclusive. (Default: `500`)
    * @opt_param string orderBy Sorts list results by a certain order. By default,
    * results are returned in alphanumerical order based on the resource name.
    *
    * You can also sort results in descending order based on the creation timestamp
-   * using orderBy="creationTimestamp desc". This sorts results based on the
-   * creationTimestamp field in reverse chronological order (newest result first).
-   * Use this to sort resources like operations so that the newest operation is
-   * returned first.
+   * using `orderBy="creationTimestamp desc"`. This sorts results based on the
+   * `creationTimestamp` field in reverse chronological order (newest result
+   * first). Use this to sort resources like operations so that the newest
+   * operation is returned first.
    *
-   * Currently, only sorting by name or creationTimestamp desc is supported.
-   * @opt_param string pageToken Specifies a page token to use. Set pageToken to
-   * the nextPageToken returned by a previous list request to get the next page of
-   * results.
+   * Currently, only sorting by `name` or `creationTimestamp desc` is supported.
+   * @opt_param string pageToken Specifies a page token to use. Set `pageToken` to
+   * the `nextPageToken` returned by a previous list request to get the next page
+   * of results.
+   * @opt_param bool returnPartialSuccess Opt-in for partial success behavior
+   * which provides partial results in case of failure. The default value is false
+   * and the logic is the same as today.
    * @return Google_Service_Compute_DiskList
    */
   public function listRegionDisks($project, $region, $optParams = array())
@@ -220,8 +238,8 @@ class Google_Service_Compute_Resource_RegionDisks extends Google_Service_Resourc
     return $this->call('list', array($params), "Google_Service_Compute_DiskList");
   }
   /**
-   * Removes resource policies from a regional disk. (== suppress_warning http-
-   * rest-shadowed ==) (regionDisks.removeResourcePolicies)
+   * Removes resource policies from a regional disk.
+   * (regionDisks.removeResourcePolicies)
    *
    * @param string $project Project ID for this request.
    * @param string $region The name of the region for this request.
@@ -250,8 +268,7 @@ class Google_Service_Compute_Resource_RegionDisks extends Google_Service_Resourc
     return $this->call('removeResourcePolicies', array($params), "Google_Service_Compute_Operation");
   }
   /**
-   * Resizes the specified regional persistent disk. (== suppress_warning http-
-   * rest-shadowed ==) (regionDisks.resize)
+   * Resizes the specified regional persistent disk. (regionDisks.resize)
    *
    * @param string $project The project ID for this request.
    * @param string $region Name of the region for this request.
@@ -280,8 +297,24 @@ class Google_Service_Compute_Resource_RegionDisks extends Google_Service_Resourc
     return $this->call('resize', array($params), "Google_Service_Compute_Operation");
   }
   /**
-   * Sets the labels on the target regional disk. (== suppress_warning http-rest-
-   * shadowed ==) (regionDisks.setLabels)
+   * Sets the access control policy on the specified resource. Replaces any
+   * existing policy. (regionDisks.setIamPolicy)
+   *
+   * @param string $project Project ID for this request.
+   * @param string $region The name of the region for this request.
+   * @param string $resource Name or id of the resource for this request.
+   * @param Google_Service_Compute_RegionSetPolicyRequest $postBody
+   * @param array $optParams Optional parameters.
+   * @return Google_Service_Compute_Policy
+   */
+  public function setIamPolicy($project, $region, $resource, Google_Service_Compute_RegionSetPolicyRequest $postBody, $optParams = array())
+  {
+    $params = array('project' => $project, 'region' => $region, 'resource' => $resource, 'postBody' => $postBody);
+    $params = array_merge($params, $optParams);
+    return $this->call('setIamPolicy', array($params), "Google_Service_Compute_Policy");
+  }
+  /**
+   * Sets the labels on the target regional disk. (regionDisks.setLabels)
    *
    * @param string $project Project ID for this request.
    * @param string $region The region for this request.
@@ -310,8 +343,8 @@ class Google_Service_Compute_Resource_RegionDisks extends Google_Service_Resourc
     return $this->call('setLabels', array($params), "Google_Service_Compute_Operation");
   }
   /**
-   * Returns permissions that a caller has on the specified resource. (==
-   * suppress_warning http-rest-shadowed ==) (regionDisks.testIamPermissions)
+   * Returns permissions that a caller has on the specified resource.
+   * (regionDisks.testIamPermissions)
    *
    * @param string $project Project ID for this request.
    * @param string $region The name of the region for this request.

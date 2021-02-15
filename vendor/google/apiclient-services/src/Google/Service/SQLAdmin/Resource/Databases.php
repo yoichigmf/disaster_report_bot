@@ -19,8 +19,8 @@
  * The "databases" collection of methods.
  * Typical usage is:
  *  <code>
- *   $sqlService = new Google_Service_SQLAdmin(...);
- *   $databases = $sqlService->databases;
+ *   $sqladminService = new Google_Service_SQLAdmin(...);
+ *   $databases = $sqladminService->databases;
  *  </code>
  */
 class Google_Service_SQLAdmin_Resource_Databases extends Google_Service_Resource
@@ -50,9 +50,6 @@ class Google_Service_SQLAdmin_Resource_Databases extends Google_Service_Resource
    * project ID.
    * @param string $database Name of the database in the instance.
    * @param array $optParams Optional parameters.
-   *
-   * @opt_param string resourceName Name of the resource database. Format: project
-   * s/{project}/locations/{location}/instances/{instance}/databases/{database}
    * @return Google_Service_SQLAdmin_Database
    */
   public function get($project, $instance, $database, $optParams = array())
@@ -70,10 +67,6 @@ class Google_Service_SQLAdmin_Resource_Databases extends Google_Service_Resource
    * project ID.
    * @param Google_Service_SQLAdmin_Database $postBody
    * @param array $optParams Optional parameters.
-   *
-   * @opt_param string parent The parent resource where Cloud SQL should add this
-   * database. Format:
-   * projects/{project}/locations/{location}/instances/{instance}
    * @return Google_Service_SQLAdmin_Operation
    */
   public function insert($project, $instance, Google_Service_SQLAdmin_Database $postBody, $optParams = array())
@@ -90,9 +83,6 @@ class Google_Service_SQLAdmin_Resource_Databases extends Google_Service_Resource
    * @param string $instance Cloud SQL instance ID. This does not include the
    * project ID.
    * @param array $optParams Optional parameters.
-   *
-   * @opt_param string parent The parent, which owns this collection of databases.
-   * Format: projects/{project}/locations/{location}/instances/{instance}
    * @return Google_Service_SQLAdmin_DatabasesListResponse
    */
   public function listDatabases($project, $instance, $optParams = array())

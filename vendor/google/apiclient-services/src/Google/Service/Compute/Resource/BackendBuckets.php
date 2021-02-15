@@ -27,7 +27,7 @@ class Google_Service_Compute_Resource_BackendBuckets extends Google_Service_Reso
 {
   /**
    * Adds a key for validating requests with signed URLs for this backend bucket.
-   * (== suppress_warning http-rest-shadowed ==) (backendBuckets.addSignedUrlKey)
+   * (backendBuckets.addSignedUrlKey)
    *
    * @param string $project Project ID for this request.
    * @param string $backendBucket Name of the BackendBucket resource to which the
@@ -56,8 +56,7 @@ class Google_Service_Compute_Resource_BackendBuckets extends Google_Service_Reso
     return $this->call('addSignedUrlKey', array($params), "Google_Service_Compute_Operation");
   }
   /**
-   * Deletes the specified BackendBucket resource. (== suppress_warning http-rest-
-   * shadowed ==) (backendBuckets.delete)
+   * Deletes the specified BackendBucket resource. (backendBuckets.delete)
    *
    * @param string $project Project ID for this request.
    * @param string $backendBucket Name of the BackendBucket resource to delete.
@@ -85,8 +84,7 @@ class Google_Service_Compute_Resource_BackendBuckets extends Google_Service_Reso
   }
   /**
    * Deletes a key for validating requests with signed URLs for this backend
-   * bucket. (== suppress_warning http-rest-shadowed ==)
-   * (backendBuckets.deleteSignedUrlKey)
+   * bucket. (backendBuckets.deleteSignedUrlKey)
    *
    * @param string $project Project ID for this request.
    * @param string $backendBucket Name of the BackendBucket resource to which the
@@ -116,8 +114,7 @@ class Google_Service_Compute_Resource_BackendBuckets extends Google_Service_Reso
   }
   /**
    * Returns the specified BackendBucket resource. Gets a list of available
-   * backend buckets by making a list() request. (== suppress_warning http-rest-
-   * shadowed ==) (backendBuckets.get)
+   * backend buckets by making a list() request. (backendBuckets.get)
    *
    * @param string $project Project ID for this request.
    * @param string $backendBucket Name of the BackendBucket resource to return.
@@ -132,8 +129,7 @@ class Google_Service_Compute_Resource_BackendBuckets extends Google_Service_Reso
   }
   /**
    * Creates a BackendBucket resource in the specified project using the data
-   * included in the request. (== suppress_warning http-rest-shadowed ==)
-   * (backendBuckets.insert)
+   * included in the request. (backendBuckets.insert)
    *
    * @param string $project Project ID for this request.
    * @param Google_Service_Compute_BackendBucket $postBody
@@ -161,8 +157,7 @@ class Google_Service_Compute_Resource_BackendBuckets extends Google_Service_Reso
   }
   /**
    * Retrieves the list of BackendBucket resources available to the specified
-   * project. (== suppress_warning http-rest-shadowed ==)
-   * (backendBuckets.listBackendBuckets)
+   * project. (backendBuckets.listBackendBuckets)
    *
    * @param string $project Project ID for this request.
    * @param array $optParams Optional parameters.
@@ -170,41 +165,44 @@ class Google_Service_Compute_Resource_BackendBuckets extends Google_Service_Reso
    * @opt_param string filter A filter expression that filters resources listed in
    * the response. The expression must specify the field name, a comparison
    * operator, and the value that you want to use for filtering. The value must be
-   * a string, a number, or a boolean. The comparison operator must be either =,
-   * !=, >, or <.
+   * a string, a number, or a boolean. The comparison operator must be either `=`,
+   * `!=`, `>`, or `<`.
    *
    * For example, if you are filtering Compute Engine instances, you can exclude
-   * instances named example-instance by specifying name != example-instance.
+   * instances named `example-instance` by specifying `name != example-instance`.
    *
    * You can also filter nested fields. For example, you could specify
-   * scheduling.automaticRestart = false to include instances only if they are not
-   * scheduled for automatic restarts. You can use filtering on nested fields to
-   * filter based on resource labels.
+   * `scheduling.automaticRestart = false` to include instances only if they are
+   * not scheduled for automatic restarts. You can use filtering on nested fields
+   * to filter based on resource labels.
    *
    * To filter on multiple expressions, provide each separate expression within
-   * parentheses. For example, (scheduling.automaticRestart = true) (cpuPlatform =
-   * "Intel Skylake"). By default, each expression is an AND expression. However,
-   * you can include AND and OR expressions explicitly. For example, (cpuPlatform
-   * = "Intel Skylake") OR (cpuPlatform = "Intel Broadwell") AND
-   * (scheduling.automaticRestart = true).
+   * parentheses. For example: ``` (scheduling.automaticRestart = true)
+   * (cpuPlatform = "Intel Skylake") ``` By default, each expression is an `AND`
+   * expression. However, you can include `AND` and `OR` expressions explicitly.
+   * For example: ``` (cpuPlatform = "Intel Skylake") OR (cpuPlatform = "Intel
+   * Broadwell") AND (scheduling.automaticRestart = true) ```
    * @opt_param string maxResults The maximum number of results per page that
    * should be returned. If the number of available results is larger than
-   * maxResults, Compute Engine returns a nextPageToken that can be used to get
-   * the next page of results in subsequent list requests. Acceptable values are 0
-   * to 500, inclusive. (Default: 500)
+   * `maxResults`, Compute Engine returns a `nextPageToken` that can be used to
+   * get the next page of results in subsequent list requests. Acceptable values
+   * are `0` to `500`, inclusive. (Default: `500`)
    * @opt_param string orderBy Sorts list results by a certain order. By default,
    * results are returned in alphanumerical order based on the resource name.
    *
    * You can also sort results in descending order based on the creation timestamp
-   * using orderBy="creationTimestamp desc". This sorts results based on the
-   * creationTimestamp field in reverse chronological order (newest result first).
-   * Use this to sort resources like operations so that the newest operation is
-   * returned first.
+   * using `orderBy="creationTimestamp desc"`. This sorts results based on the
+   * `creationTimestamp` field in reverse chronological order (newest result
+   * first). Use this to sort resources like operations so that the newest
+   * operation is returned first.
    *
-   * Currently, only sorting by name or creationTimestamp desc is supported.
-   * @opt_param string pageToken Specifies a page token to use. Set pageToken to
-   * the nextPageToken returned by a previous list request to get the next page of
-   * results.
+   * Currently, only sorting by `name` or `creationTimestamp desc` is supported.
+   * @opt_param string pageToken Specifies a page token to use. Set `pageToken` to
+   * the `nextPageToken` returned by a previous list request to get the next page
+   * of results.
+   * @opt_param bool returnPartialSuccess Opt-in for partial success behavior
+   * which provides partial results in case of failure. The default value is false
+   * and the logic is the same as today.
    * @return Google_Service_Compute_BackendBucketList
    */
   public function listBackendBuckets($project, $optParams = array())
@@ -216,8 +214,7 @@ class Google_Service_Compute_Resource_BackendBuckets extends Google_Service_Reso
   /**
    * Updates the specified BackendBucket resource with the data included in the
    * request. This method supports PATCH semantics and uses the JSON merge patch
-   * format and processing rules. (== suppress_warning http-rest-shadowed ==)
-   * (backendBuckets.patch)
+   * format and processing rules. (backendBuckets.patch)
    *
    * @param string $project Project ID for this request.
    * @param string $backendBucket Name of the BackendBucket resource to patch.
@@ -246,7 +243,7 @@ class Google_Service_Compute_Resource_BackendBuckets extends Google_Service_Reso
   }
   /**
    * Updates the specified BackendBucket resource with the data included in the
-   * request. (== suppress_warning http-rest-shadowed ==) (backendBuckets.update)
+   * request. (backendBuckets.update)
    *
    * @param string $project Project ID for this request.
    * @param string $backendBucket Name of the BackendBucket resource to update.

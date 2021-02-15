@@ -20,6 +20,7 @@ class Google_Service_Container_NodeConfig extends Google_Collection
   protected $collection_key = 'taints';
   protected $acceleratorsType = 'Google_Service_Container_AcceleratorConfig';
   protected $acceleratorsDataType = 'array';
+  public $bootDiskKmsKey;
   public $diskSizeGb;
   public $diskType;
   public $imageType;
@@ -28,28 +29,43 @@ class Google_Service_Container_NodeConfig extends Google_Collection
   public $machineType;
   public $metadata;
   public $minCpuPlatform;
+  public $nodeGroup;
   public $oauthScopes;
   public $preemptible;
+  protected $reservationAffinityType = 'Google_Service_Container_ReservationAffinity';
+  protected $reservationAffinityDataType = '';
+  protected $sandboxConfigType = 'Google_Service_Container_SandboxConfig';
+  protected $sandboxConfigDataType = '';
   public $serviceAccount;
   protected $shieldedInstanceConfigType = 'Google_Service_Container_ShieldedInstanceConfig';
   protected $shieldedInstanceConfigDataType = '';
   public $tags;
   protected $taintsType = 'Google_Service_Container_NodeTaint';
   protected $taintsDataType = 'array';
+  protected $workloadMetadataConfigType = 'Google_Service_Container_WorkloadMetadataConfig';
+  protected $workloadMetadataConfigDataType = '';
 
   /**
-   * @param Google_Service_Container_AcceleratorConfig
+   * @param Google_Service_Container_AcceleratorConfig[]
    */
   public function setAccelerators($accelerators)
   {
     $this->accelerators = $accelerators;
   }
   /**
-   * @return Google_Service_Container_AcceleratorConfig
+   * @return Google_Service_Container_AcceleratorConfig[]
    */
   public function getAccelerators()
   {
     return $this->accelerators;
+  }
+  public function setBootDiskKmsKey($bootDiskKmsKey)
+  {
+    $this->bootDiskKmsKey = $bootDiskKmsKey;
+  }
+  public function getBootDiskKmsKey()
+  {
+    return $this->bootDiskKmsKey;
   }
   public function setDiskSizeGb($diskSizeGb)
   {
@@ -115,6 +131,14 @@ class Google_Service_Container_NodeConfig extends Google_Collection
   {
     return $this->minCpuPlatform;
   }
+  public function setNodeGroup($nodeGroup)
+  {
+    $this->nodeGroup = $nodeGroup;
+  }
+  public function getNodeGroup()
+  {
+    return $this->nodeGroup;
+  }
   public function setOauthScopes($oauthScopes)
   {
     $this->oauthScopes = $oauthScopes;
@@ -130,6 +154,34 @@ class Google_Service_Container_NodeConfig extends Google_Collection
   public function getPreemptible()
   {
     return $this->preemptible;
+  }
+  /**
+   * @param Google_Service_Container_ReservationAffinity
+   */
+  public function setReservationAffinity(Google_Service_Container_ReservationAffinity $reservationAffinity)
+  {
+    $this->reservationAffinity = $reservationAffinity;
+  }
+  /**
+   * @return Google_Service_Container_ReservationAffinity
+   */
+  public function getReservationAffinity()
+  {
+    return $this->reservationAffinity;
+  }
+  /**
+   * @param Google_Service_Container_SandboxConfig
+   */
+  public function setSandboxConfig(Google_Service_Container_SandboxConfig $sandboxConfig)
+  {
+    $this->sandboxConfig = $sandboxConfig;
+  }
+  /**
+   * @return Google_Service_Container_SandboxConfig
+   */
+  public function getSandboxConfig()
+  {
+    return $this->sandboxConfig;
   }
   public function setServiceAccount($serviceAccount)
   {
@@ -162,17 +214,31 @@ class Google_Service_Container_NodeConfig extends Google_Collection
     return $this->tags;
   }
   /**
-   * @param Google_Service_Container_NodeTaint
+   * @param Google_Service_Container_NodeTaint[]
    */
   public function setTaints($taints)
   {
     $this->taints = $taints;
   }
   /**
-   * @return Google_Service_Container_NodeTaint
+   * @return Google_Service_Container_NodeTaint[]
    */
   public function getTaints()
   {
     return $this->taints;
+  }
+  /**
+   * @param Google_Service_Container_WorkloadMetadataConfig
+   */
+  public function setWorkloadMetadataConfig(Google_Service_Container_WorkloadMetadataConfig $workloadMetadataConfig)
+  {
+    $this->workloadMetadataConfig = $workloadMetadataConfig;
+  }
+  /**
+   * @return Google_Service_Container_WorkloadMetadataConfig
+   */
+  public function getWorkloadMetadataConfig()
+  {
+    return $this->workloadMetadataConfig;
   }
 }

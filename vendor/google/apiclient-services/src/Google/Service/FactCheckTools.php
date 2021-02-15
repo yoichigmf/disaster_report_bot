@@ -36,7 +36,7 @@ class Google_Service_FactCheckTools extends Google_Service
 
   public $claims;
   public $pages;
-  
+
   /**
    * Constructs the internal representation of the FactCheckTools service.
    *
@@ -74,19 +74,19 @@ class Google_Service_FactCheckTools extends Google_Service
                   'location' => 'query',
                   'type' => 'integer',
                 ),
-                'pageToken' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
-                'reviewPublisherSiteFilter' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
                 'pageSize' => array(
                   'location' => 'query',
                   'type' => 'integer',
                 ),
+                'pageToken' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
                 'query' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'reviewPublisherSiteFilter' => array(
                   'location' => 'query',
                   'type' => 'string',
                 ),
@@ -133,10 +133,6 @@ class Google_Service_FactCheckTools extends Google_Service
                   'location' => 'query',
                   'type' => 'integer',
                 ),
-                'pageToken' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
                 'organization' => array(
                   'location' => 'query',
                   'type' => 'string',
@@ -144,6 +140,10 @@ class Google_Service_FactCheckTools extends Google_Service
                 'pageSize' => array(
                   'location' => 'query',
                   'type' => 'integer',
+                ),
+                'pageToken' => array(
+                  'location' => 'query',
+                  'type' => 'string',
                 ),
                 'url' => array(
                   'location' => 'query',

@@ -27,26 +27,37 @@ class Google_Service_CloudHealthcare_Resource_ProjectsLocationsDatasetsDicomStor
 {
   /**
    * DeleteStudy deletes all instances within the given study. Delete requests are
-   * equivalent to the GET requests specified in the WADO-RS standard.
-   * (studies.delete)
+   * equivalent to the GET requests specified in the Retrieve transaction. The
+   * method returns an Operation which will be marked successful when the deletion
+   * is complete. Warning: Inserting instances into a study while a delete
+   * operation is running for that study could result in the new instances not
+   * appearing in search results until the deletion operation finishes. For
+   * samples that show how to call DeleteStudy, see [Deleting a study, series, or
+   * instance](https://cloud.google.com/healthcare/docs/how-
+   * tos/dicomweb#deleting_a_study_series_or_instance). (studies.delete)
    *
    * @param string $parent
    * @param string $dicomWebPath The path of the DeleteStudy request. For example,
    * `studies/{study_uid}`.
    * @param array $optParams Optional parameters.
-   * @return Google_Service_CloudHealthcare_HealthcareEmpty
+   * @return Google_Service_CloudHealthcare_Operation
    */
   public function delete($parent, $dicomWebPath, $optParams = array())
   {
     $params = array('parent' => $parent, 'dicomWebPath' => $dicomWebPath);
     $params = array_merge($params, $optParams);
-    return $this->call('delete', array($params), "Google_Service_CloudHealthcare_HealthcareEmpty");
+    return $this->call('delete', array($params), "Google_Service_CloudHealthcare_Operation");
   }
   /**
    * RetrieveStudyMetadata returns instance associated with the given study
-   * presented as metadata with the bulk data removed. See http://dicom.nema.org/m
-   * edical/dicom/current/output/html/part18.html#sect_10.4.
-   * (studies.retrieveMetadata)
+   * presented as metadata with the bulk data removed. See [RetrieveTransaction] (
+   * http://dicom.nema.org/medical/dicom/current/output/html/part18.html#sect_10.4
+   * ). For details on the implementation of RetrieveStudyMetadata, see [Metadata
+   * resources](https://cloud.google.com/healthcare/docs/dicom#metadata_resources)
+   * in the Cloud Healthcare API conformance statement. For samples that show how
+   * to call RetrieveStudyMetadata, see [Retrieving
+   * metadata](https://cloud.google.com/healthcare/docs/how-
+   * tos/dicomweb#retrieving_metadata). (studies.retrieveMetadata)
    *
    * @param string $parent The name of the DICOM store that is being accessed. For
    * example, `projects/{project_id}/locations/{location_id}/datasets/{dataset_id}
@@ -63,9 +74,14 @@ class Google_Service_CloudHealthcare_Resource_ProjectsLocationsDatasetsDicomStor
     return $this->call('retrieveMetadata', array($params), "Google_Service_CloudHealthcare_HttpBody");
   }
   /**
-   * RetrieveStudy returns all instances within the given study. See http://dicom.
-   * nema.org/medical/dicom/current/output/html/part18.html#sect_10.4.
-   * (studies.retrieveStudy)
+   * RetrieveStudy returns all instances within the given study. See
+   * [RetrieveTransaction] (http://dicom.nema.org/medical/dicom/current/output/htm
+   * l/part18.html#sect_10.4). For details on the implementation of RetrieveStudy,
+   * see [DICOM study/series/instances](https://cloud.google.com/healthcare/docs/d
+   * icom#dicom_studyseriesinstances) in the Cloud Healthcare API conformance
+   * statement. For samples that show how to call RetrieveStudy, see [Retrieving
+   * DICOM data](https://cloud.google.com/healthcare/docs/how-
+   * tos/dicomweb#retrieving_dicom_data). (studies.retrieveStudy)
    *
    * @param string $parent The name of the DICOM store that is being accessed. For
    * example, `projects/{project_id}/locations/{location_id}/datasets/{dataset_id}
@@ -82,8 +98,14 @@ class Google_Service_CloudHealthcare_Resource_ProjectsLocationsDatasetsDicomStor
     return $this->call('retrieveStudy', array($params), "Google_Service_CloudHealthcare_HttpBody");
   }
   /**
-   * SearchForInstances returns a list of matching instances. See http://dicom.nem
-   * a.org/medical/dicom/current/output/html/part18.html#sect_10.6.
+   * SearchForInstances returns a list of matching instances. See [Search
+   * Transaction] (http://dicom.nema.org/medical/dicom/current/output/html/part18.
+   * html#sect_10.6). For details on the implementation of SearchForInstances, see
+   * [Search transaction](https://cloud.google.com/healthcare/docs/dicom#search_tr
+   * ansaction) in the Cloud Healthcare API conformance statement. For samples
+   * that show how to call SearchForInstances, see [Searching for studies, series,
+   * instances, and frames](https://cloud.google.com/healthcare/docs/how-
+   * tos/dicomweb#searching_for_studies_series_instances_and_frames).
    * (studies.searchForInstances)
    *
    * @param string $parent The name of the DICOM store that is being accessed. For
@@ -102,8 +124,14 @@ class Google_Service_CloudHealthcare_Resource_ProjectsLocationsDatasetsDicomStor
     return $this->call('searchForInstances', array($params), "Google_Service_CloudHealthcare_HttpBody");
   }
   /**
-   * SearchForSeries returns a list of matching series. See http://dicom.nema.org/
-   * medical/dicom/current/output/html/part18.html#sect_10.6.
+   * SearchForSeries returns a list of matching series. See [Search Transaction] (
+   * http://dicom.nema.org/medical/dicom/current/output/html/part18.html#sect_10.6
+   * ). For details on the implementation of SearchForSeries, see [Search transact
+   * ion](https://cloud.google.com/healthcare/docs/dicom#search_transaction) in
+   * the Cloud Healthcare API conformance statement. For samples that show how to
+   * call SearchForSeries, see [Searching for studies, series, instances, and
+   * frames](https://cloud.google.com/healthcare/docs/how-
+   * tos/dicomweb#searching_for_studies_series_instances_and_frames).
    * (studies.searchForSeries)
    *
    * @param string $parent The name of the DICOM store that is being accessed. For
@@ -122,8 +150,13 @@ class Google_Service_CloudHealthcare_Resource_ProjectsLocationsDatasetsDicomStor
   }
   /**
    * StoreInstances stores DICOM instances associated with study instance unique
-   * identifiers (SUID). See http://dicom.nema.org/medical/dicom/current/output/ht
-   * ml/part18.html#sect_10.5. (studies.storeInstances)
+   * identifiers (SUID). See [Store Transaction] (http://dicom.nema.org/medical/di
+   * com/current/output/html/part18.html#sect_10.5). For details on the
+   * implementation of StoreInstances, see [Store transaction](https://cloud.googl
+   * e.com/healthcare/docs/dicom#store_transaction) in the Cloud Healthcare API
+   * conformance statement. For samples that show how to call StoreInstances, see
+   * [Storing DICOM data](https://cloud.google.com/healthcare/docs/how-
+   * tos/dicomweb#storing_dicom_data). (studies.storeInstances)
    *
    * @param string $parent The name of the DICOM store that is being accessed. For
    * example, `projects/{project_id}/locations/{location_id}/datasets/{dataset_id}

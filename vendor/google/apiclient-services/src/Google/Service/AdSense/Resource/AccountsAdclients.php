@@ -31,6 +31,8 @@ class Google_Service_AdSense_Resource_AccountsAdclients extends Google_Service_R
    * @param string $accountId Account which contains the ad client.
    * @param string $adClientId Ad client to get the code for.
    * @param array $optParams Optional parameters.
+   *
+   * @opt_param string tagPartner Tag partner to include in the ad code snippet.
    * @return Google_Service_AdSense_AdCode
    */
   public function getAdCode($accountId, $adClientId, $optParams = array())

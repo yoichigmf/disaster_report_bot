@@ -37,7 +37,7 @@ class Google_Service_AlertCenter extends Google_Service
   public $alerts;
   public $alerts_feedback;
   public $v1beta1;
-  
+
   /**
    * Constructs the internal representation of the AlertCenter service.
    *
@@ -113,7 +113,11 @@ class Google_Service_AlertCenter extends Google_Service
               'path' => 'v1beta1/alerts',
               'httpMethod' => 'GET',
               'parameters' => array(
-                'pageToken' => array(
+                'customerId' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
+                'filter' => array(
                   'location' => 'query',
                   'type' => 'string',
                 ),
@@ -121,15 +125,11 @@ class Google_Service_AlertCenter extends Google_Service
                   'location' => 'query',
                   'type' => 'string',
                 ),
-                'customerId' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
                 'pageSize' => array(
                   'location' => 'query',
                   'type' => 'integer',
                 ),
-                'filter' => array(
+                'pageToken' => array(
                   'location' => 'query',
                   'type' => 'string',
                 ),

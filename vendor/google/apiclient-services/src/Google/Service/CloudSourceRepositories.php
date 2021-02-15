@@ -45,7 +45,7 @@ class Google_Service_CloudSourceRepositories extends Google_Service
 
   public $projects;
   public $projects_repos;
-  
+
   /**
    * Constructs the internal representation of the CloudSourceRepositories
    * service.
@@ -137,6 +137,10 @@ class Google_Service_CloudSourceRepositories extends Google_Service
                   'type' => 'string',
                   'required' => true,
                 ),
+                'options.requestedPolicyVersion' => array(
+                  'location' => 'query',
+                  'type' => 'integer',
+                ),
               ),
             ),'list' => array(
               'path' => 'v1/{+name}/repos',
@@ -147,13 +151,13 @@ class Google_Service_CloudSourceRepositories extends Google_Service
                   'type' => 'string',
                   'required' => true,
                 ),
-                'pageToken' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
                 'pageSize' => array(
                   'location' => 'query',
                   'type' => 'integer',
+                ),
+                'pageToken' => array(
+                  'location' => 'query',
+                  'type' => 'string',
                 ),
               ),
             ),'patch' => array(

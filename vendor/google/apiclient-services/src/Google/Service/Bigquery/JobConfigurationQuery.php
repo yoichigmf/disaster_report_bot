@@ -21,6 +21,8 @@ class Google_Service_Bigquery_JobConfigurationQuery extends Google_Collection
   public $allowLargeResults;
   protected $clusteringType = 'Google_Service_Bigquery_Clustering';
   protected $clusteringDataType = '';
+  protected $connectionPropertiesType = 'Google_Service_Bigquery_ConnectionProperty';
+  protected $connectionPropertiesDataType = 'array';
   public $createDisposition;
   protected $defaultDatasetType = 'Google_Service_Bigquery_DatasetReference';
   protected $defaultDatasetDataType = '';
@@ -71,6 +73,20 @@ class Google_Service_Bigquery_JobConfigurationQuery extends Google_Collection
   public function getClustering()
   {
     return $this->clustering;
+  }
+  /**
+   * @param Google_Service_Bigquery_ConnectionProperty[]
+   */
+  public function setConnectionProperties($connectionProperties)
+  {
+    $this->connectionProperties = $connectionProperties;
+  }
+  /**
+   * @return Google_Service_Bigquery_ConnectionProperty[]
+   */
+  public function getConnectionProperties()
+  {
+    return $this->connectionProperties;
   }
   public function setCreateDisposition($createDisposition)
   {
@@ -179,14 +195,14 @@ class Google_Service_Bigquery_JobConfigurationQuery extends Google_Collection
     return $this->query;
   }
   /**
-   * @param Google_Service_Bigquery_QueryParameter
+   * @param Google_Service_Bigquery_QueryParameter[]
    */
   public function setQueryParameters($queryParameters)
   {
     $this->queryParameters = $queryParameters;
   }
   /**
-   * @return Google_Service_Bigquery_QueryParameter
+   * @return Google_Service_Bigquery_QueryParameter[]
    */
   public function getQueryParameters()
   {
@@ -215,14 +231,14 @@ class Google_Service_Bigquery_JobConfigurationQuery extends Google_Collection
     return $this->schemaUpdateOptions;
   }
   /**
-   * @param Google_Service_Bigquery_ExternalDataConfiguration
+   * @param Google_Service_Bigquery_ExternalDataConfiguration[]
    */
   public function setTableDefinitions($tableDefinitions)
   {
     $this->tableDefinitions = $tableDefinitions;
   }
   /**
-   * @return Google_Service_Bigquery_ExternalDataConfiguration
+   * @return Google_Service_Bigquery_ExternalDataConfiguration[]
    */
   public function getTableDefinitions()
   {
@@ -259,14 +275,14 @@ class Google_Service_Bigquery_JobConfigurationQuery extends Google_Collection
     return $this->useQueryCache;
   }
   /**
-   * @param Google_Service_Bigquery_UserDefinedFunctionResource
+   * @param Google_Service_Bigquery_UserDefinedFunctionResource[]
    */
   public function setUserDefinedFunctionResources($userDefinedFunctionResources)
   {
     $this->userDefinedFunctionResources = $userDefinedFunctionResources;
   }
   /**
-   * @return Google_Service_Bigquery_UserDefinedFunctionResource
+   * @return Google_Service_Bigquery_UserDefinedFunctionResource[]
    */
   public function getUserDefinedFunctionResources()
   {

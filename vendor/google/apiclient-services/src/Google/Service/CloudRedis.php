@@ -37,7 +37,7 @@ class Google_Service_CloudRedis extends Google_Service
   public $projects_locations;
   public $projects_locations_instances;
   public $projects_locations_operations;
-  
+
   /**
    * Constructs the internal representation of the CloudRedis service.
    *
@@ -78,7 +78,7 @@ class Google_Service_CloudRedis extends Google_Service
                   'type' => 'string',
                   'required' => true,
                 ),
-                'pageToken' => array(
+                'filter' => array(
                   'location' => 'query',
                   'type' => 'string',
                 ),
@@ -86,7 +86,7 @@ class Google_Service_CloudRedis extends Google_Service
                   'location' => 'query',
                   'type' => 'integer',
                 ),
-                'filter' => array(
+                'pageToken' => array(
                   'location' => 'query',
                   'type' => 'string',
                 ),
@@ -155,6 +155,16 @@ class Google_Service_CloudRedis extends Google_Service
                   'required' => true,
                 ),
               ),
+            ),'getAuthString' => array(
+              'path' => 'v1/{+name}/authString',
+              'httpMethod' => 'GET',
+              'parameters' => array(
+                'name' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ),
+              ),
             ),'import' => array(
               'path' => 'v1/{+name}:import',
               'httpMethod' => 'POST',
@@ -174,13 +184,13 @@ class Google_Service_CloudRedis extends Google_Service
                   'type' => 'string',
                   'required' => true,
                 ),
-                'pageToken' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
                 'pageSize' => array(
                   'location' => 'query',
                   'type' => 'integer',
+                ),
+                'pageToken' => array(
+                  'location' => 'query',
+                  'type' => 'string',
                 ),
               ),
             ),'patch' => array(
@@ -195,6 +205,16 @@ class Google_Service_CloudRedis extends Google_Service
                 'updateMask' => array(
                   'location' => 'query',
                   'type' => 'string',
+                ),
+              ),
+            ),'upgrade' => array(
+              'path' => 'v1/{+name}:upgrade',
+              'httpMethod' => 'POST',
+              'parameters' => array(
+                'name' => array(
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
                 ),
               ),
             ),
@@ -246,13 +266,13 @@ class Google_Service_CloudRedis extends Google_Service
                   'type' => 'string',
                   'required' => true,
                 ),
-                'pageSize' => array(
-                  'location' => 'query',
-                  'type' => 'integer',
-                ),
                 'filter' => array(
                   'location' => 'query',
                   'type' => 'string',
+                ),
+                'pageSize' => array(
+                  'location' => 'query',
+                  'type' => 'integer',
                 ),
                 'pageToken' => array(
                   'location' => 'query',

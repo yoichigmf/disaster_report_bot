@@ -17,10 +17,26 @@
 
 class Google_Service_BigQueryConnectionService_CloudSqlProperties extends Google_Model
 {
+  protected $credentialType = 'Google_Service_BigQueryConnectionService_CloudSqlCredential';
+  protected $credentialDataType = '';
   public $database;
   public $instanceId;
   public $type;
 
+  /**
+   * @param Google_Service_BigQueryConnectionService_CloudSqlCredential
+   */
+  public function setCredential(Google_Service_BigQueryConnectionService_CloudSqlCredential $credential)
+  {
+    $this->credential = $credential;
+  }
+  /**
+   * @return Google_Service_BigQueryConnectionService_CloudSqlCredential
+   */
+  public function getCredential()
+  {
+    return $this->credential;
+  }
   public function setDatabase($database)
   {
     $this->database = $database;

@@ -38,7 +38,7 @@ class Google_Service_StreetViewPublish extends Google_Service
 
   public $photo;
   public $photos;
-  
+
   /**
    * Constructs the internal representation of the StreetViewPublish service.
    *
@@ -128,10 +128,6 @@ class Google_Service_StreetViewPublish extends Google_Service
               'path' => 'v1/photos:batchGet',
               'httpMethod' => 'GET',
               'parameters' => array(
-                'view' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
                 'languageCode' => array(
                   'location' => 'query',
                   'type' => 'string',
@@ -140,6 +136,10 @@ class Google_Service_StreetViewPublish extends Google_Service
                   'location' => 'query',
                   'type' => 'string',
                   'repeated' => true,
+                ),
+                'view' => array(
+                  'location' => 'query',
+                  'type' => 'string',
                 ),
               ),
             ),'batchUpdate' => array(
@@ -150,10 +150,6 @@ class Google_Service_StreetViewPublish extends Google_Service
               'path' => 'v1/photos',
               'httpMethod' => 'GET',
               'parameters' => array(
-                'view' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
                 'filter' => array(
                   'location' => 'query',
                   'type' => 'string',
@@ -162,13 +158,17 @@ class Google_Service_StreetViewPublish extends Google_Service
                   'location' => 'query',
                   'type' => 'string',
                 ),
+                'pageSize' => array(
+                  'location' => 'query',
+                  'type' => 'integer',
+                ),
                 'pageToken' => array(
                   'location' => 'query',
                   'type' => 'string',
                 ),
-                'pageSize' => array(
+                'view' => array(
                   'location' => 'query',
-                  'type' => 'integer',
+                  'type' => 'string',
                 ),
               ),
             ),

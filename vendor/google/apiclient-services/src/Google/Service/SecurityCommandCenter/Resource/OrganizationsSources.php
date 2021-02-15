@@ -76,14 +76,15 @@ class Google_Service_SecurityCommandCenter_Resource_OrganizationsSources extends
    * (sources.listOrganizationsSources)
    *
    * @param string $parent Required. Resource name of the parent of sources to
-   * list. Its format should be "organizations/[organization_id]".
+   * list. Its format should be "organizations/[organization_id],
+   * folders/[folder_id], or projects/[project_id]".
    * @param array $optParams Optional parameters.
    *
+   * @opt_param int pageSize The maximum number of results to return in a single
+   * response. Default is 10, minimum is 1, maximum is 1000.
    * @opt_param string pageToken The value returned by the last
    * `ListSourcesResponse`; indicates that this is a continuation of a prior
    * `ListSources` call, and that the system should return the next page of data.
-   * @opt_param int pageSize The maximum number of results to return in a single
-   * response. Default is 10, minimum is 1, maximum is 1000.
    * @return Google_Service_SecurityCommandCenter_ListSourcesResponse
    */
   public function listOrganizationsSources($parent, $optParams = array())
@@ -97,14 +98,12 @@ class Google_Service_SecurityCommandCenter_Resource_OrganizationsSources extends
    *
    * @param string $name The relative resource name of this source. See:
    * https://cloud.google.com/apis/design/resource_names#relative_resource_name
-   * Example: "organizations/123/sources/456"
+   * Example: "organizations/{organization_id}/sources/{source_id}"
    * @param Google_Service_SecurityCommandCenter_Source $postBody
    * @param array $optParams Optional parameters.
    *
    * @opt_param string updateMask The FieldMask to use when updating the source
-   * resource.
-   *
-   * If empty all mutable fields will be updated.
+   * resource. If empty all mutable fields will be updated.
    * @return Google_Service_SecurityCommandCenter_Source
    */
   public function patch($name, Google_Service_SecurityCommandCenter_Source $postBody, $optParams = array())

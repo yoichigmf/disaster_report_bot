@@ -19,11 +19,11 @@ class Google_Service_CloudAsset_GoogleIdentityAccesscontextmanagerV1AccessLevel 
 {
   protected $basicType = 'Google_Service_CloudAsset_GoogleIdentityAccesscontextmanagerV1BasicLevel';
   protected $basicDataType = '';
-  public $createTime;
+  protected $customType = 'Google_Service_CloudAsset_GoogleIdentityAccesscontextmanagerV1CustomLevel';
+  protected $customDataType = '';
   public $description;
   public $name;
   public $title;
-  public $updateTime;
 
   /**
    * @param Google_Service_CloudAsset_GoogleIdentityAccesscontextmanagerV1BasicLevel
@@ -39,13 +39,19 @@ class Google_Service_CloudAsset_GoogleIdentityAccesscontextmanagerV1AccessLevel 
   {
     return $this->basic;
   }
-  public function setCreateTime($createTime)
+  /**
+   * @param Google_Service_CloudAsset_GoogleIdentityAccesscontextmanagerV1CustomLevel
+   */
+  public function setCustom(Google_Service_CloudAsset_GoogleIdentityAccesscontextmanagerV1CustomLevel $custom)
   {
-    $this->createTime = $createTime;
+    $this->custom = $custom;
   }
-  public function getCreateTime()
+  /**
+   * @return Google_Service_CloudAsset_GoogleIdentityAccesscontextmanagerV1CustomLevel
+   */
+  public function getCustom()
   {
-    return $this->createTime;
+    return $this->custom;
   }
   public function setDescription($description)
   {
@@ -70,13 +76,5 @@ class Google_Service_CloudAsset_GoogleIdentityAccesscontextmanagerV1AccessLevel 
   public function getTitle()
   {
     return $this->title;
-  }
-  public function setUpdateTime($updateTime)
-  {
-    $this->updateTime = $updateTime;
-  }
-  public function getUpdateTime()
-  {
-    return $this->updateTime;
   }
 }

@@ -23,9 +23,12 @@ class Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildexecutionAdmi
   public $diskType;
   public $labels;
   public $machineType;
+  public $maxConcurrentActions;
   public $minCpuPlatform;
   public $networkAccess;
   public $reserved;
+  public $soleTenantNodeType;
+  public $vmImage;
 
   /**
    * @param Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildexecutionAdminV1alphaAcceleratorConfig
@@ -73,6 +76,14 @@ class Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildexecutionAdmi
   {
     return $this->machineType;
   }
+  public function setMaxConcurrentActions($maxConcurrentActions)
+  {
+    $this->maxConcurrentActions = $maxConcurrentActions;
+  }
+  public function getMaxConcurrentActions()
+  {
+    return $this->maxConcurrentActions;
+  }
   public function setMinCpuPlatform($minCpuPlatform)
   {
     $this->minCpuPlatform = $minCpuPlatform;
@@ -96,5 +107,21 @@ class Google_Service_RemoteBuildExecution_GoogleDevtoolsRemotebuildexecutionAdmi
   public function getReserved()
   {
     return $this->reserved;
+  }
+  public function setSoleTenantNodeType($soleTenantNodeType)
+  {
+    $this->soleTenantNodeType = $soleTenantNodeType;
+  }
+  public function getSoleTenantNodeType()
+  {
+    return $this->soleTenantNodeType;
+  }
+  public function setVmImage($vmImage)
+  {
+    $this->vmImage = $vmImage;
+  }
+  public function getVmImage()
+  {
+    return $this->vmImage;
   }
 }

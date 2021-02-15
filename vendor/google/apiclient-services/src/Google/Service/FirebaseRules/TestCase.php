@@ -19,6 +19,7 @@ class Google_Service_FirebaseRules_TestCase extends Google_Collection
 {
   protected $collection_key = 'functionMocks';
   public $expectation;
+  public $expressionReportLevel;
   protected $functionMocksType = 'Google_Service_FirebaseRules_FunctionMock';
   protected $functionMocksDataType = 'array';
   public $pathEncoding;
@@ -33,15 +34,23 @@ class Google_Service_FirebaseRules_TestCase extends Google_Collection
   {
     return $this->expectation;
   }
+  public function setExpressionReportLevel($expressionReportLevel)
+  {
+    $this->expressionReportLevel = $expressionReportLevel;
+  }
+  public function getExpressionReportLevel()
+  {
+    return $this->expressionReportLevel;
+  }
   /**
-   * @param Google_Service_FirebaseRules_FunctionMock
+   * @param Google_Service_FirebaseRules_FunctionMock[]
    */
   public function setFunctionMocks($functionMocks)
   {
     $this->functionMocks = $functionMocks;
   }
   /**
-   * @return Google_Service_FirebaseRules_FunctionMock
+   * @return Google_Service_FirebaseRules_FunctionMock[]
    */
   public function getFunctionMocks()
   {

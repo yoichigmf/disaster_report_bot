@@ -42,7 +42,7 @@ class Google_Service_CloudDebugger extends Google_Service
   public $controller_debuggees_breakpoints;
   public $debugger_debuggees;
   public $debugger_debuggees_breakpoints;
-  
+
   /**
    * Constructs the internal representation of the CloudDebugger service.
    *
@@ -86,6 +86,10 @@ class Google_Service_CloudDebugger extends Google_Service
                   'location' => 'path',
                   'type' => 'string',
                   'required' => true,
+                ),
+                'agentId' => array(
+                  'location' => 'query',
+                  'type' => 'string',
                 ),
                 'successOnTimeout' => array(
                   'location' => 'query',
@@ -195,10 +199,6 @@ class Google_Service_CloudDebugger extends Google_Service
                   'type' => 'string',
                   'required' => true,
                 ),
-                'waitToken' => array(
-                  'location' => 'query',
-                  'type' => 'string',
-                ),
                 'action.value' => array(
                   'location' => 'query',
                   'type' => 'string',
@@ -219,6 +219,10 @@ class Google_Service_CloudDebugger extends Google_Service
                   'location' => 'query',
                   'type' => 'boolean',
                 ),
+                'waitToken' => array(
+                  'location' => 'query',
+                  'type' => 'string',
+                ),
               ),
             ),'set' => array(
               'path' => 'v2/debugger/debuggees/{debuggeeId}/breakpoints/set',
@@ -228,6 +232,10 @@ class Google_Service_CloudDebugger extends Google_Service
                   'location' => 'path',
                   'type' => 'string',
                   'required' => true,
+                ),
+                'canaryOption' => array(
+                  'location' => 'query',
+                  'type' => 'string',
                 ),
                 'clientVersion' => array(
                   'location' => 'query',

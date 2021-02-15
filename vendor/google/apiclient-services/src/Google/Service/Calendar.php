@@ -39,7 +39,7 @@ class Google_Service_Calendar extends Google_Service
   /** View events on all your calendars. */
   const CALENDAR_EVENTS_READONLY =
       "https://www.googleapis.com/auth/calendar.events.readonly";
-  /** View your calendars. */
+  /** See and download any calendar you can access using your Google Calendar. */
   const CALENDAR_READONLY =
       "https://www.googleapis.com/auth/calendar.readonly";
   /** View your Calendar settings. */
@@ -54,7 +54,7 @@ class Google_Service_Calendar extends Google_Service
   public $events;
   public $freebusy;
   public $settings;
-  
+
   /**
    * Constructs the internal representation of the Calendar service.
    *

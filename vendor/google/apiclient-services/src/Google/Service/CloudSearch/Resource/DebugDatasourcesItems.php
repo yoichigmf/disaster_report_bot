@@ -26,8 +26,8 @@
 class Google_Service_CloudSearch_Resource_DebugDatasourcesItems extends Google_Service_Resource
 {
   /**
-   * Checks whether an item is accessible by specified principal.
-   * (items.checkAccess)
+   * Checks whether an item is accessible by specified principal. **Note:** This
+   * API requires an admin account to execute. (items.checkAccess)
    *
    * @param string $name Item name, format:
    * datasources/{source_id}/items/{item_id}
@@ -46,7 +46,8 @@ class Google_Service_CloudSearch_Resource_DebugDatasourcesItems extends Google_S
   }
   /**
    * Fetches the item whose viewUrl exactly matches that of the URL provided in
-   * the request. (items.searchByViewUrl)
+   * the request. **Note:** This API requires an admin account to execute.
+   * (items.searchByViewUrl)
    *
    * @param string $name Source name, format: datasources/{source_id}
    * @param Google_Service_CloudSearch_SearchItemsByViewUrlRequest $postBody

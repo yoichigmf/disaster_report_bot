@@ -17,7 +17,7 @@
 
 class Google_Service_ServiceUsage_GoogleApiServiceusageV1ServiceConfig extends Google_Collection
 {
-  protected $collection_key = 'endpoints';
+  protected $collection_key = 'monitoredResources';
   protected $apisType = 'Google_Service_ServiceUsage_Api';
   protected $apisDataType = 'array';
   protected $authenticationType = 'Google_Service_ServiceUsage_Authentication';
@@ -26,6 +26,10 @@ class Google_Service_ServiceUsage_GoogleApiServiceusageV1ServiceConfig extends G
   protected $documentationDataType = '';
   protected $endpointsType = 'Google_Service_ServiceUsage_Endpoint';
   protected $endpointsDataType = 'array';
+  protected $monitoredResourcesType = 'Google_Service_ServiceUsage_MonitoredResourceDescriptor';
+  protected $monitoredResourcesDataType = 'array';
+  protected $monitoringType = 'Google_Service_ServiceUsage_Monitoring';
+  protected $monitoringDataType = '';
   public $name;
   protected $quotaType = 'Google_Service_ServiceUsage_Quota';
   protected $quotaDataType = '';
@@ -34,14 +38,14 @@ class Google_Service_ServiceUsage_GoogleApiServiceusageV1ServiceConfig extends G
   protected $usageDataType = '';
 
   /**
-   * @param Google_Service_ServiceUsage_Api
+   * @param Google_Service_ServiceUsage_Api[]
    */
   public function setApis($apis)
   {
     $this->apis = $apis;
   }
   /**
-   * @return Google_Service_ServiceUsage_Api
+   * @return Google_Service_ServiceUsage_Api[]
    */
   public function getApis()
   {
@@ -76,18 +80,46 @@ class Google_Service_ServiceUsage_GoogleApiServiceusageV1ServiceConfig extends G
     return $this->documentation;
   }
   /**
-   * @param Google_Service_ServiceUsage_Endpoint
+   * @param Google_Service_ServiceUsage_Endpoint[]
    */
   public function setEndpoints($endpoints)
   {
     $this->endpoints = $endpoints;
   }
   /**
-   * @return Google_Service_ServiceUsage_Endpoint
+   * @return Google_Service_ServiceUsage_Endpoint[]
    */
   public function getEndpoints()
   {
     return $this->endpoints;
+  }
+  /**
+   * @param Google_Service_ServiceUsage_MonitoredResourceDescriptor[]
+   */
+  public function setMonitoredResources($monitoredResources)
+  {
+    $this->monitoredResources = $monitoredResources;
+  }
+  /**
+   * @return Google_Service_ServiceUsage_MonitoredResourceDescriptor[]
+   */
+  public function getMonitoredResources()
+  {
+    return $this->monitoredResources;
+  }
+  /**
+   * @param Google_Service_ServiceUsage_Monitoring
+   */
+  public function setMonitoring(Google_Service_ServiceUsage_Monitoring $monitoring)
+  {
+    $this->monitoring = $monitoring;
+  }
+  /**
+   * @return Google_Service_ServiceUsage_Monitoring
+   */
+  public function getMonitoring()
+  {
+    return $this->monitoring;
   }
   public function setName($name)
   {

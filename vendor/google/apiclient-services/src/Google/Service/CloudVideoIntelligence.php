@@ -39,7 +39,7 @@ class Google_Service_CloudVideoIntelligence extends Google_Service
   public $operations_projects_locations_operations;
   public $projects_locations_operations;
   public $videos;
-  
+
   /**
    * Constructs the internal representation of the CloudVideoIntelligence
    * service.
@@ -141,7 +141,7 @@ class Google_Service_CloudVideoIntelligence extends Google_Service
                   'type' => 'string',
                   'required' => true,
                 ),
-                'pageToken' => array(
+                'filter' => array(
                   'location' => 'query',
                   'type' => 'string',
                 ),
@@ -149,7 +149,7 @@ class Google_Service_CloudVideoIntelligence extends Google_Service
                   'location' => 'query',
                   'type' => 'integer',
                 ),
-                'filter' => array(
+                'pageToken' => array(
                   'location' => 'query',
                   'type' => 'string',
                 ),

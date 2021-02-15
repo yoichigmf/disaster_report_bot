@@ -15,8 +15,9 @@
  * the License.
  */
 
-class Google_Service_CloudHealthcare_FhirStore extends Google_Model
+class Google_Service_CloudHealthcare_FhirStore extends Google_Collection
 {
+  protected $collection_key = 'streamConfigs';
   public $disableReferentialIntegrity;
   public $disableResourceVersioning;
   public $enableUpdateCreate;
@@ -24,6 +25,9 @@ class Google_Service_CloudHealthcare_FhirStore extends Google_Model
   public $name;
   protected $notificationConfigType = 'Google_Service_CloudHealthcare_NotificationConfig';
   protected $notificationConfigDataType = '';
+  protected $streamConfigsType = 'Google_Service_CloudHealthcare_StreamConfig';
+  protected $streamConfigsDataType = 'array';
+  public $version;
 
   public function setDisableReferentialIntegrity($disableReferentialIntegrity)
   {
@@ -78,5 +82,27 @@ class Google_Service_CloudHealthcare_FhirStore extends Google_Model
   public function getNotificationConfig()
   {
     return $this->notificationConfig;
+  }
+  /**
+   * @param Google_Service_CloudHealthcare_StreamConfig[]
+   */
+  public function setStreamConfigs($streamConfigs)
+  {
+    $this->streamConfigs = $streamConfigs;
+  }
+  /**
+   * @return Google_Service_CloudHealthcare_StreamConfig[]
+   */
+  public function getStreamConfigs()
+  {
+    return $this->streamConfigs;
+  }
+  public function setVersion($version)
+  {
+    $this->version = $version;
+  }
+  public function getVersion()
+  {
+    return $this->version;
   }
 }

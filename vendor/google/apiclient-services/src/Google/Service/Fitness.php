@@ -19,11 +19,11 @@
  * Service definition for Fitness (v1).
  *
  * <p>
- * Stores and accesses user data in the fitness store from apps on any platform.</p>
+ * The Fitness API for managing users' fitness tracking data.</p>
  *
  * <p>
  * For more information about this service, see the API
- * <a href="https://developers.google.com/fit/rest/" target="_blank">Documentation</a>
+ * <a href="https://developers.google.com/fit/rest/v1/get-started" target="_blank">Documentation</a>
  * </p>
  *
  * @author Google, Inc.
@@ -36,16 +36,16 @@ class Google_Service_Fitness extends Google_Service
   /** See and add to your Google Fit physical activity data. */
   const FITNESS_ACTIVITY_WRITE =
       "https://www.googleapis.com/auth/fitness.activity.write";
-  /** See info about your blood glucose in Google Fit. */
+  /** See info about your blood glucose in Google Fit. I consent to Google sharing my blood glucose information with this app.. */
   const FITNESS_BLOOD_GLUCOSE_READ =
       "https://www.googleapis.com/auth/fitness.blood_glucose.read";
-  /** See and add info about your blood glucose to Google Fit. */
+  /** See and add info about your blood glucose to Google Fit. I consent to Google sharing my blood glucose information with this app.. */
   const FITNESS_BLOOD_GLUCOSE_WRITE =
       "https://www.googleapis.com/auth/fitness.blood_glucose.write";
-  /** See info about your blood pressure in Google Fit. */
+  /** See info about your blood pressure in Google Fit. I consent to Google sharing my blood pressure information with this app.. */
   const FITNESS_BLOOD_PRESSURE_READ =
       "https://www.googleapis.com/auth/fitness.blood_pressure.read";
-  /** See and add info about your blood pressure in Google Fit. */
+  /** See and add info about your blood pressure in Google Fit. I consent to Google sharing my blood pressure information with this app.. */
   const FITNESS_BLOOD_PRESSURE_WRITE =
       "https://www.googleapis.com/auth/fitness.blood_pressure.write";
   /** See info about your body measurements and heart rate in Google Fit. */
@@ -54,12 +54,18 @@ class Google_Service_Fitness extends Google_Service
   /** See and add info about your body measurements and heart rate to Google Fit. */
   const FITNESS_BODY_WRITE =
       "https://www.googleapis.com/auth/fitness.body.write";
-  /** See info about your body temperature in Google Fit. */
+  /** See info about your body temperature in Google Fit. I consent to Google sharing my body temperature information with this app.. */
   const FITNESS_BODY_TEMPERATURE_READ =
       "https://www.googleapis.com/auth/fitness.body_temperature.read";
-  /** See and add to info about your body temperature in Google Fit. */
+  /** See and add to info about your body temperature in Google Fit. I consent to Google sharing my body temperature information with this app.. */
   const FITNESS_BODY_TEMPERATURE_WRITE =
       "https://www.googleapis.com/auth/fitness.body_temperature.write";
+  /** See your heart rate data in Google Fit. I consent to Google sharing my heart rate information with this app.. */
+  const FITNESS_HEART_RATE_READ =
+      "https://www.googleapis.com/auth/fitness.heart_rate.read";
+  /** See and add to your heart rate data in Google Fit. I consent to Google sharing my heart rate information with this app.. */
+  const FITNESS_HEART_RATE_WRITE =
+      "https://www.googleapis.com/auth/fitness.heart_rate.write";
   /** See your Google Fit speed and distance data. */
   const FITNESS_LOCATION_READ =
       "https://www.googleapis.com/auth/fitness.location.read";
@@ -72,25 +78,31 @@ class Google_Service_Fitness extends Google_Service
   /** See and add to info about your nutrition in Google Fit. */
   const FITNESS_NUTRITION_WRITE =
       "https://www.googleapis.com/auth/fitness.nutrition.write";
-  /** See info about your oxygen saturation in Google Fit. */
+  /** See info about your oxygen saturation in Google Fit. I consent to Google sharing my oxygen saturation information with this app.. */
   const FITNESS_OXYGEN_SATURATION_READ =
       "https://www.googleapis.com/auth/fitness.oxygen_saturation.read";
-  /** See and add info about your oxygen saturation in Google Fit. */
+  /** See and add info about your oxygen saturation in Google Fit. I consent to Google sharing my oxygen saturation information with this app.. */
   const FITNESS_OXYGEN_SATURATION_WRITE =
       "https://www.googleapis.com/auth/fitness.oxygen_saturation.write";
-  /** See info about your reproductive health in Google Fit. */
+  /** See info about your reproductive health in Google Fit. I consent to Google sharing my reproductive health information with this app.. */
   const FITNESS_REPRODUCTIVE_HEALTH_READ =
       "https://www.googleapis.com/auth/fitness.reproductive_health.read";
-  /** See and add info about your reproductive health in Google Fit. */
+  /** See and add info about your reproductive health in Google Fit. I consent to Google sharing my reproductive health information with this app.. */
   const FITNESS_REPRODUCTIVE_HEALTH_WRITE =
       "https://www.googleapis.com/auth/fitness.reproductive_health.write";
+  /** See your sleep data in Google Fit. I consent to Google sharing my sleep information with this app.. */
+  const FITNESS_SLEEP_READ =
+      "https://www.googleapis.com/auth/fitness.sleep.read";
+  /** See and add to your sleep data in Google Fit. I consent to Google sharing my sleep information with this app.. */
+  const FITNESS_SLEEP_WRITE =
+      "https://www.googleapis.com/auth/fitness.sleep.write";
 
   public $users_dataSources;
   public $users_dataSources_dataPointChanges;
   public $users_dataSources_datasets;
   public $users_dataset;
   public $users_sessions;
-  
+
   /**
    * Constructs the internal representation of the Fitness service.
    *
@@ -100,9 +112,9 @@ class Google_Service_Fitness extends Google_Service
   public function __construct(Google_Client $client, $rootUrl = null)
   {
     parent::__construct($client);
-    $this->rootUrl = $rootUrl ?: 'https://www.googleapis.com/';
+    $this->rootUrl = $rootUrl ?: 'https://fitness.googleapis.com/';
     $this->servicePath = 'fitness/v1/users/';
-    $this->batchPath = 'batch/fitness/v1';
+    $this->batchPath = 'batch';
     $this->version = 'v1';
     $this->serviceName = 'fitness';
 
@@ -362,6 +374,11 @@ class Google_Service_Fitness extends Google_Service
                   'location' => 'path',
                   'type' => 'string',
                   'required' => true,
+                ),
+                'activityType' => array(
+                  'location' => 'query',
+                  'type' => 'integer',
+                  'repeated' => true,
                 ),
                 'endTime' => array(
                   'location' => 'query',
