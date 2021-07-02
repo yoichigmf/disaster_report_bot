@@ -1,1 +1,0 @@
-## This project is using [the npm's coding style](https://npmjs.org/doc/coding-style.html)
