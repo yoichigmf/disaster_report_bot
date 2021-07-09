@@ -108,7 +108,7 @@ else {
 		     $timestr = $_POST["postDate"];
 		     
 		     
-		     $transact_id = _POST["transact_id"];
+		     $transact_id = _$POST["transact_id"];
 		     
 		     $lat = $_POST["lat"];
 		     $lon = $_POST["lon"];
