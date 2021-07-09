@@ -108,6 +108,7 @@ else {
 		     $timestr = $_POST["postDate"];
 		     
 		     
+		     $transact_id = _POST["transact_id"];
 		     
 		     $lat = $_POST["lat"];
 		     $lon = $_POST["lon"];
@@ -123,7 +124,7 @@ else {
 		     
 
 		     
-		      AddText(  $user, $timestr, $lat, $lon, $tgText, $kind, $pgname );   #  エラーハンドリングが必要
+		      AddText(  $user, $timestr, $lat, $lon, $tgText, $kind, $pgname , $transact_id);   #  エラーハンドリングが必要
 		
 		}
 		
@@ -136,7 +137,7 @@ else {
 		       
 		       $filename = upload_contents( $kind , $ext, 'application/octet-stream', $stream ,$appname );
 		       
-		       AddFileLink(  $user, $timestr, $lat, $lon, $filename, $kind, $pgname );
+		       AddFileLink(  $user, $timestr, $lat, $lon, $filename, $kind, $pgname , $transact_id);
 		
 		
 		

@@ -156,7 +156,7 @@ function GetTargetSheetName( $spreadsheetId){
 
 
 
-function  AddFileLink(  $user, $timestr, $lat, $lon, string $filepath, string $kind, $dev ){
+function  AddFileLink(  $user, $timestr, $lat, $lon, string $filepath, string $kind, $dev, $transact_id ){
 
           global $log;
 
@@ -224,7 +224,7 @@ function  AddFileLink(  $user, $timestr, $lat, $lon, string $filepath, string $k
 
 
      $value = new Google_Service_Sheets_ValueRange();
-     $value->setValues([ 'values' => [ $date, $user, $kind, $url ,$comment ,$lat, $lon, $dev] ]);
+     $value->setValues([ 'values' => [ $date, $user, $kind, $url ,$comment ,$lat, $lon, $dev, $transact_id] ]);
      $resp = $service->spreadsheets_values->append($spreadsheetId , $sheet_tg, $value, [ 'valueInputOption' => 'USER_ENTERED' ] );
 
      PostSlack($date, $user, $kind, $url ,$ncomment, "","");
@@ -244,7 +244,7 @@ function  AddFileLink(  $user, $timestr, $lat, $lon, string $filepath, string $k
 }
 
 
-function  AddText(  $user, $timestr, $lat, $lon, string $ctext, string $kind, $dev ){
+function  AddText(  $user, $timestr, $lat, $lon, string $ctext, string $kind, $dev, $transact_id ){
 
 //function AddText( $event ){
    $spreadsheetId = getenv('SPREADSHEET_ID');
@@ -283,7 +283,7 @@ $log->warning("lat lon  ${lat}  ${lon}\n");
     $comment = $ctext;
 
      $value = new Google_Service_Sheets_ValueRange();
-     $value->setValues([ 'values' => [ $date, $user, $kind, $url ,$comment ,$lat, $lon, $dev] ]);
+     $value->setValues([ 'values' => [ $date, $user, $kind, $url ,$comment ,$lat, $lon, $dev, $transact_id] ]);
      $resp = $service->spreadsheets_values->append($spreadsheetId ,  $sheet_tg , $value, [ 'valueInputOption' => 'USER_ENTERED' ] );
 
    // Slack へのPost
