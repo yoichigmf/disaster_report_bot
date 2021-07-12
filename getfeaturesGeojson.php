@@ -79,7 +79,7 @@ foreach ($sheetd as $index => $cols) {
 
      $stext = $cols[4];
      
-     $client_name = $col[7];
+     $client_name = $cols[7];
      
      
 $log->addWarning("client_name = ${client_name}\n");
