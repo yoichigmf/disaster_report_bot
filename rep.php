@@ -143,19 +143,6 @@ else {
 		
 		}
 		
-			
-		#
-               http_response_code( 200 );
-                $log->warning("DATA\n");
-              #  print("token " . $token_str);
-              # $log->warning("\n session token " . $_SESSION["token"]);
-                
-                
-                
-#
-	         exit;
-	}
-
 		if ( $_POST["kind"] ==  2 ) {  #  video
 		
 		       $kind = "video";
@@ -182,8 +169,10 @@ else {
                 
 #
 	         exit;
-	}
+	     }
 
+
+	
 
 
 
