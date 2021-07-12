@@ -55,6 +55,8 @@ session_set_cookie_params(60 * 5);
 session_start();
 $sid = session_id();
 
+$client_pg = "line";
+
 
 $spreadsheetId = getenv('SPREADSHEET_ID');
 //   書き込み対象シートの名前を取得しておく
@@ -82,7 +84,7 @@ foreach ($events as $event) {
 
 
 
-       $tst =  AddLocationLink( $response, $event );
+       $tst =  AddLocationLink( $response, $event, $client_pg );
 
         if ( $tst ) {
           $bot->replyText($event->getReplyToken(), "入力位置情報 ${title} ${address} ${latitude} ${longitude}");
@@ -117,7 +119,7 @@ foreach ($events as $event) {
 
                 $log->addWarning("image upload   ok\n");
 
-                $tst = AddFileLink( $response, $event, $filepath, "image"  );
+                $tst = AddFileLink( $response, $event, $filepath, "image"  ,$client_pg);
 
                 if ( $tst ) {
                                 $bot->replyText($event->getReplyToken(), "画像共有   ${filepath} ");
@@ -190,7 +192,7 @@ foreach ($events as $event) {
 
                  }
 
-                $tst =  AddAudioFileLink( $response, $event, $filepath, "voice" ,${voicetext} );
+                $tst =  AddAudioFileLink( $response, $event, $filepath, "voice" ,${voicetext} ,$client_pg);
 
 
                 if ( $tst ) {
@@ -234,7 +236,7 @@ foreach ($events as $event) {
                  $filepath =  upload_contents( 'video' , 'mp4', 'application/octet-stream', $response, $appname );
 
 
-                 $tst =  AddFileLink( $response, $event, $filepath, "video"  );
+                 $tst =  AddFileLink( $response, $event, $filepath, "video" ,$client_pg );
 
                  if ( $tst ) {
                      $bot->replyText($event->getReplyToken(), "ビデオ共有   ${filepath} ");
@@ -286,7 +288,7 @@ foreach ($events as $event) {
 
 
 
-            $tst = AddFileLink( $response, $event, $filepath, "file"  );
+            $tst = AddFileLink( $response, $event, $filepath, "file" ,$client_pg );
 
 
             if ( $tst ) {
@@ -383,7 +385,7 @@ foreach ($events as $event) {
                    continue;
                    }
 
-            $tst = AddText(  $event  );
+            $tst = AddText(  $event,$client_pg  );
 
             if ( $tst ) {
 
