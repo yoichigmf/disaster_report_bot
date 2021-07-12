@@ -94,12 +94,12 @@ $log->addWarning("client_name = ${client_name}\n");
          
            if (array_key_exists( $userd, $uid_ar)){   //  is the user id in the array ?
 
-            $ckey = $uid_ar[$userd] + 1;
-            $uid_ar[$userd] = $ckey;
+          //  $ckey = $uid_ar[$userd] + 1;
+          //  $uid_ar[$userd] = $ckey;
                }
         else   {
-            $ckey = 0;
-            $uid_ar[$userd] = $ckey;
+          //  $ckey = 0;
+          //  $uid_ar[$userd] = $ckey;
 
             //$non_loc_ar[$userd] = array();
             }
@@ -227,12 +227,7 @@ $log->addWarning("client_name = ${client_name}\n");
                   }
                   $attr = array();
 
-                  /*   $attr['日付'] = $dated;
-                     $attr['ユーザ'] = $userd;
-                     $attr['種別'] = $kind;
-                     $attr['TEXT'] = $stext;
-                     $attr['url'] = $url;
-*/
+   
 
                      $atrdata = array(
                        'date'=> $dated,
