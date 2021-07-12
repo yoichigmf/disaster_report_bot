@@ -156,6 +156,37 @@ else {
 	         exit;
 	}
 
+		if ( $_POST["kind"] ==  2 ) {  #  video
+		
+		       $kind = "video";
+		       $ext = "mp4";
+		       
+		       $stream = base64_decode($_POST["image"]);
+		       
+		       $filename = upload_contents( $kind , $ext, 'application/octet-stream', $stream ,$appname );
+		       
+		       AddFileLink(  $user, $timestr, $lat, $lon, $filename, $kind, $pgname , $transact_id);
+		
+		
+		
+		}
+		
+			
+		#
+               http_response_code( 200 );
+                $log->warning("DATA\n");
+              #  print("token " . $token_str);
+              # $log->warning("\n session token " . $_SESSION["token"]);
+                
+                
+                
+#
+	         exit;
+	}
+
+
+
+
 	if ( $_POST["command"] == "END" ) {
                http_response_code( 200 );
         	unset($_SESSION["token"]);
