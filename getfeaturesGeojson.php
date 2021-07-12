@@ -81,6 +81,8 @@ foreach ($sheetd as $index => $cols) {
      
      $client_name = $col[7];
      
+     
+$log->addWarning("client_name = ${client_name}\n");
  
  ###  add 20210712  native client data
  if ( strcmp( $client_name ,'reportpost') ==0 ) {
