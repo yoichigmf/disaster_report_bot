@@ -192,7 +192,7 @@ foreach ($events as $event) {
 
                  }
 
-                $tst =  AddAudioFileLink( $response, $event, $filepath, "voice" ,${voicetext} ,$client_pg);
+                $tst =  AddAudioFileLink( $response, $event, $filepath, "voice" ,$voicetext ,$client_pg);
 
 
                 if ( $tst ) {
