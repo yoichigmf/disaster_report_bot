@@ -78,6 +78,15 @@ foreach ($sheetd as $index => $cols) {
      $url  = $cols[3];
 
      $stext = $cols[4];
+     
+     $client_name = $col[7];
+     
+ 
+ ###  add 20210712  native client data
+ if ( strcmp( $client_name ,'reportpost') ==0 ) {
+    continue;
+ }
+ 
 
 
  if ( strcmp( $kind ,'location' ) == 0 ) {   //  if record is location data
