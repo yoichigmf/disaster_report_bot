@@ -177,7 +177,7 @@ $log->addWarning("client_name = ${client_name}\n");
          $arkey = $userd . "_" . $ckey ;
 
     
-                     
+           $atrar = array();
            
 
               //             $log->addWarning("feature id == ${arkey}  user == ${userd}");
