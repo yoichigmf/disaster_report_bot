@@ -121,7 +121,7 @@ $log->addWarning("client_name = ${client_name}\n");
                      );
                      
               
-              array_push(  $atrar , $atrdata );
+           //   array_push(  $atrar , $atrdata );
               
 
               //             $log->addWarning("feature id == ${arkey}  user == ${userd}");
@@ -144,7 +144,7 @@ $log->addWarning("client_name = ${client_name}\n");
        )
    );
 
-         array_push($geojson['features'], $feature);
+      //   array_push($geojson['features'], $feature);
 
     continue;
  }
