@@ -84,12 +84,18 @@ foreach ($sheetd as $index => $cols) {
  
  ###  add 20210712  native client data
  if ( strcmp( $client_name ,'reportpost') ==0 ) {
+ 
+        $xcod = (double)$cols[6];    //  coordinate
+        $ycod = (double)$cols[5];
+         $log->addWarning("reportpost\n");
     continue;
  }
  
 
 
  if ( strcmp( $kind ,'location' ) == 0 ) {   //  if record is location data
+ 
+          $log->addWarning("line\n");
 
    //  echo "\nkind ${kind}  ";  sample
 
