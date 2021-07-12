@@ -90,6 +90,62 @@ $log->addWarning("client_name = ${client_name}\n");
         $xcod = (double)$cols[6];    //  coordinate
         $ycod = (double)$cols[5];
          $log->addWarning("reportpost\n");
+         
+         
+           if (array_key_exists( $userd, $uid_ar)){   //  is the user id in the array ?
+
+            $ckey = $uid_ar[$userd] + 1;
+            $uid_ar[$userd] = $ckey;
+               }
+        else   {
+            $ckey = 0;
+            $uid_ar[$userd] = $ckey;
+
+            //$non_loc_ar[$userd] = array();
+            }
+
+       $arkey = $userd . "_" . $ckey ;
+       
+       
+              $atrar = array();
+              
+              
+                   $atrar = array();
+         
+                      $atrdata = array(
+                       'date'=> $dated,
+                       'user' => $userd,
+                       'kind' => $kind,
+                       'text' => $stext,
+                       'url'=> $url
+                     );
+                     
+              
+              array_push(  $atrar , $atrdata );
+              
+
+              //             $log->addWarning("feature id == ${arkey}  user == ${userd}");
+         $feature = array(
+           'id' => $arkey,
+           'type' => 'Feature',
+           'geometry' => array(
+           'type' => 'Point',
+       # Pass Longitude and Latitude Columns here
+             'coordinates' => array((double)$xcod, (double)$ycod)
+              ),
+   # Pass other attribute columns here
+           'properties' => array(
+              'user' => $userd,
+              'date' => $dated,
+              'kind' => $kind,
+              'text' => $stext,
+              'url' => $url,
+       'proplist' => $atrar
+       )
+   );
+
+         array_push($geojson['features'], $feature);
+
     continue;
  }
  
@@ -120,7 +176,9 @@ $log->addWarning("client_name = ${client_name}\n");
 
          $arkey = $userd . "_" . $ckey ;
 
-         $atrar = array();
+    
+                     
+           
 
               //             $log->addWarning("feature id == ${arkey}  user == ${userd}");
          $feature = array(
