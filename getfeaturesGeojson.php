@@ -94,12 +94,12 @@ $log->addWarning("client_name = ${client_name}\n");
          
            if (array_key_exists( $userd, $uid_ar)){   //  is the user id in the array ?
 
-          //  $ckey = $uid_ar[$userd] + 1;
-          //  $uid_ar[$userd] = $ckey;
+            $ckey = $uid_ar[$userd] + 1;
+           $uid_ar[$userd] = $ckey;
                }
         else   {
-          //  $ckey = 0;
-          //  $uid_ar[$userd] = $ckey;
+           $ckey = 0;
+          $uid_ar[$userd] = $ckey;
 
             //$non_loc_ar[$userd] = array();
             }
@@ -121,7 +121,7 @@ $log->addWarning("client_name = ${client_name}\n");
                      );
                      
               
-           //   array_push(  $atrar , $atrdata );
+              array_push(  $atrar , $atrdata );
               
 
               //             $log->addWarning("feature id == ${arkey}  user == ${userd}");
@@ -144,7 +144,7 @@ $log->addWarning("client_name = ${client_name}\n");
        )
    );
 
-      //   array_push($geojson['features'], $feature);
+        array_push($geojson['features'], $feature);
 
     continue;
  }
