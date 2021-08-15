@@ -124,6 +124,9 @@ function SetOverlayLayers( data ){
       //overlays[$dcount] = $ovl;
       //ovdef[$dcount] = vf;
 
+      //  GeoJSONをポイントレイヤ前提としている  あとで検討
+      CreateGeoJsonToPointClusterToOvLayer(vf["url"], $dcount );
+
      $dcount++;
   }
 
@@ -161,38 +164,6 @@ $('#overlaylist').trigger("create");
 }
 
 
-function SetSurveylayLayers( data ){
-
-  var overlaydata = data["overlaylayers"];
-
-  var $overlaylist = $('#overlaylist');
-
-   var $dcount = 1;
-
-  for ( let vf of overlaydata) {
-      // console.log( vf);
-
-      var $btn =  '<input id="ov'+ String($dcount)+ '"  name="ov_layer1" type="checkbox" value="' + String($dcount)+ '" onChange=\'changechk( this )\'   /><label for="ov'+ String($dcount)+'">' + vf["name"] +'</label>'
-      $( $btn ).appendTo($overlaylist );
-
-      var $zi = 255 - $dcount;
-      var $ovl  = L.tileLayer(vf["url"],
-      {    attribution : vf["attribute"], minZoom: vf["minzoom"], maxZoom: vf["maxzoom"], zIndex:$zi });
-
-      if ( vf["opacity"]){
-        $ovl.setOpacity( parseFloat(vf["opacity"]));
-      }
-      overlays[$dcount] = $ovl;
-      ovdef[$dcount] = vf;
-
-     $dcount++;
-  }
-
-return $dcount;
-
-//$('#overlaylist').trigger("create");
-
-}
 
 //   レイヤ情報の設定
 function SetLayerinfo( mapsheetId) {
@@ -288,6 +259,51 @@ function SetLayerinfo( mapsheetId) {
    }
 
 
+   function CreateGeoJsonToPointClusterToOvLayer( url , ovlk){
+
+    
+    $.ajax({
+      url: url,
+      type: "POST",
+      dataType: "json",
+      success: function (data, status, xhr) {
+         //  console.log( data.length)
+       //    console.log( data );
+
+         var PointACluster;
+         PointACluster = CreatePointClusterFromOnlyGeoJson( data  , PointACluster);
+           //マーカークラスター設定
+
+
+         //if ( default_d){
+          //     map.removeLayer(default_d);
+          // }
+
+         PointACluster.setZIndex(250);
+         PointACluster.addTo(map);
+
+
+         // OrgPointdata = PointACluster;
+
+         //default_d = PointACluster;
+         //featureG = L.featureGroup([ default_d ]);
+
+         overlays[ovlk] = PointACluster;
+         //    FitBound();
+
+
+       //  map.addLayer(PointACluster);
+
+
+
+             },
+      error: function (xhr, status, error) {
+            alert(error);
+
+          }
+        });
+
+   }
 
    function SelectSheet( sheetname ){
         //  set sheet name list
@@ -335,6 +351,34 @@ function SetLayerinfo( mapsheetId) {
               });
       }
 
+
+      function CreatePointClusterFromOnlyGeoJson( data  ,  PointClusterd){
+               //マーカークラスター設定
+             PointClusterd = L.markerClusterGroup({
+             showCoverageOnHover: false,
+              spiderfyOnMaxZoom: true,
+               removeOutsideVisibleBounds: true,
+               disableClusteringAtZoom: 18
+               });
+
+
+                        //console.log(PointArray);
+            PointClusterd.addLayer(L.geoJson(data,{
+                 onEachFeature:function (feature, layer) {
+          // 地物クリック時の関数記述　プロパティが配列化した場合
+               PropContents(feature,layer);
+          //var field = "id: " + feature.properties.id;
+          //  layer.bindPopup(field);
+
+               },
+            clickable: true
+             }));
+
+             return( PointClusterd  );
+
+
+      }
+    
 
 
       function CreatePointClusterFromGeoJson( data  , PointClusterd){
