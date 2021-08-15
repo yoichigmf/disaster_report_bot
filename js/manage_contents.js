@@ -280,7 +280,7 @@ function SetLayerinfo( mapsheetId) {
           // }
 
          PointACluster.setZIndex(250);
-         PointACluster.addTo(map);
+         //PointACluster.addTo(map);
 
 
          // OrgPointdata = PointACluster;
@@ -327,7 +327,7 @@ function SetLayerinfo( mapsheetId) {
                  }
 
                PointACluster.setZIndex(250);
-               //PointACluster.addTo(map);
+               PointACluster.addTo(map);
 
 
                 OrgPointdata = PointACluster;
