@@ -14,7 +14,7 @@ $log->pushHandler(new StreamHandler('php://stderr', Logger::WARNING));
 date_default_timezone_set('Asia/Tokyo');
 
 header("Content-Type: application/json; charset=UTF-8"); //ヘッダー情報の明記。必須。
-
+header("Access-Control-Allow-Origin: *"); 
 
 
  $sheetname = filter_input(INPUT_POST,"sheetname"); //変数の出力。jQueryで指定したキー値optを用いる
@@ -25,7 +25,7 @@ header("Content-Type: application/json; charset=UTF-8"); //ヘッダー情報の
 
 $envname  = getenv('SHEET_NAME');
 $envid= getenv('SPREADSHEET_ID');
- //$sheetname = 'シート1';
+ //$sheetname = 'シート1';s
  $spreadsheetId = getenv('SPREADSHEET_ID');
 
  if ( ! empty($sheetid)  ){
