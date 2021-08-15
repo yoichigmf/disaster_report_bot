@@ -98,11 +98,45 @@ function SetBaseLayers( data ){
 
 function SetOverlayLayers( data ){
 
+
+  //  survay layer
+
+  var surveylaydata = data["surveylayers"];
+
+  var $overlaylist = $('#overlaylist');
+
+   var $dcount = 1;
+
+   if ( surveylaydata.length > 0 ){
+     for ( let vf of surveylaydata) {
+      // console.log( vf);
+
+        var $btn =  '<input id="ov'+ String($dcount)+ '"  name="ov_layer1" type="checkbox" value="' + String($dcount)+ '" onChange=\'changechk( this )\'   /><label for="ov'+ String($dcount)+'">' + vf["name"] +'</label>'
+        $( $btn ).appendTo($overlaylist );
+
+       // var $zi = 255 - $dcount;
+       // var $ovl  = L.tileLayer(vf["url"],
+       // {    attribution : vf["attribute"], minZoom: vf["minzoom"], maxZoom: vf["maxzoom"], zIndex:$zi });
+
+      ////if ( vf["opacity"]){
+      //  $ovl.setOpacity( parseFloat(vf["opacity"]));
+      //}
+      //overlays[$dcount] = $ovl;
+      //ovdef[$dcount] = vf;
+
+     $dcount++;
+  }
+
+}
+
+
+
+
+
     var overlaydata = data["overlaylayers"];
 
-    var $overlaylist = $('#overlaylist');
+    //var $overlaylist = $('#overlaylist');
 
-     var $dcount = 1;
 
     for ( let vf of overlaydata) {
         // console.log( vf);
@@ -123,6 +157,40 @@ function SetOverlayLayers( data ){
        $dcount++;
     }
 $('#overlaylist').trigger("create");
+
+}
+
+
+function SetSurveylayLayers( data ){
+
+  var overlaydata = data["overlaylayers"];
+
+  var $overlaylist = $('#overlaylist');
+
+   var $dcount = 1;
+
+  for ( let vf of overlaydata) {
+      // console.log( vf);
+
+      var $btn =  '<input id="ov'+ String($dcount)+ '"  name="ov_layer1" type="checkbox" value="' + String($dcount)+ '" onChange=\'changechk( this )\'   /><label for="ov'+ String($dcount)+'">' + vf["name"] +'</label>'
+      $( $btn ).appendTo($overlaylist );
+
+      var $zi = 255 - $dcount;
+      var $ovl  = L.tileLayer(vf["url"],
+      {    attribution : vf["attribute"], minZoom: vf["minzoom"], maxZoom: vf["maxzoom"], zIndex:$zi });
+
+      if ( vf["opacity"]){
+        $ovl.setOpacity( parseFloat(vf["opacity"]));
+      }
+      overlays[$dcount] = $ovl;
+      ovdef[$dcount] = vf;
+
+     $dcount++;
+  }
+
+return $dcount;
+
+//$('#overlaylist').trigger("create");
 
 }
 
