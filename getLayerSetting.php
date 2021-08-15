@@ -41,6 +41,7 @@ $baselayer_ar = array();    // array of output data
 
 $overlay_ar = array();   //  array of user id
 
+$surveylay_ar = array();    // array of surveylayer
 
 $output_ar = array();    //  arrray of output data
 
@@ -107,10 +108,44 @@ $kind = $cols[0];
 
       }
 
+      elseif ( strcmp( $kind ,'#survey' ) == 0 ){
+
+        $survey_layer = array();
+ 
+        $name =$cols[1];
+        $kind = $cols[2];
+        $url  = $cols[3];
+        /*
+        $attribute = $cols[4];
+        $maxzoom = $cols[5];
+        $minzoom = $cols[6];
+        $legend  = $cols[7];
+        $opacity = $cols[8];
+        */
+ 
+        $survey_layer["name"]=$name;
+        $survey_layer["kind"]= $kind;
+        $survey_layer["url"] = $url;
+
+        /*
+        $ovly_layer["attribute"] = $attribute;
+        $ovly_layer["maxzoom"] = $maxzoom;
+        $ovly_layer["minzoom"] = $minzoom;
+        $ovly_layer["legend"] = $legend;
+        $ovly_layer["opacity"] = $opacity;
+        */
+        
+ 
+        $surveylay_ar[] =  $survey_layer ;
+ 
+       }
+ 
      }  //  foreach
 
      $output_ar["baselayers"]= $baselayer_ar;
      $output_ar["overlaylayers"]= $overlay_ar;
+
+     $output_ar["surveylayers"]= $surveylay_ar;
 
      $retjson = json_encode( $output_ar );      // make json
      echo $retjson;
