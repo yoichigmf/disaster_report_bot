@@ -14,7 +14,8 @@ $log->pushHandler(new StreamHandler('php://stderr', Logger::WARNING));
 date_default_timezone_set('Asia/Tokyo');
 
 header("Content-Type: application/json; charset=UTF-8"); //ヘッダー情報の明記。必須。
-header("Access-Control-Allow-Origin: *"); 
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
 
 
  $sheetname = filter_input(INPUT_POST,"sheetname"); //変数の出力。jQueryで指定したキー値optを用いる
